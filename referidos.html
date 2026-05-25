@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', {
+    ad_storage: 'denied', analytics_storage: 'denied',
+    ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500
+  });
+  if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
+    gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+  }
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'AW-18177147225');
+  gtag('config', 'G-DN126T6ZDC');
+</script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Programa de Referidos — Proyecto Polaris</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<meta name="description" content="Gana dinero recomendando Proyecto Polaris. Clientes: $10 de descuento por cada referido. Prescriptores: comisión por cada cliente que contrate."/>
+<link rel="canonical" href="https://proyecto-polaris.com/referidos.html"/>
+<meta property="og:type" content="website"/>
+<meta property="og:url" content="https://proyecto-polaris.com/referidos.html"/>
+<meta property="og:title" content="Programa de Referidos — Proyecto Polaris"/>
+<meta property="og:description" content="Gana recomendando Proyecto Polaris. Descuentos para clientes, comisiones para prescriptores."/>
+<meta property="og:image" content="https://proyecto-polaris.com/og-image.jpg"/>
+<link href="shared.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
+<style>
+.ref-hero {
+  background: var(--navy, #0d2137);
+  padding: 5rem 1.5rem 3.5rem;
+  text-align: center;
+  color: #fff;
+}
+.ref-hero-eyebrow {
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(255,255,255,0.55);
+  margin-bottom: 0.75rem;
+}
+.ref-hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+.ref-hero p {
+  color: rgba(255,255,255,0.7);
+  font-size: 1.05rem;
+  max-width: 540px;
+  margin: 0 auto;
+}
+.ref-section {
+  padding: 4rem 1.5rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.ref-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+@media (max-width: 768px) {
+  .ref-grid { grid-template-columns: 1fr; }
+}
+.ref-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 2.5rem 2rem;
+  box-shadow: 0 4px 24px rgba(13,33,55,0.08);
+  border: 1px solid rgba(13,33,55,0.07);
+}
+.ref-card-gold {
+  background: linear-gradient(135deg, #fefbe8 0%, #fff8dc 100%);
+  border: 1px solid rgba(192,160,30,0.25);
+}
+.ref-card-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.75rem;
+  border-radius: 20px;
+  margin-bottom: 1.2rem;
+}
+.ref-card-label-navy {
+  background: rgba(13,33,55,0.08);
+  color: #0d2137;
+}
+.ref-card-label-gold {
+  background: rgba(192,160,30,0.15);
+  color: #7a6000;
+}
+.ref-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  color: #0d2137;
+  margin-bottom: 0.75rem;
+}
+.ref-card p {
+  color: #4a5568;
+  font-size: 0.95rem;
+  line-height: 1.65;
+  margin-bottom: 1.2rem;
+}
+.ref-benefit {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-bottom: 0.85rem;
+  font-size: 0.93rem;
+  color: #2d3748;
+}
+.ref-benefit-icon {
+  width: 22px;
+  height: 22px;
+  background: #0d2137;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1px;
+}
+.ref-card-gold .ref-benefit-icon {
+  background: #c9a84c;
+}
+.ref-benefit-icon svg { display: block; }
+.ref-prescriptor-types {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1rem 0 1.5rem;
+}
+.ref-prescriptor-tag {
+  background: rgba(13,33,55,0.07);
+  color: #0d2137;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.3rem 0.7rem;
+  border-radius: 20px;
+}
+/* Formulario clientes */
+.ref-form { margin-top: 1.5rem; }
+.ref-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #d1d5db;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  color: #0d2137;
+  margin-bottom: 0.75rem;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+.ref-form input:focus {
+  outline: none;
+  border-color: #0d2137;
+}
+.ref-form-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: #0d2137;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+  margin-top: 0.25rem;
+}
+.ref-form-btn:hover { background: #1a3a5c; }
+.ref-form-btn:disabled { background: #9ca3af; cursor: not-allowed; }
+.ref-success {
+  display: none;
+  background: #f0fdf4;
+  border: 1px solid #86efac;
+  border-radius: 8px;
+  padding: 1.2rem;
+  text-align: center;
+  color: #166534;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
+/* Boton prescriptores */
+.ref-cta-btn {
+  display: inline-block;
+  padding: 0.85rem 1.5rem;
+  background: transparent;
+  color: #0d2137;
+  border: 2px solid #0d2137;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+  margin-top: 1rem;
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+}
+.ref-cta-btn:hover {
+  background: #0d2137;
+  color: #fff;
+}
+</style>
+</head>
+<body>
+<nav class="navbar">
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+
+<!-- Hero -->
+<section class="ref-hero">
+  <p class="ref-hero-eyebrow">Programa de Referidos</p>
+  <h1>Gana recomendando Proyecto Polaris</h1>
+  <p>Tanto si eres cliente nuestro como si tienes audiencia interesada en negocios en EE.UU., hay una opción para ti.</p>
+</section>
+
+<!-- Dos columnas -->
+<section class="ref-section">
+  <div class="ref-grid">
+
+    <!-- Columna izquierda: Particulares -->
+    <div class="ref-card">
+      <span class="ref-card-label ref-card-label-navy">Para clientes y particulares</span>
+      <h2>$10 de descuento por cada referido</h2>
+      <p>Comparte tu enlace personal con amigos o conocidos que necesiten abrir una LLC, registrar una marca o gestionar su cumplimiento fiscal en EE.UU. Cada vez que contraten, recibes $10 de descuento en tu próxima factura.</p>
+
+      <div class="ref-benefit">
+        <div class="ref-benefit-icon"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>Sin límite — acumula tantos descuentos como quieras</span>
+      </div>
+      <div class="ref-benefit">
+        <div class="ref-benefit-icon"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>Aplica desde antes de ser cliente — empieza a acumular ya</span>
+      </div>
+      <div class="ref-benefit">
+        <div class="ref-benefit-icon"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>Tu enlace único, generado al instante</span>
+      </div>
+
+      <div class="ref-form" id="ref-form-wrap">
+        <input id="ref-nombre" placeholder="Tu nombre" type="text"/>
+        <input id="ref-email" placeholder="Tu correo electrónico" type="email"/>
+        <button class="ref-form-btn" id="ref-btn" onclick="generarCodigo()">Generar mi enlace</button>
+      </div>
+      <div class="ref-success" id="ref-success">
+        Te hemos enviado tu enlace personalizado por correo. Revisa tu bandeja de entrada.
+      </div>
+    </div>
+
+    <!-- Columna derecha: Prescriptores -->
+    <div class="ref-card ref-card-gold">
+      <span class="ref-card-label ref-card-label-gold">Para prescriptores</span>
+      <h2>Comision por cada cliente que contrate</h2>
+      <p>Si tienes una audiencia interesada en negocios o emprendimiento en EE.UU., podemos colaborar. Cuéntanos quién eres y acordamos el porcentaje de comisión.</p>
+
+      <p style="font-weight:600; color:#0d2137; font-size:0.9rem; margin-bottom:0.5rem;">Ideal para:</p>
+      <div class="ref-prescriptor-types">
+        <span class="ref-prescriptor-tag">Creadores de contenido</span>
+        <span class="ref-prescriptor-tag">Formadores y coaches</span>
+        <span class="ref-prescriptor-tag">Agencias de Amazon</span>
+        <span class="ref-prescriptor-tag">Comunidades de negocio</span>
+        <span class="ref-prescriptor-tag">Cursos de e-commerce</span>
+        <span class="ref-prescriptor-tag">Podcasters</span>
+      </div>
+
+      <div class="ref-benefit">
+        <div class="ref-benefit-icon"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>Porcentaje acordado individualmente segun tu audiencia</span>
+      </div>
+      <div class="ref-benefit">
+        <div class="ref-benefit-icon"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>Enlace de seguimiento personalizado</span>
+      </div>
+      <div class="ref-benefit">
+        <div class="ref-benefit-icon"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <span>Materiales y soporte para tu audiencia</span>
+      </div>
+
+      <a class="ref-cta-btn" href="contacto.html?tipo=prescriptor">Quiero ser prescriptor</a>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="#">Politica de privacidad</a></li>
+<li><a href="#">Terminos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="#">Privacidad</a><a href="#">Terminos</a></div>
+</div>
+</footer>
+
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. <a href="#">Mas informacion</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+function acceptCookies() {
+  localStorage.setItem('polaris_cookie_consent', 'accepted');
+  gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+  document.getElementById('cookie-banner').style.display = 'none';
+}
+function rejectCookies() {
+  localStorage.setItem('polaris_cookie_consent', 'rejected');
+  document.getElementById('cookie-banner').style.display = 'none';
+}
+if (!localStorage.getItem('polaris_cookie_consent')) {
+  setTimeout(() => document.getElementById('cookie-banner').style.display = 'flex', 1500);
+}
+</script>
+
+<script>
+function generarCodigo() {
+  const nombre = document.getElementById('ref-nombre').value.trim();
+  const email = document.getElementById('ref-email').value.trim();
+  if (!nombre || !email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    alert('Por favor introduce tu nombre y un correo electronico valido.');
+    return;
+  }
+  const btn = document.getElementById('ref-btn');
+  btn.disabled = true;
+  btn.textContent = 'Enviando...';
+
+  // Generar código aleatorio
+  const codigo = Math.random().toString(36).substr(2, 8);
+
+  // Enviar al Worker
+  fetch('https://polaris-api.llcsandtrademarks.workers.dev/referido', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nombre, email, codigo })
+  })
+  .then(r => r.json())
+  .then(data => {
+    document.getElementById('ref-form-wrap').style.display = 'none';
+    document.getElementById('ref-success').style.display = 'block';
+    gtag('event', 'referido_registro', { ref_code: codigo, ref_tipo: 'cliente', ref_email: email });
+  })
+  .catch(() => {
+    // Mostrar éxito de todas formas — el error de red no debe bloquear al usuario
+    document.getElementById('ref-form-wrap').style.display = 'none';
+    document.getElementById('ref-success').style.display = 'block';
+  });
+}
+</script>
+</body>
+</html>

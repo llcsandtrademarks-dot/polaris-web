@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calendario de Cumplimiento LLC — Proyecto Polaris</title>
+  
+  <link rel="stylesheet" href="shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <style>
+    :root {
+      --navy: #0d2137;
+      --navy-mid: #163352;
+      --navy-light: #1e4a72;
+      --navy-pale: #e8f0f8;
+      --offwhite: #f8f9fb;
+      --white: #ffffff;
+      --black: #0a0a0a;
+      --text: #0d1b2a;
+      --text-muted: #4a5a6b;
+      --border: #d0dce8;
+      --accent-federal: #185FA5;
+      --accent-estatal: #0F6E56;
+      --accent-agente: #993C1D;
+      --accent-sales: #BA7517;
+      --accent-boi: #993556;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--offwhite); color: var(--text); }
+
+    /* nav: ver shared.css */
+
+    .hero { background: var(--navy); padding: 3.5rem 2.5rem 3rem; }
+    .hero-inner { max-width: 860px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.6rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.7rem, 3.5vw, 2.5rem); font-weight: 700; color: var(--white); line-height: 1.22; margin-bottom: 0.75rem; }
+    .hero p { font-size: 0.97rem; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 540px; }
+
+    .section { max-width: 860px; margin: 0 auto; padding: 3rem 2rem; }
+
+    /* FORM */
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.25rem 2.5rem; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem 2rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: 1 / -1; }
+    label { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.02em; }
+    label .req { color: #c0392b; margin-left: 2px; }
+    input, select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--offwhite); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; width: 100%; transition: border-color 0.2s, box-shadow 0.2s; }
+    input:focus, select:focus { outline: none; border-color: var(--navy-light); box-shadow: 0 0 0 3px rgba(30,74,114,0.12); }
+    .form-hint { font-size: 11.5px; color: var(--text-muted); margin-top: 2px; }
+    .btn-generate { margin-top: 1.75rem; background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 13px 32px; border: none; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-generate:hover { background: var(--navy-mid); }
+    .btn-generate svg { width: 18px; height: 18px; }
+
+    /* RESULT */
+    #result-section { display: none; }
+    .result-header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
+    .result-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--navy); }
+    .btn-pdf { background: var(--navy); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 700; padding: 10px 24px; border: none; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; transition: background 0.2s; }
+    .btn-pdf:hover { background: var(--navy-mid); }
+
+    /* LEGEND */
+    .legend { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 1.5rem; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+    .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+    /* CALENDAR GRID */
+    .cal-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .month-card { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .month-card.has-events { border-color: var(--navy-pale); }
+    .month-header { padding: 9px 15px; background: var(--navy-pale); font-size: 13px; font-weight: 600; color: var(--navy); display: flex; align-items: center; justify-content: space-between; }
+    .month-count { font-size: 11px; background: var(--navy); color: white; border-radius: 10px; padding: 1px 8px; font-weight: 500; }
+    .month-body { padding: 8px; display: flex; flex-direction: column; gap: 5px; }
+    .event-row { display: flex; align-items: flex-start; gap: 8px; padding: 7px 9px; border-radius: 7px; border: 1px solid transparent; }
+    .event-row:hover { background: var(--offwhite); border-color: var(--border); }
+    .event-row.conditional { opacity: 0.52; }
+    .event-row.conditional .event-name { color: var(--text-muted); }
+    .event-row.conditional .conditional-tag { display: inline-block; font-size: 10px; color: var(--text-muted); font-style: italic; margin-top: 2px; }
+    .conditional-tag { display: none; }
+    .event-row.missing-date { background: #fff5f5; border-color: #f5c6c6 !important; }
+    .event-row.missing-date .event-name { color: #b91c1c; font-weight: 600; }
+    .event-row.missing-date .event-date { color: #dc2626; }
+    .missing-tag { display: inline-block; font-size: 10px; color: #dc2626; font-style: italic; margin-top: 2px; font-weight: 600; }
+    .event-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .event-text { flex: 1; }
+    .event-name { font-size: 12px; color: var(--text); line-height: 1.4; }
+    .event-date { font-size: 11px; color: var(--text-muted); margin-top: 1px; }
+    .event-badge { font-size: 10px; padding: 2px 7px; border-radius: 8px; white-space: nowrap; flex-shrink: 0; margin-top: 3px; }
+    .empty-month { padding: 16px; text-align: center; font-size: 12px; color: var(--text-muted); font-style: italic; }
+
+    /* DISCLAIMER */
+    #pdf-capture {
+      background: var(--white);
+    }
+    .disclaimer { background: var(--navy-pale); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.4rem; font-size: 12.5px; color: var(--text-muted); line-height: 1.7; margin-top: 2rem; }
+    .disclaimer strong { color: var(--navy); }
+
+    /* footer: ver shared.css */
+
+    @media (max-width: 640px) {
+      nav { padding: 0 1.25rem; }
+      .hero { padding: 2.5rem 1.25rem 2rem; }
+      .section { padding: 2rem 1.25rem; }
+      .form-card { padding: 1.5rem; }
+      .form-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+  <script>
+    // Captura y guarda el parámetro ref en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); }
+    })();
+  </script>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.png" alt="Proyecto Polaris" class="nav-logo-img" onerror="this.style.display='none'">
+    Proyecto <span>Polaris</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios-llc.html">Servicios LLC</a></li>
+    <li><a href="servicios-marca.html">Registro de marca</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="contacto.html" class="nav-cta">Contactar</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Inicio</a>
+  <a href="servicios-llc.html">Servicios LLC</a>
+  <a href="servicios-marca.html">Registro de marca</a>
+  <a href="nosotros.html">Nosotros</a>
+  <a href="contacto.html" class="nav-cta">Contactar</a>
+</div>
+
+<div class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Proyecto Polaris — Compliance LLC</p>
+    <h1>Calendario personalizado de gestiones para tu LLC</h1>
+    <p>Introduce los datos de tu empresa y genera tu calendario con todas las fechas clave federales y estatales, listo para descargar en PDF.</p>
+  </div>
+</div>
+
+<div class="section">
+  <div class="form-card">
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Nombre de la LLC <span class="req">*</span></label>
+        <input type="text" id="f-llc" placeholder="Ej. MG Consulting LLC">
+      </div>
+      <div class="form-group">
+        <label>Correo electrónico <span class="req">*</span></label>
+        <input type="email" id="f-email" placeholder="Ej. maria@empresa.com">
+      </div>
+      <div class="form-group">
+        <label>Tipo de LLC <span class="req">*</span></label>
+        <select id="f-tipo">
+          <option value="">— Seleccionar —</option>
+          <option value="single">Single Member (un solo miembro)</option>
+          <option value="multi">Multi Member (varios miembros)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Estado de constitución <span class="req">*</span></label>
+        <select id="f-estado">
+          <option value="">— Seleccionar estado —</option>
+          <option value="AL">Alabama (AL)</option>
+          <option value="AK">Alaska (AK)</option>
+          <option value="AZ">Arizona (AZ)</option>
+          <option value="AR">Arkansas (AR)</option>
+          <option value="CA">California (CA)</option>
+          <option value="CO">Colorado (CO)</option>
+          <option value="CT">Connecticut (CT)</option>
+          <option value="DE">Delaware (DE)</option>
+          <option value="FL">Florida (FL)</option>
+          <option value="GA">Georgia (GA)</option>
+          <option value="HI">Hawaii (HI)</option>
+          <option value="ID">Idaho (ID)</option>
+          <option value="IL">Illinois (IL)</option>
+          <option value="IN">Indiana (IN)</option>
+          <option value="IA">Iowa (IA)</option>
+          <option value="KS">Kansas (KS)</option>
+          <option value="KY">Kentucky (KY)</option>
+          <option value="LA">Louisiana (LA)</option>
+          <option value="ME">Maine (ME)</option>
+          <option value="MD">Maryland (MD)</option>
+          <option value="MA">Massachusetts (MA)</option>
+          <option value="MI">Michigan (MI)</option>
+          <option value="MN">Minnesota (MN)</option>
+          <option value="MS">Mississippi (MS)</option>
+          <option value="MO">Missouri (MO)</option>
+          <option value="MT">Montana (MT)</option>
+          <option value="NE">Nebraska (NE)</option>
+          <option value="NV">Nevada (NV)</option>
+          <option value="NH">New Hampshire (NH)</option>
+          <option value="NJ">New Jersey (NJ)</option>
+          <option value="NM">New Mexico (NM)</option>
+          <option value="NY">New York (NY)</option>
+          <option value="NC">North Carolina (NC)</option>
+          <option value="ND">North Dakota (ND)</option>
+          <option value="OH">Ohio (OH)</option>
+          <option value="OK">Oklahoma (OK)</option>
+          <option value="OR">Oregon (OR)</option>
+          <option value="PA">Pennsylvania (PA)</option>
+          <option value="RI">Rhode Island (RI)</option>
+          <option value="SC">South Carolina (SC)</option>
+          <option value="SD">South Dakota (SD)</option>
+          <option value="TN">Tennessee (TN)</option>
+          <option value="TX">Texas (TX)</option>
+          <option value="UT">Utah (UT)</option>
+          <option value="VT">Vermont (VT)</option>
+          <option value="VA">Virginia (VA)</option>
+          <option value="WA">Washington (WA)</option>
+          <option value="WV">West Virginia (WV)</option>
+          <option value="WI">Wisconsin (WI)</option>
+          <option value="WY">Wyoming (WY)</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Fecha de constitución</label>
+        <input type="date" id="f-fecha-const">
+        <span class="form-hint">Opcional. Necesaria para calcular automáticamente las fechas de renovación por aniversario</span>
+      </div>
+      <div class="form-group">
+        <label>Fecha de renovación del agente residente</label>
+        <input type="date" id="f-fecha-agente">
+        <span class="form-hint">Solo si es diferente a la fecha de aniversario de constitución</span>
+      </div>
+      <div class="form-group">
+        <label>¿La LLC tiene empleados?</label>
+        <select id="f-empleados">
+          <option value="no">No</option>
+          <option value="yes">Sí</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Propietario <span class="req">*</span></label>
+        <select id="f-residente">
+          <option value="nonresident">No residente en EE.UU.</option>
+          <option value="resident">Residente en EE.UU.</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>¿La LLC tiene Resale Certificate?</label>
+        <select id="f-sales">
+          <option value="no">No</option>
+          <option value="yes">Sí</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Año del calendario</label>
+        <select id="f-year">
+          <option value="2025">2025</option>
+          <option value="2026" selected>2026</option>
+          <option value="2027">2027</option>
+        </select>
+      </div>
+    </div>
+    <button class="btn-generate" id="btn-generar" onclick="generarCalendario()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Generar mi calendario
+    </button>
+  </div>
+
+  <!-- RESULTADO -->
+  <div id="result-section">
+    <div id="pdf-capture">
+  <div class="result-header" id="result-header-bar">
+      <div>
+        <div class="result-title" id="result-title">Calendario de cumplimiento</div>
+        <div style="font-size:13px;color:var(--text-muted);margin-top:4px;" id="result-subtitle"></div>
+      </div>
+      <button class="btn-pdf" onclick="descargarPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar PDF
+      </button>
+    </div>
+
+    <div class="legend" id="legend-box"></div>
+
+    <div class="cal-grid" id="cal-grid"></div>
+
+    <div class="disclaimer" id="pdf-disclaimer">
+      <strong>Aviso importante:</strong> Este calendario es una guía orientativa basada en la normativa fiscal y estatal vigente a <strong>mayo de 2026</strong>. Las fechas exactas pueden variar según el estado, el tipo de negocio y las circunstancias individuales de cada LLC. Las fechas marcadas con (*) corresponden a estados sin configuración específica y deben verificarse con Proyecto Polaris. Consulta siempre con un profesional antes de tomar decisiones.
+    </div>
+
+  </div><!-- /pdf-capture -->
+    <div style="text-align:center;margin-top:2rem;">
+      <button class="btn-pdf" onclick="descargarPDF()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar PDF
+      </button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+        <img src="logo.png" alt="Proyecto Polaris" style="width:32px;height:32px;border-radius:8px;">
+        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+      </div>
+      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Servicios</p>
+      <ul>
+        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
+        <li><a href="servicios-marca.html">Registro de marca</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Empresa</p>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Legal</p>
+      <ul>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Términos de servicio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem"><a href="#">Privacidad</a><a href="#">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+const MESES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+const MESES_ES = MESES;
+
+const COLORES = {
+  federal: { dot:'#185FA5', bg:'#E6F1FB', text:'#0C447C', label:'Federal' },
+  estatal: { dot:'#0F6E56', bg:'#E1F5EE', text:'#085041', label:'Estatal' },
+  agente:  { dot:'#993C1D', bg:'#FAECE7', text:'#712B13', label:'Ag. Residente' },
+  sales:   { dot:'#BA7517', bg:'#FAEEDA', text:'#633806', label:'Sales Tax' },
+
+};
+
+// Calcula el mes de la próxima renovación (base = fecha última renovación o constitución)
+function proximoMesAgente(fechaBase, year) {
+  if (!fechaBase) return null;
+  const base = new Date(fechaBase + 'T12:00:00');
+  if (isNaN(base)) return null;
+  const proxima = new Date(base);
+  proxima.setFullYear(year);
+  if (proxima <= new Date(year - 1, 11, 31)) proxima.setFullYear(year + 1);
+  // Si la fecha con el año del calendario ya pasó, siguiente año
+  const calYear = new Date(year, 11, 31);
+  if (proxima > calYear) proxima.setFullYear(year - 1);
+  // Devolver mes (1-12) y día
+  return { m: proxima.getMonth() + 1, d: proxima.getDate() };
+}
+
+function buildEventPool(tipo, estado, tieneEmpleados, tieneSales, esResidente, year, fechaConst, fechaAgente) {
+  const eventos = [];
+
+  // Calcular mes aniversario (para annual reports de ciclo aniversario)
+  let mesAniversario = null;
+  let diaAniversario = 1;
+  const baseConst = fechaConst || fechaAgente;
+  if (baseConst) {
+    const d = new Date(baseConst + 'T12:00:00');
+    if (!isNaN(d)) { mesAniversario = d.getMonth() + 1; diaAniversario = d.getDate(); }
+  }
+
+  // Calcular próxima renovación agente
+  const baseAgente = fechaAgente || fechaConst;
+  const proxAgente = proximoMesAgente(baseAgente, year);
+
+  // Helper: evento condicional (aparece en gris con nota)
+  const cond = (obj, nota_cond) => ({ ...obj, conditional: true, nota_cond });
+
+  // ── FEDERALES ────────────────────────────────────────────────────────────
+
+  if (tipo === 'multi') {
+    eventos.push({ m:3, d:15, tipo:'federal', nombre:'Form 1065 — Partnership tax return', nota:'Prórroga posible con Form 7004 (6 meses)' });
+    eventos.push({ m:3, d:15, tipo:'federal', nombre:'K-1: entrega a cada socio', nota:'Mismo plazo que el Form 1065' });
+    eventos.push({ m:9, d:15, tipo:'federal', nombre:'Prórroga Form 1065 (si se solicitó en marzo)', nota:'Plazo extendido con Form 7004' });
+  }
+
+  if (tipo === 'single') {
+    if (esResidente) {
+      eventos.push({ m:4, d:15, tipo:'federal', nombre:'Form 1040 / Schedule C — Declaración personal', nota:'Incluye ingresos de la LLC single-member residente' });
+      eventos.push({ m:10, d:15, tipo:'federal', nombre:'Prórroga Form 1040 (si se solicitó en abril)', nota:'Solo prorroga la presentación, no el pago' });
+    } else {
+      eventos.push(cond({ m:4, d:15, tipo:'federal', nombre:'Form 1040-NR / Schedule C — Declaración no residente', nota:'Non-resident alien con ingresos ECI en EE.UU.' }, 'Solo si tu LLC tiene ECI'));
+      eventos.push({ m:4, d:15, tipo:'federal', nombre:'Form 5472 + Pro-forma 1120', nota:'Obligatorio para single-member LLC de no residente con transacciones reportables entre socio y LLC. Multa $25,000 por incumplimiento' });
+      eventos.push(cond({ m:10, d:15, tipo:'federal', nombre:'Prórroga Form 1040-NR (si se solicitó en abril)', nota:'Solo prorroga la presentación, no el pago' }, 'Solo si tu LLC tiene ECI'));
+    }
+  }
+
+  if (tipo === 'multi') {
+    if (!esResidente) {
+      eventos.push(cond({ m:3, d:15, tipo:'federal', nombre:'Form 1042 — Retención sobre pagos a socios no residentes', nota:'Si hay distribuciones a socios extranjeros; tasa FDAP generalmente 30%' }, 'Solo si tu LLC tiene ECI'));
+      eventos.push(cond({ m:3, d:15, tipo:'federal', nombre:'Form 8804 / 8805 — Retención sobre ingresos ECI de Partnership', nota:'Aplica si la LLC tiene ingresos conectados con EE.UU. y socios extranjeros' }, 'Solo si tu LLC tiene ECI'));
+    }
+  }
+
+  if (esResidente) {
+    eventos.push({ m:4, d:15, tipo:'federal', nombre:'Pago estimado federal Q1 (Form 1040-ES)', nota:'Primer pago trimestral de impuesto estimado' });
+    eventos.push({ m:6, d:15, tipo:'federal', nombre:'Pago estimado federal Q2 (Form 1040-ES)', nota:'Cubre ingresos de abril-mayo (solo 2 meses)' });
+    eventos.push({ m:9, d:15, tipo:'federal', nombre:'Pago estimado federal Q3 (Form 1040-ES)', nota:'Cubre ingresos de junio-agosto' });
+    eventos.push({ m:1, d:15, tipo:'federal', nombre:'Pago estimado federal Q4 (Form 1040-ES)', nota:'Cubre ingresos de septiembre-diciembre del año anterior' });
+  } else {
+    eventos.push(cond({ m:4, d:15, tipo:'federal', nombre:'Pago estimado federal Q1 (Form 1040-ES NR)', nota:'No residentes que tienen ingresos sujetos a retención estimada' }, 'Solo si tu LLC tiene ECI'));
+    eventos.push(cond({ m:6, d:15, tipo:'federal', nombre:'Pago estimado federal Q2 (Form 1040-ES NR)', nota:'Verificar si aplica según tipo de ingresos' }, 'Solo si tu LLC tiene ECI'));
+    eventos.push(cond({ m:9, d:15, tipo:'federal', nombre:'Pago estimado federal Q3 (Form 1040-ES NR)', nota:'Verificar si aplica según tipo de ingresos' }, 'Solo si tu LLC tiene ECI'));
+    eventos.push(cond({ m:1, d:15, tipo:'federal', nombre:'Pago estimado federal Q4 (Form 1040-ES NR)', nota:'Cubre ingresos de septiembre-diciembre del año anterior' }, 'Solo si tu LLC tiene ECI'));
+  }
+
+  if (tieneEmpleados) {
+    eventos.push({ m:1,  d:31, tipo:'federal', nombre:'W-2: entrega a empleados', nota:'Obligatorio para todos los empleados con salario durante el año' });
+    eventos.push({ m:1,  d:31, tipo:'federal', nombre:'1099-NEC: entrega a contratistas independientes', nota:'Obligatorio si se pagó $600 o más a un contratista' });
+    eventos.push({ m:2,  d:28, tipo:'federal', nombre:'Copia A de 1099 al IRS (papel)', nota:'31 mar si se envía electrónicamente vía FIRE' });
+    eventos.push({ m:3,  d:31, tipo:'federal', nombre:'Copia A de 1099 al IRS (electrónico, FIRE)', nota:'Recomendado si hay 10 o más formularios' });
+    eventos.push({ m:1,  d:31, tipo:'federal', nombre:'Form 940 (FUTA anual) + depósito Q4 Form 941', nota:'Si FUTA ≤$500 se paga con la declaración' });
+    eventos.push({ m:4,  d:30, tipo:'federal', nombre:'Form 941 Q1 — Declaración trimestral empleadores', nota:'10 may si todos los depósitos están al día' });
+    eventos.push({ m:7,  d:31, tipo:'federal', nombre:'Form 941 Q2 — Declaración trimestral empleadores', nota:'10 ago si todos los depósitos están al día' });
+    eventos.push({ m:10, d:31, tipo:'federal', nombre:'Form 941 Q3 — Declaración trimestral empleadores', nota:'10 nov si todos los depósitos están al día' });
+    eventos.push({ m:1,  d:31, tipo:'federal', nombre:'Form 941 Q4 (año anterior) — Declaración empleadores', nota:'31 enero del año siguiente' });
+  }
+
+  // BOI eliminado: regla FinCEN 26 mar 2025 exime a todas las LLCs constituidas en EE.UU.
+
+  // ── ESTATALES ────────────────────────────────────────────────────────────
+  // Mapa completo: tipo de ciclo por estado
+  // 'fixed' = fecha fija; 'anniversary' = mes de constitución; 'none' = sin annual report LLC; 'biennial' = bienal
+  const STATE_CONFIG = {
+    AL: { tipo:'anniversary', d:1,  nota:'Alabama Annual Report. Vence el 1 del mes de aniversario. ~$50' },
+    AK: { tipo:'fixed', m:2, d:1,   nota:'Alaska Biennial Report — vence 2 enero (años impares). Verificar si aplica este año' },
+    AZ: { tipo:'none',              nota:'Arizona no exige Annual Report para LLCs' },
+    AR: { tipo:'fixed', m:5, d:1,   nota:'Arkansas Annual Report — vence 1 mayo. ~$150' },
+    CA: { tipo:'fixed', m:4, d:15,  nota:'California LLC Annual Tax ($800 mínimo Franchise Tax). Statement of Information bienal ($20)' },
+    CO: { tipo:'anniversary', d:1,  nota:'Colorado Periodic Report — mes de aniversario. ~$10' },
+    CT: { tipo:'anniversary', d:1,  nota:'Connecticut Annual Report — mes de aniversario. ~$80' },
+    DE: { tipo:'none',              nota:'Delaware no exige Annual Report para LLCs. Sí Registered Agent fee anual y Franchise Tax ($300)' },
+    FL: { tipo:'fixed', m:5, d:1,   nota:'Florida Annual Report — vence 1 mayo ($138.75). Multa $400 después del 1 mayo' },
+    GA: { tipo:'fixed', m:4, d:1,   nota:'Georgia Annual Registration — vence 1 abril. ~$50' },
+    HI: { tipo:'anniversary', d:1,  nota:'Hawaii Annual Report — mes de aniversario. ~$15' },
+    ID: { tipo:'anniversary', d:1,  nota:'Idaho Annual Report — mes de aniversario. Sin coste' },
+    IL: { tipo:'anniversary', d:1,  nota:'Illinois Annual Report — mes de aniversario. ~$75' },
+    IN: { tipo:'anniversary', d:1,  nota:'Indiana Biennial Report — mes de aniversario (bienal). ~$31' },
+    IA: { tipo:'anniversary', d:1,  nota:'Iowa Biennial Report — mes de aniversario (bienal). ~$60' },
+    KS: { tipo:'anniversary', d:15, nota:'Kansas Annual Report — mes de aniversario, día 15. ~$55' },
+    KY: { tipo:'anniversary', d:1,  nota:'Kentucky Annual Report — mes de aniversario. ~$15' },
+    LA: { tipo:'anniversary', d:1,  nota:'Louisiana Annual Report — mes de aniversario. ~$35' },
+    ME: { tipo:'anniversary', d:1,  nota:'Maine Annual Report — mes de aniversario. ~$85' },
+    MD: { tipo:'fixed', m:4, d:15,  nota:'Maryland Personal Property Return — vence 15 abril. ~$300' },
+    MA: { tipo:'anniversary', d:1,  nota:'Massachusetts Annual Report — mes de aniversario. ~$520' },
+    MI: { tipo:'anniversary', d:15, nota:'Michigan Annual Statement — mes de aniversario, día 15. ~$25' },
+    MN: { tipo:'anniversary', d:31, nota:'Minnesota Annual Renewal — último día del mes de aniversario. Sin coste' },
+    MS: { tipo:'anniversary', d:1,  nota:'Mississippi Annual Report — mes de aniversario. ~$25' },
+    MO: { tipo:'anniversary', d:1,  nota:'Missouri Annual Report — mes de aniversario. Sin coste' },
+    MT: { tipo:'anniversary', d:15, nota:'Montana Annual Report — mes de aniversario, día 15. ~$15' },
+    NE: { tipo:'anniversary', d:1,  nota:'Nebraska Biennial Report — mes de aniversario (bienal). ~$26' },
+    NV: { tipo:'anniversary', d:1,  nota:'Nevada Annual List + Business License ($350 + $200). Mes de aniversario' },
+    NH: { tipo:'anniversary', d:1,  nota:'New Hampshire Annual Report — mes de aniversario. ~$100' },
+    NJ: { tipo:'anniversary', d:1,  nota:'New Jersey Annual Report — mes de aniversario. ~$75' },
+    NM: { tipo:'fixed', m:3, d:15,  nota:'New Mexico Biennial Report (bienal). Sin coste. Verificar si aplica este año' },
+    NY: { tipo:'fixed', m:2, d:28,  nota:'New York Biennial Statement (bienal). Verificar si aplica este año' },
+    NC: { tipo:'anniversary', d:15, nota:'North Carolina Annual Report — mes de aniversario, día 15. ~$200' },
+    ND: { tipo:'anniversary', d:1,  nota:'North Dakota Annual Report — mes de aniversario. ~$50' },
+    OH: { tipo:'anniversary', d:1,  nota:'Ohio Annual Report — mes de aniversario. Sin coste' },
+    OK: { tipo:'anniversary', d:1,  nota:'Oklahoma Annual Certificate — mes de aniversario. ~$25' },
+    OR: { tipo:'anniversary', d:1,  nota:'Oregon Annual Report — mes de aniversario. ~$100' },
+    PA: { tipo:'anniversary', d:1,  nota:'Pennsylvania Decennial Report (cada 10 años). Verificar si aplica este año. ~$70' },
+    RI: { tipo:'anniversary', d:1,  nota:'Rhode Island Annual Report — mes de aniversario. ~$50' },
+    SC: { tipo:'anniversary', d:1,  nota:'South Carolina Annual Report — mes de aniversario. Sin coste' },
+    SD: { tipo:'anniversary', d:1,  nota:'South Dakota Annual Report — mes de aniversario. ~$50' },
+    TN: { tipo:'fixed', m:4, d:1,   nota:'Tennessee Annual Report — vence 1 abril. ~$300 mínimo' },
+    TX: { tipo:'fixed', m:5, d:15,  nota:'Texas Franchise Tax Report. Sin cargo si ingresos ≤$2.47M' },
+    UT: { tipo:'anniversary', d:1,  nota:'Utah Annual Renewal — mes de aniversario. ~$20' },
+    VT: { tipo:'anniversary', d:1,  nota:'Vermont Annual Report — mes de aniversario. ~$35' },
+    VA: { tipo:'anniversary', d:1,  nota:'Virginia Annual Registration — mes de aniversario. ~$50' },
+    WA: { tipo:'anniversary', d:1,  nota:'Washington Annual Report — mes de aniversario. ~$60' },
+    WV: { tipo:'anniversary', d:1,  nota:'West Virginia Annual Report — mes de aniversario. ~$25' },
+    WI: { tipo:'anniversary', d:1,  nota:'Wisconsin Annual Report — mes de aniversario. ~$25' },
+    WY: { tipo:'anniversary', d:1,  nota:'Wyoming Annual Report — mes de aniversario. ~$60 mínimo' },
+  };
+
+  const cfg = STATE_CONFIG[estado];
+  if (cfg) {
+    if (cfg.tipo === 'none') {
+      // Sin annual report: mostrar nota informativa solo para DE
+      if (estado === 'DE') {
+        eventos.push({ m:6, d:1, tipo:'estatal', nombre:'Delaware — Registered Agent fee anual', nota:'Sin Annual Report formal para LLCs. Sí se paga fee al agente residente' });
+        eventos.push({ m:3, d:1, tipo:'estatal', nombre:'Delaware — Franchise Tax LLC ($300)', nota:'$300 fija para la mayoría de LLCs de Delaware' });
+      }
+    } else if (cfg.tipo === 'fixed') {
+      // Fecha fija conocida
+      let ev = { m: cfg.m, d: cfg.d, tipo:'estatal', nombre:`${estado} — Annual Report`, nota: cfg.nota };
+      if (estado === 'CA') {
+        eventos.push({ m:4, d:15, tipo:'estatal', nombre:'California LLC Annual Tax ($800 mínimo)', nota:'Franchise Tax mínimo, aunque no haya ingresos' });
+        eventos.push({ m:11, d:15, tipo:'estatal', nombre:'California — Statement of Information (bienal, $20)', nota:'Verificar si corresponde este año' });
+      } else {
+        eventos.push(ev);
+      }
+    } else if (cfg.tipo === 'anniversary') {
+      if (mesAniversario) {
+        eventos.push({ m: mesAniversario, d: cfg.d, tipo:'estatal',
+          nombre:`${estado} — Annual Report — ${MESES_ES[mesAniversario-1]}`,
+          nota: cfg.nota });
+      } else {
+        // Sin fecha de constitución: aviso en rojo en enero
+        eventos.push({ m:1, d:1, tipo:'estatal',
+          nombre:`⚠ ${estado} — Annual Report: introduce la fecha de constitución`,
+          nota: cfg.nota,
+          missingDate: true });
+      }
+    }
+  }
+
+  // ── AGENTE RESIDENTE (fecha calculada) ────────────────────────────────────
+  if (proxAgente) {
+    eventos.push({ m: proxAgente.m, d: proxAgente.d, tipo:'agente',
+      nombre:`${estado} — Renovación agente residente`,
+      nota:`Próxima renovación calculada a partir de la última renovación registrada. Verificar con tu agente.` });
+  } else {
+    // Sin fecha: aviso en rojo en enero
+    eventos.push({ m:1, d:1, tipo:'agente',
+      nombre:`⚠ ${estado} — Renovación agente residente: introduce la fecha de última renovación`,
+      nota:'Sin fecha base. Introduce la fecha de constitución o última renovación para calcular automáticamente.',
+      missingDate: true });
+  }
+
+  // ── SALES TAX ─────────────────────────────────────────────────────────────
+  if (tieneSales) {
+    eventos.push({ m:1,  d:20, tipo:'sales', nombre:'Sales tax Q4 (año anterior) — vencimiento general', nota:'Fecha exacta varía por estado (TX→20; CA→1 feb; FL→1-20)' });
+    eventos.push({ m:4,  d:20, tipo:'sales', nombre:'Sales tax Q1 — vencimiento general', nota:'Verificar portal fiscal del estado de operaciones' });
+    eventos.push({ m:7,  d:20, tipo:'sales', nombre:'Sales tax Q2 — vencimiento general', nota:'Verificar si el umbral de ventas obliga a ciclo mensual' });
+    eventos.push({ m:10, d:20, tipo:'sales', nombre:'Sales tax Q3 — vencimiento general', nota:'Verificar si aplica pre-pago acelerado' });
+  }
+
+  // ── GENERALES ─────────────────────────────────────────────────────────────
+  eventos.push(cond({ m:12, d:31, tipo:'agente', nombre:'Renovación licencias comerciales estatales/locales', nota:'Muchas licencias vencen el 31 dic. Revisar DBA y Foreign Qualification' }, 'Si procede'));
+  eventos.push({ m:11, d:30, tipo:'agente', nombre:'Revisar y actualizar dirección / datos de la LLC', nota:'Reportar cambios al Secretary of State dentro de 30-60 días' });
+
+  return eventos;
+}
+
+function generarCalendario() {
+  const llc         = document.getElementById('f-llc').value.trim();
+  const email       = document.getElementById('f-email').value.trim();
+  const tipo        = document.getElementById('f-tipo').value;
+  const estado      = document.getElementById('f-estado').value;
+  const year        = parseInt(document.getElementById('f-year').value);
+  const tieneEmpleados = document.getElementById('f-empleados').value === 'yes';
+  const tieneSales     = document.getElementById('f-sales').value === 'yes';
+  const esResidente    = document.getElementById('f-residente').value === 'resident';
+  const fechaConst  = document.getElementById('f-fecha-const').value || '';
+  // Autorrelleno: si agente vacío, usar fecha de constitución
+  let fechaAgente   = document.getElementById('f-fecha-agente').value || '';
+  if (!fechaAgente && fechaConst) fechaAgente = fechaConst;
+
+  if (!llc || !email || !tipo || !estado) {
+    alert('Por favor, completa todos los campos obligatorios.');
+    return;
+  }
+
+  const eventos = buildEventPool(tipo, estado, tieneEmpleados, tieneSales, esResidente, year, fechaConst, fechaAgente);
+  const tipoLabel = tipo === 'single' ? 'Single Member LLC' : 'Multi Member LLC';
+  const estadoLabel = document.getElementById('f-estado').options[document.getElementById('f-estado').selectedIndex].text;
+  const resLabel = esResidente ? 'Residente EE.UU.' : 'No residente';
+
+  document.getElementById('result-title').textContent = `Calendario ${year} — ${llc}`;
+  document.getElementById('result-subtitle').textContent = `${tipoLabel} · ${estadoLabel} · ${resLabel}`;
+
+  // Leyenda dinámica: solo mostrar categorías que aparecen en los eventos
+  const tiposPresentes = [...new Set(eventos.map(e => e.tipo))];
+  const legendBox = document.getElementById('legend-box');
+  legendBox.innerHTML = tiposPresentes.map(t => {
+    const c = COLORES[t];
+    return `<div class="legend-item"><div class="legend-dot" style="background:${c.dot}"></div>${c.label}</div>`;
+  }).join('');
+
+  const grid = document.getElementById('cal-grid');
+  grid.innerHTML = '';
+
+  for (let m = 1; m <= 12; m++) {
+    const evsMes = eventos.filter(e => e.m === m).sort((a,b) => a.d - b.d);
+    const card = document.createElement('div');
+    card.className = 'month-card' + (evsMes.length ? ' has-events' : '');
+    const hdr = document.createElement('div');
+    hdr.className = 'month-header';
+    hdr.innerHTML = `<span>${MESES[m-1]}</span>${evsMes.length ? `<span class="month-count">${evsMes.length}</span>` : ''}`;
+    card.appendChild(hdr);
+    const body = document.createElement('div');
+    body.className = 'month-body';
+    if (!evsMes.length) {
+      body.innerHTML = '<div class="empty-month">Sin obligaciones este mes</div>';
+    } else {
+      evsMes.forEach(ev => {
+        const c = COLORES[ev.tipo];
+        const row = document.createElement('div');
+        row.className = 'event-row';
+        row.title = ev.nota || '';
+        if (ev.conditional) row.classList.add('conditional');
+        if (ev.missingDate) row.classList.add('missing-date');
+        row.innerHTML = `
+          <div class="event-dot" style="background:${ev.missingDate ? '#dc2626' : c.dot}"></div>
+          <div class="event-text">
+            <div class="event-name">${ev.nombre}</div>
+            ${ev.conditional ? `<div class="conditional-tag" style="display:block">⚠ ${ev.nota_cond}</div>` : ''}
+            ${ev.missingDate ? `<div class="missing-tag">Introduce la fecha de constitución para calcular</div>` : ''}
+            <div class="event-date" style="${ev.missingDate ? 'color:#dc2626' : ''}">Hasta el ${ev.d} de ${MESES[m-1].toLowerCase()}</div>
+          </div>
+          <span class="event-badge" style="background:${ev.missingDate ? '#fef2f2' : c.bg};color:${ev.missingDate ? '#dc2626' : c.text}">${c.label}</span>
+        `;
+        body.appendChild(row);
+      });
+    }
+    card.appendChild(body);
+    grid.appendChild(card);
+  }
+
+  const rs = document.getElementById('result-section');
+  rs.style.display = 'block';
+  rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  // Mutar botón generar → descargar PDF
+  const btnGen = document.getElementById('btn-generar');
+  if (btnGen) {
+    btnGen.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Descargar PDF';
+    btnGen.onclick = descargarPDF;
+  }
+
+  // guardar para PDF
+  window._pdfData = { llc, email, tipo, estado: estadoLabel, year, eventos, tipoLabel, resLabel };
+
+  // Registrar via Worker seguro
+  fetch('https://polaris-api.llcsandtrademarks.workers.dev/calendario', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, llc, estado: estadoLabel, tipo: tipoLabel, residente: resLabel })
+  }).catch(() => {});
+}
+
+// ── PDF (html2canvas → jsPDF) ─────────────────────────────────────────────
+async function descargarPDF() {
+  const d = window._pdfData;
+  if (!d) return;
+
+  const btn1 = document.getElementById('btn-generar');
+  const btns = document.querySelectorAll('.btn-pdf');
+  btns.forEach(b => { b.disabled = true; b.textContent = 'Generando PDF…'; });
+
+  try {
+    const { jsPDF } = window.jspdf;
+    const capture = document.getElementById('pdf-capture');
+
+    // Ocultar el botón dentro del capture durante la captura
+    const btnInside = capture.querySelector('.btn-pdf');
+    if (btnInside) btnInside.style.visibility = 'hidden';
+
+    // Forzar 3 columnas y ancho fijo para captura consistente
+    capture.style.width = '1050px';
+    capture.style.background = '#f8f9fb';
+    const grid = document.getElementById('cal-grid');
+    const prevGridCols = grid.style.gridTemplateColumns;
+    grid.style.gridTemplateColumns = 'repeat(3, 1fr)';
+
+    const canvas = await html2canvas(capture, {
+      scale: 2,
+      useCORS: true,
+      backgroundColor: '#f8f9fb',
+      logging: false,
+      windowWidth: 1050,
+      onclone: function(clonedDoc) {
+        // Ocultar botón también en el clon
+        const btn = clonedDoc.querySelector('#pdf-capture .btn-pdf');
+        if (btn) btn.style.display = 'none';
+      }
+    });
+
+    // Restaurar
+    capture.style.width = '';
+    capture.style.background = '';
+    grid.style.gridTemplateColumns = prevGridCols;
+    if (btnInside) btnInside.style.visibility = '';
+
+    const imgData = canvas.toDataURL('image/jpeg', 0.93);
+    const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    const W = 210, margin = 10;
+
+    // ── Cabecera PDF ──────────────────────────────────────────────────────
+    pdf.setFillColor(13, 33, 55);
+    pdf.rect(0, 0, 210, 38, 'F');
+
+    // Logo real
+    const logoB64 = 'iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAIAAAABc2X6AAA1g0lEQVR42qW7adClx3Uednp/1/ve/dtnH2AG2wAECBIUAVIEuGhhIlmLJUdWFCWyy47jksuOnaKVOK5KFMuOS5JTkeOKZFVkJXZkyYpKLIqWSGojQZCEiIXEABhgMNu3f3d797f3/BjSomyRkkvn36177+l++jlLn9PdCIVjhJlH4C1gzBmLVFNhHhJKVVMBwb3x0AGpihxRihAAjcABeIO0sqtlNBomg+Hx3hEY1V+bXrz//hee+ywKQuc9eBBhQAiTrTWyw4yk/ZRgKgRfWxuXVXM0z0MROKm00ohiFkVOWY9JXnZRHFGKMACAM84r5z2CTHBt9Xx2zONIxGG9zAUNRmn22Nsef/nFLzWqI0xgTKIkXhWl88Bi3h+POmlUZ6yyVhnGQwIi2tg5461TbYOD0FnnCSVCAHIiijxAVxTKOvAejAHOkfMEoyDgcrXqDwcX73/wYG9fSwmUWKOl0spYGobD4dA5G4YhxbiuayIoo7STMgjEYDCIgtR5XDW1Vkp2XdMphwgXcdN1RVFSwlUnldIYecZp2zWd0hgjMFo7Z7xPxsPp2nqxXGGPTCc5C9bW1vaPDkQYJnF6cHRgrJNar62fiuPRclmCcQj5TlaEOIJEKquKZf0gTbS2Io5EHGGCnTG6aQbjCYtC4xznwWRtura1vVrMnVYYXJREImCT8Xi+yuM49t5rhOqqCHpZVzeAkLG2k7JaLqcba947LgTGNAyS0WA6Gk3btm26CmPSSoUI9Yi2SqMw9NafvXhf10nZVN67pqlFFDowxmpvwFjHglBJtZqvAh5kcUYQLovqaHZinRuPJiIIueDLvLAe0mSNB32rlNVKBIwyb0xNgPesR8Y5jJDRThs9HA63tne88yIMm6bWxmDChpNJEIblamWsQeBMU3tntFQH+wdx3IuTXlnXSRhvnjrbHwzLvGi6zrQKHHhKCCNJv48JBkSN81GcxslAGjObH1dVzbigRFjrts+cU8Z31lWrykqV9VNjDcIguzqN0ziOjdIAwDiLwphRZo1NwigJY+0s4/zy5UtlWR/PZwgjyjjj/Hg+P3fm7HDQK6sckE+iiFNGAIWAwNe1BvBdh7StmiaMw/W1jds3b0opRRyBQ/lysTo6brq23+uB0app+oPs9OnTvWx4dHg4PzlBIrz/4Ydl086ODgeTSV3V4CzCpD8cpFnSNK1SzmgHQNc2ts6cOVeUxeHRgQhCznjddNY5wMQhRCiVRRUn8XCYIWec0aqVDzz04Ps++MyXX34l6/cpIcj7qiwYIlqqTimEseoUC4VzIDuJGBZBaKy1VipdzGZHFy9cKPNSdjqJ+wSiPgAAQghjaGpAmMRJ17ZpkkZRhDDu9TJrnLOWChGISDZ1fzDkghNCDg+Pi6rRHpwDoOzo8Gh+cuwJscYoKQnnmGDnHCK8mOfaONV2UdLb3tze3No8Pjo6OD5sm9ZaOx5OCcJaS4Y9Rxgpra0SnLZlGYbCeHQyX+zdOeCUy05aYxEAAuyc55QhhJVSmBJjbdLrNU1jnN0+dfr9H3i/No3SzfHxgexajMlsvgCHCQvHrm7Be5ASAAGyCCNdlrpTjzz22MHBgTXGezDGYox1XStrAWPVNm1nuIgmG5tl0QAV3sOFi5em65vz41lXtzwIwyD2Dqzz3gITEechD8Miz9fX18aTUV4Ws1WOEaaUGdmarrZKhiEXgoZpShDUZREnkQcciDCJs7JoyrLoZIe810oFjEdBVFUlY5wyZr0LhGg7qa3Nhn3GxfU3bxwdnTgLxbJeW9vY3NrMlwuGEYkGW6rpwEpAHhAC7+IowIxVefHGKy+3dd1qI9s2jpLheEIICXsJZ6xtO0AkjJNWa2fAY+6d39rc7PcHu7u7iBAuAqNN17aEsM0z53kQFXkexCHC6N7L95y/cHZ3b7es2jAMZSvLfHn53otnTm0VxTwvVsZbRhFj1HkHHjEaOEcoD6SswzCglGIP4MF7J7hAGAFChJBOdkoZIERw0bSyKktnGYHw3LkL88WcU0qxVaYiqsbgNIAHRMPRyGH8n3znd4zGw1vXrj3wTe8ulkvddZhRTEhRV01bAyJRmiFMWcDLqgJEg6xnHBiplbGHRyfgcRDF1njrHMaMiEgZ41RnbEc4By5Onzv96EOXrr3+pZPl0iGktZlubF555O23D/YOT/YZxVkksjRWstFaWfBSa+MsYYQiwigJgsCDwwQPRwMPrqzLNE3CIEQIE4KZEFJZ8CRJe0kvdRgu3HOhPxzUTbOYL3tJQgAFAAgQAgBnpHP+6pev7h6dOA/z/YOwN9De98ejs+fO5avcOSulrbtWtS0iWASh9wgwGU6mjHOrpAPLwgAT6LoGMRwm4fl7L+WrUraVBwuUNp1+4P57H3ng0quvvLR3sCiKymOGqajadn9/HxNmjPHOa20cwoiQIAiDKG7bTqkOe+TBYYySJFVaVVXlnDFaUsYa2SptjDXj0cR75Bz0e30AV9X5tTffbNqOYGqsDbiggC3QADAGoxyiyWhiukY2DRDhALAIUNMsj+ddZ8Ik6eoKLIqHA44R8r4sK8I5p0RJ2ckGE4sxIhw554fr40ZJLsSyXJTFajjKtKrLvMBxj3M+Gg4I5oSINOJK2aasS8LjZFDVpYjCQJDpdK0sCmM9JUwZNZ1MvXcnR7Ne1PNg6qZhlDPGrdFR1LMAQKlVOmThcrEChBkTbVUq1YBR1Nu6LNan6yIMQh5gwASMBC0BU8wD8Ng7DEggIRClqqk9ZlG/L2XXFBWPUp5mXSt7/T7nnFBMGMtX5clsLsLo7MXLPO53ylWt7hxgJlbLVZiklx58QKrWGR2ncRwHnJB+L+VccCKiIGQEcQzFam6UQYidu3DfcLourUcsrFrVKLUqa+sswhBFsXNeStPWHWM8EKFSRoggiBLMGKFUWuvBOW0oIEFJmc+RkxRZzvDJfHYyX+0ezTDCGHGO4wScd1Vbncy0RYCFdw4FArgglDV57o3rpFRaEcqCINzd3ZstV+PpuuAhQXg0Ggdx/+atE61IHA3isFfMVoyIJB1srE0/+P6n6vykrsu6Lo3upGzDSIRhSBDGHpzpTJeHFJpiDkbv3r4xXxw3Td0fjJJeVtYdQnSRr8qmZoIDRpO1tTBOHGDGAxEmy7ySSlFGrfU8EIyLfj+zVlmjHn/kShqFGEDwYDAYxclg+9RZgrNNDwhR7uvqW/789115+2NXP/8cFtx7AEQQJggh28mw38cYee+BsKYoCUIiDDEhQRR7TKzzgDhjCcUEgeeEOKOK+TEGh1372ANnnnnX2z74vm+6cuWhN2/t7uxsfejpJ77w+ReOF/kDl88+fuXi2Z1xKAC8auvaqo5gOx0Pm7LSynASJL3UgEEIjQajLOvXdeUBOwdnz56jhANQ7azRWikTiaBt2qzXc96vilVV5krK6ebWlbe9fe9wBojMFivqGgVGeWWB8LfeuIYEI3FEA6aU88oYUAAIOO+ahjCGCCNMDKY9pVqM3GK5dLDiQewRDVO+ub5puvr1176EvdrZHD760CPf8eEPPvH4wztrQwAAgLzzH/vks0ZpEbLBaBQkwQ//4Hd+yxOXAaBV5uh4dvWN27//2eef/cIX7+zvNY2L0/FwtF529fp0U5quqmsr87rtKKFS6ts394Ig7PdHbnWstO2nPaM0At9pBZyEKCmKRS9NrfPLVb62vn50shCCUXAEsPAAQPHrL7wAgofjvtUGkEOUOdmBQzRNCKO6U4QSzoWWqimLtJ+dOnXKIrwqGg+kk9Xr117uxfzRhy/+wHd/8JknH714ZusuTq2NNlZwurt/dHxyNN2YWA/9weDwcPfaW9c/9I57rfchp2e2189sr3/rNz9etfLZL3zp13/rc5957vW9vdtJf5j0ekyzVaO4EJ0yWut+NpBKnT134ZVXXqmq5XQ8JIQs2pZwKrUSNKAhTXFGMG1bc+PWna3TZxljeV5QAI8Yo0HowUbpdttUXSMRwt5jwmiQJG3TMMoCERSdCtNYNouua3nU8yhM+pvWW+tyykDli8cevfwD3//hDz39RBIwAHDee+cRRoQQjzAheNl06WD73Pl7RgFsb04pD+bLHGGMnfPeewDvPQJIQvGBpx77wFOPvfrm3s//0kc/+snn3nrtMBtNqAiXy0WQCWaJck0YBl/68vMEaBzxpi2juDcYjlutWCAcRtbpMBBWe/Dgldm/fRCEEcWITs6cAoDFbI4AAJDV1msPnAaxwBgprVkgMIa2az2GYjnnAQNjwyhpW3vrzl4vjYvlyf2Xz/21v/GD3/mt7wkCBgDWOoQRRgjIXa2A75p0o7Lh1ukzZ1MEEeOX7rsyHG0AAEYIEEIAd7cD3nvnPULo8oWtf/iRv/yd3/ben/4/f/WLX36zlOVoMnBgo2S4f2eX0CiMuW5lkkTeA8ZEhKEB5DHGBAtGsXOUYK0wZ7zruulkwhim5XLlEbbGEIQ62XrvACHwVmvtnXPOhnHaNq0Dz6MII2KcB8E5DzGxq9UhMtH3f9eH/vZf+4tnN8cAYJ3DCBFyF+Afyt3PyjrnHHYeAQz6PavNa6+/0dn3BgR7fxfsVwoZcncj5DyAf+LKvW/7qb/zf/9/n/pH/+wXq3I2GKwFKAhYqhUEQaiaBmP8tre9/XPPfZ4yu3Nqp5MSUXDILw8Px8MRToOmUa6Ti/nMOk+7rgPwiBCHia1KUAYliVcqTHvOO6WMUyoJA5H1oySt8jIvJReizIswYlvT7Ed+8Ls/8tf/c4KRtQ5jTPC/D/Vr5dobb50cHvfSGADGwx4X/Pj4RCkbhBjAA6B/f5kwAkDOOUHxD3/30/dc2Pq7P/F/vPb6bRGOENCmay2BOE3arnvllS/FcaKdOzo4atrm0v2XFot5KKJ7zl+8/tYt75wzum2rTlkc9PrYATQtAD538dLjT73X1002HGfDISaMUjZcX9s4fzGKeqvZYjmfYcYRIt5Zgd1P/4OP/Pc/+kMEgfOeEIzQ14V69yvZqn7Wz9IYABgj62sbSZp0nYJvKBhj78FZ9+6HL/3CT/4PT73jbRxsFNAkjMajcRyno+F4MplubGw8/vg7B/3huXMX7ty4c3xwAM6/evXVo8PDS/demExHWnWMEqzbjic9kvQwwuWqrMpKpBkmbHEyb5o6HWarvLzx1s293TujzXWWpFYpqxpO3T/4H//md37gXdZaf9cJ/xSCEMniVFACAJzSfn8QBLEy5k/xR8AEW+dOrw9/5sd/9Il3Xi7zQ2+6sqj62Wg6mZZF3Xbq5vUbyMP+rV0rVcAD2bT7e3vO2pdefmGxOFmfTgSl2BltrLFKeWdPjg6vvvyS0bouVohizDmhHAAD+CBNFvNFFMWDQcqp+8mf+MgPfvcHnLOEEPQN0fqvhmvj3GKRI4SHWQIAWRojgOPjudLWOee8938SbIKxdW4yiH7q7//Vp95zRYQ+y7LZst7bP2ya2mhjrV0fr6Vx4p2PRJTEvSROtZLI2821SV4sjZHYG2eU8Yg67YgIetMNQFhJrbXGlDR167231mqls2zYz/pKNh/5W3/lh7/ng845hMg3gurBOY8AMEKYYIqxtXYwGK6NBwDAOY6TGLwrq/qu86OvRKk/AbPzfpSEP/33f/SRt91nrSUkwkRwIRaLBWd8vlxQSgbDkTXWGBOIwIM7c3rz27/t/UEUhmFIIFgHABaFYLWrakuIc5ZHERVCljUQwoNg+9TO6VOnD/Z3F8vZn/vW9/zjv/fXvXcIoW/ArfMeI4QQcgCvXJ999sW3Pnf1rdlKbm2uP/no6SxiBMON/cVyWbz2xt6q1EEUZ2lAMALw3sM30IwQcs4lgt9/74WP/9anrdZxnDirrG09chiCzfUzoQhUV3falJ3uDYbTjZ3PPvd8yIN+PyO0v4MI8uAQwYARCjkgDwTCKA1FDASMs1wIyshqObtw8dzP/q8/1k/juwN/fW49RqjV9tNfvPbzv/Spj37ihS++euul1+9k/eHFs6PHLm8HjACCVa1biQ9n8oVXb33iM89/+c1bnAfb60OMkPf+T8Q8HSSE0N9/7rPOMg8uSEjSy6zl4AJvfV0tGqvveejh4XDy4AMPHR4cggelOmqbxmMEGIHzjDMK0Co52Twb8KhumipvuRDeeUawteaH/8KfO7Uxcc7hr5N+vAcEHiH0uZff+Ll/9dGTee0MTrJ+librSUqQpxgFnAJ4DChLA2PkaNDPyxxh+uVrN19+5c23P3T/9374m+7ZGf9JmLH3/ns+/NTvf+75zz2/N1xbb0yxzFtGRGu6tlwUdWkxOti9/czTT33uuWel7IwxXSsJ+B5QRgTHjIVREmcZ4eLUzo5S6ujwyHuMKAvDwKj64tmdn/i7fz1g5BsasweE/tXHPv2P/+m/zBuHWJz1x3EUWQ9nTu9kvWTajx+8sIY8AEJA2O5hcTTLWRAl/dR5ZLTbP1h89g9eHYzHZzeH38C4EQLvQTCysTZ5/ks3AAtjvDaIsmA4GnKB27agAjdtkyZx0zTOeWddkvQIsDEA9lWNuVBSVSczGid3XnvNUzQcjRGhxhhrVFcX/92P/uV3PXLZe//16fWA0K//7ov/+td/t7OU8F4QZpyx0zvbjzzysLOGIXd2Z3JuI/MACCFt3d5x1XS2bLqybZx3GAkAFkXZl9+41Vlz//lN+EaYkfd+e328O2tee+P2sD/iYYoxiePQOtV1TV2XgaDXXn/j5HgGHgih3nsSji9gSiwCHkVgjAfQxrAwCoLAWucxZpw3VXl6e/3HfvQv9XsxfJ0J3LXAT33+6s/8/L959B1PJb1xU3dpnGS92BqFMc7SOAn4hVPTaT/4ynQRmue6aIwFLMKAcrJcrNK0f/m+B2fz49979rnBZHTvqbVvYNt3VwNR9huf/CxGPAx7zrvRKI1CUdd11uuPBoOiKBijQoj+YJDEMUHRplUGKE3TnrXWMhaEkfXee9s0rbYuTTPv7be//z1/8bs+AN5jjL5eTD6Y1//LP/mFVa0Pj8vJZP0djz1SFzMANxgO4zgOOLpwbufCTi+gXykVPEInpeukv3T5nrqtV/OTXhy98+2PX791c/9wX1D+6rVb58+d2hilXxczQghgPEpff+vg8GClpMEI9g9utW0d8ohTDh61bTseju6WJ85Z7LSlVCTpwFk0GK/Hce/U2fNJmrV1g8DHSdK0Lcb0Q08/CV8/T96dyy9/9HdXeRenY6Xhxltv9VL2fd/9vu31KaWCMhJFURTySKB/93uGYTrO+v1hUzdJEG6vr33Pf/ptpq2qfDYeTYajLYDo1z/xorQAgPzXGdc5HzHyvnddEQw7Y5A3XrdtXbRN19ZdkZdplDLGKCbg9XgcE29jCIUHqFcLT7Dz9uT4yDrXG/QRC6yjUqmtjcFH/sZ/1YvEvyvj/kN6r92e//N/+bG19a2Nje3RoL826h/vHzz1xAOPP7StgQ6zdDroZTEfpoSgP5yutKio1GK5SOPgmW9+YH/v6Oor18Iw8s4Z7eI4Oz46HvaTc9ujr0fyXatuO/Wp3/u8slDULeXcaY8MWGOdQ5TxMI4dQg8/dOmZp58gbP2i0doahSix4BHGXAiEwGHPRBzw2Hbt449c/JG/8GEEf3z2vTvkbz37yrU7y/Fo2LZVGrGN0UhLKSV56OL43lPpZBBOB2HIcMT/iAbCYF5U40H07ivrZaNeen2v10sZFlnWk6qtmy4OE0rhocs7FH+jtMwY/dwLXzpY5J3Bw8FGwES9XIzHUyYirWXdVIjC4dHJ8y++Tp2BeDC2SjrnEKVJnFhrtVbYKaRb64yX9ZOPP4IB/tj0673HGLWyu/ra64NsyEWQpnEcBqNJf2dnwgi/fSzv3RbDiHyN7f+hcAz3nhr0BJbW783U+XNnu05ff/OW1Apx/ug7HvZK37z96sGsOL2W3TWlP86LYZjFpzfX7hw2SdKTba3bmgnRqc4THEQiANI0lQj45vo6TbMUU7Zz4Xy+Ws0Xc0pJ27aMEUE4wcwBtoydOXXKOWed+3fsIITga5oy+0ezVsrxcNpLo8m4LzhB4KbTwfbGkBDbWh+QPz7OUoBhgAHgUEIYUNso681oMuq0kt6WdW6VRyz+8vWj02sZ+poC425O+toEsTbd6PWWlmYIC1lXsqk6Jeum2trcwMhywZ55+umDvUPqASFAURh65+q6IYRubG4arfJiEVCOiIh4sHPqFMb436cXIfTVBV420B+sD7Ks308H/V7Wj6ejMA05IhAz8vXQfm1FNYpQfCo8WAbouFZKYUG36ICQ+ORgaRi7ebBSHvgfncAfWX2A9Z2tZftikMIHPvD0nTt7L73wwrSXHB4dKkDD4choMy8az0M0uPcDgCCO4zCKnLVxHHPOy7Iyzm2fviClWcznf+mHv3NrmsyP56ozLEpao+IwMUqmUWStD6IEsRScGmfhdDIcZlESk2GIEYD7anPnTyMOoDRQdr6VJqQOCLl52N65s1CdjRMaMFWXK2eBc0EJGY1GVVl3bce54IF33t886l64ukeC3gMP3UcEe+2VN+qq0loRjkeDLJ8trbHTyTr69h/5e7PZSZZl1lgh+MbmJiGEMV7W7XCwQXg4mx1KnTsrR72sFw7Krjt1eufCmZ2bN97aHI/CMAiCYG1tMh0GqUABpwx/lTUEf0bprG86pyzS1uf5clU1Za0AEMbk1Nb09t4yL+okjoxrO2sbiSwOO+Pzqr1y5d58uTw+mp0/s4WRdZ7P5kvw4D1Dz91cdZ3CGBDClJIwCrrOWmMYBoqddjwMaT/B4N00EeAAIeDoGyHyf2x0+o8R/1Ut6D9GiwWwHpwHZR0l2HpgGAIEAKAcdB60hbo19JVX30AIR3FYlVUgBMLQdVpwLjCsTcbHs+NGNlnGszSeizgIEopxL6JhSJwHRiCkgP4o+D8zr4D+qJavbWj+h16AARyABSiU25sVWnpOBEEgjRn2I6MsUIrBnSzzfpauTQR61/f+t8ZoBDjpJYwy553VJk6SulwlSf+hK4/dvHMnL2dKya3107ojcRSPx6MwFMq041GaJiIMaBDxtXGvn/BeKCbRHzZp/yzgjQepHGeYYS892l+0i8IzxuumA4SGGf/iy7eoiHc2h7ODRQ1+BcrR8Nb1wxDS1cmykdVDj1zOV7OiKO72ANfW1zD2dDGfd1IyShEGo00YBlVVnzlzOl+dXL/+5nxepL30vU89XJdLo9xClrou95tDbTSlMDsMRRAGAR8OB9dvcuXs/ffc04+4rKqtjSnlhHPUD0j8lTt1fwqndXBSubJV2kLT2hu7s9Pb/UfOZy+8Vdy4uVvltQiiMs+54IHgJ4dHg2E/QMrW5SALbh2sKs2J52+9+ZZuWxLAm6+9XuR5HEfe+729vcO9QyEEGj347UmaUkq991EYWmu0NtYabbowSPO8Xluf/ot/+vevnJkoBwSB1M5YiwA8eOscxRhjtHtc/sonP9c5lIbJO9/+8OH+URIno1FmwTFit0bhekT/RLYlwGEJy8rPVnXT+bLpjmdL76xggMF/+KmL4xA8AoQQRggBMEy+1pV+/Bd/57c+/eqp7ctZFK8Wh9I2WmpwsL21rY2azeYIocl0QgnFdV2NhsMLFy7c2d2t6o4SIoSo6jyJe2vTaZXPr924vbXenx2dRCxw2GOGKaUYkTgMACBmeGMYG6UWpbUKv3X7iGBqKplXh6PJIInZ3c3JnyiV8UVtu841japac7KsjMdd09w53n/nI+cnPXY4aznF1loE8NVOpweAkOs4Hcxm5SCdHuwd237a78dr66du3bojOzefLTFGm2tbZVXeubmLrVYUozgKPvjB90chXy1mRb6SsuWcNU07n82UUnfu7AL2WlfG1EpWsi27pui6cpUXRdkWnYlDtrU+SeKUsOCVV2/Ml3VvOG6kXa4aSshazADAfDWAfz2hzldtVVartq6dMaZrKXiGHHHy0qmRNV52Xdc2TVVJKZuqrsqizPMiX2kry6Y7OVnleYs9pCEPCJ4fz+uicdb2+xlC6OjwUCs1Ho8JSXdCEezv7V17/VrXdlopawznvG0bY3wvHiilBln8oW9+oqgKRhDCgDBBiABCCGGMkNS6HwfS4M8+/3KxyhFmq7zc2z/QWoUBffL+CSdorwaNAXlg+I+JZAoAAYQEdcYeHC20grxqZvPV0cmMEtgcx0+/42KRl0p21mljlPdWaamNQhi01cNBltfuY797VWqWREJ1K9mWTS3bVg6z3mgwCDifzY6R96rraJevlJL9wWD/YK9t2tFwhDBerZa9XqoVAsBx1Lv66pvzvIqTXl1WnAdGOwCPCSDQYUA8wqtOPXjvplH13t5JktUsCKfTUZYF7378XNWaz17NgzDK0qAXodPZH+ll26/Svpe7HvMXJ/GNm/Tq3hFi4bzsMGWNg7c9cjngZK/TDoVaO621V95aBMCUds4TFvZefuFq2blTZ8+09SzyqFjkXc3WN9fKfFkVOcZ42M+0VNoYwkbnnNaEEkKoc04pFQjBKF9f33AWl2WDCc7L+ZX7773n/On5PCeArffee+wJQtSB997mVZP1Yibiz37hiyIMAaMwDN733ndqYz72yZeaxiil6lZm/bgXIPY1FK8kHJW+aiGv3PW9pUfowqnxtaPucFFGabq7f8AJ+tZvvpxXbdO1mGrtWqAaYU2FQ8w2XcG5n0wnv/Sx5968OSM0aqrZan406A2RDygnADYIgrIotDJxnBijSbZzr/e2la2WqjcaMko5DygTXVtXXYkplkZ6Y9I4+Jb3vLNa5uClx9pbhz021rVdp7Q2TjdSP3TpzJs3b9852O9lg8cefVwr//u/94LRJhsMCGN3zyh7EUkYvhtdPUDRwO6RvrOUs7o8Wc3f3M+jOLl4YfzWrcPl/m6I3A99xxMbw2j/6BhjBYYag7xzxnrBmLdOVnKcDQpFf/3jn3faOCl7SZZlw7W1NcJsJ6us1w84Z4SDw1VdUILJzqV3Yo/zoxNC2ekz59u2k1IjwF3XWu+CMCaUBpyfHB8++cRj4342y5fWOWu8/mqc9N4jAlKZQIjHHrr0B19+c31tk1Hx7HOfYxRb54uqNtaFUYQx9EMyjBl4QAish/2FPpxXi7xcloUxmhP+ymt7lNMH7zt77dr1xx/Yfubx8zf2lxisM8YYYqy11nnQspNSStl1p0+feval3d/87c9jwpq6q+o2jRMENl8tq7JoO1WWpdG2l/ayJImEII3N2kZ650UQNbX0FmTTyVamWY8QITsTCEEJqYtCMP7N733iZLYEBwDYI2+sc8YhcHcb61XVnd6YvPvRBz//8rUXX3w5iqJOSspFFKdSq6ZtBllvfRzfbQYgBK2F2yfq4CjPi1oZ5Z2rik5QfnQwu33r9jsfufDBd13aXZRt2zDsvSHGI2MNgPXeOrBKaSai/nD8s7/4G8dLqQ102lNC27LwSnml0jiZTKZNXXsHsQgxguFwQJDYYDywBgjjUnbW+K6VUa+X9fv5qvQOEMYYEwJ4djx7+9sf7WXxcrHyGDnvjdHOm7vnTAT8dDhopIsDtrUxfumV12azE84Y4wwRhDAimBgpk4CdmiYAHiF0WJkXru4VZevAt22ZJWkcJLKW5ep42mcffvIhg9zxcoatcco5TzqlrdHIW++ssa5V7vS5s6+9cfv2kUkHm7PZEiEy6GcM/NbatFjMKWXaWGuNoFxL3XZtmsZksHEfOCSbhoVBfzrBmJ4+c4YKEfDAWe+c45QSiinB8+W8rLqn3vOu+XyhtXbeOmcBwFuHLERhEARitpjvHa9Ob06ffuJKZ8yN3V3vLVid9XrYQde201F2bivDAIDQXmGv31x456VsTVdhbGcnx2lAnnnXpQ+9+/5Z2yzLPAqorDqtrHNYWWOdAm+ts0q7MO4Fce9nf+FXD05U0/mqqhijsq1DzrI0QdZLKR1GcRAj58uiGvQzZyxxYg0TjAjS3tRF+cCVB37+Z//hb/7OZ8o8B+TbtqaMMIqDMDDevXnj1rmz2xfOnzk5nhGCAIEzjlNKKfMe2rYxxgiCFqsq6SXvfvTypbM7BENRLtu6rlZFHAhO0JnNcSiIB3j2lf07u7P5bKa7MhT21Eb/4Xu3nnnX5Y1pelJ0dadUp7TyiGClTacMIghj5J3FCCuFz10499GPf+7jn/iCA+GMkV0bJ5G1pmtqo7T3uK6q8XBICOn1+pxxY1QcR8QGkyRL437a1gUQkjflZ7740hef/wPZNV4rihA41+nGOec8SKNf+/LL73//eymjRVEg5JFDgnNGmTZOeYsRAu848UVV1dKePbX5rgfPPnTpXCSY9cRIZbQ8e2ptkApp4dlX9g/2j4dZ/OTbzj79zvsevnRqe9IvpZmvCq2lUkZ2xmhACBunHbJKa2MMQb5rzPnzZ69dP/jf/tm/oeEk4JxRiCJxcnzYtS0XIk0zTBjyVnAuZdfUbRiE21ubeb4iON2QssWUhGkvHfUduDt7B70szaJEEMwF07rrDwZVVQZhFCXxwZ3by5OTZz7wdFEswZokjgBjq51FvnOaYEwJohQxjJ01y7qttR7E0X0Xtt555dzRortx++De8ztrw6hW7jMv3Tg5mv/gn3vy4YuTxsKyyhdFqaV0vjHGGom8Z84hZSwiQCgorTAC3amdrW1tyT/6yX/BghHQnu6qts7BO8qpCEQogrpqjHZhyAl45/3h/mESJwAOE0Li/oUszVSjvfGUsEF/aKSeDMfWgrFIcCEYQx4hwCIIyrJ0mrx29Q3jzDPvf29eLB1SCGFrLRDvsQXkHPLWg/cIIywo9UbVlT1ZyukwfP3W0edfOjhzduPCVjYv9G99+jXoiicfu7iq5WJVWk/AeKeNs8xoBAZ5b40z1mqrLUYkC7Fqm8FoI+qNfubnfu0kN4PBprd+MMwwJU0rQxF1VRNy7ozd3tkgCPb39wkhaRLHcahlB85Sr31AA8N81VQWXJ7nHvyNPEeI9pJeyAl4P5/PwzA9Ojgx3kYiCnqD/+sXf2kyHf5n3/cdV69+GWHFCXPWEoqRR85ghLBFHoEnylEKGHtknfbeOnt8PD88WgCcMtpUZTuKRSj4fD73zksPYDW2BjABD8457613FjuHEQJttIftzVMiGfz4T/2Ll67e8Si6c/AKJWES0jDkgySzWqci5B4HQXSye8AESQcZZVxpDYxEUUwJpUwwGop6MRNCRFEMhBiri8Vi48xmVzfHJ0cIcBTGxnpjgQURDUTXNjzs/+zP/b/Ei+/9rm+/c/ua0S0jDBxCAAgAEwAgVntprbGOMQSeOWeF4BgBYAwA1kJZl1h1rbTKWGkMpg47B94qIz3y2ANGCCPAAsC7TprpaLuXRv/k537tiy+8lg7WPQ4c0LZRVV5Ne6c5Y4uiSYPAKo2Qm/R6KOZFWwZRGESDum26Wi/zFcWM7u3tYYyc9/kqZ4Hw3lljqzJXbecRZiJAlCOEiTJVUSvTIUIiFmsLP/tzv3zjzZt/7b/+QWfyolihrxwdO2cMIgYhgjDCGLw1WiupYqd117ZlXQNA2cjVarl5ZkApkrLxmBprkDXIaostkLubMQSAlPZCiIfvP3+47P7O//zzt/fna9vnpfGEiKKsAORg1Ns73B1kmSeORywe9Hbv3Ilt6BvjlWls9fAD9zWy2d0/eOIdj9FGdnGS9Pv93b1dow1lFFESZT0Ett/vMx6fnOTOGQQEIRKKgMdMO9u07cZ0KyL4l//Nb9y6c+Nv/62/ct89lw4Pd6uqJAQDQtYqzBkgZ6ynEIID7+woSynBRVEDwCqvGWNxHAFG1loP3lnkrabeWbDeYsa4ct57Mh0Pz25Onn/p2s/84icOTurxeCcdjE5O5rt7uwSjJIkQJYO1EeeizPPdo4NekkbDXqWbHo2E811VffHZL3jkrzz6QCIEicYXMSFKKevccDham07LoqzLUmkJQLUGwAwD6ZShxCW9uGnrJE4CLqqyLMuccnJ8Mvvt3/mMB3vl4Ycm07WqbhHA3Yvl2BtADkCA81k/sFZ87BN/MJ5mTz9x6er1w+devPbeb3r43PZ4Pp8TRpVSGANYhxCxHkvtR8P1s6c3kUe/+Cuf+IVf/rd3DmvrWdPpVV5VVckI6UVhUxaNUmGcpGmKMCmrcjGfDwZDZSxS+tzO6dF4RBFKw2A5XzZlQ03b0iRpZdfv9xFAkecAcObU6WTQO5kvOgXa4L/3Y//NPWfW/8u/+pG2LZDzsQik7DDTPOKB6HWNdDT66X/6S7/xW5/5L37o+9//vndx4vPlqi2X4JTxDhPwxBurwigWghRFZTwo4/Ii11o5D+C8ktJYb40GpQkL+sPx+tqYYvypT7/4S7/2ezfuHAKm/f40CJKqqvKi8M6Mej0KwDB4552Ss4MDb13CeTaZlPNFmqaD0eikyotiRTAYY5xxa2sTqjFY2W1M14zRy5MTrXRvNArCMOCBtdA0HeDgX//qv91eHyjV1PnxYLjmnOtU3ckKoZBQLA1gzeP+zt5R9z/9xM/96q/85rd/8Mn3vPvxM6cuyq5qZFl1xjtktBGCj8ajIIxqC0ezldU6TuKqbpZ5zqKAURZF0fr2IIl7J7PFpz757Ec/9fn9RSs1ifqbDrBxVmm1yvMwjDnhbd1Usg0Y2Ziu52WFPdLaDnoZp9QGJgiDWjXLpt7ZWLt16wZnIu3HSBAaRUIrM55OMWF5JcPYdVpev/WmrLoo6XEm4pjuvvnG85+4mU0GMe+BgXy+DAKOacKAqVqnUYpACREAxE3TvPz6nVfe+H/+93/+K1ceuu/Jp5582wNbO1ubASVhQDChaR+V9XLROG1VEtJRv78+HooHH6SMKgPzVfmZlw4+/8VPvvSl16q6TdNB0ltLMI3ipGxaq9oiX0SChRQoRhpcmiRVXtze3R0MhkkY5Muuk02STBqAg8XSYnffg/dZrcEj5L01lhNB27rKssEb198yymNCPXgmWNZP5ji3zoYUBQS1qu1PBpxzGqWYorwqiCUIsSjJnHPGaMqodcpoFwSil02993lR/M5nv/Tx335+NAjPbCYP3HP+/Pmzo7X12WwRxtnRTB8d5W1nfvvTf3Dr1s3j4+PVqrixO9vdXxSVajqdDfqIJdqz/cOTNE3m83lelNtbm9Y4axRo46xdm06rohxM1oq2nRW5x4iFQZ6veBSkaaY8BCFVVXHt2htZmiipdOe7rqGI0OWyQECstYPJRITpYnHS5nkQpw6hVktT5tqYwWA4n8+iEFOgCLOq7kajsfdYStVJ6VzbSzPnHANYLZfL5WJzcxuc07IzFr12fXnz1hfg458rWtebrr/nm59WLW5aT6PBr3782WJ54pxam65VtewPp/fcf89bb7zBKbbWdbIVgnsPhFBK2c3rNweDQRglbdNyFmAe9Cchwbif9NxitshXIaOd6iiF4+ODtpXOdnUcrg17VVlhQFEYK9MRMjhHA8EoVW3jrNFKWWuiNDXGWucwJZiyKEoAvJSykxIQ9sYlSYoAeQBnnOABJQwhYIxdOH/+4PCQULpcLbpOYoy0w9lwM0lSpc25ey9Pts4GQXz+zKk7u7u7hzMPOE56AFRpYCJCiM7mi7oqnfe9NCWYGWPAQ1XXYRCmYayk4pSRgBPOlqvVyWLJwogKRhlnBCPsN6bj8Xi8XC6M0RwBNi7got9LCSVr62thGBLEJwgjSgihLAiCOArDIFRaG6XW1tetcxhTShmiJEoTaWwQhAgBYTRNk051yzzv9VLjTFkWAGg+m3Vd57wXQiRJgsA7TIuqcaa1VhdNLbVJszgM8Ozk5ORksVrMwTpkUS9Ju7YGa9IkXuW5NVYqlRdlU9UiCDDGlFKCsJSylZ00xoPvpLp4z9ln3veOZ597sa4qSuDUzka+mO3t7kVRHMfxMM3aslZanTlzhjJW1TUmmLhwA7GAWBtHQVMWjAceUNepMAxMJ9u2adtOSWWMsc7xQDDMMGMYk7ZrKaFJkmpjjHPgIBQCEKKEeu9Onz5dVZXRmnJmnKGgEZiqaTzBvUE6HKb5al6silAEgBDCjHKaxmHIqXXdzqkzznnOudZaBIHWynvf6/WqsqSUlGXBKF2fTLWUgtG6bm+8+RaneDrqrxazrqrCMNTWIyLAuvF4OF6b3Lh54/D4OIzjwXCIn/nePx/1Uk9x17XIeWd0WVTOId10dVlhD0kYZVnmjB0PRshB27RnT5+pyhIjjAlFCGNChv0hpdQDEEIAI4zx7OQEAAAjLWUWRQFjHnwUJ6PRWFu3LIq6qaXVq7qZ5a30tLXMk6BoG2WUUirP8/linvUySqj3nnOe5ysecodsEPH77r2YL+eyrRYn86svXs1C3uOEaNkPw+3Nbc6Duu6KqlUANA4XRVl3UmpLGX/wgYfIqYfee3R8WM5PTNMkcYwwUtpqZXc2Nr01SirwX7m+4rxvmg4hXNfNmbNngiCoyrKua6N1XuRG67ZtwXvnfBLHIgistV3XjUdrHHC5mFvrRJAYoGk2FpSGYdwCnhWNJeFo/fTf/NEfuHO0mOWrMI5nhzOEkeAcY9rJrtfrGaNXy1zbziMXCuaMqavig0+/JwnF4Z071BuOPPHOabNc5GGcAaJF2WBKqraZr/JOmcl0bbUsdm/tkpuv73Wd5CIM48Q430qFGLGmq6sacxHGcdO2xvooTrXSW5vbbdco2XVtW1Vl0zbGGuvdeDyJ0ni+mBNGMcFd163yXDkbJjFC0FZ1GMdMhNpZIUQvjrc3NjBC1apenMxCzgIKN6/fPt47UrVCzteLOSeIU7paLRkhhJK6rT3yk8kgDPliWeZFzbm4dfPOzbeuc06TQR8ICSiz3qTDqFZ1p7vxqI+QywbZIw8/hJw/tbOTRcnaxjrJzj3IKO1aiVnoAGfDQX/Qa9oyyvrG+1ZJQECpwJiC91obAOucBgdxmqZpsrm9hRB2ziGA7Z3ty/fdd3IyY4L3s76IgqZtrTVt0xAhjHOYoDAQZ8/uTCfj46Pj66+/FgseCdoUy6O9g5iLgAuvDUOOMxJHEcFoOBwZo401jNIk5EYbwWKtrRBREIhOa8ow7/UpY0Z2lCEgOupFCHkvlVT60bc/+C3vf+eLL7wu6zpfLnjASbp+4e7LHGOstbYtVvLuQ2/KNze3CSFhECotGWNaaSk76+1oNNTGLvOVNXbY7zsPBwcHgHyapL20d3R46D3s7Ows5nMtZS/tYUKquiKEGGs555RRi1BdV0W1CqNwPJk0bXv3JUieL71zXFDnvdQ6jmOttFIKe6AII+et9uPRVGuFAM6eO0cZUUYBpYHgm5NxlsaLfHXh4r0UiWK2Ylwgwg73F7ev32zrJoqjKE5IC4lRbjiaSKWdseCdcdp5Y6ybncwoIUpKxlma9sqiNMYSRgjBddta6zBCy+Wy6zpAKEt7Vutrb1xTUp45e2Z2fHJ8dDwZjQnChLEgCDjnHiGMsXEuSVNr7XI5P56dzOfzpioJRYzSpqmcM8qo1WoVxxGhlBFel5U1hlOqrYnDWEnJGcuytDfI8qow3l28fGkwyO7cfGv31k3j7XS6Xq5KXUllTKcVQywKAmt0Pxt86NueJuPzV5qqHgxHURitjo5IIMC7IBZJ3I+TZLGYEYK1sUVRDEcD65wx2nkXB6GSilCCMa6qen19fTQYHhwcIkyCMLznnnvrpomCsC2quq5ZIOI4WS6XGBPG2WA0DMIQYQTOV2Wpus4566xTsouiIAjFdDpllCKEqqIs85JznoRRXdVN1yVJDM4lSUwJOZ4d120bpLF2rsnzerXqmipJ43su3Rew0GsI4uCRhx9Yn05u3rg5Ho77gyEmhLhoignr6pZSPp5Ote48eIRBSaW7DmFitNra2YmjeLlcJGmMEMIEX7p8n3WeUWqM2dzYbuuai2Btc11ajSjd3d07ns0G/aHAlAtBGFvO5957Qskgy6IgYIwrKff39ru2VVJhQjhjYRjGQeCsjaNECO6cN8bITiMA5MFYQwXHlKmuq8vCe6uUwYyfOX/u4SsP/s5vfgIplUQhJuzgeNY0atSfBiF/4Yt/IAiNw3i1WuWr4stXXye4t+WdN9o2VUMI7rRSqvPgGBdWac5YOhgU+YoQggA3bdt1nbJ699Zt5LwIA4zwqD9YrVbGWoSRBm8xmm6sD0ej2dER9l42XRiG2APGWCkVR7F3Lssyq81stkSAwzC2xnrrA0axx5zQMi/auilWuRAcYyKV6rTiQYDDWIShapuA4k51AFA3Mi/r47094S0HpNquaCscBAjxttV1mXurMODpeHp8fMJFgAj7/wGD62qoA3443QAAAABJRU5ErkJggg==';
+    try {
+      pdf.addImage('data:image/png;base64,' + logoB64, 'PNG', margin, 7, 20, 20);
+    } catch(e) {
+      // fallback placeholder
+      pdf.setFillColor(255,255,255);
+      pdf.roundedRect(margin, 7, 20, 20, 2, 2, 'F');
+      pdf.setTextColor(13,33,55);
+      pdf.setFontSize(7);
+      pdf.setFont('helvetica','bold');
+      pdf.text('PP', margin + 6, 18.5);
+    }
+
+    // Nombre empresa
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(13);
+    pdf.setFont('helvetica', 'bold');
+    pdf.text('Proyecto Polaris', margin + 25, 17);
+    pdf.setFontSize(7.5);
+    pdf.setFont('helvetica', 'normal');
+    pdf.setTextColor(122, 174, 212);
+    pdf.text('Calendario de gestiones LLC — ' + d.year, margin + 25, 23);
+
+    // Datos cliente
+    pdf.setTextColor(255, 255, 255);
+    pdf.setFontSize(8.5);
+    pdf.setFont('helvetica', 'bold');
+    const clientLabel = d.llc + '  ·  ' + d.tipoLabel + '  ·  ' + d.estado + '  ·  ' + d.resLabel;
+    pdf.text(clientLabel, W / 2, 32, { align: 'center' });
+
+    // ── Imagen del calendario ─────────────────────────────────────────────
+    const contentW = W - margin * 2;
+    const imgH = (canvas.height / canvas.width) * contentW;
+    const pageH = 297 - 36 - 8; // a4 alto - cabecera - margen inferior
+
+    if (imgH <= pageH) {
+      // Cabe en una página
+      pdf.addImage(imgData, 'JPEG', margin, 38, contentW, imgH);
+    } else {
+      // Paginar: cortar la imagen en trozos de pageH
+      const ratio = canvas.width / contentW;
+      let srcY = 0;
+      let isFirst = true;
+      while (srcY < canvas.height) {
+        const sliceH = Math.min(pageH * ratio, canvas.height - srcY);
+        const sliceCanvas = document.createElement('canvas');
+        sliceCanvas.width = canvas.width;
+        sliceCanvas.height = sliceH;
+        const ctx = sliceCanvas.getContext('2d');
+        ctx.drawImage(canvas, 0, srcY, canvas.width, sliceH, 0, 0, canvas.width, sliceH);
+        const sliceData = sliceCanvas.toDataURL('image/jpeg', 0.92);
+        if (!isFirst) pdf.addPage();
+        const destH = (sliceH / ratio);
+        const yStart = isFirst ? 38 : 10;
+        pdf.addImage(sliceData, 'JPEG', margin, yStart, contentW, destH);
+        srcY += sliceH;
+        isFirst = false;
+      }
+    }
+
+    // ── Disclaimer pie ────────────────────────────────────────────────────
+    const pages = pdf.internal.getNumberOfPages();
+    for (let p = 1; p <= pages; p++) {
+      pdf.setPage(p);
+      pdf.setDrawColor(208, 220, 232);
+      pdf.line(margin, 287, W - margin, 287);
+      pdf.setFontSize(6.5);
+      pdf.setFont('helvetica', 'normal');
+      pdf.setTextColor(130, 140, 150);
+      pdf.text(
+        'Guía orientativa — normativa vigente a mayo 2026. Consultar con Proyecto Polaris antes de tomar decisiones. contacto@proyecto-polaris.com',
+        W / 2, 292, { align: 'center' }
+      );
+    }
+
+    const fname = 'calendario-llc-' + d.llc.replace(/\s+/g, '-').toLowerCase() + '-' + d.year + '.pdf';
+    pdf.save(fname);
+
+  } catch(err) {
+    console.error(err);
+    alert('Error al generar el PDF. Por favor, inténtalo de nuevo.');
+  } finally {
+    btns.forEach(b => { b.disabled = false; });
+    if (btn1) { btn1.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Descargar PDF'; btn1.onclick = descargarPDF; }
+    btns.forEach(b => { if (b !== btn1) { b.disabled = false; b.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Descargar PDF'; }});
+  }
+}
+
+</script>
+  <!-- Cookie Consent Banner -->
+  <div id="cookie-banner" style="display:none;">
+    <p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="#">Más información</a></p>
+    <div class="cookie-buttons">
+      <button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+      <button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+    </div>
+  </div>
+  <script>
+    (function(){
+      var consent = localStorage.getItem("polaris_cookie_consent");
+      if (!consent) {
+        document.getElementById("cookie-banner").style.display = "flex";
+      }
+    })();
+    function acceptCookies() {
+      localStorage.setItem("polaris_cookie_consent", "accepted");
+      document.getElementById("cookie-banner").style.display = "none";
+      gtag("consent", "update", {
+        ad_storage: "granted",
+        analytics_storage: "granted",
+        ad_user_data: "granted",
+        ad_personalization: "granted"
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem("polaris_cookie_consent", "rejected");
+      document.getElementById("cookie-banner").style.display = "none";
+    }
+  </script>
+</body>
+</html>
