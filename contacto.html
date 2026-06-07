@@ -45,14 +45,26 @@
     .info-block-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
     .info-block-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
 
-    /* MailerLite container overrides to fit our palette */
-    #mlb2-39888807.ml-form-embedContainer { margin: 0 !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper { width: 100% !important; max-width: 100% !important; border-radius: 0 !important; box-shadow: none !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody { padding: 0 !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent { display: none; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button { background-color: var(--navy) !important; font-family: 'DM Sans', sans-serif !important; font-weight: 600 !important; font-size: 15px !important; border-radius: 8px !important; padding: 12px !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover { background-color: var(--navy-mid) !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button { background-color: var(--navy) !important; border-color: var(--navy) !important; }
+    /* Custom contact form */
+    .pf-form { display: flex; flex-direction: column; gap: 12px; }
+    .pf-form label { display: block; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--navy); margin-bottom: 4px; }
+    .pf-form input, .pf-form select, .pf-form textarea {
+      width: 100%; box-sizing: border-box; font-family: 'DM Sans', sans-serif; font-size: 14px;
+      color: #333; background: #fff; border: 1px solid var(--border); border-radius: 8px;
+      padding: 10px 12px; line-height: 1.5; outline: none; transition: border-color 0.2s;
+    }
+    .pf-form input:focus, .pf-form select:focus, .pf-form textarea:focus { border-color: var(--navy); }
+    .pf-form textarea { resize: vertical; min-height: 100px; }
+    .pf-form select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230d2137' d='M6 8L0 0h12z'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; padding-right: 32px; }
+    .pf-form .pf-field { margin-bottom: 2px; }
+    .pf-form .pf-hint { font-size: 12px; color: var(--text-muted); margin-top: 3px; }
+    .pf-form .pf-error { font-size: 12px; color: #c0392b; margin-top: 3px; display: none; }
+    .pf-submit { width: 100%; background: var(--navy); color: #fff; border: none; border-radius: 8px; padding: 13px; font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 6px; transition: background 0.2s; }
+    .pf-submit:hover { background: var(--navy-mid); }
+    .pf-submit:disabled { opacity: 0.7; cursor: not-allowed; }
+    .pf-success { display: none; text-align: left; }
+    .pf-success h4 { font-family: 'DM Sans', sans-serif; font-size: 1.2rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+    .pf-success p { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--text-muted); }
   </style>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -100,155 +112,138 @@
 <div class="contact-info">
 <div class="info-block">
 
-<!-- MailerLite form -->
-<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1778073");</style>
-<style type="text/css">
-        .ml-form-embedSubmitLoad { display: inline-block; width: 20px; height: 20px; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-        .ml-form-embedSubmitLoad:after { content: " "; display: block; width: 11px; height: 11px; margin: 1px; border-radius: 50%; border: 4px solid #fff; border-color: #ffffff #ffffff #ffffff transparent; animation: ml-form-embedSubmitLoad 1.2s linear infinite; }
-        @keyframes ml-form-embedSubmitLoad { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #mlb2-39888807.ml-form-embedContainer { box-sizing: border-box; display: table; margin: 0 auto; position: static; width: 100% !important; }
-        #mlb2-39888807.ml-form-embedContainer h4, #mlb2-39888807.ml-form-embedContainer p, #mlb2-39888807.ml-form-embedContainer span, #mlb2-39888807.ml-form-embedContainer button { text-transform: none !important; letter-spacing: normal !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper { background-color: #ffffff; border-width: 0px; border-color: transparent; border-radius: 4px; border-style: solid; box-sizing: border-box; display: inline-block !important; margin: 0; padding: 0; position: relative; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 100%; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody, #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody { padding: 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent, #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent { text-align: left; margin: 0 0 20px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4 { color: #000000; font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 400; margin: 0 0 10px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p { color: #000000; font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; margin: 0 0 10px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form { margin: 0; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent, #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow { margin: 0 0 20px 0; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow { margin: 0 0 10px 0; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item { margin: 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input { background-color: #ffffff !important; color: #333333 !important; border-color: #cccccc; border-radius: 4px !important; border-style: solid !important; border-width: 1px !important; font-family: 'DM Sans', sans-serif; font-size: 14px !important; height: auto; line-height: 21px !important; padding: 10px !important; width: 100% !important; box-sizing: border-box !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea { background-color: #ffffff !important; color: #333333 !important; border-color: #cccccc; border-radius: 4px !important; border-style: solid !important; border-width: 1px !important; font-family: 'DM Sans', sans-serif; font-size: 14px !important; height: auto; line-height: 21px !important; padding: 10px !important; width: 100% !important; box-sizing: border-box !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group { text-align: left !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label { margin-bottom: 5px; color: #000000; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: bold; display: inline-block; line-height: 20px; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description { color: #000000; display: block; font-family: 'DM Sans', sans-serif; font-size: 12px; text-align: left; margin-bottom: 0; position: relative; vertical-align: top; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label { font-weight: normal; margin: 0; padding: 0; position: relative; display: block; min-height: 24px; padding-left: 24px; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit { margin: 0 0 20px 0; float: left; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button { background-color: #0d2137 !important; border: none !important; border-radius: 8px !important; box-shadow: none !important; color: #ffffff !important; cursor: pointer; font-family: 'DM Sans', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; line-height: 21px !important; height: auto; padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover { background-color: #163352 !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions { text-align: left; float: left; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsContent { margin: 0 0 15px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsContent p { color: #000000; font-family: 'DM Sans', sans-serif; font-size: 12px; line-height: 18px; margin: 0 0 10px 0; }
-        .ml-error input, .ml-error textarea, .ml-error select { border-color: red !important; }
-        .ml-error .label-description, .ml-error .label-description p, .ml-error label:first-child { color: #ff0000 !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody { padding: 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 { font-family: 'DM Sans', sans-serif; font-size: 1.2rem; font-weight: 700; color: #0d2137; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: #4a5a6b; }
-      </style>
-<div class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-39888807" id="mlb2-39888807">
-<div class="ml-form-align-center">
-<div class="ml-form-embedWrapper embedForm">
-<div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-<div class="ml-form-embedContent" style="display:none;"></div>
-<form action="https://assets.mailerlite.com/jsonp/2096389/forms/184722931561006319/subscribe" class="ml-block-form" data-code="" method="post" target="_blank">
-<div class="ml-form-formContent">
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-message">
-<textarea aria-label="message" class="form-control" maxlength="1024" name="fields[message]" placeholder="Escribe tu mensaje."></textarea>
+<!-- Custom contact form -->
+<div id="pf-form-wrap">
+  <form autocomplete="on" class="pf-form" id="pfContactForm" novalidate>
+    <div class="pf-field">
+      <label for="pf-email">Correo electrónico *</label>
+      <input autocomplete="email" id="pf-email" placeholder="tu@correo.com" required type="email"/>
+      <div class="pf-error" id="pf-email-err">Introduce un correo válido.</div>
+    </div>
+    <div class="pf-field">
+      <label for="pf-nombre">Nombre</label>
+      <input autocomplete="given-name" id="pf-nombre" placeholder="Tu nombre (opcional)" type="text"/>
+    </div>
+    <div class="pf-field">
+      <label for="pf-telefono">Teléfono</label>
+      <input autocomplete="tel" id="pf-telefono" placeholder="Ej. +34 612 345 678 (opcional)" type="tel"/>
+    </div>
+    <div class="pf-field">
+      <label for="pf-necesitas">¿Qué necesitas? *</label>
+      <select id="pf-necesitas" required>
+        <option disabled selected value="">Selecciona una opción…</option>
+        <option value="Quiero constituir una LLC">Quiero constituir una LLC</option>
+        <option value="Quiero registrar una marca">Quiero registrar una marca</option>
+        <option value="Necesito ayuda con mi LLC o marca activa">Necesito ayuda con mi LLC o marca activa</option>
+        <option value="Otra consulta">Otra consulta</option>
+        <option value="Solo quiero que me contactéis por correo">Solo quiero que me contactéis por correo</option>
+      </select>
+      <div class="pf-error" id="pf-necesitas-err">Selecciona una opción.</div>
+    </div>
+    <div class="pf-field" id="pf-mensaje-wrap" style="display:none;">
+      <label for="pf-mensaje">Mensaje <span id="pf-msg-req">*</span></label>
+      <textarea id="pf-mensaje" placeholder="Cuéntanos tu situación…" rows="4"></textarea>
+      <div class="pf-hint" id="pf-msg-hint" style="display:none;">Mínimo 50 caracteres.</div>
+      <div class="pf-error" id="pf-mensaje-err">Por favor escribe al menos 50 caracteres.</div>
+    </div>
+    <p class="pf-hint" style="margin-top:2px;">Puedes cancelar en cualquier momento.</p>
+    <button class="pf-submit" id="pf-submit" type="submit">Enviar consulta</button>
+  </form>
+  <div class="pf-success" id="pf-success">
+    <h4>¡Mensaje recibido!</h4>
+    <p>Nos pondremos en contacto contigo lo antes posible. Si no recibes respuesta en 24 h, revisa tu carpeta de spam.</p>
+  </div>
 </div>
-</div>
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-<input aria-label="email" aria-required="true" autocomplete="email" class="form-control" name="fields[email]" placeholder="Correo electrónico" type="email"/>
-</div>
-</div>
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-name">
-<input aria-label="name" autocomplete="given-name" class="form-control" name="fields[name]" placeholder="Nombre (opcional)" type="text"/>
-</div>
-</div>
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-company">
-<input aria-label="company" class="form-control" name="fields[company]" placeholder="Empresa (opcional)" type="text"/>
-</div>
-</div>
-<div class="ml-form-fieldRow ml-last-item">
-<div class="ml-field-group ml-field-phone">
-<input aria-label="phone" class="form-control" name="fields[phone]" placeholder="Teléfono (opcional)" type="text"/>
-</div>
-</div>
-</div>
-<div class="ml-form-embedPermissions">
-<div class="ml-form-embedPermissionsContent default privacy-policy">
-<p>Puedes cancelar en cualquier momento.</p>
-</div>
-</div>
-<div class="ml-form-checkboxRow ml-validate-required">
-<label class="checkbox">
-<input type="checkbox"/>
-<div class="label-description"><p>Quiero recibir vuestras noticias.</p></div>
-</label>
-</div>
-<input name="ml-submit" type="hidden" value="1"/>
-<div class="ml-form-embedSubmit">
-<button class="primary" type="submit">Enviar</button>
-<button class="loading" disabled="disabled" style="display: none;" type="button">
-<div class="ml-form-embedSubmitLoad"></div>
-<span class="sr-only">Loading...</span>
-</button>
-</div>
-<input name="anticsrf" type="hidden" value="true"/>
-<input id="polaris-ref-field" name="fields[ref_code]" type="hidden" value=""/>
 <script>
+(function(){
+  var form = document.getElementById('pfContactForm');
+  var wrapMsj = document.getElementById('pf-mensaje-wrap');
+  var selNecesitas = document.getElementById('pf-necesitas');
+  var msgHint = document.getElementById('pf-msg-hint');
+  var msgReq = document.getElementById('pf-msg-req');
+
+  selNecesitas.addEventListener('change', function(){
+    var v = this.value;
+    if (v === 'Solo quiero que me contactéis por correo') {
+      wrapMsj.style.display = 'none';
+    } else if (v) {
+      wrapMsj.style.display = 'block';
+      if (v === 'Otra consulta') {
+        msgHint.style.display = 'block';
+        msgReq.style.display = 'inline';
+      } else {
+        msgHint.style.display = 'none';
+        msgReq.style.display = 'none';
+      }
+    } else {
+      wrapMsj.style.display = 'none';
+    }
+  });
+
+  // Pre-fill mensaje based on URL param
   (function(){
-    var ref = localStorage.getItem('polaris_ref');
-    var field = document.getElementById('polaris-ref-field');
-    if (ref && field) { field.value = ref; }
-    // Also check URL param directly
     var params = new URLSearchParams(window.location.search);
     var tipo = params.get('tipo');
     if (tipo) {
-      var msgField = document.querySelector('textarea[name="fields[message]"]');
-      if (msgField && !msgField.value) {
-        if (tipo === 'referido-cliente') msgField.value = 'Me interesa el programa de referidos como cliente de Polaris.';
-        if (tipo === 'prescriptor') msgField.value = 'Me interesa el programa de referidos como prescriptor / creador de contenido.';
-      }
+      var ta = document.getElementById('pf-mensaje');
+      if (tipo === 'referido-cliente') { ta.value = 'Me interesa el programa de referidos como cliente de Polaris.'; wrapMsj.style.display = 'block'; }
+      if (tipo === 'prescriptor') { ta.value = 'Me interesa el programa de referidos como prescriptor / creador de contenido.'; wrapMsj.style.display = 'block'; }
     }
   })();
-</script>
-</form>
-</div>
-<div class="ml-form-successBody row-success" style="display: none">
-<div class="ml-form-successContent">
-<h4>Revisa tu buzón de correo electrónico</h4>
-<p>Acabamos de enviarte un mensaje,</p>
-<p>si no lo encuentras <strong>revisa la carpeta SPAM / CORREO NO DESEADO / PAPELERA / MENSAJES ARCHIVADOS</strong></p>
-<p>Si no lo encuentras, vuelve a apuntarte con otra dirección de correo electrónico.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script>
-        function gtag_report_conversion(url) {
-          var callback = function () {
-            if (typeof(url) != 'undefined') {
-              window.location = url;
-            }
-          };
-          gtag('event', 'conversion', {
-              'send_to': 'AW-18177147225/ZFDrCLyoqbAcENmCxdtD',
-              'value': 1.0,
-              'currency': 'USD',
-              'event_callback': callback
-          });
-          return false;
-        }
 
-        function ml_webform_success_39888807() {
-          var $ = ml_jQuery || jQuery;
-          $('.ml-subscribe-form-39888807 .row-success').show();
-          $('.ml-subscribe-form-39888807 .row-form').hide();
-          gtag_report_conversion();
-        }
-      </script>
-<script src="https://groot.mailerlite.com/js/w/webforms.min.js?vb397d78ebaa8a0f631d35384c46d781b" type="text/javascript"></script>
-<script>fetch("https://assets.mailerlite.com/jsonp/2096389/forms/184722931561006319/takel")</script>
-</div>
-</div>
-</div>
+  function showErr(id, show) {
+    document.getElementById(id).style.display = show ? 'block' : 'none';
+  }
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email = document.getElementById('pf-email').value.trim();
+    var nombre = document.getElementById('pf-nombre').value.trim();
+    var telefono = document.getElementById('pf-telefono').value.trim();
+    var necesitas = selNecesitas.value;
+    var mensaje = document.getElementById('pf-mensaje').value.trim();
+    var valid = true;
+
+    // Validate email
+    var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRe.test(email)) { showErr('pf-email-err', true); valid = false; } else { showErr('pf-email-err', false); }
+
+    // Validate select
+    if (!necesitas) { showErr('pf-necesitas-err', true); valid = false; } else { showErr('pf-necesitas-err', false); }
+
+    // Validate mensaje
+    if (necesitas && necesitas !== 'Solo quiero que me contactéis por correo') {
+      if (necesitas === 'Otra consulta' && mensaje.length < 50) {
+        showErr('pf-mensaje-err', true); valid = false;
+      } else { showErr('pf-mensaje-err', false); }
+    }
+
+    if (!valid) return;
+
+    var btn = document.getElementById('pf-submit');
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    var ref_code = localStorage.getItem('polaris_ref_code') || localStorage.getItem('polaris_ref') || '';
+    var payload = { email_contacto: email, nombre: nombre, telefono: telefono, empresa: necesitas, mensaje: mensaje };
+    if (ref_code) payload.ref_code = ref_code;
+
+    fetch('https://polaris-api.llcsandtrademarks.workers.dev/contacto-ref', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function(r){ return r.json(); }).then(function(){
+      gtag('event', 'conversion', { 'send_to': 'AW-18177147225/ZFDrCLyoqbAcENmCxdtD', 'value': 1.0, 'currency': 'USD' });
+      form.style.display = 'none';
+      document.getElementById('pf-success').style.display = 'block';
+    }).catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Enviar consulta';
+      alert('Hubo un problema al enviar. Por favor inténtalo de nuevo.');
+    });
+  });
+})();
+</script>
 <!-- ===== REVIEWS CAROUSEL ===== -->
 <section class="reviews-section">
 <div class="section" style="padding-bottom:0;">
@@ -477,23 +472,7 @@
 (function() {
   const params = new URLSearchParams(window.location.search);
   const ref = params.get('ref') || localStorage.getItem('polaris_ref_code');
-  if (ref) {
-    localStorage.setItem('polaris_ref_code', ref);
-    // Notificar al Worker cuando el formulario se envíe
-    const origSuccess = window.ml_webform_success_39888807;
-    window.ml_webform_success_39888807 = function() {
-      if (origSuccess) origSuccess();
-      // Enviar ref_code al Worker
-      const email = document.querySelector('.ml-subscribe-form-39888807 input[type="email"]');
-      if (ref && email && email.value) {
-        fetch('https://polaris-api.llcsandtrademarks.workers.dev/contacto-ref', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ref_code: ref, email_contacto: email.value })
-        }).catch(() => {});
-      }
-    };
-  }
+  if (ref) { localStorage.setItem('polaris_ref_code', ref); }
 })();
 </script>
 <!-- Widget Referidos -->
