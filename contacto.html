@@ -30,11 +30,27 @@
   </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Contacto — Consulta Gratis — Proyecto Polaris</title><meta content="Contáctanos para una consulta gratuita sobre tu LLC o registro de marca en EE.UU. Especialistas en clientes extranjeros." name="description"/><link href="https://proyecto-polaris.com/contacto.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Consulta Gratis — Proyecto Polaris" name="twitter:title"/><meta content="Contáctanos para una consulta gratuita sobre tu LLC o registro de marca en EE.UU." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/contacto.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Consulta Gratis — Proyecto Polaris" property="og:title"/><meta content="Cuéntanos tu situación y te asesoramos sin compromiso. Especialistas en LLC y marcas para extranjeros en Estados Unidos." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<title>Contacto — Consulta Gratis — Proyecto Polaris</title>
+<meta content="Contáctanos para una consulta gratuita sobre tu LLC o registro de marca en EE.UU. Especialistas en clientes extranjeros." name="description"/>
+<link href="https://proyecto-polaris.com/contacto.html" rel="canonical"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="Consulta Gratis — Proyecto Polaris" name="twitter:title"/>
+<meta content="Contáctanos para una consulta gratuita sobre tu LLC o registro de marca en EE.UU." name="twitter:description"/>
+<meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/>
+<meta content="website" property="og:type"/>
+<meta content="https://proyecto-polaris.com/contacto.html" property="og:url"/>
+<meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/>
+<meta content="1200" property="og:image:width"/>
+<meta content="630" property="og:image:height"/>
+<meta content="Consulta Gratis — Proyecto Polaris" property="og:title"/>
+<meta content="Cuéntanos tu situación y te asesoramos sin compromiso. Especialistas en LLC y marcas para extranjeros en Estados Unidos." property="og:description"/>
+<meta content="Proyecto Polaris" property="og:site_name"/>
+<meta content="es_ES" property="og:locale"/>
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
 <link href="shared.css" rel="stylesheet"/>
 <style>
     .contact-wrap { max-width: 680px; margin: 0 auto; padding: 4rem 2rem 5rem; }
@@ -42,17 +58,75 @@
     .contact-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem; }
     .contact-info { display: flex; flex-direction: column; gap: 2.5rem; }
     .info-block { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
-    .info-block-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.4rem; }
-    .info-block-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
 
-    /* MailerLite container overrides to fit our palette */
-    #mlb2-39888807.ml-form-embedContainer { margin: 0 !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper { width: 100% !important; max-width: 100% !important; border-radius: 0 !important; box-shadow: none !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody { padding: 0 !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent { display: none; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button { background-color: var(--navy) !important; font-family: 'DM Sans', sans-serif !important; font-weight: 600 !important; font-size: 15px !important; border-radius: 8px !important; padding: 12px !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover { background-color: var(--navy-mid) !important; }
-    #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-horizontalRow button { background-color: var(--navy) !important; border-color: var(--navy) !important; }
+    /* Formulario propio */
+    .polaris-form { display: flex; flex-direction: column; gap: 14px; }
+    .polaris-form label { font-family: 'DM Sans', sans-serif; font-size: 14px; font-weight: 600; color: #000; display: block; margin-bottom: 4px; }
+    .polaris-form input,
+    .polaris-form select,
+    .polaris-form textarea {
+      width: 100%;
+      box-sizing: border-box;
+      background: #fff;
+      color: #333;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 10px;
+      line-height: 21px;
+    }
+    .polaris-form select {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 32px;
+      cursor: pointer;
+    }
+    .polaris-form textarea { resize: vertical; min-height: 110px; }
+    .polaris-form input:focus,
+    .polaris-form select:focus,
+    .polaris-form textarea:focus {
+      outline: none;
+      border-color: var(--navy);
+      box-shadow: 0 0 0 2px rgba(13,33,55,0.1);
+    }
+    .polaris-form .field-error { border-color: #d32f2f !important; }
+    .polaris-form .error-msg { color: #d32f2f; font-size: 12px; margin-top: 4px; display: none; }
+    .polaris-form .error-msg.visible { display: block; }
+    .char-counter { font-size: 11px; color: #999; text-align: right; margin-top: 3px; }
+    .char-counter.warn { color: #d32f2f; }
+    .polaris-submit-btn {
+      width: 100%;
+      background-color: var(--navy);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      padding: 12px;
+      cursor: pointer;
+      margin-top: 6px;
+      transition: background-color 0.2s;
+    }
+    .polaris-submit-btn:hover { background-color: #163352; }
+    .polaris-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    /* Checkbox */
+    .polaris-checkbox-row { margin-top: 4px; }
+    .polaris-checkbox-label { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; color: #000; line-height: 18px; }
+    .polaris-checkbox-label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
+    .polaris-checkbox-box { flex-shrink: 0; width: 18px; height: 18px; border: 1px solid #ccc; border-radius: 3px; background: #fff; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, background 0.15s; }
+    .polaris-checkbox-label input[type="checkbox"]:checked + .polaris-checkbox-box { background: var(--navy); border-color: var(--navy); }
+    .polaris-checkbox-label input[type="checkbox"]:checked + .polaris-checkbox-box::after { content: ''; display: block; width: 5px; height: 9px; border: 2px solid #fff; border-top: none; border-left: none; transform: rotate(45deg) translate(-1px, -1px); }
+    .polaris-checkbox-label input[type="checkbox"]:focus + .polaris-checkbox-box { box-shadow: 0 0 0 2px rgba(13,33,55,0.2); }
+    .polaris-checkbox-box.field-error-box { border-color: #d32f2f !important; }
+
+    .polaris-privacy { font-family: 'DM Sans', sans-serif; font-size: 12px; color: #666; line-height: 18px; margin-top: 4px; }
+    .polaris-success { display: none; padding: 1.5rem 0; }
+    .polaris-success h4 { font-family: 'DM Sans', sans-serif; font-size: 1.2rem; font-weight: 700; color: #0d2137; margin-bottom: 0.5rem; }
+    .polaris-success p { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: #4a5a6b; line-height: 1.6; }
   </style>
 <script type="application/ld+json">{
   "@context": "https://schema.org",
@@ -60,8 +134,8 @@
   "name": "Contacto — Proyecto Polaris",
   "url": "https://proyecto-polaris.com/contacto.html",
   "description": "Consulta gratuita sobre LLC o registro de marca en EE.UU. para extranjeros."
-}</script>  <script>
-    // Captura y guarda el parámetro ref en localStorage
+}</script>
+  <script>
     (function(){
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
@@ -93,6 +167,7 @@
 <a href="nosotros.html">Nosotros</a>
 <a class="nav-cta" href="contacto.html">Contactar</a>
 </div>
+
 <div class="contact-wrap">
 <p class="section-eyebrow">Contacto</p>
 <h1 class="contact-title">Escríbenos tu consulta</h1>
@@ -100,155 +175,90 @@
 <div class="contact-info">
 <div class="info-block">
 
-<!-- MailerLite form -->
-<style type="text/css">@import url("https://assets.mlcdn.com/fonts.css?version=1778073");</style>
-<style type="text/css">
-        .ml-form-embedSubmitLoad { display: inline-block; width: 20px; height: 20px; }
-        .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
-        .ml-form-embedSubmitLoad:after { content: " "; display: block; width: 11px; height: 11px; margin: 1px; border-radius: 50%; border: 4px solid #fff; border-color: #ffffff #ffffff #ffffff transparent; animation: ml-form-embedSubmitLoad 1.2s linear infinite; }
-        @keyframes ml-form-embedSubmitLoad { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #mlb2-39888807.ml-form-embedContainer { box-sizing: border-box; display: table; margin: 0 auto; position: static; width: 100% !important; }
-        #mlb2-39888807.ml-form-embedContainer h4, #mlb2-39888807.ml-form-embedContainer p, #mlb2-39888807.ml-form-embedContainer span, #mlb2-39888807.ml-form-embedContainer button { text-transform: none !important; letter-spacing: normal !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper { background-color: #ffffff; border-width: 0px; border-color: transparent; border-radius: 4px; border-style: solid; box-sizing: border-box; display: inline-block !important; margin: 0; padding: 0; position: relative; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper.embedForm { max-width: 100%; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody, #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody { padding: 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent, #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent { text-align: left; margin: 0 0 20px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent h4 { color: #000000; font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 30px; font-weight: 400; margin: 0 0 10px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedContent p { color: #000000; font-family: 'Open Sans', Arial, Helvetica, sans-serif; font-size: 14px; font-weight: 400; line-height: 20px; margin: 0 0 10px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody form { margin: 0; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-formContent, #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow { margin: 0 0 20px 0; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow { margin: 0 0 10px 0; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow.ml-last-item { margin: 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow input { background-color: #ffffff !important; color: #333333 !important; border-color: #cccccc; border-radius: 4px !important; border-style: solid !important; border-width: 1px !important; font-family: 'DM Sans', sans-serif; font-size: 14px !important; height: auto; line-height: 21px !important; padding: 10px !important; width: 100% !important; box-sizing: border-box !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-fieldRow textarea { background-color: #ffffff !important; color: #333333 !important; border-color: #cccccc; border-radius: 4px !important; border-style: solid !important; border-width: 1px !important; font-family: 'DM Sans', sans-serif; font-size: 14px !important; height: auto; line-height: 21px !important; padding: 10px !important; width: 100% !important; box-sizing: border-box !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group { text-align: left !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-block-form .ml-field-group label { margin-bottom: 5px; color: #000000; font-size: 14px; font-family: 'DM Sans', sans-serif; font-weight: bold; display: inline-block; line-height: 20px; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow .label-description { color: #000000; display: block; font-family: 'DM Sans', sans-serif; font-size: 12px; text-align: left; margin-bottom: 0; position: relative; vertical-align: top; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-checkboxRow label { font-weight: normal; margin: 0; padding: 0; position: relative; display: block; min-height: 24px; padding-left: 24px; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit { margin: 0 0 20px 0; float: left; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button { background-color: #0d2137 !important; border: none !important; border-radius: 8px !important; box-shadow: none !important; color: #ffffff !important; cursor: pointer; font-family: 'DM Sans', sans-serif !important; font-size: 15px !important; font-weight: 600 !important; line-height: 21px !important; height: auto; padding: 12px !important; width: 100% !important; box-sizing: border-box !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedSubmit button:hover { background-color: #163352 !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions { text-align: left; float: left; width: 100%; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsContent { margin: 0 0 15px 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-embedBody .ml-form-embedPermissions .ml-form-embedPermissionsContent p { color: #000000; font-family: 'DM Sans', sans-serif; font-size: 12px; line-height: 18px; margin: 0 0 10px 0; }
-        .ml-error input, .ml-error textarea, .ml-error select { border-color: red !important; }
-        .ml-error .label-description, .ml-error .label-description p, .ml-error label:first-child { color: #ff0000 !important; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody { padding: 0; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent h4 { font-family: 'DM Sans', sans-serif; font-size: 1.2rem; font-weight: 700; color: #0d2137; }
-        #mlb2-39888807.ml-form-embedContainer .ml-form-embedWrapper .ml-form-successBody .ml-form-successContent p { font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: #4a5a6b; }
-      </style>
-<div class="ml-form-embedContainer ml-subscribe-form ml-subscribe-form-39888807" id="mlb2-39888807">
-<div class="ml-form-align-center">
-<div class="ml-form-embedWrapper embedForm">
-<div class="ml-form-embedBody ml-form-embedBodyDefault row-form">
-<div class="ml-form-embedContent" style="display:none;"></div>
-<form action="https://assets.mailerlite.com/jsonp/2096389/forms/184722931561006319/subscribe" class="ml-block-form" data-code="" method="post" target="_blank">
-<div class="ml-form-formContent">
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-message">
-<textarea aria-label="message" class="form-control" maxlength="1024" name="fields[message]" placeholder="Escribe tu mensaje."></textarea>
-</div>
-</div>
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-email ml-validate-email ml-validate-required">
-<input aria-label="email" aria-required="true" autocomplete="email" class="form-control" name="fields[email]" placeholder="Correo electrónico" type="email"/>
-</div>
-</div>
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-name">
-<input aria-label="name" autocomplete="given-name" class="form-control" name="fields[name]" placeholder="Nombre (opcional)" type="text"/>
-</div>
-</div>
-<div class="ml-form-fieldRow">
-<div class="ml-field-group ml-field-company">
-<input aria-label="company" class="form-control" name="fields[company]" placeholder="Empresa (opcional)" type="text"/>
-</div>
-</div>
-<div class="ml-form-fieldRow ml-last-item">
-<div class="ml-field-group ml-field-phone">
-<input aria-label="phone" class="form-control" name="fields[phone]" placeholder="Teléfono (opcional)" type="text"/>
-</div>
-</div>
-</div>
-<div class="ml-form-embedPermissions">
-<div class="ml-form-embedPermissionsContent default privacy-policy">
-<p>Puedes cancelar en cualquier momento.</p>
-</div>
-</div>
-<div class="ml-form-checkboxRow ml-validate-required">
-<label class="checkbox">
-<input type="checkbox"/>
-<div class="label-description"><p>Quiero recibir vuestras noticias.</p></div>
-</label>
-</div>
-<input name="ml-submit" type="hidden" value="1"/>
-<div class="ml-form-embedSubmit">
-<button class="primary" type="submit">Enviar</button>
-<button class="loading" disabled="disabled" style="display: none;" type="button">
-<div class="ml-form-embedSubmitLoad"></div>
-<span class="sr-only">Loading...</span>
-</button>
-</div>
-<input name="anticsrf" type="hidden" value="true"/>
-<input id="polaris-ref-field" name="fields[ref_code]" type="hidden" value=""/>
-<script>
-  (function(){
-    var ref = localStorage.getItem('polaris_ref');
-    var field = document.getElementById('polaris-ref-field');
-    if (ref && field) { field.value = ref; }
-    // Also check URL param directly
-    var params = new URLSearchParams(window.location.search);
-    var tipo = params.get('tipo');
-    if (tipo) {
-      var msgField = document.querySelector('textarea[name="fields[message]"]');
-      if (msgField && !msgField.value) {
-        if (tipo === 'referido-cliente') msgField.value = 'Me interesa el programa de referidos como cliente de Polaris.';
-        if (tipo === 'prescriptor') msgField.value = 'Me interesa el programa de referidos como prescriptor / creador de contenido.';
-      }
-    }
-  })();
-</script>
-</form>
-</div>
-<div class="ml-form-successBody row-success" style="display: none">
-<div class="ml-form-successContent">
-<h4>Revisa tu buzón de correo electrónico</h4>
-<p>Acabamos de enviarte un mensaje,</p>
-<p>si no lo encuentras <strong>revisa la carpeta SPAM / CORREO NO DESEADO / PAPELERA / MENSAJES ARCHIVADOS</strong></p>
-<p>Si no lo encuentras, vuelve a apuntarte con otra dirección de correo electrónico.</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-<script>
-        function gtag_report_conversion(url) {
-          var callback = function () {
-            if (typeof(url) != 'undefined') {
-              window.location = url;
-            }
-          };
-          gtag('event', 'conversion', {
-              'send_to': 'AW-18177147225/ZFDrCLyoqbAcENmCxdtD',
-              'value': 1.0,
-              'currency': 'USD',
-              'event_callback': callback
-          });
-          return false;
-        }
+<div id="polaris-form-wrap">
+  <form class="polaris-form" id="polarisContactForm" novalidate>
 
-        function ml_webform_success_39888807() {
-          var $ = ml_jQuery || jQuery;
-          $('.ml-subscribe-form-39888807 .row-success').show();
-          $('.ml-subscribe-form-39888807 .row-form').hide();
-          gtag_report_conversion();
-        }
-      </script>
-<script src="https://groot.mailerlite.com/js/w/webforms.min.js?vb397d78ebaa8a0f631d35384c46d781b" type="text/javascript"></script>
-<script>fetch("https://assets.mailerlite.com/jsonp/2096389/forms/184722931561006319/takel")</script>
+    <!-- Tipo de consulta -->
+    <div>
+      <label for="tipo_consulta">¿En qué podemos ayudarte?</label>
+      <select id="tipo_consulta" name="tipo_consulta">
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="abrir-llc">Quiero abrir una LLC</option>
+        <option value="ayuda-llc">Ya tengo una LLC y necesito ayuda</option>
+        <option value="cambiar-gestor">Quiero cambiar de empresa gestora</option>
+        <option value="prescriptor">Quiero participar en el programa de referidos como prescriptor / creador</option>
+        <option value="registrar-marca">Quiero registrar una marca</option>
+        <option value="ayuda-marca">Necesito ayuda con mi marca registrada</option>
+        <option value="contacto">Quiero que me contactéis</option>
+      </select>
+      <div class="error-msg" id="err-tipo">Selecciona una opción para continuar.</div>
+    </div>
+
+    <!-- Mensaje -->
+    <div id="campo-mensaje">
+      <label for="mensaje" id="label-mensaje">Mensaje</label>
+      <textarea id="mensaje" name="mensaje" placeholder="Cuéntanos brevemente tu situación." maxlength="1024" data-min="0"></textarea>
+      <div class="char-counter" id="char-counter">0 / 1024</div>
+      <div class="error-msg" id="err-mensaje"></div>
+    </div>
+
+    <!-- Email -->
+    <div>
+      <label for="email">Correo electrónico</label>
+      <input type="email" id="email" name="email" placeholder="Correo electrónico" autocomplete="email"/>
+      <div class="error-msg" id="err-email">Introduce un correo electrónico válido.</div>
+    </div>
+
+    <!-- Nombre completo -->
+    <div>
+      <label for="nombre">Nombre completo</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" autocomplete="name"/>
+      <div class="error-msg" id="err-nombre">Introduce tu nombre completo.</div>
+    </div>
+
+    <!-- Empresa -->
+    <div>
+      <label for="empresa">Empresa <span style="font-weight:400;color:#999;">(opcional)</span></label>
+      <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa o LLC"/>
+    </div>
+
+    <!-- País -->
+    <div>
+      <label for="pais">País</label>
+      <input type="text" id="pais" name="pais" placeholder="País de residencia"/>
+      <div class="error-msg" id="err-pais">Indica tu país de residencia.</div>
+    </div>
+
+    <!-- Campos ocultos -->
+    <input type="hidden" id="ref_code_field" name="ref_code" value=""/>
+
+    <!-- Checkbox noticias — obligatoria -->
+    <div class="polaris-checkbox-row" id="checkbox-row">
+      <label class="polaris-checkbox-label">
+        <input type="checkbox" id="acepta_noticias" name="acepta_noticias"/>
+        <span class="polaris-checkbox-box"></span>
+        <span class="polaris-checkbox-text">Quiero recibir vuestras noticias.</span>
+      </label>
+      <div class="error-msg" id="err-noticias">Necesitas marcar esta casilla para continuar.</div>
+    </div>
+
+    <p class="polaris-privacy">Puedes cancelar en cualquier momento.</p>
+
+    <button class="polaris-submit-btn" id="polaris-submit-btn" type="submit">Enviar</button>
+  </form>
+</div>
+
+<div class="polaris-success" id="polaris-success">
+  <h4 style="text-align:center;text-transform:uppercase;font-family:'DM Sans',sans-serif;font-size:1.2rem;font-weight:700;color:#0d2137;margin-bottom:0.6rem;">Revisa tu buzón de correo electrónico</h4>
+  <p style="text-align:center;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:#4a5a6b;line-height:1.6;">Acabamos de enviarte un mensaje,</p>
+  <p style="text-align:center;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:#4a5a6b;line-height:1.6;">si no lo encuentras <strong>revisa la carpeta SPAM / CORREO NO DESEADO / PAPELERA / MENSAJES ARCHIVADOS</strong></p>
+  <p style="text-align:center;font-family:'DM Sans',sans-serif;font-size:0.9rem;color:#4a5a6b;line-height:1.6;">Si no lo encuentras, vuelve a apuntarte con otra dirección de correo electrónico.</p>
+</div>
+
 </div>
 </div>
 </div>
+
 <!-- ===== REVIEWS CAROUSEL ===== -->
 <section class="reviews-section">
 <div class="section" style="padding-bottom:0;">
@@ -325,34 +335,21 @@
   var timer = null;
   var started = false;
 
-  // Use CSS scroll-based approach for reliability
   function updateSlides() {
     slides.forEach(function(s, i) {
       var card = s.querySelector('.review-card');
-      if (i === current) {
-        card.style.opacity = '1';
-        card.style.transform = 'scale(1)';
-      } else {
-        card.style.opacity = '0.38';
-        card.style.transform = 'scale(0.94)';
-      }
+      if (i === current) { card.style.opacity = '1'; card.style.transform = 'scale(1)'; }
+      else { card.style.opacity = '0.38'; card.style.transform = 'scale(0.94)'; }
     });
   }
 
   function goTo(n, animated) {
     current = ((n % total) + total) % total;
-    // Scroll the active slide into center view
     var slide = slides[current];
     var outerW = outer.offsetWidth;
     var slideW = slide.offsetWidth;
-    // offset = slide's left position - center padding
-    var slideLeft = slide.offsetLeft;
-    var scrollTo = slideLeft - (outerW - slideW) / 2;
-    if (animated) {
-      track.style.transition = 'transform 0.45s cubic-bezier(.4,0,.2,1)';
-    } else {
-      track.style.transition = 'none';
-    }
+    var scrollTo = slide.offsetLeft - (outerW - slideW) / 2;
+    track.style.transition = animated ? 'transform 0.45s cubic-bezier(.4,0,.2,1)' : 'none';
     track.style.transform = 'translateX(' + (-scrollTo) + 'px)';
     updateSlides();
   }
@@ -366,34 +363,20 @@
   function init() {
     if (started) return;
     started = true;
-    // Wait one frame to ensure layout is complete
-    requestAnimationFrame(function() {
-      requestAnimationFrame(function() {
-        goTo(0, false);
-        startTimer();
-      });
-    });
+    requestAnimationFrame(function() { requestAnimationFrame(function() { goTo(0, false); startTimer(); }); });
   }
 
-  document.getElementById('revNext').addEventListener('click', function(){
-    stopTimer(); goTo(current + 1, true); startTimer();
-  });
-  document.getElementById('revPrev').addEventListener('click', function(){
-    stopTimer(); goTo(current - 1, true); startTimer();
-  });
+  document.getElementById('revNext').addEventListener('click', function(){ stopTimer(); goTo(current + 1, true); startTimer(); });
+  document.getElementById('revPrev').addEventListener('click', function(){ stopTimer(); goTo(current - 1, true); startTimer(); });
 
-  // Touch/swipe
   var tx = 0;
   outer.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
   outer.addEventListener('touchend', function(e){
     var dx = tx - e.changedTouches[0].clientX;
     if (Math.abs(dx) > 40) { stopTimer(); goTo(current + (dx > 0 ? 1 : -1), true); startTimer(); }
   }, {passive:true});
-
-  // Recalc on resize
   window.addEventListener('resize', function(){ if (started) { requestAnimationFrame(function(){ goTo(current, false); }); } });
 
-  // IntersectionObserver — start only when visible
   if ('IntersectionObserver' in window) {
     var obs = new IntersectionObserver(function(entries){
       if (entries[0].isIntersecting) { init(); obs.disconnect(); }
@@ -404,6 +387,7 @@
   }
 })();
 </script>
+
 <footer>
 <div class="footer-grid">
 <div>
@@ -441,6 +425,7 @@
 <div style="display:flex;gap:1.5rem"><a href="#">Privacidad</a><a href="#">Términos</a></div>
 </div>
 </footer>
+
 <!-- Cookie Consent Banner -->
 <div id="cookie-banner" style="display:none;">
 <p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="#">Más información</a></p>
@@ -452,19 +437,12 @@
 <script>
     (function(){
       var consent = localStorage.getItem('polaris_cookie_consent');
-      if (!consent) {
-        document.getElementById('cookie-banner').style.display = 'flex';
-      }
+      if (!consent) { document.getElementById('cookie-banner').style.display = 'flex'; }
     })();
     function acceptCookies() {
       localStorage.setItem('polaris_cookie_consent', 'accepted');
       document.getElementById('cookie-banner').style.display = 'none';
-      gtag('consent', 'update', {
-        ad_storage: 'granted',
-        analytics_storage: 'granted',
-        ad_user_data: 'granted',
-        ad_personalization: 'granted'
-      });
+      gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
     }
     function rejectCookies() {
       localStorage.setItem('polaris_cookie_consent', 'rejected');
@@ -472,30 +450,6 @@
     }
   </script>
 
-<script>
-// Capturar código de referido si viene de enlace de referido
-(function() {
-  const params = new URLSearchParams(window.location.search);
-  const ref = params.get('ref') || localStorage.getItem('polaris_ref_code');
-  if (ref) {
-    localStorage.setItem('polaris_ref_code', ref);
-    // Notificar al Worker cuando el formulario se envíe
-    const origSuccess = window.ml_webform_success_39888807;
-    window.ml_webform_success_39888807 = function() {
-      if (origSuccess) origSuccess();
-      // Enviar ref_code al Worker
-      const email = document.querySelector('.ml-subscribe-form-39888807 input[type="email"]');
-      if (ref && email && email.value) {
-        fetch('https://polaris-api.llcsandtrademarks.workers.dev/contacto-ref', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ ref_code: ref, email_contacto: email.value })
-        }).catch(() => {});
-      }
-    };
-  }
-})();
-</script>
 <!-- Widget Referidos -->
 <div id="ref-widget-wrap">
   <a href="referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>
@@ -506,16 +460,199 @@
   var banner = document.getElementById("ref-widget-banner");
   var dot = document.getElementById("ref-widget-dot");
   if (!banner) return;
-  // Collapse after 5 seconds
   setTimeout(function(){
     banner.style.transition = "opacity 0.4s, max-height 0.4s";
     banner.style.opacity = "0";
-    setTimeout(function(){
-      banner.style.display = "none";
-      dot.classList.add("visible");
-    }, 400);
+    setTimeout(function(){ banner.style.display = "none"; dot.classList.add("visible"); }, 400);
   }, 5000);
 })();
 </script>
+
+<!-- Lógica del formulario -->
+<script>
+(function(){
+
+  // Config por tipo de consulta: placeholder del textarea y mínimo de caracteres
+  var tipoConfig = {
+    'abrir-llc':       { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
+    'ayuda-llc':       { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
+    'cambiar-gestor':  { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
+    'registrar-marca': { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
+    'ayuda-marca':     { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
+    'contacto':        { placeholder: 'Cuéntanos brevemente en qué podemos ayudarte.', min: 50 },
+    'prescriptor':     { placeholder: 'Comparte los enlaces a tus redes sociales o plataformas de contenido.', min: 0 }
+  };
+
+  // Ref code
+  var refCode = localStorage.getItem('polaris_ref') || '';
+  if (refCode) { document.getElementById('ref_code_field').value = refCode; }
+
+  var selectEl  = document.getElementById('tipo_consulta');
+  var msgEl     = document.getElementById('mensaje');
+  var counterEl = document.getElementById('char-counter');
+  var errMsg    = document.getElementById('err-mensaje');
+
+  // Actualizar campo mensaje al cambiar tipo
+  selectEl.addEventListener('change', function(){
+    var cfg = tipoConfig[this.value];
+    if (!cfg) return;
+    msgEl.placeholder = cfg.placeholder;
+    msgEl.setAttribute('data-min', cfg.min);
+    msgEl.classList.remove('field-error');
+    errMsg.classList.remove('visible');
+    errMsg.textContent = '';
+    updateCounter();
+  });
+
+  // Contador de caracteres
+  msgEl.addEventListener('input', updateCounter);
+  function updateCounter(){
+    var len = msgEl.value.length;
+    var min = parseInt(msgEl.getAttribute('data-min') || '0', 10);
+    counterEl.textContent = len + ' / 1024';
+    counterEl.classList.toggle('warn', min > 0 && len > 0 && len < min);
+  }
+
+  // Conversión Google Ads — NO tocar el ID
+  function gtag_report_conversion(){
+    gtag('event', 'conversion', {
+      'send_to': 'AW-18177147225/ZFDrCLyoqbAcENmCxdtD',
+      'value': 1.0,
+      'currency': 'USD'
+    });
+  }
+
+  // Validación
+  function validate(){
+    var ok = true;
+    var errTipo = document.getElementById('err-tipo');
+
+    // Tipo consulta
+    if (!selectEl.value) {
+      errTipo.textContent = 'Selecciona una opción para continuar.';
+      errTipo.classList.add('visible');
+      selectEl.classList.add('field-error');
+      ok = false;
+    } else {
+      errTipo.classList.remove('visible');
+      selectEl.classList.remove('field-error');
+    }
+
+    // Mensaje
+    var min = parseInt(msgEl.getAttribute('data-min') || '0', 10);
+    var len = msgEl.value.trim().length;
+    if (len === 0) {
+      errMsg.textContent = selectEl.value === 'prescriptor'
+        ? 'Incluye al menos un enlace a tus plataformas.'
+        : 'Por favor, escribe tu consulta.';
+      errMsg.classList.add('visible');
+      msgEl.classList.add('field-error');
+      ok = false;
+    } else if (min > 0 && len < min) {
+      errMsg.textContent = 'Por favor, escribe al menos ' + min + ' caracteres para que podamos ayudarte.';
+      errMsg.classList.add('visible');
+      msgEl.classList.add('field-error');
+      ok = false;
+    } else {
+      errMsg.classList.remove('visible');
+      msgEl.classList.remove('field-error');
+    }
+
+    // Email
+    var emailVal = document.getElementById('email').value.trim();
+    var errEmail = document.getElementById('err-email');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailVal)) {
+      errEmail.classList.add('visible');
+      document.getElementById('email').classList.add('field-error');
+      ok = false;
+    } else {
+      errEmail.classList.remove('visible');
+      document.getElementById('email').classList.remove('field-error');
+    }
+
+    // Nombre completo
+    var nombreVal = document.getElementById('nombre').value.trim();
+    var errNombre = document.getElementById('err-nombre');
+    if (!nombreVal) {
+      errNombre.classList.add('visible');
+      document.getElementById('nombre').classList.add('field-error');
+      ok = false;
+    } else {
+      errNombre.classList.remove('visible');
+      document.getElementById('nombre').classList.remove('field-error');
+    }
+
+    // País
+    var paisVal = document.getElementById('pais').value.trim();
+    var errPais = document.getElementById('err-pais');
+    if (!paisVal) {
+      errPais.classList.add('visible');
+      document.getElementById('pais').classList.add('field-error');
+      ok = false;
+    } else {
+      errPais.classList.remove('visible');
+      document.getElementById('pais').classList.remove('field-error');
+    }
+
+    // Checkbox noticias
+    var checkbox = document.getElementById('acepta_noticias');
+    var errNoticias = document.getElementById('err-noticias');
+    var checkBox = document.querySelector('.polaris-checkbox-box');
+    if (!checkbox.checked) {
+      errNoticias.classList.add('visible');
+      if (checkBox) checkBox.classList.add('field-error-box');
+      ok = false;
+    } else {
+      errNoticias.classList.remove('visible');
+      if (checkBox) checkBox.classList.remove('field-error-box');
+    }
+
+    return ok;
+  }
+
+  // Submit
+  var form    = document.getElementById('polarisContactForm');
+  var btn     = document.getElementById('polaris-submit-btn');
+  var success = document.getElementById('polaris-success');
+  var wrap    = document.getElementById('polaris-form-wrap');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if (!validate()) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    fetch('https://polaris-api.llcsandtrademarks.workers.dev/contacto', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tipo_consulta: selectEl.value,
+        email: document.getElementById('email').value.trim(),
+        nombre: document.getElementById('nombre').value.trim(),
+        empresa: document.getElementById('empresa').value.trim(),
+        pais: document.getElementById('pais').value.trim(),
+        mensaje: msgEl.value.trim(),
+        ref_source: refCode   // código del prescriptor que trajo al lead — columna separada en Notion
+      })
+    })
+    .then(function(res){
+      if (!res.ok) throw new Error('error');
+      gtag_report_conversion();
+      wrap.style.display = 'none';
+      success.style.display = 'block';
+    })
+    .catch(function(){
+      btn.disabled = false;
+      btn.textContent = 'Enviar';
+      var errTipo = document.getElementById('err-tipo');
+      errTipo.textContent = 'Ha ocurrido un error. Inténtalo de nuevo o escríbenos a contacto@proyecto-polaris.com';
+      errTipo.classList.add('visible');
+    });
+  });
+
+})();
+</script>
+
 </body>
 </html>
