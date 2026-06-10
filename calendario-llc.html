@@ -676,6 +676,13 @@ function generarCalendario() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ email, llc, estado: estadoLabel, tipo: tipoLabel, residente: resLabel })
   }).catch(() => {});
+
+  if (typeof gtag !== 'undefined') {
+    gtag('event', 'calendario_generado', {
+      event_category: 'engagement',
+      event_label: 'calendario_llc'
+    });
+  }
 }
 
 // ── PDF (html2canvas → jsPDF) ─────────────────────────────────────────────
