@@ -750,6 +750,11 @@ async function submitForm(inputId, source) {
       if (parent) {
         parent.innerHTML = '<p style="text-align:center;font-family:\'Playfair Display\',serif;font-size:1.05rem;font-weight:700;color:var(--navy);padding:1rem 0;">✓ Listo. Revisa tu email en unos minutos.</p>';
       }
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18177147225/4G2bCKab6b0cENmCxdtD',
+        'value': 1.0,
+        'currency': 'USD'
+      });
     } else {
       throw new Error('Error del servidor');
     }
