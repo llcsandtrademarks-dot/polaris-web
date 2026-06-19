@@ -639,6 +639,11 @@
     .then(function(res){
       if (!res.ok) throw new Error('error');
       gtag_report_conversion();
+      gtag('event', 'form_submit', {
+        event_category: 'engagement',
+        event_label: 'contacto_form',
+        tipo_consulta: selectEl.value
+      });
       wrap.style.display = 'none';
       success.style.display = 'block';
       success.scrollIntoView({ behavior: 'smooth', block: 'center' });
