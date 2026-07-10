@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precios de LLC por estado — Proyecto Polaris</title><meta content="Descubre cuánto cuesta crear tu LLC y su mantenimiento anual según el estado. Paga con tarjeta o transferencia." name="description"/><link href="https://proyecto-polaris.com/precios-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Precios de LLC por estado — Proyecto Polaris" name="twitter:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su mantenimiento anual según el estado." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/precios-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Precios de LLC por estado — Proyecto Polaris" property="og:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su mantenimiento anual según el estado." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="shared.css" rel="stylesheet"/>
+<style>
+  .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+  .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+  .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+  .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+  .selector-bar { max-width: 1100px; margin: 0 auto; padding: 1.75rem 2rem 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .selector-bar label { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .selector-bar select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; min-width: 260px; }
+
+  .precios-table-wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem 3rem; overflow-x: auto; }
+  table.precios-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  table.precios-table th { background: var(--navy-pale); color: var(--navy); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; padding: 12px 14px; text-align: left; }
+  table.precios-table td { padding: 14px; border-top: 1px solid var(--border); vertical-align: top; }
+  table.precios-table tr.estado-row { transition: background 0.4s; }
+  table.precios-table tr.estado-row.highlight { background: #fff6df; }
+  .estado-nombre { font-weight: 700; color: var(--navy); font-size: 14.5px; display: flex; align-items: center; gap: 6px; }
+  .estado-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ba7517; color: #fff; }
+  .precio-cell { display: flex; flex-direction: column; gap: 8px; min-width: 190px; }
+  .precio-monto { font-size: 17px; font-weight: 700; color: var(--navy); }
+  .precio-botones { display: flex; gap: 8px; flex-wrap: wrap; }
+  .precio-botones a { font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 7px; text-decoration: none; white-space: nowrap; }
+  .btn-tarjeta { background: var(--navy); color: var(--white); }
+  .btn-tarjeta:hover { background: var(--navy-mid); }
+  .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn-transferencia:hover { background: var(--navy); color: var(--white); }
+
+  @media (max-width: 720px) {
+    .page-header { padding: 2.5rem 1.25rem 2rem; }
+    .selector-bar, .precios-table-wrap { padding-left: 1.25rem; padding-right: 1.25rem; }
+    table.precios-table { min-width: 640px; }
+  }
+</style>
+<script>
+    // Captura y guarda el parámetro ref en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); }
+    })();
+  </script>
+</head>
+<body>
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li><a class="active" href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+
+<div class="page-header">
+<p class="page-header-eyebrow">Precios por estado</p>
+<h1>¿Cuánto cuesta tu LLC?</h1>
+<p>Descubre cuánto te cuesta crear tu LLC y cuánto su mantenimiento anual. Y si tienes dudas, te ayudamos a escoger el mejor estado para ti.</p>
+</div>
+
+<div class="selector-bar">
+  <label for="selector-estado">Ir directo a tu estado:</label>
+  <select id="selector-estado" onchange="irAEstado(this.value)">
+    <option value="">— Seleccionar estado —</option>
+  </select>
+</div>
+
+<div class="precios-table-wrap">
+  <table class="precios-table">
+    <thead>
+      <tr>
+        <th>Estado</th>
+        <th>Formación LLC</th>
+        <th>Mantenimiento anual</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-precios-body"></tbody>
+  </table>
+</div>
+
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="#">Política de privacidad</a></li>
+<li><a href="#">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="#">Privacidad</a><a href="#">Términos</a></div>
+</div>
+</footer>
+
+<script>
+// Tabla de precios — debe coincidir exactamente con PRECIOS en el Worker polaris-pagos.
+// El Worker es la única fuente de verdad para el importe cobrado; esto es solo para mostrar y construir enlaces.
+var ESTADOS = [
+  {slug:'alabama', nombre:'Alabama', formacion:499, mantenimiento:399},
+  {slug:'alaska', nombre:'Alaska', formacion:599, mantenimiento:399},
+  {slug:'arizona', nombre:'Arizona', formacion:399, mantenimiento:399},
+  {slug:'arkansas', nombre:'Arkansas', formacion:499, mantenimiento:499},
+  {slug:'california', nombre:'California', formacion:399, mantenimiento:1119},
+  {slug:'colorado', nombre:'Colorado', formacion:399, mantenimiento:399},
+  {slug:'connecticut', nombre:'Connecticut', formacion:499, mantenimiento:399},
+  {slug:'delaware', nombre:'Delaware', formacion:499, mantenimiento:599},
+  {slug:'districtofcolumbia', nombre:'District of Columbia', formacion:399, mantenimiento:599},
+  {slug:'florida', nombre:'Florida', formacion:499, mantenimiento:499},
+  {slug:'georgia', nombre:'Georgia', formacion:499, mantenimiento:399},
+  {slug:'hawaii', nombre:'Hawaii', formacion:399, mantenimiento:399},
+  {slug:'idaho', nombre:'Idaho', formacion:399, mantenimiento:399},
+  {slug:'illinois', nombre:'Illinois', formacion:499, mantenimiento:399},
+  {slug:'indiana', nombre:'Indiana', formacion:399, mantenimiento:399},
+  {slug:'iowa', nombre:'Iowa', formacion:399, mantenimiento:399},
+  {slug:'kansas', nombre:'Kansas', formacion:499, mantenimiento:399},
+  {slug:'kentucky', nombre:'Kentucky', formacion:399, mantenimiento:399},
+  {slug:'louisiana', nombre:'Louisiana', formacion:399, mantenimiento:399},
+  {slug:'maine', nombre:'Maine', formacion:499, mantenimiento:399},
+  {slug:'maryland', nombre:'Maryland', formacion:399, mantenimiento:599},
+  {slug:'massachusetts', nombre:'Massachusetts', formacion:799, mantenimiento:799},
+  {slug:'michigan', nombre:'Michigan', formacion:399, mantenimiento:399},
+  {slug:'minnesota', nombre:'Minnesota', formacion:499, mantenimiento:399},
+  {slug:'mississippi', nombre:'Mississippi', formacion:399, mantenimiento:399},
+  {slug:'missouri', nombre:'Missouri', formacion:399, mantenimiento:399},
+  {slug:'montana', nombre:'Montana', formacion:399, mantenimiento:399},
+  {slug:'nebraska', nombre:'Nebraska', formacion:399, mantenimiento:399},
+  {slug:'nevada', nombre:'Nevada', formacion:799, mantenimiento:699},
+  {slug:'newhampshire', nombre:'New Hampshire', formacion:399, mantenimiento:399},
+  {slug:'newjersey', nombre:'New Jersey', formacion:499, mantenimiento:399},
+  {slug:'newmexico', nombre:'New Mexico', formacion:399, mantenimiento:399},
+  {slug:'newyork', nombre:'New York', formacion:499, mantenimiento:399},
+  {slug:'northcarolina', nombre:'North Carolina', formacion:499, mantenimiento:499},
+  {slug:'northdakota', nombre:'North Dakota', formacion:499, mantenimiento:399},
+  {slug:'ohio', nombre:'Ohio', formacion:399, mantenimiento:399},
+  {slug:'oklahoma', nombre:'Oklahoma', formacion:399, mantenimiento:399},
+  {slug:'oregon', nombre:'Oregon', formacion:399, mantenimiento:399},
+  {slug:'pennsylvania', nombre:'Pennsylvania', formacion:499, mantenimiento:399},
+  {slug:'rhodeisland', nombre:'Rhode Island', formacion:499, mantenimiento:399},
+  {slug:'southcarolina', nombre:'South Carolina', formacion:499, mantenimiento:399},
+  {slug:'southdakota', nombre:'South Dakota', formacion:499, mantenimiento:399},
+  {slug:'tennessee', nombre:'Tennessee', formacion:599, mantenimiento:599},
+  {slug:'texas', nombre:'Texas', formacion:599, mantenimiento:399},
+  {slug:'utah', nombre:'Utah', formacion:399, mantenimiento:399},
+  {slug:'vermont', nombre:'Vermont', formacion:499, mantenimiento:399},
+  {slug:'virginia', nombre:'Virginia', formacion:399, mantenimiento:399},
+  {slug:'washington', nombre:'Washington', formacion:499, mantenimiento:399},
+  {slug:'westvirginia', nombre:'West Virginia', formacion:399, mantenimiento:399},
+  {slug:'wisconsin', nombre:'Wisconsin', formacion:499, mantenimiento:399},
+  {slug:'wyoming', nombre:'Wyoming', formacion:399, mantenimiento:399, recomendado:true}
+];
+
+var LINKS_STRIPE = {
+  399: 'https://buy.stripe.com/4gM6oJ9XQ9JTgooap9fMA05',
+  499: 'https://buy.stripe.com/cNibJ36LEaNXdcc7cXfMA0i',
+  599: 'https://buy.stripe.com/3cIaEZ9XQ8FPegg54PfMA0h',
+  699: 'https://buy.stripe.com/9B6bJ3b1U5tDa00dBlfMA0g',
+  799: 'https://buy.stripe.com/9B628t9XQ9JT8VWcxhfMA0f',
+  1119: 'https://buy.stripe.com/fZu8wR2vo9JTeggap9fMA0e'
+};
+
+function linkStripe(servicio, estado, importe) {
+  return LINKS_STRIPE[importe] + '?client_reference_id=' + servicio + '_' + estado;
+}
+function linkTransferencia(servicio, estado) {
+  return 'pago-transferencia.html?estado=' + estado + '&servicio=' + servicio;
+}
+
+function celdaPrecio(servicio, estado, importe) {
+  return '<div class="precio-cell">' +
+    '<div class="precio-monto">$' + importe + (servicio==='mantenimiento' ? '/año' : '') + '</div>' +
+    '<div class="precio-botones">' +
+      '<a class="btn-tarjeta" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta</a>' +
+      '<a class="btn-transferencia" href="' + linkTransferencia(servicio, estado) + '">Pagar por transferencia</a>' +
+    '</div>' +
+  '</div>';
+}
+
+(function render() {
+  var tbody = document.getElementById('tabla-precios-body');
+  var selector = document.getElementById('selector-estado');
+  var filas = '';
+  ESTADOS.forEach(function(e) {
+    var opt = document.createElement('option');
+    opt.value = e.slug;
+    opt.textContent = e.nombre;
+    selector.appendChild(opt);
+
+    filas += '<tr class="estado-row" id="estado-' + e.slug + '">' +
+      '<td><div class="estado-nombre">' + e.nombre + (e.recomendado ? ' <span class="estado-badge">★ Opción recomendada</span>' : '') + '</div></td>' +
+      '<td>' + celdaPrecio('formacion', e.slug, e.formacion) + '</td>' +
+      '<td>' + celdaPrecio('mantenimiento', e.slug, e.mantenimiento) + '</td>' +
+    '</tr>';
+  });
+  tbody.innerHTML = filas;
+})();
+
+function irAEstado(slug) {
+  if (!slug) return;
+  document.querySelectorAll('.estado-row.highlight').forEach(function(r){ r.classList.remove('highlight'); });
+  var row = document.getElementById('estado-' + slug);
+  if (!row) return;
+  row.classList.add('highlight');
+  row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+</script>
+</body>
+</html>

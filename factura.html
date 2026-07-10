@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'granted',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tu factura — Proyecto Polaris</title>
+<link rel="stylesheet" href="shared.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<style>
+  .section { max-width: 640px; margin: 0 auto; padding: 3rem 2rem; }
+  #estado-carga { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+  #estado-error { display: none; text-align: center; padding: 3rem 1rem; }
+  #estado-error h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+  #estado-error p { color: var(--text-muted); margin-bottom: 1.5rem; }
+
+  #factura-card { display: none; }
+  #factura-capture { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .factura-header { background: var(--navy); padding: 2rem 2.25rem; color: var(--white); }
+  .factura-header .empresa { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; }
+  .factura-header .direccion { font-size: 12.5px; color: rgba(255,255,255,0.65); margin-top: 6px; line-height: 1.6; }
+  .factura-body { padding: 2rem 2.25rem; }
+  .factura-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .factura-row .label { color: var(--text-muted); }
+  .factura-row .valor { color: var(--text); font-weight: 600; text-align: right; }
+  .factura-total { display: flex; justify-content: space-between; padding: 1.25rem 0 0.25rem; font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+
+  .btn-pdf { margin-top: 1.75rem; width: 100%; justify-content: center; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.png" alt="Proyecto Polaris" class="nav-logo-img" onerror="this.style.display='none'">
+    Proyecto <span>Polaris</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios-llc.html">Servicios LLC</a></li>
+    <li><a href="servicios-marca.html">Registro de marca</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="contacto.html" class="nav-cta">Contactar</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Inicio</a>
+  <a href="servicios-llc.html">Servicios LLC</a>
+  <a href="servicios-marca.html">Registro de marca</a>
+  <a href="nosotros.html">Nosotros</a>
+  <a href="contacto.html" class="nav-cta">Contactar</a>
+</div>
+
+<div class="section">
+  <div id="estado-carga">Cargando tu factura…</div>
+
+  <div id="estado-error">
+    <h1>No pudimos encontrar esta factura</h1>
+    <p>El enlace puede haber caducado o no ser válido. Escríbenos a contacto@proyecto-polaris.com y te la reenviamos.</p>
+  </div>
+
+  <div id="factura-card">
+    <div id="factura-capture">
+      <div class="factura-header">
+        <div class="empresa">WY FAMILY LLC</div>
+        <div class="direccion">3780 Pine Forest Road, Macon, GA 31206, United States<br>EIN 36-5101264</div>
+      </div>
+      <div class="factura-body">
+        <div class="factura-row" id="fila-fecha"><span class="label">Fecha</span><span class="valor" id="v-fecha"></span></div>
+        <div class="factura-row" id="fila-cliente" style="display:none;"><span class="label">Cliente</span><span class="valor" id="v-cliente"></span></div>
+        <div class="factura-row" id="fila-email" style="display:none;"><span class="label">Email</span><span class="valor" id="v-email"></span></div>
+        <div class="factura-row"><span class="label">Concepto</span><span class="valor" id="v-concepto"></span></div>
+        <div class="factura-row" id="fila-fiscal-nombre" style="display:none;"><span class="label">Facturar a</span><span class="valor" id="v-fiscal-nombre"></span></div>
+        <div class="factura-row" id="fila-fiscal-taxid" style="display:none;"><span class="label">NIF / Tax ID</span><span class="valor" id="v-fiscal-taxid"></span></div>
+        <div class="factura-row" id="fila-fiscal-direccion" style="display:none;"><span class="label">Dirección fiscal</span><span class="valor" id="v-fiscal-direccion"></span></div>
+        <div class="factura-total"><span>Total</span><span id="v-importe"></span></div>
+      </div>
+    </div>
+    <button class="btn btn-navy btn-pdf" onclick="descargarPDF()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Descargar factura
+    </button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+        <img src="logo.png" alt="Proyecto Polaris" style="width:32px;height:32px;border-radius:8px;">
+        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+      </div>
+      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Servicios</p>
+      <ul>
+        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
+        <li><a href="servicios-marca.html">Registro de marca</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Empresa</p>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Legal</p>
+      <ul>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Términos de servicio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem"><a href="#">Privacidad</a><a href="#">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
+var params = new URLSearchParams(window.location.search);
+var token = params.get('token');
+var _facturaData = null;
+
+function mostrarError() {
+  document.getElementById('estado-carga').style.display = 'none';
+  document.getElementById('estado-error').style.display = 'block';
+}
+
+function mostrarSet(id, valor) {
+  var fila = document.getElementById('fila-' + id);
+  var v = document.getElementById('v-' + id);
+  if (valor) {
+    v.textContent = valor;
+    if (fila) fila.style.display = '';
+  }
+}
+
+if (!token) {
+  mostrarError();
+} else {
+  fetch(WORKER_URL + '/factura/datos?token=' + encodeURIComponent(token))
+    .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+    .then(function(r){
+      if (!r.ok) throw new Error(r.data.error || 'No encontrado');
+      _facturaData = r.data;
+      document.getElementById('estado-carga').style.display = 'none';
+      document.getElementById('factura-card').style.display = 'block';
+
+      document.getElementById('v-fecha').textContent = r.data.fecha || '';
+      document.getElementById('v-concepto').textContent = r.data.concepto || 'Servicio Polaris';
+      document.getElementById('v-importe').textContent = '$' + (r.data.importe != null ? r.data.importe : '—');
+      mostrarSet('cliente', r.data.nombre);
+      mostrarSet('email', r.data.email);
+      mostrarSet('fiscal-nombre', r.data.facturacion_nombre);
+      mostrarSet('fiscal-taxid', r.data.facturacion_taxid);
+      mostrarSet('fiscal-direccion', r.data.facturacion_direccion);
+    })
+    .catch(function(){ mostrarError(); });
+}
+
+async function descargarPDF() {
+  if (!_facturaData) return;
+  var btn = document.querySelector('.btn-pdf');
+  btn.disabled = true;
+  var textoOriginal = btn.innerHTML;
+  btn.textContent = 'Generando…';
+
+  try {
+    var { jsPDF } = window.jspdf;
+    var capture = document.getElementById('factura-capture');
+    var canvas = await html2canvas(capture, { scale: 2, useCORS: true, backgroundColor: '#ffffff', logging: false });
+    var imgData = canvas.toDataURL('image/jpeg', 0.95);
+    var pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
+    var pageWidth = 210;
+    var margin = 15;
+    var imgWidth = pageWidth - margin * 2;
+    var imgHeight = imgWidth * (canvas.height / canvas.width);
+    pdf.addImage(imgData, 'JPEG', margin, 20, imgWidth, imgHeight);
+    pdf.save('factura-polaris-' + (token || 'descarga') + '.pdf');
+  } catch (e) {
+    alert('No pudimos generar el PDF. Inténtalo de nuevo.');
+  } finally {
+    btn.disabled = false;
+    btn.innerHTML = textoOriginal;
+  }
+}
+</script>
+</body>
+</html>
