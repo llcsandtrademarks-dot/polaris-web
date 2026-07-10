@@ -48,6 +48,7 @@
   .precios-table-wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem 3rem; overflow-x: auto; }
   table.precios-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   table.precios-table th { background: var(--navy-pale); color: var(--navy); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; padding: 12px 14px; text-align: left; }
+  .que-incluye-link { text-transform: none; font-weight: 400; font-size: 11px; color: var(--navy-light); text-decoration: underline; margin-left: 6px; white-space: nowrap; }
   table.precios-table td { padding: 14px; border-top: 1px solid var(--border); vertical-align: top; }
   table.precios-table tr.estado-row { transition: background 0.4s; }
   table.precios-table tr.estado-row.highlight { background: #fff6df; }
@@ -120,8 +121,8 @@
     <thead>
       <tr>
         <th>Estado</th>
-        <th>Formación LLC</th>
-        <th>Mantenimiento anual</th>
+        <th>Formación LLC <a href="#" class="que-incluye-link">¿Qué incluye?</a></th>
+        <th>Mantenimiento anual <a href="#" class="que-incluye-link">¿Qué incluye?</a></th>
       </tr>
     </thead>
     <tbody id="tabla-precios-body"></tbody>
@@ -170,6 +171,8 @@
 // Tabla de precios — debe coincidir exactamente con PRECIOS en el Worker polaris-pagos.
 // El Worker es la única fuente de verdad para el importe cobrado; esto es solo para mostrar y construir enlaces.
 var ESTADOS = [
+  {slug:'wyoming', nombre:'Wyoming', formacion:399, mantenimiento:399, recomendado:true},
+  {slug:'newmexico', nombre:'New Mexico', formacion:399, mantenimiento:399},
   {slug:'alabama', nombre:'Alabama', formacion:499, mantenimiento:399},
   {slug:'alaska', nombre:'Alaska', formacion:599, mantenimiento:399},
   {slug:'arizona', nombre:'Arizona', formacion:399, mantenimiento:399},
@@ -201,7 +204,6 @@ var ESTADOS = [
   {slug:'nevada', nombre:'Nevada', formacion:799, mantenimiento:699},
   {slug:'newhampshire', nombre:'New Hampshire', formacion:399, mantenimiento:399},
   {slug:'newjersey', nombre:'New Jersey', formacion:499, mantenimiento:399},
-  {slug:'newmexico', nombre:'New Mexico', formacion:399, mantenimiento:399},
   {slug:'newyork', nombre:'New York', formacion:499, mantenimiento:399},
   {slug:'northcarolina', nombre:'North Carolina', formacion:499, mantenimiento:499},
   {slug:'northdakota', nombre:'North Dakota', formacion:499, mantenimiento:399},
@@ -219,8 +221,7 @@ var ESTADOS = [
   {slug:'virginia', nombre:'Virginia', formacion:399, mantenimiento:399},
   {slug:'washington', nombre:'Washington', formacion:499, mantenimiento:399},
   {slug:'westvirginia', nombre:'West Virginia', formacion:399, mantenimiento:399},
-  {slug:'wisconsin', nombre:'Wisconsin', formacion:499, mantenimiento:399},
-  {slug:'wyoming', nombre:'Wyoming', formacion:399, mantenimiento:399, recomendado:true}
+  {slug:'wisconsin', nombre:'Wisconsin', formacion:499, mantenimiento:399}
 ];
 
 var LINKS_STRIPE = {
@@ -243,8 +244,8 @@ function celdaPrecio(servicio, estado, importe) {
   return '<div class="precio-cell">' +
     '<div class="precio-monto">$' + importe + (servicio==='mantenimiento' ? '/año' : '') + '</div>' +
     '<div class="precio-botones">' +
-      '<a class="btn-tarjeta" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta</a>' +
-      '<a class="btn-transferencia" href="' + linkTransferencia(servicio, estado) + '">Pagar por transferencia</a>' +
+      '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta</a>' +
+      '<a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="' + linkTransferencia(servicio, estado) + '">Pagar por transferencia</a>' +
     '</div>' +
   '</div>';
 }
