@@ -44,14 +44,31 @@
 
   #factura-card { display: none; }
   #factura-capture { background: var(--white); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
-  .factura-header { background: var(--navy); padding: 2rem 2.25rem; color: var(--white); }
-  .factura-header .empresa { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; }
-  .factura-header .direccion { font-size: 12.5px; color: rgba(255,255,255,0.65); margin-top: 6px; line-height: 1.6; }
-  .factura-body { padding: 2rem 2.25rem; }
-  .factura-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-  .factura-row .label { color: var(--text-muted); }
-  .factura-row .valor { color: var(--text); font-weight: 600; text-align: right; }
-  .factura-total { display: flex; justify-content: space-between; padding: 1.25rem 0 0.25rem; font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+
+  .factura-brand { background: var(--navy); padding: 1.5rem 2.25rem; display: flex; align-items: center; gap: 12px; }
+  .factura-brand-logo { width: 36px; height: 36px; border-radius: 8px; }
+  .factura-brand-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--white); }
+
+  .factura-emisor { padding: 1.25rem 2.25rem; border-bottom: 1px solid var(--border); background: var(--offwhite); }
+  .factura-emisor-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
+  .factura-emisor-nombre { font-size: 15px; font-weight: 700; color: var(--navy); }
+  .factura-emisor-direccion { font-size: 12.5px; color: var(--text-muted); margin-top: 4px; line-height: 1.6; }
+
+  .factura-meta { display: flex; justify-content: space-between; padding: 1.1rem 2.25rem; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .factura-meta .label { color: var(--text-muted); display: block; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 3px; }
+  .factura-meta .valor { color: var(--text); font-weight: 700; }
+
+  .factura-cliente { padding: 1.1rem 2.25rem; border-bottom: 1px solid var(--border); font-size: 13.5px; line-height: 1.7; }
+  .factura-cliente-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
+
+  .factura-body { padding: 1.5rem 2.25rem 2rem; }
+  table.factura-tabla { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.factura-tabla thead th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); padding: 0 0 8px; border-bottom: 2px solid var(--border); }
+  table.factura-tabla thead th:last-child { text-align: right; }
+  table.factura-tabla tbody td { padding: 12px 0; border-bottom: 1px solid var(--border); color: var(--text); }
+  table.factura-tabla tbody td:last-child { text-align: right; font-weight: 600; }
+  table.factura-tabla tfoot td { padding: 14px 0 0; font-size: 1.15rem; font-weight: 700; color: var(--navy); }
+  table.factura-tabla tfoot td:last-child { text-align: right; }
 
   .btn-pdf { margin-top: 1.75rem; width: 100%; justify-content: center; }
 </style>
@@ -92,19 +109,33 @@
 
   <div id="factura-card">
     <div id="factura-capture">
-      <div class="factura-header">
-        <div class="empresa">WY FAMILY LLC</div>
-        <div class="direccion">3780 Pine Forest Road, Macon, GA 31206, United States<br>EIN 36-5101264</div>
+      <div class="factura-brand">
+        <img src="logo.png" alt="Proyecto Polaris" class="factura-brand-logo" onerror="this.style.display='none'">
+        <span class="factura-brand-name">Proyecto Polaris</span>
+      </div>
+      <div class="factura-emisor">
+        <div class="factura-emisor-label">Emitido por</div>
+        <div class="factura-emisor-nombre">WY FAMILY LLC</div>
+        <div class="factura-emisor-direccion">3780 Pine Forest Road, Macon, GA 31206, United States<br>EIN 36-5101264</div>
+      </div>
+      <div class="factura-meta">
+        <div><span class="label">Nº de factura</span><span class="valor" id="v-numero"></span></div>
+        <div><span class="label">Fecha</span><span class="valor" id="v-fecha"></span></div>
+      </div>
+      <div class="factura-cliente" id="bloque-cliente" style="display:none;">
+        <div class="factura-cliente-title">Facturar a</div>
+        <div id="v-cliente-bloque"></div>
       </div>
       <div class="factura-body">
-        <div class="factura-row" id="fila-fecha"><span class="label">Fecha</span><span class="valor" id="v-fecha"></span></div>
-        <div class="factura-row" id="fila-cliente" style="display:none;"><span class="label">Cliente</span><span class="valor" id="v-cliente"></span></div>
-        <div class="factura-row" id="fila-email" style="display:none;"><span class="label">Email</span><span class="valor" id="v-email"></span></div>
-        <div class="factura-row"><span class="label">Concepto</span><span class="valor" id="v-concepto"></span></div>
-        <div class="factura-row" id="fila-fiscal-nombre" style="display:none;"><span class="label">Facturar a</span><span class="valor" id="v-fiscal-nombre"></span></div>
-        <div class="factura-row" id="fila-fiscal-taxid" style="display:none;"><span class="label">NIF / Tax ID</span><span class="valor" id="v-fiscal-taxid"></span></div>
-        <div class="factura-row" id="fila-fiscal-direccion" style="display:none;"><span class="label">Dirección fiscal</span><span class="valor" id="v-fiscal-direccion"></span></div>
-        <div class="factura-total"><span>Total</span><span id="v-importe"></span></div>
+        <table class="factura-tabla">
+          <thead><tr><th>Concepto</th><th>Importe</th></tr></thead>
+          <tbody>
+            <tr><td id="v-concepto"></td><td id="v-importe-fila"></td></tr>
+          </tbody>
+          <tfoot>
+            <tr><td>Total</td><td id="v-importe"></td></tr>
+          </tfoot>
+        </table>
       </div>
     </div>
     <button class="btn btn-navy btn-pdf" onclick="descargarPDF()">
@@ -163,13 +194,21 @@ function mostrarError() {
   document.getElementById('estado-error').style.display = 'block';
 }
 
-function mostrarSet(id, valor) {
-  var fila = document.getElementById('fila-' + id);
-  var v = document.getElementById('v-' + id);
-  if (valor) {
-    v.textContent = valor;
-    if (fila) fila.style.display = '';
-  }
+function numeroFactura(tok) {
+  return 'INV-' + tok.slice(0, 8).toUpperCase();
+}
+
+function renderClienteBloque(data) {
+  var lineas = [];
+  if (data.facturacion_nombre) lineas.push(data.facturacion_nombre);
+  else if (data.nombre) lineas.push(data.nombre);
+  if (data.email) lineas.push(data.email);
+  if (data.facturacion_taxid) lineas.push('Tax ID: ' + data.facturacion_taxid);
+  if (data.facturacion_direccion) lineas.push(data.facturacion_direccion);
+
+  if (lineas.length === 0) return;
+  document.getElementById('v-cliente-bloque').innerHTML = lineas.join('<br>');
+  document.getElementById('bloque-cliente').style.display = '';
 }
 
 if (!token) {
@@ -183,14 +222,13 @@ if (!token) {
       document.getElementById('estado-carga').style.display = 'none';
       document.getElementById('factura-card').style.display = 'block';
 
+      var importeTexto = '$' + (r.data.importe != null ? r.data.importe : '—');
+      document.getElementById('v-numero').textContent = numeroFactura(token);
       document.getElementById('v-fecha').textContent = r.data.fecha || '';
       document.getElementById('v-concepto').textContent = r.data.concepto || 'Servicio Polaris';
-      document.getElementById('v-importe').textContent = '$' + (r.data.importe != null ? r.data.importe : '—');
-      mostrarSet('cliente', r.data.nombre);
-      mostrarSet('email', r.data.email);
-      mostrarSet('fiscal-nombre', r.data.facturacion_nombre);
-      mostrarSet('fiscal-taxid', r.data.facturacion_taxid);
-      mostrarSet('fiscal-direccion', r.data.facturacion_direccion);
+      document.getElementById('v-importe-fila').textContent = importeTexto;
+      document.getElementById('v-importe').textContent = importeTexto;
+      renderClienteBloque(r.data);
     })
     .catch(function(){ mostrarError(); });
 }
