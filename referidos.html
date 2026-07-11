@@ -199,6 +199,17 @@
   font-size: 0.95rem;
   margin-top: 1rem;
 }
+.ref-error {
+  display: none;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 8px;
+  padding: 1.2rem;
+  text-align: center;
+  color: #991b1b;
+  font-size: 0.95rem;
+  margin-top: 1rem;
+}
 /* Boton prescriptores */
 .ref-cta-btn {
   display: inline-block;
@@ -286,6 +297,9 @@
       </div>
       <div class="ref-success" id="ref-success">
         Te hemos enviado tu enlace personalizado por correo. Revisa tu bandeja de entrada.
+      </div>
+      <div class="ref-error" id="ref-error">
+        No pudimos registrar tu código. Inténtalo de nuevo o escríbenos a contacto@proyecto-polaris.com.
       </div>
     </div>
 
@@ -404,6 +418,7 @@ function generarCodigo() {
   const btn = document.getElementById('ref-btn');
   btn.disabled = true;
   btn.textContent = 'Enviando...';
+  document.getElementById('ref-error').style.display = 'none';
 
   // Generar código aleatorio
   const codigo = Math.random().toString(36).substr(2, 8);
@@ -414,16 +429,20 @@ function generarCodigo() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ nombre, email, codigo })
   })
-  .then(r => r.json())
+  .then(r => {
+    if (!r.ok) throw new Error('HTTP ' + r.status);
+    return r.json();
+  })
   .then(data => {
+    if (!data.ok) throw new Error('respuesta sin ok');
     document.getElementById('ref-form-wrap').style.display = 'none';
     document.getElementById('ref-success').style.display = 'block';
     gtag('event', 'referido_registro', { ref_code: codigo, ref_tipo: 'cliente', ref_email: email });
   })
   .catch(() => {
-    // Mostrar éxito de todas formas — el error de red no debe bloquear al usuario
-    document.getElementById('ref-form-wrap').style.display = 'none';
-    document.getElementById('ref-success').style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Generar mi enlace';
+    document.getElementById('ref-error').style.display = 'block';
   });
 }
 </script>
