@@ -420,14 +420,11 @@ function generarCodigo() {
   btn.textContent = 'Enviando...';
   document.getElementById('ref-error').style.display = 'none';
 
-  // Generar código aleatorio
-  const codigo = Math.random().toString(36).substr(2, 8);
-
-  // Enviar al Worker
+  // El código de referido lo genera el Worker (crypto.getRandomValues), no el navegador
   fetch('https://polaris-api.llcsandtrademarks.workers.dev/referido', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ nombre, email, codigo })
+    body: JSON.stringify({ nombre, email })
   })
   .then(r => {
     if (!r.ok) throw new Error('HTTP ' + r.status);
@@ -437,7 +434,7 @@ function generarCodigo() {
     if (!data.ok) throw new Error('respuesta sin ok');
     document.getElementById('ref-form-wrap').style.display = 'none';
     document.getElementById('ref-success').style.display = 'block';
-    gtag('event', 'referido_registro', { ref_code: codigo, ref_tipo: 'cliente', ref_email: email });
+    gtag('event', 'referido_registro', { ref_code: data.codigo, ref_tipo: 'cliente', ref_email: email });
   })
   .catch(() => {
     btn.disabled = false;
