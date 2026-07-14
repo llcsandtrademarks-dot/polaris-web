@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal del prescriptor — Proyecto Polaris</title>
+<link rel="stylesheet" href="shared.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .section { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
+  #estado-carga { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+  #estado-error { display: none; text-align: center; padding: 3rem 1rem; }
+  #estado-error h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+  #estado-error p { color: var(--text-muted); margin-bottom: 1.5rem; }
+
+  #portal-card { display: none; }
+  .portal-header { margin-bottom: 1.75rem; }
+  .portal-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.4rem; }
+  .portal-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--navy); }
+
+  .totales-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
+  .total-card { flex: 1; min-width: 180px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }
+  .total-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); margin-bottom: 6px; }
+  .total-valor { font-size: 1.6rem; font-weight: 700; color: var(--navy); }
+  .total-card.pendiente .total-valor { color: #ba7517; }
+  .total-card.pagada .total-valor { color: #1e7a4c; }
+
+  .comisiones-tabla-wrap { background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; overflow-x: auto; }
+  table.comisiones-tabla { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+  table.comisiones-tabla th { background: var(--navy-pale); color: var(--navy); font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; padding: 10px 14px; text-align: left; white-space: nowrap; }
+  table.comisiones-tabla td { padding: 12px 14px; border-top: 1px solid var(--border); color: var(--text); white-space: nowrap; }
+  .estado-pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; }
+  .estado-pill.pendiente { background: #fff2da; color: #ba7517; }
+  .estado-pill.pagada { background: #e2f4ea; color: #1e7a4c; }
+  #sin-comisiones { text-align: center; padding: 2.5rem 1rem; color: var(--text-muted); }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.png" alt="Proyecto Polaris" class="nav-logo-img" onerror="this.style.display='none'">
+    Proyecto <span>Polaris</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios-llc.html">Servicios LLC</a></li>
+    <li><a href="servicios-marca.html">Registro de marca</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="contacto.html" class="nav-cta">Contactar</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Inicio</a>
+  <a href="servicios-llc.html">Servicios LLC</a>
+  <a href="servicios-marca.html">Registro de marca</a>
+  <a href="nosotros.html">Nosotros</a>
+  <a href="contacto.html" class="nav-cta">Contactar</a>
+</div>
+
+<div class="section">
+  <div id="estado-carga">Cargando tus comisiones…</div>
+
+  <div id="estado-error">
+    <h1>No pudimos encontrar este portal</h1>
+    <p>El enlace no es válido. Escríbenos a contacto@proyecto-polaris.com si crees que se trata de un error.</p>
+  </div>
+
+  <div id="portal-card">
+    <div class="portal-header">
+      <p class="portal-eyebrow">Portal del prescriptor</p>
+      <h1 id="v-nombre"></h1>
+    </div>
+
+    <div class="totales-row">
+      <div class="total-card pendiente">
+        <div class="total-label">Pendiente</div>
+        <div class="total-valor" id="v-total-pendiente"></div>
+      </div>
+      <div class="total-card pagada">
+        <div class="total-label">Pagado</div>
+        <div class="total-valor" id="v-total-pagada"></div>
+      </div>
+    </div>
+
+    <div class="comisiones-tabla-wrap">
+      <table class="comisiones-tabla">
+        <thead>
+          <tr>
+            <th>Fecha</th>
+            <th>Importe de la venta</th>
+            <th>Comisión</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody id="comisiones-body"></tbody>
+      </table>
+      <div id="sin-comisiones" style="display:none;">Todavía no tienes comisiones registradas.</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+        <img src="logo.png" alt="Proyecto Polaris" style="width:32px;height:32px;border-radius:8px;">
+        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+      </div>
+      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Servicios</p>
+      <ul>
+        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
+        <li><a href="precios-llc.html">Precios de LLC</a></li>
+        <li><a href="servicios-marca.html">Registro de marca</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Recursos</p>
+      <ul>
+        <li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+        <li><a href="referidos.html">Programa de referidos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Empresa</p>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Legal</p>
+      <ul>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Términos de servicio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem"><a href="#">Privacidad</a><a href="#">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
+var params = new URLSearchParams(window.location.search);
+var token = params.get('token');
+
+function mostrarError() {
+  document.getElementById('estado-carga').style.display = 'none';
+  document.getElementById('estado-error').style.display = 'block';
+}
+
+function formatoMoneda(n) {
+  if (n == null) return '—';
+  return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function renderFila(c) {
+  var estadoClase = c.estado === 'Pagada' ? 'pagada' : 'pendiente';
+  return '<tr>' +
+    '<td>' + (c.fecha || '—') + '</td>' +
+    '<td>' + formatoMoneda(c.importe_venta) + '</td>' +
+    '<td>' + formatoMoneda(c.importe_comision) + '</td>' +
+    '<td><span class="estado-pill ' + estadoClase + '">' + (c.estado || '—') + '</span></td>' +
+  '</tr>';
+}
+
+if (!token) {
+  mostrarError();
+} else {
+  fetch(WORKER_URL + '/prescriptor/datos?token=' + encodeURIComponent(token))
+    .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+    .then(function(r){
+      if (!r.ok) throw new Error(r.data.error || 'No encontrado');
+      document.getElementById('estado-carga').style.display = 'none';
+      document.getElementById('portal-card').style.display = 'block';
+
+      document.getElementById('v-nombre').textContent = r.data.nombre || 'Prescriptor';
+      document.getElementById('v-total-pendiente').textContent = formatoMoneda(r.data.totales.pendiente);
+      document.getElementById('v-total-pagada').textContent = formatoMoneda(r.data.totales.pagada);
+
+      var comisiones = r.data.comisiones || [];
+      if (comisiones.length === 0) {
+        document.getElementById('sin-comisiones').style.display = 'block';
+      } else {
+        document.getElementById('comisiones-body').innerHTML = comisiones.map(renderFila).join('');
+      }
+    })
+    .catch(function(){ mostrarError(); });
+}
+</script>
+</body>
+</html>

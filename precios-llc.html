@@ -87,11 +87,13 @@
   }
 </style>
 <script>
-    // Captura y guarda el parámetro ref en localStorage
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
     (function(){
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
       if (ref) { localStorage.setItem('polaris_ref', ref); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); }
     })();
   </script>
 </head>
@@ -259,7 +261,10 @@ var LINKS_STRIPE = {
 };
 
 function linkStripe(servicio, estado, importe) {
-  return LINKS_STRIPE[importe] + '?client_reference_id=' + servicio + '_' + estado;
+  var url = LINKS_STRIPE[importe] + '?client_reference_id=' + servicio + '_' + estado;
+  var presc = localStorage.getItem('polaris_presc');
+  if (presc) { url += '&prefilled_promo_code=' + encodeURIComponent(presc); }
+  return url;
 }
 function linkTransferencia(servicio, estado) {
   return 'pago-transferencia.html?estado=' + estado + '&servicio=' + servicio;
