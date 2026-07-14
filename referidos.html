@@ -33,6 +33,14 @@
 <meta property="og:description" content="Gana recomendando Proyecto Polaris. Descuentos para clientes, comisiones para prescriptores."/>
 <meta property="og:image" content="https://proyecto-polaris.com/og-image.jpg"/>
 <link href="shared.css" rel="stylesheet"/>
+<script>
+  // Captura y guarda el parámetro presc (prescriptores) en localStorage
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var presc = params.get('presc');
+    if (presc) { localStorage.setItem('polaris_presc', presc); }
+  })();
+</script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet"/>
 <style>
 .ref-hero {

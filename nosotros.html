@@ -67,11 +67,13 @@
   "url": "https://proyecto-polaris.com/nosotros.html",
   "description": "Conoce al equipo de Proyecto Polaris. Profesionales registrados ante el IRS especializados en clientes extranjeros."
 }</script>  <script>
-    // Captura y guarda el parámetro ref en localStorage
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
     (function(){
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
       if (ref) { localStorage.setItem('polaris_ref', ref); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); }
     })();
   </script>
 </head>

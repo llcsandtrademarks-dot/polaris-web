@@ -35,6 +35,14 @@
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="shared.css" rel="stylesheet"/>
+<script>
+  // Captura y guarda el parámetro presc (prescriptores) en localStorage
+  (function(){
+    var params = new URLSearchParams(window.location.search);
+    var presc = params.get('presc');
+    if (presc) { localStorage.setItem('polaris_presc', presc); }
+  })();
+</script>
 <style>
   .gracias-wrap { max-width: 560px; margin: 0 auto; padding: 5rem 2rem; text-align: center; }
   .gracias-icon { width: 64px; height: 64px; border-radius: 50%; background: var(--navy-pale); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; }

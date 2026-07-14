@@ -45,6 +45,8 @@
     var params = new URLSearchParams(window.location.search);
     var ref = params.get('ref');
     if (ref) { localStorage.setItem('polaris_ref', ref); }
+    var presc = params.get('presc');
+    if (presc) { localStorage.setItem('polaris_presc', presc); }
   })();
 </script>
 <style>
