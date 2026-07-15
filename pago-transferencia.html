@@ -195,6 +195,7 @@
 <li><a href="servicios-llc.html">Servicios de LLC</a></li>
 <li><a href="precios-llc.html">Precios de LLC</a></li>
 <li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="precios-marca.html">Precios de registro de marca</a></li>
 </ul>
 </div>
 <div class="footer-col">
@@ -240,6 +241,8 @@ var NOMBRES_ESTADO = {
   washington:'Washington',westvirginia:'West Virginia',wisconsin:'Wisconsin',wyoming:'Wyoming'
 };
 var NOMBRES_SERVICIO = { formacion:'Formación LLC', mantenimiento:'Mantenimiento Anual' };
+var NOMBRES_SERVICIO_MARCA = { marca_registro:'Registro de marca', marca_sou:'SOU — Prueba de Uso', marca_extension:'Extensión de tiempo' };
+var PRECIOS_MARCA = { marca_registro:699, marca_sou:249, marca_extension:194 };
 var PRECIOS = {
   alabama:{formacion:499,mantenimiento:399},alaska:{formacion:599,mantenimiento:399},arizona:{formacion:399,mantenimiento:399},
   arkansas:{formacion:499,mantenimiento:499},california:{formacion:399,mantenimiento:1119},colorado:{formacion:399,mantenimiento:399},
@@ -264,20 +267,28 @@ var params = new URLSearchParams(window.location.search);
 var estado = (params.get('estado')||'').toLowerCase();
 var servicio = params.get('servicio');
 
+var esMarca = PRECIOS_MARCA.hasOwnProperty(servicio);
+
 (function init(){
   var resumen = document.getElementById('resumen-pago');
-  if (!NOMBRES_ESTADO[estado] || !PRECIOS[estado] || (servicio!=='formacion' && servicio!=='mantenimiento')) {
+
+  if (esMarca) {
+    var importeMarca = PRECIOS_MARCA[servicio];
+    resumen.innerHTML = 'Vas a pagar <strong>$' + importeMarca + '</strong> — ' + NOMBRES_SERVICIO_MARCA[servicio];
+    document.getElementById('grupo-llc-nombre').style.display = 'none';
+  } else if (NOMBRES_ESTADO[estado] && PRECIOS[estado] && (servicio === 'formacion' || servicio === 'mantenimiento')) {
+    var importe = PRECIOS[estado][servicio];
+    resumen.innerHTML = 'Vas a pagar <strong>$' + importe + '</strong> — ' + NOMBRES_SERVICIO[servicio] + ' en ' + NOMBRES_ESTADO[estado];
+
+    if (servicio === 'mantenimiento') {
+      document.getElementById('f-llc-nombre').required = true;
+    } else {
+      document.getElementById('grupo-llc-nombre').style.display = 'none';
+    }
+  } else {
     resumen.innerHTML = 'No encontramos el servicio solicitado. Vuelve a <a href="precios-llc.html">la tabla de precios</a> y elige de nuevo.';
     document.getElementById('form-card').style.display = 'none';
     return;
-  }
-  var importe = PRECIOS[estado][servicio];
-  resumen.innerHTML = 'Vas a pagar <strong>$' + importe + '</strong> — ' + NOMBRES_SERVICIO[servicio] + ' en ' + NOMBRES_ESTADO[estado];
-
-  if (servicio === 'mantenimiento') {
-    document.getElementById('f-llc-nombre').required = true;
-  } else {
-    document.getElementById('grupo-llc-nombre').style.display = 'none';
   }
 
   var refCode = localStorage.getItem('polaris_ref');
