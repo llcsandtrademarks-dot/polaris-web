@@ -126,7 +126,7 @@
         <thead>
           <tr>
             <th>Fecha</th>
-            <th>Importe de la venta</th>
+            <th>Servicio</th>
             <th>Comisión</th>
             <th>Estado</th>
           </tr>
@@ -200,12 +200,17 @@ function formatoMoneda(n) {
   return '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
+function formatoComision(n) {
+  if (n == null) return 'Pendiente de confirmar';
+  return formatoMoneda(n);
+}
+
 function renderFila(c) {
   var estadoClase = c.estado === 'Pagada' ? 'pagada' : 'pendiente';
   return '<tr>' +
     '<td>' + (c.fecha || '—') + '</td>' +
-    '<td>' + formatoMoneda(c.importe_venta) + '</td>' +
-    '<td>' + formatoMoneda(c.importe_comision) + '</td>' +
+    '<td>' + (c.servicio || '—') + '</td>' +
+    '<td>' + formatoComision(c.importe_comision) + '</td>' +
     '<td><span class="estado-pill ' + estadoClase + '">' + (c.estado || '—') + '</span></td>' +
   '</tr>';
 }
