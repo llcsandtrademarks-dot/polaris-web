@@ -65,9 +65,9 @@
     (function(){
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
-      if (ref) { localStorage.setItem('polaris_ref', ref); }
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
       var presc = params.get('presc');
-      if (presc) { localStorage.setItem('polaris_presc', presc); }
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
     })();
   </script>
 </head>

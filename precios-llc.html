@@ -91,9 +91,9 @@
     (function(){
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
-      if (ref) { localStorage.setItem('polaris_ref', ref); }
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
       var presc = params.get('presc');
-      if (presc) { localStorage.setItem('polaris_presc', presc); }
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
     })();
   </script>
 </head>
@@ -261,9 +261,18 @@ var LINKS_STRIPE = {
   1119: 'https://buy.stripe.com/fZu8wR2vo9JTeggap9fMA0e'
 };
 
+function polarisValorVigente(clave) {
+  var valor = localStorage.getItem(clave);
+  var ts = localStorage.getItem(clave + '_ts');
+  if (!valor || !ts) return null;
+  var dias = (Date.now() - Number(ts)) / (1000 * 60 * 60 * 24);
+  if (dias > 30) return null;
+  return valor;
+}
+
 function linkStripe(servicio, estado, importe) {
   var url = LINKS_STRIPE[importe] + '?client_reference_id=' + servicio + '_' + estado;
-  var presc = localStorage.getItem('polaris_presc');
+  var presc = polarisValorVigente('polaris_presc');
   if (presc) { url += '&prefilled_promo_code=' + encodeURIComponent(presc); }
   return url;
 }

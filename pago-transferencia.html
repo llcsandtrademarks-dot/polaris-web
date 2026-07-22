@@ -74,9 +74,9 @@
     (function(){
       var params = new URLSearchParams(window.location.search);
       var ref = params.get('ref');
-      if (ref) { localStorage.setItem('polaris_ref', ref); }
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
       var presc = params.get('presc');
-      if (presc) { localStorage.setItem('polaris_presc', presc); }
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
     })();
   </script>
 </head>
@@ -263,6 +263,15 @@ var PRECIOS = {
   westvirginia:{formacion:399,mantenimiento:399},wisconsin:{formacion:499,mantenimiento:399},wyoming:{formacion:399,mantenimiento:399}
 };
 
+function polarisValorVigente(clave) {
+  var valor = localStorage.getItem(clave);
+  var ts = localStorage.getItem(clave + '_ts');
+  if (!valor || !ts) return null;
+  var dias = (Date.now() - Number(ts)) / (1000 * 60 * 60 * 24);
+  if (dias > 30) return null;
+  return valor;
+}
+
 var params = new URLSearchParams(window.location.search);
 var estado = (params.get('estado')||'').toLowerCase();
 var servicio = params.get('servicio');
@@ -291,7 +300,7 @@ var esMarca = PRECIOS_MARCA.hasOwnProperty(servicio);
     return;
   }
 
-  var refCode = localStorage.getItem('polaris_ref');
+  var refCode = polarisValorVigente('polaris_ref');
   if (refCode) {
     document.getElementById('grupo-ref').style.display = '';
     document.getElementById('ref-code-display').textContent = refCode;
@@ -316,7 +325,7 @@ function enviarFormulario(ev) {
     empresa: document.getElementById('f-empresa').value.trim(),
     llc_nombre: document.getElementById('f-llc-nombre').value.trim(),
     telefono: document.getElementById('f-telefono').value.trim(),
-    ref_code: localStorage.getItem('polaris_ref') || '',
+    ref_code: polarisValorVigente('polaris_ref') || '',
     como_conocio: document.getElementById('f-como-conocio').value.trim(),
     facturacion_nombre: document.getElementById('f-fact-nombre').value.trim(),
     facturacion_taxid: document.getElementById('f-fact-taxid').value.trim(),
