@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- Google tag (gtag.js) — Consent Mode v2 -->
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'granted',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Cuánto deberías pagar de mantenimiento anual por tu LLC? — Proyecto Polaris</title>
+
+  <link rel="stylesheet" href="shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    .hero { background: var(--navy); padding: 3.5rem 2.5rem 3rem; }
+    .hero-inner { max-width: 720px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.6rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 0.75rem; }
+    .hero p { font-size: 0.97rem; color: rgba(255,255,255,0.68); line-height: 1.7; max-width: 480px; }
+
+    .section { max-width: 640px; margin: 0 auto; padding: 3rem 2rem; }
+
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.25rem 2.25rem; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
+    label { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.02em; }
+    input, select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--offwhite); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; width: 100%; transition: border-color 0.2s, box-shadow 0.2s; }
+    input:focus, select:focus { outline: none; border-color: var(--navy-light); box-shadow: 0 0 0 3px rgba(30,74,114,0.12); }
+    .btn-full { width: 100%; justify-content: center; margin-top: 0.5rem; border: none; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+
+    #result-section { display: none; }
+    .result-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.25rem 2.25rem; }
+    .result-price { font-family: 'Playfair Display', serif; font-size: clamp(1.4rem, 3vw, 1.85rem); font-weight: 700; color: var(--navy); line-height: 1.3; margin-bottom: 1rem; }
+    .result-price strong { color: var(--navy-light); }
+    .result-includes { font-size: 0.93rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.5rem; }
+    .result-includes strong { color: var(--text); font-weight: 600; }
+    .maryland-note { background: var(--navy-pale); border-left: 3px solid var(--navy-light); border-radius: 6px; padding: 0.85rem 1rem; font-size: 0.85rem; color: var(--navy); line-height: 1.6; margin: 1rem 0 1.5rem; }
+    .result-cta-primary { margin-top: 0.5rem; }
+    .result-cta-secondary { display: block; text-align: center; margin-top: 1.1rem; font-size: 13px; color: var(--text-muted); text-decoration: underline; }
+    .result-cta-secondary:hover { color: var(--navy); }
+    .loading-note { font-size: 12px; color: var(--text-muted); margin-top: 10px; text-align: center; display: none; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios-llc.html">Servicios LLC</a></li>
+    <li><a href="servicios-marca.html">Registro de marca</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+  </ul>
+  <button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Inicio</a>
+  <a href="servicios-llc.html">Servicios LLC</a>
+  <a href="servicios-marca.html">Registro de marca</a>
+  <a href="nosotros.html">Nosotros</a>
+  <a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Comprobador de precio · LLC</p>
+    <h1>¿Sabes cuánto deberías estar pagando de mantenimiento anual por tu LLC?</h1>
+    <p>Introduce el estado donde la formaste y compruébalo al instante.</p>
+  </div>
+</section>
+
+<section class="section">
+
+  <!-- PANTALLA 1: formulario -->
+  <div id="form-section">
+    <div class="form-card">
+      <form id="precio-form">
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input id="email" name="email" placeholder="tucorreo@ejemplo.com" required type="email"/>
+        </div>
+        <div class="form-group">
+          <label for="estado">Estado donde formaste tu LLC</label>
+          <select id="estado" name="estado" required>
+            <option value="">Selecciona tu estado…</option>
+          </select>
+        </div>
+        <button class="btn btn-navy btn-full" id="btn-submit" type="submit">Comprobar si estoy pagando de más</button>
+        <p class="loading-note" id="loading-note">Cargando datos de tu estado…</p>
+      </form>
+    </div>
+  </div>
+
+  <!-- PANTALLA 2: resultado -->
+  <div id="result-section">
+    <div class="result-card">
+      <p class="result-price" id="result-titulo"></p>
+      <p class="result-includes" id="result-incluye"></p>
+      <div class="maryland-note" id="maryland-note" style="display:none;"></div>
+      <a class="btn btn-navy result-cta-primary" href="contacto.html" id="cta-auditoria">Pide tu auditoría gratuita para saber qué es lo que estás pagando de más</a>
+      <a class="result-cta-secondary" href="calendario-llc.html">Descarga tu calendario fiscal personalizado con las fechas límite de cada pago</a>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+        <img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+      </div>
+      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Servicios</p>
+      <ul>
+        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
+        <li><a href="precios-llc.html">Precios de LLC</a></li>
+        <li><a href="servicios-marca.html">Registro de marca</a></li>
+        <li><a href="precios-marca.html">Precios de registro de marca</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Recursos</p>
+      <ul>
+        <li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+        <li><a href="referidos.html">Programa de referidos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Empresa</p>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Legal</p>
+      <ul>
+        <li><a href="#">Política de privacidad</a></li>
+        <li><a href="#">Términos de servicio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem"><a href="#">Privacidad</a><a href="#">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+  // ── Fuente única de verdad: /estados en el Worker polaris-pagos ──────────
+  const ESTADOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/estados';
+  // Endpoint de captura de lead — MISMO PATRÓN que calendario-llc.html.
+  // NOTA: este endpoint (/precio-estado) todavía no existe en polaris-api,
+  // hay que añadirlo (ver prompt para Claude Code). Hasta entonces el fetch
+  // falla en silencio (.catch) y la página sigue funcionando con normalidad,
+  // solo que no se guarda el email todavía.
+  const LEAD_ENDPOINT = 'https://polaris-api.llcsandtrademarks.workers.dev/precio-estado';
+
+  let ESTADOS = null;
+
+  async function cargarEstados() {
+    const loadingNote = document.getElementById('loading-note');
+    const select = document.getElementById('estado');
+    const btn = document.getElementById('btn-submit');
+    try {
+      loadingNote.style.display = 'block';
+      btn.disabled = true;
+      const res = await fetch(ESTADOS_ENDPOINT);
+      ESTADOS = await res.json();
+      const slugs = Object.keys(ESTADOS).sort((a, b) => ESTADOS[a].nombre.localeCompare(ESTADOS[b].nombre, 'es'));
+      slugs.forEach(slug => {
+        const opt = document.createElement('option');
+        opt.value = slug;
+        opt.textContent = ESTADOS[slug].nombre;
+        select.appendChild(opt);
+      });
+    } catch (e) {
+      loadingNote.textContent = 'No pudimos cargar la lista de estados. Recarga la página.';
+      loadingNote.style.color = '#c0392b';
+      return;
+    } finally {
+      loadingNote.style.display = 'none';
+      btn.disabled = false;
+    }
+  }
+  cargarEstados();
+
+  document.getElementById('precio-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    const slug = document.getElementById('estado').value;
+    if (!email || !slug || !ESTADOS || !ESTADOS[slug]) return;
+
+    const d = ESTADOS[slug];
+
+    // Construir lista de inclusiones — condicional según el estado
+    const items = ['reporte anual al IRS', 'agente registrado', 'renovación anual ante el estado'];
+    if (d.incluye_reporte_estado) items.push('reporte anual ante el estado');
+    if (d.incluye_fee_estatal) items.push('fee anual estatal');
+    items.push('dirección física de tu LLC', 'servicio de recepción y reenvío de correo', 'asesoramiento continuado', 'seguimiento normativo y de cumplimiento', 'honorarios de agencia');
+
+    document.getElementById('result-titulo').innerHTML =
+      `El mantenimiento anual de tu LLC en ${d.nombre} debería costarte máximo <strong>${d.mantenimiento_anual_usd} USD</strong>.`;
+
+    document.getElementById('result-incluye').innerHTML =
+      `Esto incluye ${items.join(', ')}. Si estás pagando más sin que te hayan explicado por qué, probablemente te están cobrando servicios que no necesitas.`;
+
+    const marylandNote = document.getElementById('maryland-note');
+    if (slug === 'maryland') {
+      marylandNote.style.display = 'block';
+      marylandNote.textContent = 'Este es el precio máximo. Si se han hecho todos los pasos correctos desde la formación, deberías estar pagando $300 menos por el descuento de la fee estatal.';
+    } else {
+      marylandNote.style.display = 'none';
+    }
+
+    // CTA de auditoría con contexto precargado hacia el formulario de contacto
+    document.getElementById('cta-auditoria').href =
+      `contacto.html?motivo=auditoria&estado=${encodeURIComponent(d.nombre)}`;
+
+    document.getElementById('form-section').style.display = 'none';
+    document.getElementById('result-section').style.display = 'block';
+    document.getElementById('result-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Registrar lead — mismo patrón fire-and-forget que calendario-llc.html
+    fetch(LEAD_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: email, estado: d.nombre })
+    }).catch(() => {});
+
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'precio_maximo_generado', {
+        event_category: 'engagement',
+        event_label: 'precio_maximo_llc',
+        estado: d.nombre
+      });
+    }
+  });
+</script>
+
+</body>
+</html>
