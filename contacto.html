@@ -185,6 +185,8 @@
       <label for="tipo_consulta">¿En qué podemos ayudarte?</label>
       <select id="tipo_consulta" name="tipo_consulta">
         <option value="" disabled selected>Selecciona una opción</option>
+        <option value="auditoria-llc">Quiero mi auditoría de precio de LLC</option>
+        <option value="oferta-llc-marca">Quiero la oferta de LLC + registro de marca</option>
         <option value="abrir-llc">Quiero abrir una LLC</option>
         <option value="ayuda-llc">Ya tengo una LLC y necesito ayuda</option>
         <option value="cambiar-gestor">Quiero cambiar de empresa gestora</option>
@@ -494,13 +496,15 @@
 
   // Config por tipo de consulta: placeholder del textarea y mínimo de caracteres
   var tipoConfig = {
-    'abrir-llc':       { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
-    'ayuda-llc':       { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
-    'cambiar-gestor':  { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
-    'registrar-marca': { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
-    'ayuda-marca':     { placeholder: 'Cuéntanos brevemente tu situación.', min: 50 },
-    'contacto':        { placeholder: 'Cuéntanos brevemente en qué podemos ayudarte.', min: 50 },
-    'prescriptor':     { placeholder: 'Comparte los enlaces a tus redes sociales o plataformas de contenido.', min: 0 }
+    'auditoria-llc':    { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'oferta-llc-marca': { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'abrir-llc':        { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'ayuda-llc':        { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'cambiar-gestor':   { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'registrar-marca':  { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'ayuda-marca':      { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'contacto':         { placeholder: 'Cuéntanos brevemente en qué podemos ayudarte.', min: 0 },
+    'prescriptor':      { placeholder: 'Comparte los enlaces a tus redes sociales o plataformas de contenido.', min: 0 }
   };
 
   // Ref code
@@ -511,6 +515,23 @@
   var msgEl     = document.getElementById('mensaje');
   var counterEl = document.getElementById('char-counter');
   var errMsg    = document.getElementById('err-mensaje');
+
+  // Prellenado desde landings de campaña (precio-maximo-llc.html y oferta-llc-marca.html)
+  var urlParams = new URLSearchParams(window.location.search);
+  var motivoParam = urlParams.get('motivo');
+  var estadoParam = urlParams.get('estado');
+  var motivoToTipo = { 'auditoria': 'auditoria-llc', 'oferta-llc-marca': 'oferta-llc-marca' };
+  var mensajesPrellenado = {
+    'auditoria-llc': 'Vengo desde la comprobación de precio de mantenimiento de mi LLC' + (estadoParam ? ' en ' + estadoParam : '') + '. Quiero una auditoría de lo que estoy pagando de más.',
+    'oferta-llc-marca': 'Vengo desde la oferta de formación de LLC + registro de marca por 799 USD. Quiero más información.'
+  };
+  if (motivoParam && motivoToTipo[motivoParam]) {
+    var tipoPrellenado = motivoToTipo[motivoParam];
+    selectEl.value = tipoPrellenado;
+    selectEl.dispatchEvent(new Event('change'));
+    msgEl.value = mensajesPrellenado[tipoPrellenado];
+    updateCounter();
+  }
 
   // Actualizar campo mensaje al cambiar tipo
   selectEl.addEventListener('change', function(){
@@ -545,38 +566,6 @@
   // Validación
   function validate(){
     var ok = true;
-    var errTipo = document.getElementById('err-tipo');
-
-    // Tipo consulta
-    if (!selectEl.value) {
-      errTipo.textContent = 'Selecciona una opción para continuar.';
-      errTipo.classList.add('visible');
-      selectEl.classList.add('field-error');
-      ok = false;
-    } else {
-      errTipo.classList.remove('visible');
-      selectEl.classList.remove('field-error');
-    }
-
-    // Mensaje
-    var min = parseInt(msgEl.getAttribute('data-min') || '0', 10);
-    var len = msgEl.value.trim().length;
-    if (len === 0) {
-      errMsg.textContent = selectEl.value === 'prescriptor'
-        ? 'Incluye al menos un enlace a tus plataformas.'
-        : 'Por favor, escribe tu consulta.';
-      errMsg.classList.add('visible');
-      msgEl.classList.add('field-error');
-      ok = false;
-    } else if (min > 0 && len < min) {
-      errMsg.textContent = 'Por favor, escribe al menos ' + min + ' caracteres para que podamos ayudarte.';
-      errMsg.classList.add('visible');
-      msgEl.classList.add('field-error');
-      ok = false;
-    } else {
-      errMsg.classList.remove('visible');
-      msgEl.classList.remove('field-error');
-    }
 
     // Email
     var emailVal = document.getElementById('email').value.trim();
@@ -588,30 +577,6 @@
     } else {
       errEmail.classList.remove('visible');
       document.getElementById('email').classList.remove('field-error');
-    }
-
-    // Nombre completo
-    var nombreVal = document.getElementById('nombre').value.trim();
-    var errNombre = document.getElementById('err-nombre');
-    if (!nombreVal) {
-      errNombre.classList.add('visible');
-      document.getElementById('nombre').classList.add('field-error');
-      ok = false;
-    } else {
-      errNombre.classList.remove('visible');
-      document.getElementById('nombre').classList.remove('field-error');
-    }
-
-    // País
-    var paisVal = document.getElementById('pais').value.trim();
-    var errPais = document.getElementById('err-pais');
-    if (!paisVal) {
-      errPais.classList.add('visible');
-      document.getElementById('pais').classList.add('field-error');
-      ok = false;
-    } else {
-      errPais.classList.remove('visible');
-      document.getElementById('pais').classList.remove('field-error');
     }
 
     // Checkbox noticias
