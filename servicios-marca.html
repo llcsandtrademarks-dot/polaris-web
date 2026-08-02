@@ -65,6 +65,58 @@
       if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
     })();
   </script>
+<style>
+/* ── POPUP CALENDARIO ─────────────────────────────── */
+#cal-popup-overlay {
+  position: fixed; inset: 0; background: rgba(10,20,35,0.55);
+  z-index: 200; display: none; align-items: center; justify-content: center;
+  animation: fadeInOverlay 0.35s ease;
+}
+@keyframes fadeInOverlay { from { opacity:0 } to { opacity:1 } }
+#cal-popup {
+  background: var(--white); border-radius: 16px; padding: 2.25rem 2.5rem;
+  max-width: 460px; width: calc(100% - 2rem); position: relative;
+  box-shadow: 0 24px 60px rgba(13,33,55,0.28);
+  animation: slideUp 0.35s ease;
+}
+@keyframes slideUp { from { transform:translateY(30px); opacity:0 } to { transform:translateY(0); opacity:1 } }
+#cal-popup-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); font-size: 20px; line-height: 1; padding: 4px;
+}
+#cal-popup-close:hover { color: var(--text); }
+.cal-popup-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.5rem; }
+.cal-popup-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.3; }
+.cal-popup-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
+.cal-popup-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: var(--white); font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+.cal-popup-btn:hover { background: var(--navy-mid); }
+.cal-popup-skip { display: block; margin-top: 0.85rem; font-size: 12px; color: var(--text-muted); cursor: pointer; background: none; border: none; text-decoration: underline; }
+
+/* ── WIDGET FLOTANTE ──────────────────────────────── */
+#cal-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 150;
+  display: none;
+  animation: widgetIn 0.3s ease;
+}
+@keyframes widgetIn { from { transform:scale(0.7); opacity:0 } to { transform:scale(1); opacity:1 } }
+#cal-widget a {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); color: var(--white);
+  font-size: 13px; font-weight: 700;
+  padding: 11px 18px; border-radius: 50px;
+  text-decoration: none; box-shadow: 0 6px 20px rgba(13,33,55,0.35);
+  transition: background 0.2s, transform 0.2s;
+}
+#cal-widget a:hover { background: var(--navy-mid); transform: translateY(-2px); }
+#cal-widget-close {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text-muted); color: white; border: none;
+  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+</style>
 </head>
 <body>
 <nav>
@@ -439,6 +491,45 @@
       document.getElementById('cookie-banner').style.display = 'none';
     }
   </script>
+<!-- POP-UP CALENDARIO -->
+<div id="cal-popup-overlay">
+<div id="cal-popup">
+<button aria-label="Cerrar" id="cal-popup-close" onclick="closePopup()">✕</button>
+<p class="cal-popup-eyebrow">Herramienta exclusiva</p>
+<h2 class="cal-popup-title">Descarga tu calendario personalizado de gestiones fiscales</h2>
+<p class="cal-popup-desc">Genera tu calendario personalizado de gestiones federales y estatales — con todas las fechas clave para tu LLC, listo para descargar en PDF.</p>
+<a class="cal-popup-btn" href="calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+      Ver mi calendario
+    </a>
+<button class="cal-popup-skip" onclick="closePopup()">No, gracias</button>
+</div>
+</div>
+<!-- WIDGET FLOTANTE -->
+<div id="cal-widget">
+<a href="calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+    Mi calendario LLC
+  </a>
+<button aria-label="Cerrar widget" id="cal-widget-close" onclick="document.getElementById('cal-widget').style.display='none'">✕</button>
+</div>
+<script>
+function closePopup() {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+// Auto-show after 2.5s, only once per session
+if (!sessionStorage.getItem('calPopupSeen')) {
+  setTimeout(function() {
+    var el = document.getElementById('cal-popup-overlay');
+    if (el) el.style.display = 'flex';
+    sessionStorage.setItem('calPopupSeen', '1');
+  }, 2500);
+} else {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+</script>
 <!-- Widget Referidos -->
 <div id="ref-widget-wrap">
   <a href="referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>

@@ -870,5 +870,26 @@ async function descargarPDF() {
       document.getElementById("cookie-banner").style.display = "none";
     }
   </script>
+<!-- Widget Referidos -->
+<div id="ref-widget-wrap">
+  <a href="referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>
+  <a href="referidos.html" id="ref-widget-banner">Programa de referidos<br>Apuntate y gana</a>
+</div>
+<script>
+(function(){
+  var banner = document.getElementById("ref-widget-banner");
+  var dot = document.getElementById("ref-widget-dot");
+  if (!banner) return;
+  // Collapse after 5 seconds
+  setTimeout(function(){
+    banner.style.transition = "opacity 0.4s, max-height 0.4s";
+    banner.style.opacity = "0";
+    setTimeout(function(){
+      banner.style.display = "none";
+      dot.classList.add("visible");
+    }, 400);
+  }, 5000);
+})();
+</script>
 </body>
 </html>
