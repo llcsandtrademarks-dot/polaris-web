@@ -10,9 +10,29 @@
     ad_storage: 'denied', analytics_storage: 'denied',
     ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500
   });
-  if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
-    gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
-  }
+  (function() {
+    var stored = localStorage.getItem('polaris_cookie_consent');
+    if (stored === 'accepted') {
+      gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+      return;
+    }
+    if (stored === 'rejected') return;
+
+    fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (data.country !== 'ES') {
+          gtag('consent', 'update', { ad_storage: 'granted', analytics_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted' });
+        } else {
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        }
+      })
+      .catch(function(){
+        var banner = document.getElementById('cookie-banner');
+        if (banner) banner.style.display = 'flex';
+      });
+  })();
 </script>
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
 <script>
@@ -462,9 +482,6 @@ function acceptCookies() {
 function rejectCookies() {
   localStorage.setItem('polaris_cookie_consent', 'rejected');
   document.getElementById('cookie-banner').style.display = 'none';
-}
-if (!localStorage.getItem('polaris_cookie_consent')) {
-  setTimeout(() => document.getElementById('cookie-banner').style.display = 'flex', 1500);
 }
 </script>
 
