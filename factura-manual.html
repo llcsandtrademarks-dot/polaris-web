@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Nueva factura manual — Proyecto Polaris</title>
+<link rel="stylesheet" href="shared.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .section { max-width: 620px; margin: 0 auto; padding: 3rem 2rem; }
+
+  .fm-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; }
+  .fm-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 1.25rem; }
+
+  .fm-field { margin-bottom: 1.1rem; }
+  .fm-field label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 5px; }
+  .fm-field .fm-hint { font-size: 11.5px; color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: normal; display: inline; }
+  .fm-field input, .fm-field textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white);
+  }
+  .fm-field input:focus, .fm-field textarea:focus { outline: none; border-color: var(--navy-light); }
+  .fm-row { display: flex; gap: 1rem; }
+  .fm-row .fm-field { flex: 1; }
+
+  .fm-msg { display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 10px; font-size: 13.5px; line-height: 1.6; }
+  .fm-msg.ok { display: block; background: #e7f5ea; color: #1f5f33; border: 1px solid #b7ddc0; }
+  .fm-msg.err { display: block; background: #fbeaea; color: #7a2020; border: 1px solid #edbcbc; }
+
+  .fm-submit { width: 100%; justify-content: center; margin-top: 0.5rem; }
+  .fm-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  #gate-password { text-align: center; padding: 4rem 1rem; }
+  #gate-password .fm-card { max-width: 340px; margin: 0 auto; text-align: left; }
+  #form-manual, #resultado-manual { display: none; }
+
+  .fm-resultado-fila { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .fm-resultado-fila input { flex: 1; font-family: monospace; font-size: 12.5px; background: var(--offwhite); }
+  .fm-token { font-family: monospace; font-size: 12px; color: var(--text-muted); word-break: break-all; }
+
+  .fm-nueva { display: inline-block; margin-top: 1.25rem; font-size: 13px; color: var(--navy); font-weight: 700; text-decoration: none; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.png" alt="Proyecto Polaris" class="nav-logo-img" onerror="this.style.display='none'">
+    Proyecto <span>Polaris</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios-llc.html">Servicios LLC</a></li>
+    <li><a href="servicios-marca.html">Registro de marca</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="contacto.html" class="nav-cta">Contactar</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Inicio</a>
+  <a href="servicios-llc.html">Servicios LLC</a>
+  <a href="servicios-marca.html">Registro de marca</a>
+  <a href="nosotros.html">Nosotros</a>
+  <a href="contacto.html" class="nav-cta">Contactar</a>
+</div>
+
+<div class="section">
+
+  <div id="gate-password">
+    <div class="fm-card">
+      <div class="fm-title">Portal de facturas manuales</div>
+      <form id="gate-form">
+        <div class="fm-field">
+          <label for="gate-password-input">Contraseña</label>
+          <input type="password" id="gate-password-input" autocomplete="off" required>
+        </div>
+        <button type="submit" class="btn btn-navy fm-submit">Entrar</button>
+      </form>
+      <div class="fm-msg err" id="gate-error" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div id="form-manual">
+    <div class="fm-card">
+      <div class="fm-title">Nueva factura manual</div>
+      <form id="form-manual-el">
+        <div class="fm-row">
+          <div class="fm-field">
+            <label for="f-nombre">Cliente / empresa</label>
+            <input type="text" id="f-nombre" required>
+          </div>
+          <div class="fm-field">
+            <label for="f-email">Email <span class="fm-hint">(opcional — sin él, solo enlace manual)</span></label>
+            <input type="email" id="f-email">
+          </div>
+        </div>
+        <div class="fm-row">
+          <div class="fm-field">
+            <label for="f-taxid">NIF/CIF/EIN <span class="fm-hint">(opcional)</span></label>
+            <input type="text" id="f-taxid">
+          </div>
+          <div class="fm-field">
+            <label for="f-direccion">Dirección <span class="fm-hint">(opcional)</span></label>
+            <input type="text" id="f-direccion">
+          </div>
+        </div>
+        <div class="fm-field">
+          <label for="f-concepto">Concepto</label>
+          <input type="text" id="f-concepto" required>
+        </div>
+        <div class="fm-row">
+          <div class="fm-field">
+            <label for="f-importe">Importe (USD)</label>
+            <input type="number" id="f-importe" min="0" step="0.01" required>
+          </div>
+          <div class="fm-field">
+            <label for="f-equivalente">Equivalente <span class="fm-hint">(opcional, texto libre)</span></label>
+            <input type="text" id="f-equivalente" placeholder="≈0.0083 BTC / 500 EUR">
+          </div>
+        </div>
+        <div class="fm-row">
+          <div class="fm-field">
+            <label for="f-metodo">Método de pago</label>
+            <input type="text" id="f-metodo" list="metodos-sugeridos" placeholder="Zelle, Cripto, Corrección Mercury…">
+            <datalist id="metodos-sugeridos">
+              <option value="Zelle">
+              <option value="Cripto">
+              <option value="Corrección Mercury">
+            </datalist>
+          </div>
+          <div class="fm-field">
+            <label for="f-fecha">Fecha <span class="fm-hint">(opcional, hoy por defecto)</span></label>
+            <input type="date" id="f-fecha">
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-navy fm-submit" id="btn-crear">Crear factura</button>
+        <div class="fm-msg err" id="form-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="resultado-manual">
+    <div class="fm-card">
+      <div class="fm-title">Factura creada</div>
+
+      <div class="fm-field">
+        <label>Enlace de descarga</label>
+        <div class="fm-resultado-fila">
+          <input type="text" id="r-enlace" readonly>
+          <button type="button" class="btn btn-navy" id="btn-copiar" onclick="copiarEnlace()">Copiar</button>
+        </div>
+      </div>
+
+      <button type="button" class="btn btn-navy fm-submit" id="btn-enviar-cliente">Enviar por email al cliente</button>
+      <div class="fm-msg" id="r-estado-envio"></div>
+
+      <div style="margin-top:1.25rem;">
+        <span class="fm-token">Token: <span id="r-token"></span></span>
+      </div>
+
+      <a class="fm-nueva" onclick="nuevaFactura()">Crear otra factura</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+        <img src="logo.png" alt="Proyecto Polaris" style="width:32px;height:32px;border-radius:8px;">
+        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+      </div>
+      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Servicios</p>
+      <ul>
+        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
+        <li><a href="precios-llc.html">Precios de LLC</a></li>
+        <li><a href="servicios-marca.html">Registro de marca</a></li>
+        <li><a href="precios-marca.html">Precios de registro de marca</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Recursos</p>
+      <ul>
+        <li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+        <li><a href="referidos.html">Programa de referidos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Empresa</p>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Legal</p>
+      <ul>
+        <li><a href="privacidad.html">Política de privacidad</a></li>
+        <li><a href="terminos.html">Términos de servicio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
+var PASSWORD_KEY = 'polaris_portal_password';
+
+function mostrarGate(mensajeError) {
+  document.getElementById('gate-password').style.display = 'block';
+  document.getElementById('form-manual').style.display = 'none';
+  document.getElementById('resultado-manual').style.display = 'none';
+  var err = document.getElementById('gate-error');
+  if (mensajeError) { err.textContent = mensajeError; err.style.display = 'block'; }
+  else { err.style.display = 'none'; }
+}
+
+function mostrarForm() {
+  document.getElementById('gate-password').style.display = 'none';
+  document.getElementById('resultado-manual').style.display = 'none';
+  document.getElementById('form-manual').style.display = 'block';
+}
+
+if (sessionStorage.getItem(PASSWORD_KEY)) {
+  mostrarForm();
+} else {
+  mostrarGate();
+}
+
+document.getElementById('gate-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  var pw = document.getElementById('gate-password-input').value;
+  if (!pw) return;
+  sessionStorage.setItem(PASSWORD_KEY, pw);
+  document.getElementById('gate-password-input').value = '';
+  mostrarForm();
+});
+
+document.getElementById('form-manual-el').addEventListener('submit', function(e){
+  e.preventDefault();
+  crearFactura();
+});
+
+function crearFactura() {
+  var btn = document.getElementById('btn-crear');
+  var errorBox = document.getElementById('form-error');
+  errorBox.style.display = 'none';
+  btn.disabled = true;
+  btn.textContent = 'Creando…';
+
+  var body = {
+    nombre: document.getElementById('f-nombre').value.trim(),
+    email: document.getElementById('f-email').value.trim(),
+    facturacion_taxid: document.getElementById('f-taxid').value.trim(),
+    facturacion_direccion: document.getElementById('f-direccion').value.trim(),
+    concepto: document.getElementById('f-concepto').value.trim(),
+    importe: Number(document.getElementById('f-importe').value),
+    equivalente: document.getElementById('f-equivalente').value.trim(),
+    metodo: document.getElementById('f-metodo').value.trim(),
+    fecha: document.getElementById('f-fecha').value
+  };
+
+  fetch(WORKER_URL + '/factura/manual', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Portal-Password': sessionStorage.getItem(PASSWORD_KEY) || '' },
+    body: JSON.stringify(body)
+  })
+    .then(function(res){ return res.json().then(function(data){ return { status: res.status, ok: res.ok, data: data }; }); })
+    .then(function(r){
+      if (r.status === 401) {
+        sessionStorage.removeItem(PASSWORD_KEY);
+        mostrarGate('Contraseña incorrecta — vuelve a introducirla.');
+        return;
+      }
+      if (!r.ok) throw new Error(r.data.error || 'Error al crear la factura');
+      mostrarResultado(r.data, body.email);
+    })
+    .catch(function(e){
+      errorBox.textContent = 'No se pudo crear la factura: ' + e.message;
+      errorBox.style.display = 'block';
+    })
+    .finally(function(){
+      btn.disabled = false;
+      btn.textContent = 'Crear factura';
+    });
+}
+
+function mostrarResultado(data, email) {
+  document.getElementById('form-manual').style.display = 'none';
+  document.getElementById('resultado-manual').style.display = 'block';
+  document.getElementById('r-enlace').value = data.enlace_descarga;
+  document.getElementById('r-token').textContent = data.token;
+
+  var estado = document.getElementById('r-estado-envio');
+  estado.style.display = 'none';
+
+  var btnEnviar = document.getElementById('btn-enviar-cliente');
+  btnEnviar.textContent = 'Enviar por email al cliente';
+  if (!email) {
+    btnEnviar.disabled = true;
+    btnEnviar.title = 'No se aportó email de cliente';
+  } else {
+    btnEnviar.disabled = false;
+    btnEnviar.title = '';
+    btnEnviar.onclick = function(){ enviarAlCliente(data.token, btnEnviar); };
+  }
+}
+
+function enviarAlCliente(token, btn) {
+  var estado = document.getElementById('r-estado-envio');
+  btn.disabled = true;
+  btn.textContent = 'Enviando…';
+  fetch(WORKER_URL + '/factura/reenviar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ token: token })
+  })
+    .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+    .then(function(r){
+      if (!r.ok) throw new Error(r.data.error || 'Error al enviar');
+      btn.textContent = 'Enviada';
+      estado.textContent = 'Factura enviada al cliente por email.';
+      estado.className = 'fm-msg ok';
+      estado.style.display = 'block';
+    })
+    .catch(function(e){
+      btn.disabled = false;
+      btn.textContent = 'Enviar por email al cliente';
+      estado.textContent = 'No se pudo enviar: ' + e.message;
+      estado.className = 'fm-msg err';
+      estado.style.display = 'block';
+    });
+}
+
+function copiarEnlace() {
+  var input = document.getElementById('r-enlace');
+  input.select();
+  input.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(input.value).then(function(){
+    var btn = document.getElementById('btn-copiar');
+    var textoOriginal = btn.textContent;
+    btn.textContent = 'Copiado';
+    setTimeout(function(){ btn.textContent = textoOriginal; }, 1500);
+  });
+}
+
+function nuevaFactura() {
+  document.getElementById('form-manual-el').reset();
+  mostrarForm();
+}
+</script>
+</body>
+</html>
