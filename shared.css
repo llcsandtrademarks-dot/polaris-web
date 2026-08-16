@@ -152,6 +152,14 @@ hr.divider { border: none; border-top: 1px solid var(--border); max-width: 1100p
 /* Reviews carousel card as a link (Trustpilot carousel) */
 a.review-card, a.review-card:visited { color: inherit; text-decoration: none; }
 
+/* Special Trustpilot presentation card — solid white, not the navy-tinted default */
+.review-card.review-card-tp { background: var(--white); }
+.review-card-tp .review-name { color: var(--navy); }
+.review-card-tp .review-text { color: var(--text-muted); }
+
+/* "Trustpilot" brand-word accent — shared by the special card and the header badge */
+.tp-brand { color: #00b67a; font-weight: 700; }
+
 /* ============================================
    REVIEWS CAROUSEL — peek style
    ============================================ */
