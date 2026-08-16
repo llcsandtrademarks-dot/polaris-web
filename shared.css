@@ -142,6 +142,16 @@ hr.divider { border: none; border-top: 1px solid var(--border); max-width: 1100p
 /* Logo image in nav */
 .nav-logo-img { width: 36px; height: 36px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
 
+/* Trustpilot badge bar (top of page, above nav) */
+.tp-badge-bar { background: var(--navy-mid); padding: 7px 2.5rem; }
+.tp-badge-bar a { display: flex; align-items: center; justify-content: center; gap: 8px; color: rgba(255,255,255,0.85); text-decoration: none; font-size: 12px; text-align: center; }
+.tp-badge-bar a:hover { color: var(--white); }
+.tp-badge-bar img { height: 18px; width: auto; display: block; flex-shrink: 0; }
+@media (max-width: 480px) { .tp-badge-bar { padding: 7px 1rem; } .tp-badge-bar a { font-size: 11px; } }
+
+/* Reviews carousel card as a link (Trustpilot carousel) */
+a.review-card, a.review-card:visited { color: inherit; text-decoration: none; }
+
 /* ============================================
    REVIEWS CAROUSEL — peek style
    ============================================ */
