@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Panel de administración — Proyecto Polaris</title>
+<link rel="stylesheet" href="shared.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .section { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem; }
+
+  .fm-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; }
+  .fm-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 1.25rem; }
+
+  .fm-field { margin-bottom: 1.1rem; }
+  .fm-field label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 5px; }
+  .fm-field input {
+    width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white);
+  }
+  .fm-field input:focus { outline: none; border-color: var(--navy-light); }
+
+  .fm-msg { display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 10px; font-size: 13.5px; line-height: 1.6; }
+  .fm-msg.err { display: block; background: #fbeaea; color: #7a2020; border: 1px solid #edbcbc; }
+
+  .fm-submit { width: 100%; justify-content: center; margin-top: 0.5rem; }
+  .fm-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  #gate-password { text-align: center; padding: 4rem 1rem; }
+  #gate-password .fm-card { max-width: 340px; margin: 0 auto; text-align: left; }
+  #inventario { display: none; }
+
+  .inv-block-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 1rem; }
+  .inv-block-title:first-child { margin-top: 0; }
+  .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .inv-card-title { font-family: 'Playfair Display', serif; font-size: 1.02rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+  .inv-card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; flex: 1; margin-bottom: 1rem; }
+  .inv-card-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy); border: 1.5px solid var(--navy); padding: 6px 14px; border-radius: 6px; align-self: flex-start; transition: background 0.2s, color 0.2s; }
+  .srv-card:hover .inv-card-cta { background: var(--navy); color: var(--white); }
+  .inv-warning { font-size: 12px; color: #7a2020; font-weight: 600; margin-top: -0.35rem; margin-bottom: 0.75rem; }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img src="logo.png" alt="Proyecto Polaris" class="nav-logo-img" onerror="this.style.display='none'">
+    Proyecto <span>Polaris</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios-llc.html">Servicios LLC</a></li>
+    <li><a href="servicios-marca.html">Registro de marca</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a href="contacto.html" class="nav-cta">Contactar</a></li>
+  </ul>
+  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menú">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Inicio</a>
+  <a href="servicios-llc.html">Servicios LLC</a>
+  <a href="servicios-marca.html">Registro de marca</a>
+  <a href="nosotros.html">Nosotros</a>
+  <a href="contacto.html" class="nav-cta">Contactar</a>
+</div>
+
+<div class="section">
+
+  <div id="gate-password">
+    <div class="fm-card">
+      <div class="fm-title">Panel de administración</div>
+      <form id="gate-form">
+        <div class="fm-field">
+          <label for="gate-password-input">Contraseña</label>
+          <input type="password" id="gate-password-input" autocomplete="off" required>
+        </div>
+        <button type="submit" class="btn btn-navy fm-submit" id="btn-entrar">Entrar</button>
+        <div class="fm-msg err" id="gate-error"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="inventario">
+
+    <!-- MANTENIMIENTO: esta lista es manual, no se genera sola. Cualquier página nueva que se añada al repo (o se elimine) debe reflejarse aquí también en el mismo commit que la crea. -->
+
+    <div class="section-eyebrow">Panel de administración</div>
+    <div class="section-title">Inventario de páginas</div>
+    <p class="section-desc">Acceso directo por URL únicamente — esta página no está enlazada desde ningún sitio público.</p>
+
+    <div class="inv-block-title">Herramientas admin</div>
+    <div class="inv-grid">
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Factura manual</div>
+        <div class="inv-card-desc">Crear factura manual (Zelle, cripto, corrección Mercury)</div>
+        <a href="factura-manual.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Reenviar factura</div>
+        <div class="inv-card-desc">Reenviar factura desde aviso de pago Mercury</div>
+        <div class="inv-warning">Requiere el token del email — este enlace por sí solo no funciona sin el parámetro ?token= del email correspondiente.</div>
+        <a href="factura-reenviar.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Portal del prescriptor</div>
+        <div class="inv-card-desc">Portal de comisiones del prescriptor</div>
+        <div class="inv-warning">Requiere token único por prescriptor — no funciona como enlace suelto.</div>
+        <a href="prescriptor.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Factura del cliente</div>
+        <div class="inv-card-desc">Descarga de factura del cliente</div>
+        <div class="inv-warning">Requiere token único de la factura — no funciona como enlace suelto.</div>
+        <a href="factura.html" class="inv-card-cta">Abrir →</a>
+      </div>
+    </div>
+
+    <div class="inv-block-title">Páginas públicas del sitio</div>
+    <div class="inv-grid">
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Inicio</div>
+        <div class="inv-card-desc">Página principal del sitio</div>
+        <a href="index.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Servicios de LLC</div>
+        <div class="inv-card-desc">Detalle de servicios de formación de LLC</div>
+        <a href="servicios-llc.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Registro de marca</div>
+        <div class="inv-card-desc">Detalle de servicios de registro de marca</div>
+        <a href="servicios-marca.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Precios de LLC</div>
+        <div class="inv-card-desc">Tabla de precios de formación y mantenimiento de LLC</div>
+        <a href="precios-llc.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Precios de marca</div>
+        <div class="inv-card-desc">Tabla de precios de registro de marca</div>
+        <a href="precios-marca.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Nosotros</div>
+        <div class="inv-card-desc">Quiénes somos</div>
+        <a href="nosotros.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Contacto</div>
+        <div class="inv-card-desc">Formulario e información de contacto</div>
+        <a href="contacto.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Calendario de cumplimiento</div>
+        <div class="inv-card-desc">Calendario de cumplimiento de LLC por estado</div>
+        <a href="calendario-llc.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Programa de referidos</div>
+        <div class="inv-card-desc">Información del programa de referidos</div>
+        <a href="referidos.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Política de privacidad</div>
+        <div class="inv-card-desc">Política de privacidad del sitio</div>
+        <a href="privacidad.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Términos de servicio</div>
+        <div class="inv-card-desc">Términos y condiciones del servicio</div>
+        <a href="terminos.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Gracias por tu compra</div>
+        <div class="inv-card-desc">Página de agradecimiento post-compra</div>
+        <a href="gracias-compra.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Landing campaña 1</div>
+        <div class="inv-card-desc">Página de aterrizaje para campaña publicitaria</div>
+        <a href="landing-campaign1.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Oferta LLC + marca</div>
+        <div class="inv-card-desc">Página de oferta combinada de LLC y registro de marca</div>
+        <a href="oferta-llc-marca.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Pago por transferencia</div>
+        <div class="inv-card-desc">Flujo de pago por transferencia bancaria</div>
+        <a href="pago-transferencia.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Precio máximo LLC</div>
+        <div class="inv-card-desc">Página de precio máximo garantizado de LLC</div>
+        <a href="precio-maximo-llc.html" class="inv-card-cta">Abrir →</a>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+        <img src="logo.png" alt="Proyecto Polaris" style="width:32px;height:32px;border-radius:8px;">
+        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+      </div>
+      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Servicios</p>
+      <ul>
+        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
+        <li><a href="precios-llc.html">Precios de LLC</a></li>
+        <li><a href="servicios-marca.html">Registro de marca</a></li>
+        <li><a href="precios-marca.html">Precios de registro de marca</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Recursos</p>
+      <ul>
+        <li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+        <li><a href="referidos.html">Programa de referidos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Empresa</p>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Legal</p>
+      <ul>
+        <li><a href="privacidad.html">Política de privacidad</a></li>
+        <li><a href="terminos.html">Términos de servicio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+  </div>
+</footer>
+
+<script>
+var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
+var PASSWORD_KEY = 'polaris_portal_password';
+
+function mostrarGate(mensajeError) {
+  document.getElementById('gate-password').style.display = 'block';
+  document.getElementById('inventario').style.display = 'none';
+  var err = document.getElementById('gate-error');
+  if (mensajeError) { err.textContent = mensajeError; err.style.display = 'block'; }
+  else { err.style.display = 'none'; }
+}
+
+function mostrarInventario() {
+  document.getElementById('gate-password').style.display = 'none';
+  document.getElementById('inventario').style.display = 'block';
+}
+
+function verificarPassword(pw) {
+  var btn = document.getElementById('btn-entrar');
+  btn.disabled = true;
+  btn.textContent = 'Verificando…';
+  return fetch(WORKER_URL + '/portal/verificar', {
+    method: 'POST',
+    headers: { 'X-Portal-Password': pw || '' }
+  })
+    .then(function(res){ return res.json().then(function(data){ return { status: res.status, ok: res.ok, data: data }; }); })
+    .then(function(r){
+      if (!r.ok) {
+        sessionStorage.removeItem(PASSWORD_KEY);
+        mostrarGate(r.data.error === 'contraseña incorrecta' ? 'Contraseña incorrecta.' : 'No se pudo verificar la contraseña.');
+        return false;
+      }
+      sessionStorage.setItem(PASSWORD_KEY, pw);
+      mostrarInventario();
+      return true;
+    })
+    .catch(function(){
+      mostrarGate('No se pudo conectar con el servidor — inténtalo de nuevo.');
+      return false;
+    })
+    .finally(function(){
+      btn.disabled = false;
+      btn.textContent = 'Entrar';
+    });
+}
+
+var passwordGuardada = sessionStorage.getItem(PASSWORD_KEY);
+if (passwordGuardada) {
+  verificarPassword(passwordGuardada);
+} else {
+  mostrarGate();
+}
+
+document.getElementById('gate-form').addEventListener('submit', function(e){
+  e.preventDefault();
+  var pw = document.getElementById('gate-password-input').value;
+  if (!pw) return;
+  document.getElementById('gate-password-input').value = '';
+  verificarPassword(pw);
+});
+</script>
+</body>
+</html>
