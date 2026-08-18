@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Preguntas Frecuentes sobre LLC y Registro de Marca — Proyecto Polaris</title><meta content="Resuelve tus dudas sobre formación de LLC, impuestos, EIN, ITIN, cuentas bancarias y registro de marca en EE.UU. para extranjeros. Busca tu pregunta o navega por categoría." name="description"/><link href="https://proyecto-polaris.com/preguntas-frecuentes.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Preguntas Frecuentes — Proyecto Polaris" name="twitter:title"/><meta content="Resuelve tus dudas sobre LLC, impuestos y registro de marca en EE.UU. para extranjeros." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/preguntas-frecuentes.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Preguntas Frecuentes — Proyecto Polaris" property="og:title"/><meta content="Resuelve tus dudas sobre formación de LLC, impuestos, EIN, ITIN, cuentas bancarias y registro de marca en EE.UU. para extranjeros." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="shared.css" rel="stylesheet"/>
+<style>
+    .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+    .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+  </style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "¿Es legal que un extranjero tenga una LLC en Estados Unidos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. La ley estadounidense no exige ciudadanía, residencia ni visa para ser dueño de una LLC. Cualquier persona mayor de edad puede formar y operar una, desde cualquier país."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito visa o residencia para abrir una LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Son dos cosas completamente separadas: una es tu situación migratoria, otra es la propiedad de una empresa. Puedes tener la LLC sin pisar Estados Unidos nunca."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Abrir una LLC me da algún estatus migratorio o me acerca a la residencia?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, y cualquiera que te lo prometa te está informando mal. La LLC no tiene ninguna relación con visas, green card ni ciudadanía."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿La LLC me permite trabajar físicamente en Estados Unidos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Puedes ser dueño de la empresa y operarla desde tu país, pero si quieres trabajar dentro de EE.UU. en persona, necesitas un permiso de trabajo o visa aparte — son trámites independientes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito un Social Security Number (SSN) para abrir la LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Es imposible obtenerlo sin visa, y no hace falta para formar ni operar tu LLC."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tener una LLC me pone en riesgo de tener problemas con el IRS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, si cumples con lo que corresponde a tu caso. El miedo suele venir de no saber qué hay que presentar — una vez lo tienes claro, es un trámite anual sencillo, no una amenaza."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es cierto que las LLC de Wyoming son \"para esconder dinero\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Es un mito. Wyoming es simplemente el estado con menos costos y más simplicidad administrativa — por eso lo usan miles de negocios digitales legítimos, no por opacidad."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es legal recibir pagos en una cuenta de EE.UU. sin vivir allí?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, completamente legal. Es exactamente para eso que existe la LLC: te da acceso al sistema financiero estadounidense sin necesidad de residir en el país."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Soy venezolano — ¿puedo abrir una LLC sin problema por el tema de las relaciones con EE.UU.?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. La formación de una LLC no depende de relaciones diplomáticas entre países — depende de tu documento de identidad válido. Miles de venezolanos ya operan sus LLC sin ningún inconveniente."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito apostillar documentos o legalizar algo en mi país?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Todo el trámite de formación se hace directamente con el estado y el IRS de EE.UU., sin pasar por notarías ni apostillas en tu país."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es exactamente una LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es una empresa que separa tu patrimonio personal del de tu negocio — si la empresa tiene una deuda o un problema legal, tus bienes personales (casa, coche, ahorros) quedan protegidos, siempre que no mezcles las finanzas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo tener una LLC yo solo, sin socios?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Las LLC de un solo miembro (Single-Member LLC) son la estructura más común entre extranjeros."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda en formarse una LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Entre 1 y 10 días hábiles según el estado. Wyoming suele ser de los más rápidos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Todo el proceso se hace online, o en algún momento tengo que viajar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Todo se hace de forma remota: formación, EIN y cuenta bancaria. No necesitas viajar en ningún momento."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué documentos necesito?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Básicamente tu pasaporte vigente y una dirección de contacto. No hace falta nada más para empezar."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo usar mi propio nombre como nombre de la LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, pero conviene revisar disponibilidad primero — tanto a nivel de registro estatal como, si más adelante quieres proteger la marca, a nivel de USPTO."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es el registered agent y por qué es obligatorio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es una persona o empresa con dirección física en el estado donde formas tu LLC, que recibe en tu nombre cualquier notificación legal u oficial. Todos los estados lo exigen porque tú, como extranjero, no tienes esa dirección."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito una dirección física en EE.UU.?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No para ti como persona. La dirección la cubre el registered agent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "LLC vs. autónomo/freelancer — ¿cuál me conviene?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si facturas a clientes internacionales, vendes online o quieres separar tu patrimonio personal del negocio, la LLC te da más protección y más credibilidad frente a plataformas de pago y bancos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿En qué estado me conviene formar mi LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si no vas a operar físicamente en EE.UU., Wyoming o New Mexico suelen ser los más recomendados: costos bajos, mantenimiento simple y buena privacidad."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Wyoming o Delaware?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wyoming, salvo que tu plan sea buscar inversores o levantar capital — ahí Delaware tiene ventajas legales específicas para eso."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Si formo mi LLC en un estado, ¿tengo que pagar impuestos ahí aunque no venda nada allí?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No necesariamente. El estado de formación no es lo mismo que dónde generas obligaciones fiscales — eso depende de dónde tienes \"nexo\" (ver categoría de impuestos)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo cambiar mi LLC de estado después de formada?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es posible, pero no es un trámite simple ni barato. Mejor decidir bien desde el principio."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuál es la diferencia entre EIN, ITIN y SSN?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El EIN es el número fiscal de tu empresa — lo necesitas siempre. El ITIN y el SSN son números fiscales de personas físicas, y solo hacen falta en situaciones muy concretas, no para formar ni operar tu LLC."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito tramitar un ITIN antes de abrir mi LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Es el error más caro y más común del sector: algunas empresas te dicen que sí para cobrarte un trámite que no necesitas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Si no tengo SSN ni ITIN, ¿puedo conseguir el EIN igual?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. El IRS tiene un proceso específico para dueños extranjeros sin SSN ni ITIN."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda en llegar el EIN?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Normalmente entre 1 y 3 semanas, dependiendo de la vía usada."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿En qué casos sí voy a necesitar un ITIN más adelante?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si tienes que presentar una declaración de impuestos personal en EE.UU. (por ejemplo, si generas ingresos considerados de fuente estadounidense), ahí sí puede hacer falta. Es una situación específica, no la norma general."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Mi LLC va a pagar impuestos en Estados Unidos si no tengo presencia física allí?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "En la mayoría de casos de negocios digitales sin presencia física, no hay impuesto federal sobre la renta. Pero eso no significa cero obligaciones — igual hay que presentar ciertos formularios cada año."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es el Formulario 5472 y por qué tengo que presentarlo aunque no gane nada?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es una declaración informativa obligatoria para toda LLC de un solo dueño extranjero, exista o no actividad. No declarar ingresos no te exime de presentarlo — la multa por no hacerlo es de $25,000."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tengo que declarar los ingresos de mi LLC también en mi país?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, normalmente. La LLC no tributa como entidad separada en EE.UU. (es \"transparente\" fiscalmente) — los beneficios pasan a ti y se declaran donde resides fiscalmente."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es el \"nexo\" (nexus) fiscal?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es la conexión que genera obligación de cobrar y declarar impuestos en un estado — se activa por tener inventario, empleados o ciertos niveles de venta ahí, sin importar dónde formaste tu LLC."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Si Amazon ya cobra el sales tax automáticamente, ¿ya no tengo ninguna obligación?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No del todo. Amazon cobra y remite el impuesto en la mayoría de estados, pero en varios de ellos tú sigues obligado a registrarte y presentar declaraciones informativas, aunque el dinero ya lo haya gestionado Amazon."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito contador además del servicio de formación?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Depende de tu volumen y complejidad. Para la mayoría de casos, el mantenimiento anual que ofrecemos cubre lo esencial — si tu situación se complica (múltiples estados, ingresos altos), sí conviene sumar un CPA especializado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tengo que declarar algo si mi LLC no tuvo ningún ingreso en el año?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. El Formulario 5472 se presenta exista o no actividad — es la parte que más gente no sabe y que genera más multas evitables."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito una LLC obligatoriamente para vender en Amazon?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No es obligatorio — puedes vender como persona física con un W-8BEN. Pero la LLC te da cuenta bancaria en EE.UU., más credibilidad y mejor protección patrimonial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo abrir cuenta bancaria en EE.UU. sin viajar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, con fintechs como Mercury o Wise Business — los bancos tradicionales (Chase, Bank of America) sí suelen exigir presencia física."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito SSN o ITIN para abrir la cuenta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, con las opciones digitales orientadas a extranjeros no residentes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda en aprobarse la cuenta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Entre pocos días y hasta 2-3 semanas, dependiendo de cuánta información aportes desde el principio (web activa, descripción clara del negocio)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué hago si me rechazan la cuenta?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No es el final del camino — se puede responder con más información, o aplicar a una alternativa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué tengo que hacer cada año para mantener mi LLC en regla?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Renovar el registered agent, presentar el reporte anual del estado (si aplica) y el Formulario 5472/1120 pro forma ante el IRS. Nuestro plan de mantenimiento cubre todo esto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿El BOI Report de FinCEN sigue siendo obligatorio?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Desde marzo de 2025, las LLC formadas en Estados Unidos — aunque el dueño sea extranjero — están exentas de presentarlo. Solo aplica a empresas formadas en otro país y registradas después para operar en EE.UU."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si se me pasa la fecha de renovación?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "El estado puede marcar tu LLC como \"no cumplida\", lo que genera recargos y, si se prolonga, puede llevar a la disolución administrativa por parte del estado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Si ya no la voy a usar, ¿basta con dejar de pagar?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Dejar de pagar no cierra la LLC — sigue generando obligaciones y multas hasta que la disuelvas formalmente ante el estado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto cuesta y cuánto tarda disolver una LLC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Varía por estado — normalmente entre 5 y 10 días hábiles en los estados más usados por extranjeros, con una tasa estatal que también depende de cada uno."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Tengo que avisar al IRS aparte de disolver en el estado?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Hace falta presentar la declaración final marcada como tal — son dos pasos distintos, no uno. Nosotros nos encargamos de todo para que no queden cabos sueltos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ya tengo una LLC con otra empresa — ¿puedo trasladarla a Polaris?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, y es gratis. No cambia tu agente residente ni tu dirección salvo que tú quieras — tu LLC sigue siendo la misma, solo cambia quién la gestiona."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Pierdo mi EIN o historial al cambiar de gestora?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. El EIN es tuyo, no de la gestora — te acompaña sin importar quién lleve la administración."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cómo sé si la empresa que me ofrece el servicio es legítima?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Busca que tenga PTIN (registro oficial ante el IRS para preparadores de impuestos), reseñas verificables, y que te expliquen con claridad qué incluye cada pago — sin presión ni urgencia artificial."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es normal que me cobren por el ITIN si en realidad no lo necesito?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. Si alguien te lo vende como paso obligatorio para formar tu LLC, te está cobrando algo que no hace falta en la mayoría de los casos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Necesito tener la LLC primero para registrar mi marca?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No es obligatorio, pero si ya tienes una LLC, el registro queda más claro y ordenado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Es obligatorio tener abogado en EE.UU. si soy extranjero?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí, desde 2019 la USPTO lo exige para solicitantes con domicilio fuera de EE.UU. — nuestro servicio ya lo incluye."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Cuánto tarda todo el proceso?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Entre 12 y 18 meses en casos sin objeciones ni oposiciones de terceros — no es inmediato, y nadie puede garantizarte un plazo exacto."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué pasa si me rechazan la marca?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Por eso hacemos primero una investigación de disponibilidad — para reducir ese riesgo antes de invertir en la solicitud completa."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué es un Office Action y debo preocuparme si me llega uno?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Es una objeción del examinador de la USPTO durante el proceso — es común, y respondemos por ti sin coste adicional dentro del servicio de registro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué diferencia hay entre solicitar la marca \"en uso\" y por \"intento de uso\"?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Si ya vendes el producto o servicio, aplicas \"en uso\" (1a) y presentas la prueba de inmediato. Si todavía no vendes pero planeas hacerlo, aplicas por \"intento de uso\" (1b) y presentas la prueba más adelante, cuando ya estés vendiendo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Qué cuenta como prueba de que estoy usando mi marca?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fotos del producto a la venta con la marca visible, o capturas de tu tienda en Amazon, TikTok o Instagram donde se vea la marca en uso real, no solo planificado."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Si apliqué por \"intento de uso\", ¿cuándo tengo que presentar la prueba?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Normalmente unos 6 meses después de que la USPTO apruebe la solicitud (Notice of Allowance). Si en ese momento todavía no estás vendiendo, puedes pedir una extensión de tiempo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo registrar mi marca de forma amplia para cubrir productos que quiero vender en el futuro?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. El registro tiene que corresponder al producto o servicio que realmente vendes ahora, en las clases correspondientes. Ampliarlo para cubrir planes futuros aumenta el riesgo de que la USPTO lo rechace."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "¿Puedo pedir más tiempo si no llego a los 6 meses para presentar la prueba de uso?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sí. Se pueden pedir extensiones sucesivas, dentro de los límites que marca la ley, siempre que sigas teniendo intención real de usar la marca. Cada extensión tiene su propia tarifa de la USPTO."
+      }
+    }
+  ]
+}</script>  <script>
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
+    })();
+  </script>
+<style>
+/* ── POPUP CALENDARIO ─────────────────────────────── */
+#cal-popup-overlay {
+  position: fixed; inset: 0; background: rgba(10,20,35,0.55);
+  z-index: 200; display: none; align-items: center; justify-content: center;
+  animation: fadeInOverlay 0.35s ease;
+}
+@keyframes fadeInOverlay { from { opacity:0 } to { opacity:1 } }
+#cal-popup {
+  background: var(--white); border-radius: 16px; padding: 2.25rem 2.5rem;
+  max-width: 460px; width: calc(100% - 2rem); position: relative;
+  box-shadow: 0 24px 60px rgba(13,33,55,0.28);
+  animation: slideUp 0.35s ease;
+}
+@keyframes slideUp { from { transform:translateY(30px); opacity:0 } to { transform:translateY(0); opacity:1 } }
+#cal-popup-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); font-size: 20px; line-height: 1; padding: 4px;
+}
+#cal-popup-close:hover { color: var(--text); }
+.cal-popup-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.5rem; }
+.cal-popup-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.3; }
+.cal-popup-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
+.cal-popup-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: var(--white); font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+.cal-popup-btn:hover { background: var(--navy-mid); }
+.cal-popup-skip { display: block; margin-top: 0.85rem; font-size: 12px; color: var(--text-muted); cursor: pointer; background: none; border: none; text-decoration: underline; }
+
+/* ── WIDGET FLOTANTE ──────────────────────────────── */
+#cal-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 150;
+  display: none;
+  animation: widgetIn 0.3s ease;
+}
+@keyframes widgetIn { from { transform:scale(0.7); opacity:0 } to { transform:scale(1); opacity:1 } }
+#cal-widget a {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); color: var(--white);
+  font-size: 13px; font-weight: 700;
+  padding: 11px 18px; border-radius: 50px;
+  text-decoration: none; box-shadow: 0 6px 20px rgba(13,33,55,0.35);
+  transition: background 0.2s, transform 0.2s;
+}
+#cal-widget a:hover { background: var(--navy-mid); transform: translateY(-2px); }
+#cal-widget-close {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text-muted); color: white; border: none;
+  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+<div class="tp-badge-bar">
+<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
+<a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/4/128x24.png" width="128"/>
+<span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
+</a>
+</div>
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+<div class="page-header">
+<p class="page-header-eyebrow">FAQ</p>
+<h1>Preguntas frecuentes</h1>
+<p>Busca tu duda o navega por categoría. Si no la encuentras, escríbenos directamente.</p>
+</div>
+<section class="section">
+<div class="faq-search-wrap">
+<input class="faq-search" id="faqSearch" placeholder="Busca tu pregunta (ej. ITIN, Amazon, cerrar mi LLC...)" type="text"/>
+</div>
+<div class="faq-chips" id="faqChips">
+<button class="faq-chip active" data-cat="todas" type="button">Todas</button>
+<button class="faq-chip" data-cat="mitos-miedos" type="button">Mitos y miedos</button>
+<button class="faq-chip" data-cat="formacion" type="button">Formación</button>
+<button class="faq-chip" data-cat="elegir-estado" type="button">Elegir estado</button>
+<button class="faq-chip" data-cat="ein-itin" type="button">EIN e ITIN</button>
+<button class="faq-chip" data-cat="impuestos" type="button">Impuestos</button>
+<button class="faq-chip" data-cat="amazon-ventas" type="button">Amazon y ventas online</button>
+<button class="faq-chip" data-cat="cuentas-bancarias" type="button">Cuentas bancarias</button>
+<button class="faq-chip" data-cat="mantenimiento-anual" type="button">Mantenimiento anual</button>
+<button class="faq-chip" data-cat="cerrar-llc" type="button">Cerrar la LLC</button>
+<button class="faq-chip" data-cat="cambiar-gestora" type="button">Cambiar de gestora</button>
+<button class="faq-chip" data-cat="elegir-gestor" type="button">Cómo elegir un buen gestor</button>
+<button class="faq-chip" data-cat="registro-marca" type="button">Registro de marca</button>
+</div>
+<div id="faqList">
+<h2 class="faq-cat-title" data-cat-heading="mitos-miedos">Mitos y miedos</h2>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿es legal que un extranjero tenga una llc en estados unidos? si. la ley estadounidense no exige ciudadania, residencia ni visa para ser dueno de una llc. cualquier persona mayor de edad puede formar y operar una, desde cualquier pais.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-1" aria-controls="faq-a-1">
+<span>¿Es legal que un extranjero tenga una LLC en Estados Unidos?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
+<p>Sí. La ley estadounidense no exige ciudadanía, residencia ni visa para ser dueño de una LLC. Cualquier persona mayor de edad puede formar y operar una, desde cualquier país.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿necesito visa o residencia para abrir una llc? no. son dos cosas completamente separadas: una es tu situacion migratoria, otra es la propiedad de una empresa. puedes tener la llc sin pisar estados unidos nunca.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-2" aria-controls="faq-a-2">
+<span>¿Necesito visa o residencia para abrir una LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
+<p>No. Son dos cosas completamente separadas: una es tu situación migratoria, otra es la propiedad de una empresa. Puedes tener la LLC sin pisar Estados Unidos nunca.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿abrir una llc me da algun estatus migratorio o me acerca a la residencia? no, y cualquiera que te lo prometa te esta informando mal. la llc no tiene ninguna relacion con visas, green card ni ciudadania.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-3" aria-controls="faq-a-3">
+<span>¿Abrir una LLC me da algún estatus migratorio o me acerca a la residencia?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
+<p>No, y cualquiera que te lo prometa te está informando mal. La LLC no tiene ninguna relación con visas, green card ni ciudadanía.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿la llc me permite trabajar fisicamente en estados unidos? no. puedes ser dueno de la empresa y operarla desde tu pais, pero si quieres trabajar dentro de ee.uu. en persona, necesitas un permiso de trabajo o visa aparte — son tramites independientes.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-4" aria-controls="faq-a-4">
+<span>¿La LLC me permite trabajar físicamente en Estados Unidos?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
+<p>No. Puedes ser dueño de la empresa y operarla desde tu país, pero si quieres trabajar dentro de EE.UU. en persona, necesitas un permiso de trabajo o visa aparte — son trámites independientes.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿necesito un social security number (ssn) para abrir la llc? no. es imposible obtenerlo sin visa, y no hace falta para formar ni operar tu llc.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-5" aria-controls="faq-a-5">
+<span>¿Necesito un Social Security Number (SSN) para abrir la LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-5" role="region" aria-labelledby="faq-q-5">
+<p>No. Es imposible obtenerlo sin visa, y no hace falta para formar ni operar tu LLC.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿tener una llc me pone en riesgo de tener problemas con el irs? no, si cumples con lo que corresponde a tu caso. el miedo suele venir de no saber que hay que presentar — una vez lo tienes claro, es un tramite anual sencillo, no una amenaza.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-6" aria-controls="faq-a-6">
+<span>¿Tener una LLC me pone en riesgo de tener problemas con el IRS?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-6" role="region" aria-labelledby="faq-q-6">
+<p>No, si cumples con lo que corresponde a tu caso. El miedo suele venir de no saber qué hay que presentar — una vez lo tienes claro, es un trámite anual sencillo, no una amenaza.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿es cierto que las llc de wyoming son &quot;para esconder dinero&quot;? no. es un mito. wyoming es simplemente el estado con menos costos y mas simplicidad administrativa — por eso lo usan miles de negocios digitales legitimos, no por opacidad.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-7" aria-controls="faq-a-7">
+<span>¿Es cierto que las LLC de Wyoming son "para esconder dinero"?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-7" role="region" aria-labelledby="faq-q-7">
+<p>No. Es un mito. Wyoming es simplemente el estado con menos costos y más simplicidad administrativa — por eso lo usan miles de negocios digitales legítimos, no por opacidad.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿es legal recibir pagos en una cuenta de ee.uu. sin vivir alli? si, completamente legal. es exactamente para eso que existe la llc: te da acceso al sistema financiero estadounidense sin necesidad de residir en el pais.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-8" aria-controls="faq-a-8">
+<span>¿Es legal recibir pagos en una cuenta de EE.UU. sin vivir allí?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-8" role="region" aria-labelledby="faq-q-8">
+<p>Sí, completamente legal. Es exactamente para eso que existe la LLC: te da acceso al sistema financiero estadounidense sin necesidad de residir en el país.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="soy venezolano — ¿puedo abrir una llc sin problema por el tema de las relaciones con ee.uu.? si. la formacion de una llc no depende de relaciones diplomaticas entre paises — depende de tu documento de identidad valido. miles de venezolanos ya operan sus llc sin ningun inconveniente.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-9" aria-controls="faq-a-9">
+<span>Soy venezolano — ¿puedo abrir una LLC sin problema por el tema de las relaciones con EE.UU.?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-9" role="region" aria-labelledby="faq-q-9">
+<p>Sí. La formación de una LLC no depende de relaciones diplomáticas entre países — depende de tu documento de identidad válido. Miles de venezolanos ya operan sus LLC sin ningún inconveniente.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mitos-miedos" data-search="¿necesito apostillar documentos o legalizar algo en mi pais? no. todo el tramite de formacion se hace directamente con el estado y el irs de ee.uu., sin pasar por notarias ni apostillas en tu pais.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-10" aria-controls="faq-a-10">
+<span>¿Necesito apostillar documentos o legalizar algo en mi país?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-10" role="region" aria-labelledby="faq-q-10">
+<p>No. Todo el trámite de formación se hace directamente con el estado y el IRS de EE.UU., sin pasar por notarías ni apostillas en tu país.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="formacion">Formación</h2>
+<div class="faq-item" data-category="formacion" data-search="¿que es exactamente una llc? es una empresa que separa tu patrimonio personal del de tu negocio — si la empresa tiene una deuda o un problema legal, tus bienes personales (casa, coche, ahorros) quedan protegidos, siempre que no mezcles las finanzas.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-11" aria-controls="faq-a-11">
+<span>¿Qué es exactamente una LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-11" role="region" aria-labelledby="faq-q-11">
+<p>Es una empresa que separa tu patrimonio personal del de tu negocio — si la empresa tiene una deuda o un problema legal, tus bienes personales (casa, coche, ahorros) quedan protegidos, siempre que no mezcles las finanzas.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="¿puedo tener una llc yo solo, sin socios? si. las llc de un solo miembro (single-member llc) son la estructura mas comun entre extranjeros.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-12" aria-controls="faq-a-12">
+<span>¿Puedo tener una LLC yo solo, sin socios?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-12" role="region" aria-labelledby="faq-q-12">
+<p>Sí. Las LLC de un solo miembro (Single-Member LLC) son la estructura más común entre extranjeros.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="¿cuanto tarda en formarse una llc? entre 1 y 10 dias habiles segun el estado. wyoming suele ser de los mas rapidos.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-13" aria-controls="faq-a-13">
+<span>¿Cuánto tarda en formarse una LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-13" role="region" aria-labelledby="faq-q-13">
+<p>Entre 1 y 10 días hábiles según el estado. Wyoming suele ser de los más rápidos.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="¿todo el proceso se hace online, o en algun momento tengo que viajar? todo se hace de forma remota: formacion, ein y cuenta bancaria. no necesitas viajar en ningun momento.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-14" aria-controls="faq-a-14">
+<span>¿Todo el proceso se hace online, o en algún momento tengo que viajar?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-14" role="region" aria-labelledby="faq-q-14">
+<p>Todo se hace de forma remota: formación, EIN y cuenta bancaria. No necesitas viajar en ningún momento.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="¿que documentos necesito? basicamente tu pasaporte vigente y una direccion de contacto. no hace falta nada mas para empezar.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-15" aria-controls="faq-a-15">
+<span>¿Qué documentos necesito?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-15" role="region" aria-labelledby="faq-q-15">
+<p>Básicamente tu pasaporte vigente y una dirección de contacto. No hace falta nada más para empezar.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="¿puedo usar mi propio nombre como nombre de la llc? si, pero conviene revisar disponibilidad primero — tanto a nivel de registro estatal como, si mas adelante quieres proteger la marca, a nivel de uspto.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-16" aria-controls="faq-a-16">
+<span>¿Puedo usar mi propio nombre como nombre de la LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-16" role="region" aria-labelledby="faq-q-16">
+<p>Sí, pero conviene revisar disponibilidad primero — tanto a nivel de registro estatal como, si más adelante quieres proteger la marca, a nivel de USPTO.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="¿que es el registered agent y por que es obligatorio? es una persona o empresa con direccion fisica en el estado donde formas tu llc, que recibe en tu nombre cualquier notificacion legal u oficial. todos los estados lo exigen porque tu, como extranjero, no tienes esa direccion.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-17" aria-controls="faq-a-17">
+<span>¿Qué es el registered agent y por qué es obligatorio?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-17" role="region" aria-labelledby="faq-q-17">
+<p>Es una persona o empresa con dirección física en el estado donde formas tu LLC, que recibe en tu nombre cualquier notificación legal u oficial. Todos los estados lo exigen porque tú, como extranjero, no tienes esa dirección.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="¿necesito una direccion fisica en ee.uu.? no para ti como persona. la direccion la cubre el registered agent.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-18" aria-controls="faq-a-18">
+<span>¿Necesito una dirección física en EE.UU.?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-18" role="region" aria-labelledby="faq-q-18">
+<p>No para ti como persona. La dirección la cubre el registered agent.</p>
+</div>
+</div>
+<div class="faq-item" data-category="formacion" data-search="llc vs. autonomo/freelancer — ¿cual me conviene? si facturas a clientes internacionales, vendes online o quieres separar tu patrimonio personal del negocio, la llc te da mas proteccion y mas credibilidad frente a plataformas de pago y bancos.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-19" aria-controls="faq-a-19">
+<span>LLC vs. autónomo/freelancer — ¿cuál me conviene?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-19" role="region" aria-labelledby="faq-q-19">
+<p>Si facturas a clientes internacionales, vendes online o quieres separar tu patrimonio personal del negocio, la LLC te da más protección y más credibilidad frente a plataformas de pago y bancos.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="elegir-estado">Elegir estado</h2>
+<div class="faq-item" data-category="elegir-estado" data-search="¿en que estado me conviene formar mi llc? si no vas a operar fisicamente en ee.uu., wyoming o new mexico suelen ser los mas recomendados: costos bajos, mantenimiento simple y buena privacidad.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-20" aria-controls="faq-a-20">
+<span>¿En qué estado me conviene formar mi LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-20" role="region" aria-labelledby="faq-q-20">
+<p>Si no vas a operar físicamente en EE.UU., Wyoming o New Mexico suelen ser los más recomendados: costos bajos, mantenimiento simple y buena privacidad.</p>
+</div>
+</div>
+<div class="faq-item" data-category="elegir-estado" data-search="¿wyoming o delaware? wyoming, salvo que tu plan sea buscar inversores o levantar capital — ahi delaware tiene ventajas legales especificas para eso.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-21" aria-controls="faq-a-21">
+<span>¿Wyoming o Delaware?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-21" role="region" aria-labelledby="faq-q-21">
+<p>Wyoming, salvo que tu plan sea buscar inversores o levantar capital — ahí Delaware tiene ventajas legales específicas para eso.</p>
+</div>
+</div>
+<div class="faq-item" data-category="elegir-estado" data-search="si formo mi llc en un estado, ¿tengo que pagar impuestos ahi aunque no venda nada alli? no necesariamente. el estado de formacion no es lo mismo que donde generas obligaciones fiscales — eso depende de donde tienes &quot;nexo&quot; (ver categoria de impuestos).">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-22" aria-controls="faq-a-22">
+<span>Si formo mi LLC en un estado, ¿tengo que pagar impuestos ahí aunque no venda nada allí?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-22" role="region" aria-labelledby="faq-q-22">
+<p>No necesariamente. El estado de formación no es lo mismo que dónde generas obligaciones fiscales — eso depende de dónde tienes "nexo" (ver categoría de impuestos).</p>
+</div>
+</div>
+<div class="faq-item" data-category="elegir-estado" data-search="¿puedo cambiar mi llc de estado despues de formada? es posible, pero no es un tramite simple ni barato. mejor decidir bien desde el principio.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-23" aria-controls="faq-a-23">
+<span>¿Puedo cambiar mi LLC de estado después de formada?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-23" role="region" aria-labelledby="faq-q-23">
+<p>Es posible, pero no es un trámite simple ni barato. Mejor decidir bien desde el principio.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="ein-itin">EIN e ITIN</h2>
+<div class="faq-item" data-category="ein-itin" data-search="¿cual es la diferencia entre ein, itin y ssn? el ein es el numero fiscal de tu empresa — lo necesitas siempre. el itin y el ssn son numeros fiscales de personas fisicas, y solo hacen falta en situaciones muy concretas, no para formar ni operar tu llc.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-24" aria-controls="faq-a-24">
+<span>¿Cuál es la diferencia entre EIN, ITIN y SSN?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-24" role="region" aria-labelledby="faq-q-24">
+<p>El EIN es el número fiscal de tu empresa — lo necesitas siempre. El ITIN y el SSN son números fiscales de personas físicas, y solo hacen falta en situaciones muy concretas, no para formar ni operar tu LLC.</p>
+</div>
+</div>
+<div class="faq-item" data-category="ein-itin" data-search="¿necesito tramitar un itin antes de abrir mi llc? no. es el error mas caro y mas comun del sector: algunas empresas te dicen que si para cobrarte un tramite que no necesitas.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-25" aria-controls="faq-a-25">
+<span>¿Necesito tramitar un ITIN antes de abrir mi LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-25" role="region" aria-labelledby="faq-q-25">
+<p>No. Es el error más caro y más común del sector: algunas empresas te dicen que sí para cobrarte un trámite que no necesitas.</p>
+</div>
+</div>
+<div class="faq-item" data-category="ein-itin" data-search="si no tengo ssn ni itin, ¿puedo conseguir el ein igual? si. el irs tiene un proceso especifico para duenos extranjeros sin ssn ni itin.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-26" aria-controls="faq-a-26">
+<span>Si no tengo SSN ni ITIN, ¿puedo conseguir el EIN igual?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-26" role="region" aria-labelledby="faq-q-26">
+<p>Sí. El IRS tiene un proceso específico para dueños extranjeros sin SSN ni ITIN.</p>
+</div>
+</div>
+<div class="faq-item" data-category="ein-itin" data-search="¿cuanto tarda en llegar el ein? normalmente entre 1 y 3 semanas, dependiendo de la via usada.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-27" aria-controls="faq-a-27">
+<span>¿Cuánto tarda en llegar el EIN?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-27" role="region" aria-labelledby="faq-q-27">
+<p>Normalmente entre 1 y 3 semanas, dependiendo de la vía usada.</p>
+</div>
+</div>
+<div class="faq-item" data-category="ein-itin" data-search="¿en que casos si voy a necesitar un itin mas adelante? si tienes que presentar una declaracion de impuestos personal en ee.uu. (por ejemplo, si generas ingresos considerados de fuente estadounidense), ahi si puede hacer falta. es una situacion especifica, no la norma general.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-28" aria-controls="faq-a-28">
+<span>¿En qué casos sí voy a necesitar un ITIN más adelante?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-28" role="region" aria-labelledby="faq-q-28">
+<p>Si tienes que presentar una declaración de impuestos personal en EE.UU. (por ejemplo, si generas ingresos considerados de fuente estadounidense), ahí sí puede hacer falta. Es una situación específica, no la norma general.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="impuestos">Impuestos</h2>
+<div class="faq-item" data-category="impuestos" data-search="¿mi llc va a pagar impuestos en estados unidos si no tengo presencia fisica alli? en la mayoria de casos de negocios digitales sin presencia fisica, no hay impuesto federal sobre la renta. pero eso no significa cero obligaciones — igual hay que presentar ciertos formularios cada ano.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-29" aria-controls="faq-a-29">
+<span>¿Mi LLC va a pagar impuestos en Estados Unidos si no tengo presencia física allí?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-29" role="region" aria-labelledby="faq-q-29">
+<p>En la mayoría de casos de negocios digitales sin presencia física, no hay impuesto federal sobre la renta. Pero eso no significa cero obligaciones — igual hay que presentar ciertos formularios cada año.</p>
+</div>
+</div>
+<div class="faq-item" data-category="impuestos" data-search="¿que es el formulario 5472 y por que tengo que presentarlo aunque no gane nada? es una declaracion informativa obligatoria para toda llc de un solo dueno extranjero, exista o no actividad. no declarar ingresos no te exime de presentarlo — la multa por no hacerlo es de $25,000.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-30" aria-controls="faq-a-30">
+<span>¿Qué es el Formulario 5472 y por qué tengo que presentarlo aunque no gane nada?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-30" role="region" aria-labelledby="faq-q-30">
+<p>Es una declaración informativa obligatoria para toda LLC de un solo dueño extranjero, exista o no actividad. No declarar ingresos no te exime de presentarlo — la multa por no hacerlo es de $25,000.</p>
+</div>
+</div>
+<div class="faq-item" data-category="impuestos" data-search="¿tengo que declarar los ingresos de mi llc tambien en mi pais? si, normalmente. la llc no tributa como entidad separada en ee.uu. (es &quot;transparente&quot; fiscalmente) — los beneficios pasan a ti y se declaran donde resides fiscalmente.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-31" aria-controls="faq-a-31">
+<span>¿Tengo que declarar los ingresos de mi LLC también en mi país?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-31" role="region" aria-labelledby="faq-q-31">
+<p>Sí, normalmente. La LLC no tributa como entidad separada en EE.UU. (es "transparente" fiscalmente) — los beneficios pasan a ti y se declaran donde resides fiscalmente.</p>
+</div>
+</div>
+<div class="faq-item" data-category="impuestos" data-search="¿que es el &quot;nexo&quot; (nexus) fiscal? es la conexion que genera obligacion de cobrar y declarar impuestos en un estado — se activa por tener inventario, empleados o ciertos niveles de venta ahi, sin importar donde formaste tu llc.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-32" aria-controls="faq-a-32">
+<span>¿Qué es el "nexo" (nexus) fiscal?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-32" role="region" aria-labelledby="faq-q-32">
+<p>Es la conexión que genera obligación de cobrar y declarar impuestos en un estado — se activa por tener inventario, empleados o ciertos niveles de venta ahí, sin importar dónde formaste tu LLC.</p>
+</div>
+</div>
+<div class="faq-item" data-category="impuestos" data-search="si amazon ya cobra el sales tax automaticamente, ¿ya no tengo ninguna obligacion? no del todo. amazon cobra y remite el impuesto en la mayoria de estados, pero en varios de ellos tu sigues obligado a registrarte y presentar declaraciones informativas, aunque el dinero ya lo haya gestionado amazon.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-33" aria-controls="faq-a-33">
+<span>Si Amazon ya cobra el sales tax automáticamente, ¿ya no tengo ninguna obligación?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-33" role="region" aria-labelledby="faq-q-33">
+<p>No del todo. Amazon cobra y remite el impuesto en la mayoría de estados, pero en varios de ellos tú sigues obligado a registrarte y presentar declaraciones informativas, aunque el dinero ya lo haya gestionado Amazon.</p>
+</div>
+</div>
+<div class="faq-item" data-category="impuestos" data-search="¿necesito contador ademas del servicio de formacion? depende de tu volumen y complejidad. para la mayoria de casos, el mantenimiento anual que ofrecemos cubre lo esencial — si tu situacion se complica (multiples estados, ingresos altos), si conviene sumar un cpa especializado.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-34" aria-controls="faq-a-34">
+<span>¿Necesito contador además del servicio de formación?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-34" role="region" aria-labelledby="faq-q-34">
+<p>Depende de tu volumen y complejidad. Para la mayoría de casos, el mantenimiento anual que ofrecemos cubre lo esencial — si tu situación se complica (múltiples estados, ingresos altos), sí conviene sumar un CPA especializado.</p>
+</div>
+</div>
+<div class="faq-item" data-category="impuestos" data-search="¿tengo que declarar algo si mi llc no tuvo ningun ingreso en el ano? si. el formulario 5472 se presenta exista o no actividad — es la parte que mas gente no sabe y que genera mas multas evitables.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-35" aria-controls="faq-a-35">
+<span>¿Tengo que declarar algo si mi LLC no tuvo ningún ingreso en el año?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-35" role="region" aria-labelledby="faq-q-35">
+<p>Sí. El Formulario 5472 se presenta exista o no actividad — es la parte que más gente no sabe y que genera más multas evitables.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="amazon-ventas">Amazon y ventas online</h2>
+<div class="faq-item" data-category="amazon-ventas" data-search="¿necesito una llc obligatoriamente para vender en amazon? no es obligatorio — puedes vender como persona fisica con un w-8ben. pero la llc te da cuenta bancaria en ee.uu., mas credibilidad y mejor proteccion patrimonial.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-36" aria-controls="faq-a-36">
+<span>¿Necesito una LLC obligatoriamente para vender en Amazon?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-36" role="region" aria-labelledby="faq-q-36">
+<p>No es obligatorio — puedes vender como persona física con un W-8BEN. Pero la LLC te da cuenta bancaria en EE.UU., más credibilidad y mejor protección patrimonial.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="cuentas-bancarias">Cuentas bancarias</h2>
+<div class="faq-item" data-category="cuentas-bancarias" data-search="¿puedo abrir cuenta bancaria en ee.uu. sin viajar? si, con fintechs como mercury o wise business — los bancos tradicionales (chase, bank of america) si suelen exigir presencia fisica.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-37" aria-controls="faq-a-37">
+<span>¿Puedo abrir cuenta bancaria en EE.UU. sin viajar?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-37" role="region" aria-labelledby="faq-q-37">
+<p>Sí, con fintechs como Mercury o Wise Business — los bancos tradicionales (Chase, Bank of America) sí suelen exigir presencia física.</p>
+</div>
+</div>
+<div class="faq-item" data-category="cuentas-bancarias" data-search="¿necesito ssn o itin para abrir la cuenta? no, con las opciones digitales orientadas a extranjeros no residentes.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-38" aria-controls="faq-a-38">
+<span>¿Necesito SSN o ITIN para abrir la cuenta?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-38" role="region" aria-labelledby="faq-q-38">
+<p>No, con las opciones digitales orientadas a extranjeros no residentes.</p>
+</div>
+</div>
+<div class="faq-item" data-category="cuentas-bancarias" data-search="¿cuanto tarda en aprobarse la cuenta? entre pocos dias y hasta 2-3 semanas, dependiendo de cuanta informacion aportes desde el principio (web activa, descripcion clara del negocio).">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-39" aria-controls="faq-a-39">
+<span>¿Cuánto tarda en aprobarse la cuenta?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-39" role="region" aria-labelledby="faq-q-39">
+<p>Entre pocos días y hasta 2-3 semanas, dependiendo de cuánta información aportes desde el principio (web activa, descripción clara del negocio).</p>
+</div>
+</div>
+<div class="faq-item" data-category="cuentas-bancarias" data-search="¿que hago si me rechazan la cuenta? no es el final del camino — se puede responder con mas informacion, o aplicar a una alternativa.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-40" aria-controls="faq-a-40">
+<span>¿Qué hago si me rechazan la cuenta?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-40" role="region" aria-labelledby="faq-q-40">
+<p>No es el final del camino — se puede responder con más información, o aplicar a una alternativa.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="mantenimiento-anual">Mantenimiento anual</h2>
+<div class="faq-item" data-category="mantenimiento-anual" data-search="¿que tengo que hacer cada ano para mantener mi llc en regla? renovar el registered agent, presentar el reporte anual del estado (si aplica) y el formulario 5472/1120 pro forma ante el irs. nuestro plan de mantenimiento cubre todo esto.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-41" aria-controls="faq-a-41">
+<span>¿Qué tengo que hacer cada año para mantener mi LLC en regla?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-41" role="region" aria-labelledby="faq-q-41">
+<p>Renovar el registered agent, presentar el reporte anual del estado (si aplica) y el Formulario 5472/1120 pro forma ante el IRS. Nuestro plan de mantenimiento cubre todo esto.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mantenimiento-anual" data-search="¿el boi report de fincen sigue siendo obligatorio? no. desde marzo de 2025, las llc formadas en estados unidos — aunque el dueno sea extranjero — estan exentas de presentarlo. solo aplica a empresas formadas en otro pais y registradas despues para operar en ee.uu.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-42" aria-controls="faq-a-42">
+<span>¿El BOI Report de FinCEN sigue siendo obligatorio?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-42" role="region" aria-labelledby="faq-q-42">
+<p>No. Desde marzo de 2025, las LLC formadas en Estados Unidos — aunque el dueño sea extranjero — están exentas de presentarlo. Solo aplica a empresas formadas en otro país y registradas después para operar en EE.UU.</p>
+</div>
+</div>
+<div class="faq-item" data-category="mantenimiento-anual" data-search="¿que pasa si se me pasa la fecha de renovacion? el estado puede marcar tu llc como &quot;no cumplida&quot;, lo que genera recargos y, si se prolonga, puede llevar a la disolucion administrativa por parte del estado.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-43" aria-controls="faq-a-43">
+<span>¿Qué pasa si se me pasa la fecha de renovación?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-43" role="region" aria-labelledby="faq-q-43">
+<p>El estado puede marcar tu LLC como "no cumplida", lo que genera recargos y, si se prolonga, puede llevar a la disolución administrativa por parte del estado.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="cerrar-llc">Cerrar la LLC</h2>
+<div class="faq-item" data-category="cerrar-llc" data-search="si ya no la voy a usar, ¿basta con dejar de pagar? no. dejar de pagar no cierra la llc — sigue generando obligaciones y multas hasta que la disuelvas formalmente ante el estado.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-44" aria-controls="faq-a-44">
+<span>Si ya no la voy a usar, ¿basta con dejar de pagar?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-44" role="region" aria-labelledby="faq-q-44">
+<p>No. Dejar de pagar no cierra la LLC — sigue generando obligaciones y multas hasta que la disuelvas formalmente ante el estado.</p>
+</div>
+</div>
+<div class="faq-item" data-category="cerrar-llc" data-search="¿cuanto cuesta y cuanto tarda disolver una llc? varia por estado — normalmente entre 5 y 10 dias habiles en los estados mas usados por extranjeros, con una tasa estatal que tambien depende de cada uno.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-45" aria-controls="faq-a-45">
+<span>¿Cuánto cuesta y cuánto tarda disolver una LLC?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-45" role="region" aria-labelledby="faq-q-45">
+<p>Varía por estado — normalmente entre 5 y 10 días hábiles en los estados más usados por extranjeros, con una tasa estatal que también depende de cada uno.</p>
+</div>
+</div>
+<div class="faq-item" data-category="cerrar-llc" data-search="¿tengo que avisar al irs aparte de disolver en el estado? si. hace falta presentar la declaracion final marcada como tal — son dos pasos distintos, no uno. nosotros nos encargamos de todo para que no queden cabos sueltos.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-46" aria-controls="faq-a-46">
+<span>¿Tengo que avisar al IRS aparte de disolver en el estado?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-46" role="region" aria-labelledby="faq-q-46">
+<p>Sí. Hace falta presentar la declaración final marcada como tal — son dos pasos distintos, no uno. Nosotros nos encargamos de todo para que no queden cabos sueltos.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="cambiar-gestora">Cambiar de gestora</h2>
+<div class="faq-item" data-category="cambiar-gestora" data-search="ya tengo una llc con otra empresa — ¿puedo trasladarla a polaris? si, y es gratis. no cambia tu agente residente ni tu direccion salvo que tu quieras — tu llc sigue siendo la misma, solo cambia quien la gestiona.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-47" aria-controls="faq-a-47">
+<span>Ya tengo una LLC con otra empresa — ¿puedo trasladarla a Polaris?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-47" role="region" aria-labelledby="faq-q-47">
+<p>Sí, y es gratis. No cambia tu agente residente ni tu dirección salvo que tú quieras — tu LLC sigue siendo la misma, solo cambia quién la gestiona.</p>
+</div>
+</div>
+<div class="faq-item" data-category="cambiar-gestora" data-search="¿pierdo mi ein o historial al cambiar de gestora? no. el ein es tuyo, no de la gestora — te acompana sin importar quien lleve la administracion.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-48" aria-controls="faq-a-48">
+<span>¿Pierdo mi EIN o historial al cambiar de gestora?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-48" role="region" aria-labelledby="faq-q-48">
+<p>No. El EIN es tuyo, no de la gestora — te acompaña sin importar quién lleve la administración.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="elegir-gestor">Cómo elegir un buen gestor</h2>
+<div class="faq-item" data-category="elegir-gestor" data-search="¿como se si la empresa que me ofrece el servicio es legitima? busca que tenga ptin (registro oficial ante el irs para preparadores de impuestos), resenas verificables, y que te expliquen con claridad que incluye cada pago — sin presion ni urgencia artificial.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-49" aria-controls="faq-a-49">
+<span>¿Cómo sé si la empresa que me ofrece el servicio es legítima?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-49" role="region" aria-labelledby="faq-q-49">
+<p>Busca que tenga PTIN (registro oficial ante el IRS para preparadores de impuestos), reseñas verificables, y que te expliquen con claridad qué incluye cada pago — sin presión ni urgencia artificial.</p>
+</div>
+</div>
+<div class="faq-item" data-category="elegir-gestor" data-search="¿es normal que me cobren por el itin si en realidad no lo necesito? no. si alguien te lo vende como paso obligatorio para formar tu llc, te esta cobrando algo que no hace falta en la mayoria de los casos.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-50" aria-controls="faq-a-50">
+<span>¿Es normal que me cobren por el ITIN si en realidad no lo necesito?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-50" role="region" aria-labelledby="faq-q-50">
+<p>No. Si alguien te lo vende como paso obligatorio para formar tu LLC, te está cobrando algo que no hace falta en la mayoría de los casos.</p>
+</div>
+</div>
+<h2 class="faq-cat-title" data-cat-heading="registro-marca">Registro de marca</h2>
+<div class="faq-item" data-category="registro-marca" data-search="¿necesito tener la llc primero para registrar mi marca? no es obligatorio, pero si ya tienes una llc, el registro queda mas claro y ordenado.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-51" aria-controls="faq-a-51">
+<span>¿Necesito tener la LLC primero para registrar mi marca?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-51" role="region" aria-labelledby="faq-q-51">
+<p>No es obligatorio, pero si ya tienes una LLC, el registro queda más claro y ordenado.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿es obligatorio tener abogado en ee.uu. si soy extranjero? si, desde 2019 la uspto lo exige para solicitantes con domicilio fuera de ee.uu. — nuestro servicio ya lo incluye.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-52" aria-controls="faq-a-52">
+<span>¿Es obligatorio tener abogado en EE.UU. si soy extranjero?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-52" role="region" aria-labelledby="faq-q-52">
+<p>Sí, desde 2019 la USPTO lo exige para solicitantes con domicilio fuera de EE.UU. — nuestro servicio ya lo incluye.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿cuanto tarda todo el proceso? entre 12 y 18 meses en casos sin objeciones ni oposiciones de terceros — no es inmediato, y nadie puede garantizarte un plazo exacto.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-53" aria-controls="faq-a-53">
+<span>¿Cuánto tarda todo el proceso?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-53" role="region" aria-labelledby="faq-q-53">
+<p>Entre 12 y 18 meses en casos sin objeciones ni oposiciones de terceros — no es inmediato, y nadie puede garantizarte un plazo exacto.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿que pasa si me rechazan la marca? por eso hacemos primero una investigacion de disponibilidad — para reducir ese riesgo antes de invertir en la solicitud completa.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-54" aria-controls="faq-a-54">
+<span>¿Qué pasa si me rechazan la marca?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-54" role="region" aria-labelledby="faq-q-54">
+<p>Por eso hacemos primero una investigación de disponibilidad — para reducir ese riesgo antes de invertir en la solicitud completa.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿que es un office action y debo preocuparme si me llega uno? es una objecion del examinador de la uspto durante el proceso — es comun, y respondemos por ti sin coste adicional dentro del servicio de registro.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-55" aria-controls="faq-a-55">
+<span>¿Qué es un Office Action y debo preocuparme si me llega uno?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-55" role="region" aria-labelledby="faq-q-55">
+<p>Es una objeción del examinador de la USPTO durante el proceso — es común, y respondemos por ti sin coste adicional dentro del servicio de registro.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿que diferencia hay entre solicitar la marca &quot;en uso&quot; y por &quot;intento de uso&quot;? si ya vendes el producto o servicio, aplicas &quot;en uso&quot; (1a) y presentas la prueba de inmediato. si todavia no vendes pero planeas hacerlo, aplicas por &quot;intento de uso&quot; (1b) y presentas la prueba mas adelante, cuando ya estes vendiendo.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-56" aria-controls="faq-a-56">
+<span>¿Qué diferencia hay entre solicitar la marca "en uso" y por "intento de uso"?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-56" role="region" aria-labelledby="faq-q-56">
+<p>Si ya vendes el producto o servicio, aplicas "en uso" (1a) y presentas la prueba de inmediato. Si todavía no vendes pero planeas hacerlo, aplicas por "intento de uso" (1b) y presentas la prueba más adelante, cuando ya estés vendiendo.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿que cuenta como prueba de que estoy usando mi marca? fotos del producto a la venta con la marca visible, o capturas de tu tienda en amazon, tiktok o instagram donde se vea la marca en uso real, no solo planificado.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-57" aria-controls="faq-a-57">
+<span>¿Qué cuenta como prueba de que estoy usando mi marca?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-57" role="region" aria-labelledby="faq-q-57">
+<p>Fotos del producto a la venta con la marca visible, o capturas de tu tienda en Amazon, TikTok o Instagram donde se vea la marca en uso real, no solo planificado.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="si aplique por &quot;intento de uso&quot;, ¿cuando tengo que presentar la prueba? normalmente unos 6 meses despues de que la uspto apruebe la solicitud (notice of allowance). si en ese momento todavia no estas vendiendo, puedes pedir una extension de tiempo.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-58" aria-controls="faq-a-58">
+<span>Si apliqué por "intento de uso", ¿cuándo tengo que presentar la prueba?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-58" role="region" aria-labelledby="faq-q-58">
+<p>Normalmente unos 6 meses después de que la USPTO apruebe la solicitud (Notice of Allowance). Si en ese momento todavía no estás vendiendo, puedes pedir una extensión de tiempo.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿puedo registrar mi marca de forma amplia para cubrir productos que quiero vender en el futuro? no. el registro tiene que corresponder al producto o servicio que realmente vendes ahora, en las clases correspondientes. ampliarlo para cubrir planes futuros aumenta el riesgo de que la uspto lo rechace.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-59" aria-controls="faq-a-59">
+<span>¿Puedo registrar mi marca de forma amplia para cubrir productos que quiero vender en el futuro?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-59" role="region" aria-labelledby="faq-q-59">
+<p>No. El registro tiene que corresponder al producto o servicio que realmente vendes ahora, en las clases correspondientes. Ampliarlo para cubrir planes futuros aumenta el riesgo de que la USPTO lo rechace.</p>
+</div>
+</div>
+<div class="faq-item" data-category="registro-marca" data-search="¿puedo pedir mas tiempo si no llego a los 6 meses para presentar la prueba de uso? si. se pueden pedir extensiones sucesivas, dentro de los limites que marca la ley, siempre que sigas teniendo intencion real de usar la marca. cada extension tiene su propia tarifa de la uspto.">
+<button class="faq-q" type="button" aria-expanded="false" id="faq-q-60" aria-controls="faq-a-60">
+<span>¿Puedo pedir más tiempo si no llego a los 6 meses para presentar la prueba de uso?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="faq-a-60" role="region" aria-labelledby="faq-q-60">
+<p>Sí. Se pueden pedir extensiones sucesivas, dentro de los límites que marca la ley, siempre que sigas teniendo intención real de usar la marca. Cada extensión tiene su propia tarifa de la USPTO.</p>
+</div>
+</div>
+</div>
+<p class="faq-empty" id="faqEmpty">No se encontraron resultados para tu búsqueda.</p>
+</section>
+<section class="section faq-cta">
+<h2 class="section-title">¿Tu situación no está aquí?</h2>
+<p class="section-desc">Cuéntanos tu caso concreto y te respondemos directo, sin compromiso.</p>
+<a class="btn btn-navy" href="contacto.html">Escríbenos →</a>
+</section>
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="precios-llc.html">Precios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="precios-marca.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="privacidad.html">Política de privacidad</a></li>
+<li><a href="terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
+<!-- POP-UP CALENDARIO -->
+<div id="cal-popup-overlay">
+<div id="cal-popup">
+<button aria-label="Cerrar" id="cal-popup-close" onclick="closePopup()">✕</button>
+<p class="cal-popup-eyebrow">Herramienta exclusiva</p>
+<h2 class="cal-popup-title">Descarga tu calendario personalizado de gestiones fiscales</h2>
+<p class="cal-popup-desc">Genera tu calendario personalizado de gestiones federales y estatales — con todas las fechas clave para tu LLC, listo para descargar en PDF.</p>
+<a class="cal-popup-btn" href="calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+      Ver mi calendario
+    </a>
+<button class="cal-popup-skip" onclick="closePopup()">No, gracias</button>
+</div>
+</div>
+<!-- WIDGET FLOTANTE -->
+<div id="cal-widget">
+<a href="calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+    Mi calendario LLC
+  </a>
+<button aria-label="Cerrar widget" id="cal-widget-close" onclick="document.getElementById('cal-widget').style.display='none'">✕</button>
+</div>
+<script>
+function closePopup() {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+// Auto-show after 2.5s, only once per session
+if (!sessionStorage.getItem('calPopupSeen')) {
+  setTimeout(function() {
+    var el = document.getElementById('cal-popup-overlay');
+    if (el) el.style.display = 'flex';
+    sessionStorage.setItem('calPopupSeen', '1');
+  }, 2500);
+} else {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+</script>
+<!-- Widget Referidos -->
+<div id="ref-widget-wrap">
+  <a href="referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>
+  <a href="referidos.html" id="ref-widget-banner">Programa de referidos<br>Apuntate y gana</a>
+</div>
+<script>
+(function(){
+  var banner = document.getElementById("ref-widget-banner");
+  var dot = document.getElementById("ref-widget-dot");
+  if (!banner) return;
+  // Collapse after 5 seconds
+  setTimeout(function(){
+    banner.style.transition = "opacity 0.4s, max-height 0.4s";
+    banner.style.opacity = "0";
+    setTimeout(function(){
+      banner.style.display = "none";
+      dot.classList.add("visible");
+    }, 400);
+  }, 5000);
+})();
+</script>
+<!-- FAQ: buscador, chips y acordeón -->
+<script>
+(function(){
+  function normalize(s) {
+    return s.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
+  }
+
+  var searchInput = document.getElementById('faqSearch');
+  var chipsWrap = document.getElementById('faqChips');
+  var chips = Array.prototype.slice.call(chipsWrap.querySelectorAll('.faq-chip'));
+  var items = Array.prototype.slice.call(document.querySelectorAll('.faq-item'));
+  var headings = Array.prototype.slice.call(document.querySelectorAll('.faq-cat-title'));
+  var emptyMsg = document.getElementById('faqEmpty');
+  var activeCat = 'todas';
+
+  function setActiveChip(cat) {
+    activeCat = cat;
+    chips.forEach(function(c){ c.classList.toggle('active', c.getAttribute('data-cat') === cat); });
+  }
+
+  function applyFilter() {
+    var q = normalize(searchInput.value.trim());
+    var visibleByCat = {};
+    var anyVisible = false;
+    items.forEach(function(item){
+      var cat = item.getAttribute('data-category');
+      var matchesCat = (activeCat === 'todas' || cat === activeCat);
+      var matchesSearch = (q === '' || item.getAttribute('data-search').indexOf(q) !== -1);
+      var visible = matchesCat && matchesSearch;
+      item.style.display = visible ? '' : 'none';
+      if (visible) { anyVisible = true; visibleByCat[cat] = true; }
+    });
+    headings.forEach(function(h){
+      var cat = h.getAttribute('data-cat-heading');
+      h.style.display = visibleByCat[cat] ? '' : 'none';
+    });
+    emptyMsg.classList.toggle('visible', !anyVisible);
+  }
+
+  searchInput.addEventListener('input', function(){
+    if (searchInput.value.trim().length > 0 && activeCat !== 'todas') {
+      setActiveChip('todas');
+    }
+    applyFilter();
+  });
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      setActiveChip(chip.getAttribute('data-cat'));
+      applyFilter();
+    });
+  });
+
+  items.forEach(function(item){
+    var q = item.querySelector('.faq-q');
+    var a = item.querySelector('.faq-a');
+    q.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      if (isOpen) {
+        item.classList.remove('open');
+        q.setAttribute('aria-expanded', 'false');
+        a.style.maxHeight = '0px';
+      } else {
+        item.classList.add('open');
+        q.setAttribute('aria-expanded', 'true');
+        a.style.maxHeight = a.scrollHeight + 'px';
+      }
+    });
+  });
+
+  applyFilter();
+})();
+</script>
+</body>
+</html>

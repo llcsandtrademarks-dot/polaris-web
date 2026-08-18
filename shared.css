@@ -379,6 +379,69 @@ a.review-card, a.review-card:visited { color: inherit; text-decoration: none; }
   #ref-badge svg { width: 78px !important; height: 78px !important; }
 }
 
+/* ============================================
+   FAQ — buscador, chips, acordeón, estado vacío
+   ============================================ */
+.faq-search-wrap { max-width: 560px; margin: 0 auto 2rem; }
+.faq-search {
+  width: 100%; padding: 14px 18px; border: 1.5px solid var(--border); border-radius: 10px;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; color: var(--text); background: var(--white);
+  transition: border-color 0.2s;
+}
+.faq-search:focus { outline: none; border-color: var(--navy-light); }
+
+.faq-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center; margin-bottom: 2.5rem; }
+.faq-chip {
+  font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--navy);
+  background: var(--white); border: 1.5px solid var(--border); padding: 7px 16px; border-radius: 999px;
+  cursor: pointer; transition: all 0.2s;
+}
+.faq-chip:hover { border-color: var(--navy-light); }
+.faq-chip.active { background: var(--navy); border-color: var(--navy); color: var(--white); }
+
+.faq-cat-title { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 1rem; }
+.faq-cat-title:first-of-type { margin-top: 0; }
+
+.faq-item { border: 1px solid var(--border); border-radius: 10px; background: var(--white); margin-bottom: 0.75rem; overflow: hidden; }
+.faq-q {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  text-align: left; background: none; border: none; cursor: pointer; padding: 1rem 1.25rem;
+  font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 600; color: var(--navy);
+}
+.faq-q-icon { flex-shrink: 0; font-size: 1.2rem; font-weight: 400; color: var(--navy-light); transition: transform 0.2s; }
+.faq-item.open .faq-q-icon { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.3s ease, padding 0.3s ease; padding: 0 1.25rem; }
+.faq-item.open .faq-a { padding: 0 1.25rem 1.25rem; }
+.faq-a p { font-size: 0.92rem; color: var(--text-muted); line-height: 1.7; }
+
+.faq-empty { display: none; text-align: center; padding: 3rem 1rem; color: var(--text-muted); font-size: 0.95rem; }
+.faq-empty.visible { display: block; }
+
+.faq-cta { text-align: center; }
+.faq-cta .section-desc { margin-left: auto; margin-right: auto; }
+
+/* ============================================
+   SIDEBAR DE OBJECIONES — páginas de servicio
+   ============================================ */
+.service-layout { display: grid; grid-template-columns: 1fr 300px; gap: 2rem; align-items: start; margin-top: 2rem; }
+.service-layout .srv-card-grid { margin-top: 0; }
+.obj-sidebar { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem; position: sticky; top: 90px; }
+.obj-sidebar-title { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 1.25rem; }
+.obj-item { margin-bottom: 1.15rem; }
+.obj-item:last-of-type { margin-bottom: 1.5rem; }
+.obj-q { font-size: 0.86rem; font-weight: 700; color: var(--navy); margin-bottom: 0.3rem; line-height: 1.4; }
+.obj-a { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; }
+.obj-sidebar-link {
+  display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy);
+  text-decoration: none; border-top: 1px solid var(--border); padding-top: 1rem;
+}
+.obj-sidebar-link:hover { color: var(--navy-light); }
+
+@media (max-width: 768px) {
+  .service-layout { grid-template-columns: 1fr; }
+  .obj-sidebar { position: static; }
+}
+
 /* ── WIDGET REFERIDOS ─────────────────────────────────────────────────────── */
 #ref-widget-wrap {
   position: fixed;
