@@ -147,7 +147,7 @@
       <p class="result-price" id="result-titulo"></p>
       <p class="result-includes" id="result-incluye"></p>
       <div class="maryland-note" id="maryland-note" style="display:none;"></div>
-      <a class="btn btn-navy result-cta-primary" href="contacto.html" id="cta-auditoria">Pide tu auditoría gratuita para saber qué es lo que estás pagando de más</a>
+      <a class="btn btn-navy result-cta-primary" href="contacto.html" id="cta-auditoria">Quiero mi auditoría gratis</a>
       <a class="result-cta-secondary" href="calendario-llc.html">Descarga tu calendario fiscal personalizado con las fechas límite de cada pago</a>
     </div>
   </div>
@@ -292,9 +292,9 @@
       marylandNote.style.display = 'none';
     }
 
-    // CTA de auditoría con contexto precargado hacia el formulario de contacto
+    // CTA de auditoría con contexto precargado hacia el cuestionario de auditoría
     document.getElementById('cta-auditoria').href =
-      `contacto.html?motivo=auditoria&estado=${encodeURIComponent(d.nombre)}`;
+      `cuestionario-auditoria.html?email=${encodeURIComponent(email)}&estado=${encodeURIComponent(d.nombre)}`;
 
     document.getElementById('form-section').style.display = 'none';
     document.getElementById('result-section').style.display = 'block';

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'granted',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+  <script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuéntanos sobre tu LLC — Proyecto Polaris</title>
+
+  <link rel="stylesheet" href="shared.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    .hero { background: var(--navy); padding: 3.5rem 2.5rem 3rem; }
+    .hero-inner { max-width: 720px; margin: 0 auto; }
+    .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.6rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 0.75rem; }
+    .hero p { font-size: 0.97rem; color: rgba(255,255,255,0.68); line-height: 1.7; max-width: 480px; }
+
+    .section { max-width: 640px; margin: 0 auto; padding: 3rem 2rem; }
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.25rem 2.25rem; }
+
+    .q-block-title { font-size: 13px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--navy-light); margin: 2rem 0 1rem; }
+    .q-block-title:first-child { margin-top: 0; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
+    label { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.02em; }
+    .sublabel { font-size: 12px; font-weight: 400; color: var(--text-muted); }
+    input[type="text"], input[type="email"], textarea, select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--offwhite); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; width: 100%; transition: border-color 0.2s, box-shadow 0.2s; }
+    textarea { resize: vertical; min-height: 70px; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--navy-light); box-shadow: 0 0 0 3px rgba(30,74,114,0.12); }
+
+    .radio-row { display: flex; flex-direction: column; gap: 8px; }
+    .radio-option { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--text); cursor: pointer; }
+    .radio-option input { width: auto; }
+
+    .condicional { margin-top: 0.6rem; display: none; }
+    .condicional.visible { display: block; }
+
+    .btn-full { width: 100%; justify-content: center; margin-top: 0.5rem; border: none; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+    .btn-full:disabled { opacity: 0.6; cursor: not-allowed; }
+    .secondary-link { display: block; text-align: center; margin-top: 1.1rem; font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .secondary-link:hover { color: var(--navy); }
+
+    #confirm-section { display: none; }
+    .confirm-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem 2.25rem; text-align: center; }
+    .confirm-card h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 0.75rem; }
+    .confirm-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+
+    .form-error { font-size: 13px; color: #c0392b; margin-top: 12px; text-align: center; display: none; line-height: 1.6; }
+    .form-error .btn { margin-top: 10px; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160">
+    Proyecto <span>Polaris</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Inicio</a></li>
+    <li><a href="servicios-llc.html">Servicios LLC</a></li>
+    <li><a href="servicios-marca.html">Registro de marca</a></li>
+    <li><a href="nosotros.html">Nosotros</a></li>
+    <li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+  </ul>
+  <button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+    <svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+  </button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Inicio</a>
+  <a href="servicios-llc.html">Servicios LLC</a>
+  <a href="servicios-marca.html">Registro de marca</a>
+  <a href="nosotros.html">Nosotros</a>
+  <a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+
+<section class="hero">
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Auditoría gratuita · LLC</p>
+    <h1>Cuéntanos sobre tu LLC</h1>
+    <p>Contesta a estas preguntas para que podamos enviarte tu auditoría. Solo las primeras dos son obligatorias, pero cuantas más contestes, más precisa y personalizada será tu auditoría.</p>
+  </div>
+</section>
+
+<section class="section">
+
+  <div id="form-section">
+    <div class="form-card">
+      <form id="auditoria-form">
+
+        <div class="form-group">
+          <label for="email">Dirección email a la que te enviaremos el resultado de la auditoría</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+
+        <p class="q-block-title">Indispensables</p>
+
+        <div class="form-group">
+          <label for="nombre-llc">Nombre oficial de tu LLC</label>
+          <input id="nombre-llc" name="nombre_llc" type="text" required>
+        </div>
+
+        <div class="form-group">
+          <label for="estado">Estado en el que está creada</label>
+          <select id="estado" name="estado" required>
+            <option value="">Selecciona tu estado…</option>
+          </select>
+        </div>
+
+        <p class="q-block-title">Opcionales pero relevantes</p>
+
+        <div class="form-group">
+          <label>¿Eres el único propietario o hay más personas?</label>
+          <div class="radio-row">
+            <label class="radio-option"><input name="propietarios" type="radio" value="unico"> Único propietario</label>
+            <label class="radio-option"><input name="propietarios" type="radio" value="socios"> Tengo un socio o más</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>¿Los propietarios viven en Estados Unidos o fuera?</label>
+          <div class="radio-row">
+            <label class="radio-option"><input name="ubicacion_propietarios" type="radio" value="todos_fuera"> Todos fuera de Estados Unidos</label>
+            <label class="radio-option"><input name="ubicacion_propietarios" type="radio" value="todos_dentro"> Todos en Estados Unidos</label>
+            <label class="radio-option"><input name="ubicacion_propietarios" type="radio" value="mixto"> Algunos en Estados Unidos y otros fuera</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="actividad">¿A qué se dedica tu LLC?</label>
+          <textarea id="actividad" name="actividad"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>¿Tu LLC tiene en Estados Unidos, en propiedad o alquilados a su nombre, almacenes, oficinas u otros inmuebles?</label>
+          <span class="sublabel">Si solo usas 3PL o FBA, contesta "No".</span>
+          <div class="radio-row">
+            <label class="radio-option"><input name="inmuebles" type="radio" value="si"> Sí</label>
+            <label class="radio-option"><input name="inmuebles" type="radio" value="no"> No</label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>¿Tu LLC tiene empleados contratados en Estados Unidos?</label>
+          <div class="radio-row">
+            <label class="radio-option"><input name="empleados" type="radio" value="si"> Sí</label>
+            <label class="radio-option"><input name="empleados" type="radio" value="no"> No</label>
+          </div>
+        </div>
+
+        <p class="q-block-title">Para personalizar tu auditoría</p>
+
+        <div class="form-group">
+          <label for="total-anual">¿Cuánto estás pagando en total cada año, sumando todos los trámites, tasas, tarifas y servicios relativos al cumplimiento fiscal y legal de tu LLC?</label>
+          <input id="total-anual" name="total_anual" type="text" placeholder="Ej. 450 USD">
+        </div>
+
+        <div class="form-group">
+          <label>¿Estás pagando una dirección para tu LLC o un servicio de correo físico?</label>
+          <div class="radio-row">
+            <label class="radio-option"><input class="direccion-radio" name="direccion_fisica" type="radio" value="si"> Sí</label>
+            <label class="radio-option"><input class="direccion-radio" name="direccion_fisica" type="radio" value="no"> No</label>
+          </div>
+          <div class="condicional" id="direccion-condicional">
+            <input id="direccion-cuanto" name="direccion_fisica_cuanto" type="text" placeholder="¿Cuánto y con qué frecuencia?">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="agente-residente">¿Cuánto estás pagando por el agente residente, si lo pagas por separado?</label>
+          <input id="agente-residente" name="agente_residente" type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="irs">¿Cuánto estás pagando por las declaraciones anuales al IRS, si las pagas aparte?</label>
+          <input id="irs" name="declaraciones_irs" type="text">
+        </div>
+
+        <div class="form-group">
+          <label for="reporte-estado">¿Cuánto estás pagando por el reporte anual al estado, si lo pagas aparte?</label>
+          <input id="reporte-estado" name="reporte_anual_estado" type="text">
+        </div>
+
+        <button class="btn btn-navy btn-full" id="btn-submit" type="submit">Enviar mis respuestas</button>
+        <p class="form-error" id="form-error-campos">Faltan campos obligatorios: correo electrónico, nombre de tu LLC y estado.</p>
+        <div class="form-error" id="form-error-envio">
+          Hubo un problema al enviar tus respuestas. No se han perdido — puedes reintentarlo.
+          <br>
+          <button class="btn btn-outline" id="btn-reintentar" type="button">Reintentar envío</button>
+        </div>
+        <a class="secondary-link" href="contacto.html">o envíanos un mensaje</a>
+      </form>
+    </div>
+  </div>
+
+  <div id="confirm-section">
+    <div class="confirm-card">
+      <h2>Gracias — ya tenemos tus respuestas</h2>
+      <p>Vamos a preparar tu auditoría con esta información y te la enviaremos por correo en los próximos días.</p>
+    </div>
+  </div>
+
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+        <img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160">
+        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+      </div>
+      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Servicios</p>
+      <ul>
+        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
+        <li><a href="precios-llc.html">Precios de LLC</a></li>
+        <li><a href="servicios-marca.html">Registro de marca</a></li>
+        <li><a href="precios-marca.html">Precios de registro de marca</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Recursos</p>
+      <ul>
+        <li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+        <li><a href="referidos.html">Programa de referidos</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Empresa</p>
+      <ul>
+        <li><a href="nosotros.html">Nosotros</a></li>
+        <li><a href="contacto.html">Contacto</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <p class="footer-col-title">Legal</p>
+      <ul>
+        <li><a href="privacidad.html">Política de privacidad</a></li>
+        <li><a href="terminos.html">Términos de servicio</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+    <div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+  </div>
+</footer>
+
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted', analytics_storage: 'granted',
+        ad_user_data: 'granted', ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+</script>
+
+<script>
+  const ESTADOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/estados';
+  const AUDITORIA_ENDPOINT = 'https://polaris-api.llcsandtrademarks.workers.dev/auditoria';
+
+  const params = new URLSearchParams(window.location.search);
+  const emailParam = params.get('email') || '';
+  const estadoParam = params.get('estado') || '';
+
+  if (emailParam) {
+    document.getElementById('email').value = emailParam;
+  }
+
+  async function cargarEstados() {
+    const select = document.getElementById('estado');
+    try {
+      const res = await fetch(ESTADOS_ENDPOINT);
+      const ESTADOS = await res.json();
+      const slugs = Object.keys(ESTADOS).sort((a, b) => ESTADOS[a].nombre.localeCompare(ESTADOS[b].nombre, 'es'));
+      slugs.forEach(slug => {
+        const opt = document.createElement('option');
+        opt.value = slug;
+        opt.textContent = ESTADOS[slug].nombre;
+        if (slug === estadoParam) opt.selected = true;
+        select.appendChild(opt);
+      });
+    } catch (e) {
+      // silencioso — el select se queda con la opción por defecto
+    }
+  }
+  cargarEstados();
+
+  document.querySelectorAll('.direccion-radio').forEach(function (radio) {
+    radio.addEventListener('change', function () {
+      const cond = document.getElementById('direccion-condicional');
+      cond.classList.toggle('visible', this.value === 'si');
+    });
+  });
+
+  function enviarFormulario() {
+    const form = document.getElementById('auditoria-form');
+    const email = form.email.value.trim();
+    const nombreLlc = form.nombre_llc.value.trim();
+    const estado = form.estado.value;
+    const errorCampos = document.getElementById('form-error-campos');
+    const errorEnvio = document.getElementById('form-error-envio');
+
+    if (!email || !nombreLlc || !estado) {
+      errorCampos.style.display = 'block';
+      errorEnvio.style.display = 'none';
+      return;
+    }
+    errorCampos.style.display = 'none';
+    errorEnvio.style.display = 'none';
+
+    const data = Object.fromEntries(new FormData(form).entries());
+    const btn = document.getElementById('btn-submit');
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+
+    fetch(AUDITORIA_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('envio_fallido');
+        document.getElementById('form-section').style.display = 'none';
+        document.getElementById('confirm-section').style.display = 'block';
+        document.getElementById('confirm-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'auditoria_solicitada', {
+            event_category: 'engagement',
+            event_label: 'cuestionario_auditoria',
+            estado: estado
+          });
+        }
+      })
+      .catch(function () {
+        // El envío ha fallado de verdad — el cliente lo ve y puede reintentar.
+        // NO se muestra la pantalla de "gracias" si esto pasa.
+        errorEnvio.style.display = 'block';
+      })
+      .finally(function () {
+        btn.disabled = false;
+        btn.textContent = 'Enviar mis respuestas';
+      });
+  }
+
+  document.getElementById('auditoria-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+    enviarFormulario();
+  });
+
+  document.getElementById('btn-reintentar').addEventListener('click', function () {
+    enviarFormulario();
+  });
+</script>
+
+</body>
+</html>
