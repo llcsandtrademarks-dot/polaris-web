@@ -229,10 +229,6 @@
   // ── Fuente única de verdad: /estados en el Worker polaris-pagos ──────────
   const ESTADOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/estados';
   // Endpoint de captura de lead — MISMO PATRÓN que calendario-llc.html.
-  // NOTA: este endpoint (/precio-estado) todavía no existe en polaris-api,
-  // hay que añadirlo (ver prompt para Claude Code). Hasta entonces el fetch
-  // falla en silencio (.catch) y la página sigue funcionando con normalidad,
-  // solo que no se guarda el email todavía.
   const LEAD_ENDPOINT = 'https://polaris-api.llcsandtrademarks.workers.dev/precio-estado';
 
   let ESTADOS = null;
