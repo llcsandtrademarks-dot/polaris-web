@@ -58,16 +58,20 @@
   <style>
     .hero { background: var(--navy); padding: 3.5rem 2.5rem 3rem; }
     .hero-inner { max-width: 720px; margin: 0 auto; }
+    .hero-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
     .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.6rem; }
     .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 0.75rem; }
     .hero p { font-size: 0.97rem; color: rgba(255,255,255,0.68); line-height: 1.7; max-width: 480px; }
+    .hero-top-link { font-size: 13px; color: rgba(255,255,255,0.75); text-decoration: underline; white-space: nowrap; margin-top: 4px; }
+    .hero-top-link:hover { color: var(--white); }
 
     .section { max-width: 640px; margin: 0 auto; padding: 3rem 2rem; }
-    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.25rem 2.25rem; }
 
-    .q-block-title { font-size: 13px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--navy-light); margin: 2rem 0 1rem; }
-    .q-block-title:first-child { margin-top: 0; }
+    .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; margin-bottom: 1.25rem; }
+
+    .q-block-title { font-size: 13px; font-weight: 700; letter-spacing: 0.03em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 1.1rem; }
     .form-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 1.25rem; }
+    .form-group:last-child { margin-bottom: 0; }
     label { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.02em; }
     .sublabel { font-size: 12px; font-weight: 400; color: var(--text-muted); }
     input[type="text"], input[type="email"], textarea, select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--offwhite); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; width: 100%; transition: border-color 0.2s, box-shadow 0.2s; }
@@ -81,9 +85,10 @@
     .condicional { margin-top: 0.6rem; display: none; }
     .condicional.visible { display: block; }
 
-    .btn-full { width: 100%; justify-content: center; margin-top: 0.5rem; border: none; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+    .submit-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; text-align: center; }
+    .btn-full { width: 100%; justify-content: center; border: none; font-family: 'DM Sans', sans-serif; cursor: pointer; }
     .btn-full:disabled { opacity: 0.6; cursor: not-allowed; }
-    .secondary-link { display: block; text-align: center; margin-top: 1.1rem; font-size: 13px; color: var(--text-muted); text-decoration: none; }
+    .secondary-link { display: block; text-align: center; margin-top: 1.1rem; font-size: 13px; color: var(--text-muted); text-decoration: underline; }
     .secondary-link:hover { color: var(--navy); }
 
     #confirm-section { display: none; }
@@ -123,8 +128,13 @@
 
 <section class="hero">
   <div class="hero-inner">
-    <p class="hero-eyebrow">Auditoría gratuita · LLC</p>
-    <h1>Cuéntanos sobre tu LLC</h1>
+    <div class="hero-top-row">
+      <div>
+        <p class="hero-eyebrow">Auditoría gratuita · LLC</p>
+        <h1>Cuéntanos sobre tu LLC</h1>
+      </div>
+      <a class="hero-top-link" href="contacto.html">o envíanos un mensaje</a>
+    </div>
     <p>Contesta a estas preguntas para que podamos enviarte tu auditoría. Solo las primeras dos son obligatorias, pero cuantas más contestes, más precisa y personalizada será tu auditoría.</p>
   </div>
 </section>
@@ -132,15 +142,17 @@
 <section class="section">
 
   <div id="form-section">
-    <div class="form-card">
-      <form id="auditoria-form">
+    <form id="auditoria-form">
 
+      <div class="form-card">
         <div class="form-group">
           <label for="email">Dirección email a la que te enviaremos el resultado de la auditoría</label>
           <input id="email" name="email" type="email" required>
         </div>
+      </div>
 
-        <p class="q-block-title">Indispensables</p>
+      <div class="form-card">
+        <p class="q-block-title">Preguntas indispensables</p>
 
         <div class="form-group">
           <label for="nombre-llc">Nombre oficial de tu LLC</label>
@@ -153,8 +165,10 @@
             <option value="">Selecciona tu estado…</option>
           </select>
         </div>
+      </div>
 
-        <p class="q-block-title">Opcionales pero relevantes</p>
+      <div class="form-card">
+        <p class="q-block-title">Preguntas opcionales pero relevantes</p>
 
         <div class="form-group">
           <label>¿Eres el único propietario o hay más personas?</label>
@@ -194,8 +208,10 @@
             <label class="radio-option"><input name="empleados" type="radio" value="no"> No</label>
           </div>
         </div>
+      </div>
 
-        <p class="q-block-title">Para personalizar tu auditoría</p>
+      <div class="form-card">
+        <p class="q-block-title">Preguntas opcionales para personalizar tu auditoría</p>
 
         <div class="form-group">
           <label for="total-anual">¿Cuánto estás pagando en total cada año, sumando todos los trámites, tasas, tarifas y servicios relativos al cumplimiento fiscal y legal de tu LLC?</label>
@@ -203,7 +219,7 @@
         </div>
 
         <div class="form-group">
-          <label>¿Estás pagando una dirección para tu LLC o un servicio de correo físico?</label>
+          <label>¿Estás pagando una dirección para tu LLC o un servicio de correo físico? Y si es que sí, ¿cuánto?</label>
           <div class="radio-row">
             <label class="radio-option"><input class="direccion-radio" name="direccion_fisica" type="radio" value="si"> Sí</label>
             <label class="radio-option"><input class="direccion-radio" name="direccion_fisica" type="radio" value="no"> No</label>
@@ -227,7 +243,9 @@
           <label for="reporte-estado">¿Cuánto estás pagando por el reporte anual al estado, si lo pagas aparte?</label>
           <input id="reporte-estado" name="reporte_anual_estado" type="text">
         </div>
+      </div>
 
+      <div class="submit-card">
         <button class="btn btn-navy btn-full" id="btn-submit" type="submit">Enviar mis respuestas</button>
         <p class="form-error" id="form-error-campos">Faltan campos obligatorios: correo electrónico, nombre de tu LLC y estado.</p>
         <div class="form-error" id="form-error-envio">
@@ -236,8 +254,9 @@
           <button class="btn btn-outline" id="btn-reintentar" type="button">Reintentar envío</button>
         </div>
         <a class="secondary-link" href="contacto.html">o envíanos un mensaje</a>
-      </form>
-    </div>
+      </div>
+
+    </form>
   </div>
 
   <div id="confirm-section">
