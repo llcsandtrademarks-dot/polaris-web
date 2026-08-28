@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="../favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Blog | Proyecto Polaris</title><meta content="Información clara sobre LLC, cumplimiento fiscal y marcas para hispanohablantes — sin letra pequeña ni tácticas de miedo." name="description"/><link href="https://proyecto-polaris.com/blog/" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Blog | Proyecto Polaris" name="twitter:title"/><meta content="Información clara sobre LLC, cumplimiento fiscal y marcas para hispanohablantes — sin letra pequeña ni tácticas de miedo." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/blog/" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Blog | Proyecto Polaris" property="og:title"/><meta content="Información clara sobre LLC, cumplimiento fiscal y marcas para hispanohablantes — sin letra pequeña ni tácticas de miedo." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="../favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="../favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="../shared.css" rel="stylesheet"/>
+<style>
+    .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+    .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    .srv-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+  </style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Blog de Proyecto Polaris",
+  "url": "https://proyecto-polaris.com/blog/",
+  "description": "Información clara sobre LLC, cumplimiento fiscal y marcas para hispanohablantes — sin letra pequeña ni tácticas de miedo.",
+  "publisher": {
+    "@type": "Organization",
+    "name": "Proyecto Polaris",
+    "url": "https://proyecto-polaris.com"
+  }
+}</script>  <script>
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
+    })();
+  </script>
+<style>
+/* ── POPUP CALENDARIO ─────────────────────────────── */
+#cal-popup-overlay {
+  position: fixed; inset: 0; background: rgba(10,20,35,0.55);
+  z-index: 200; display: none; align-items: center; justify-content: center;
+  animation: fadeInOverlay 0.35s ease;
+}
+@keyframes fadeInOverlay { from { opacity:0 } to { opacity:1 } }
+#cal-popup {
+  background: var(--white); border-radius: 16px; padding: 2.25rem 2.5rem;
+  max-width: 460px; width: calc(100% - 2rem); position: relative;
+  box-shadow: 0 24px 60px rgba(13,33,55,0.28);
+  animation: slideUp 0.35s ease;
+}
+@keyframes slideUp { from { transform:translateY(30px); opacity:0 } to { transform:translateY(0); opacity:1 } }
+#cal-popup-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); font-size: 20px; line-height: 1; padding: 4px;
+}
+#cal-popup-close:hover { color: var(--text); }
+.cal-popup-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.5rem; }
+.cal-popup-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.3; }
+.cal-popup-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
+.cal-popup-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: var(--white); font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+.cal-popup-btn:hover { background: var(--navy-mid); }
+.cal-popup-skip { display: block; margin-top: 0.85rem; font-size: 12px; color: var(--text-muted); cursor: pointer; background: none; border: none; text-decoration: underline; }
+
+/* ── WIDGET FLOTANTE ──────────────────────────────── */
+#cal-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 150;
+  display: none;
+  animation: widgetIn 0.3s ease;
+}
+@keyframes widgetIn { from { transform:scale(0.7); opacity:0 } to { transform:scale(1); opacity:1 } }
+#cal-widget a {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); color: var(--white);
+  font-size: 13px; font-weight: 700;
+  padding: 11px 18px; border-radius: 50px;
+  text-decoration: none; box-shadow: 0 6px 20px rgba(13,33,55,0.35);
+  transition: background 0.2s, transform 0.2s;
+}
+#cal-widget a:hover { background: var(--navy-mid); transform: translateY(-2px); }
+#cal-widget-close {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text-muted); color: white; border: none;
+  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+</style>
+</head>
+<body>
+<div class="tp-badge-bar">
+<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
+<a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/4.5/128x24.png" width="128"/>
+<span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
+</a>
+</div>
+<nav>
+<a class="nav-logo" href="../index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="../logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="../index.html">Inicio</a></li>
+<li><a href="../servicios-llc.html">Servicios LLC</a></li>
+<li><a href="../servicios-marca.html">Registro de marca</a></li>
+<li><a href="../nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="../contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="../index.html">Inicio</a>
+<a href="../servicios-llc.html">Servicios LLC</a>
+<a href="../servicios-marca.html">Registro de marca</a>
+<a href="../nosotros.html">Nosotros</a>
+<a class="nav-cta" href="../contacto.html">Contactar</a>
+</div>
+<div class="page-header">
+<p class="page-header-eyebrow">Blog</p>
+<h1>Blog</h1>
+<p>Información clara sobre LLC, cumplimiento fiscal y marcas — sin letra pequeña ni tácticas de miedo.</p>
+</div>
+<section class="section">
+<div class="srv-card-grid">
+<a class="srv-card" href="las-falsas-cadenas.html">
+<div class="srv-card-body">
+<p class="srv-card-title">Las falsas cadenas</p>
+<p class="srv-card-desc">Obligaciones de una LLC para no residentes y cómo gestionarlas sin ataduras.</p>
+<span class="srv-card-cta">Leer artículo →</span>
+</div>
+</a>
+<a class="srv-card" href="el-email-que-todos-estamos-recibiendo.html">
+<div class="srv-card-body">
+<p class="srv-card-title">El Email que Todos Estamos Recibiendo</p>
+<p class="srv-card-desc">Por qué no deberías entrar en pánico con los correos alarmistas sobre el IRS.</p>
+<span class="srv-card-cta">Leer artículo →</span>
+</div>
+</a>
+<a class="srv-card" href="cierre-correcto-de-llc.html">
+<div class="srv-card-body">
+<p class="srv-card-title">Cerrar tu LLC: lo que pasa si no lo haces correctamente</p>
+<p class="srv-card-desc">Lo que implica de verdad cerrar una LLC, y qué pasa si la dejas abandonada.</p>
+<span class="srv-card-cta">Leer artículo →</span>
+</div>
+</a>
+</div>
+</section>
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="../logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="../servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="../precios-llc.html">Precios de LLC</a></li>
+<li><a href="../servicios-marca.html">Registro de marca</a></li>
+<li><a href="../contacto.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="../calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="../referidos.html">Programa de referidos</a></li>
+<li><a href="../preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="../nosotros.html">Nosotros</a></li>
+<li><a href="../contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="../privacidad.html">Política de privacidad</a></li>
+<li><a href="../terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="../privacidad.html">Privacidad</a><a href="../terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="../privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
+<!-- POP-UP CALENDARIO -->
+<div id="cal-popup-overlay">
+<div id="cal-popup">
+<button aria-label="Cerrar" id="cal-popup-close" onclick="closePopup()">✕</button>
+<p class="cal-popup-eyebrow">Herramienta exclusiva</p>
+<h2 class="cal-popup-title">Descarga tu calendario personalizado de gestiones fiscales</h2>
+<p class="cal-popup-desc">Genera tu calendario personalizado de gestiones federales y estatales — con todas las fechas clave para tu LLC, listo para descargar en PDF.</p>
+<a class="cal-popup-btn" href="../calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+      Ver mi calendario
+    </a>
+<button class="cal-popup-skip" onclick="closePopup()">No, gracias</button>
+</div>
+</div>
+<!-- WIDGET FLOTANTE -->
+<div id="cal-widget">
+<a href="../calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+    Mi calendario LLC
+  </a>
+<button aria-label="Cerrar widget" id="cal-widget-close" onclick="document.getElementById('cal-widget').style.display='none'">✕</button>
+</div>
+<script>
+function closePopup() {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+// Auto-show after 2.5s, only once per session
+if (!sessionStorage.getItem('calPopupSeen')) {
+  setTimeout(function() {
+    var el = document.getElementById('cal-popup-overlay');
+    if (el) el.style.display = 'flex';
+    sessionStorage.setItem('calPopupSeen', '1');
+  }, 2500);
+} else {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+</script>
+<!-- Widget Referidos -->
+<div id="ref-widget-wrap">
+  <a href="../referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>
+  <a href="../referidos.html" id="ref-widget-banner">Programa de referidos<br>Apuntate y gana</a>
+</div>
+<script>
+(function(){
+  var banner = document.getElementById("ref-widget-banner");
+  var dot = document.getElementById("ref-widget-dot");
+  if (!banner) return;
+  // Collapse after 5 seconds
+  setTimeout(function(){
+    banner.style.transition = "opacity 0.4s, max-height 0.4s";
+    banner.style.opacity = "0";
+    setTimeout(function(){
+      banner.style.display = "none";
+      dot.classList.add("visible");
+    }, 400);
+  }, 5000);
+})();
+</script>
+</body>
+</html>
