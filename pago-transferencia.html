@@ -243,25 +243,8 @@ var NOMBRES_ESTADO = {
 var NOMBRES_SERVICIO = { formacion:'Formación LLC', mantenimiento:'Mantenimiento Anual' };
 var NOMBRES_SERVICIO_MARCA = { marca_registro:'Registro de marca', marca_sou:'SOU — Prueba de Uso', marca_extension:'Extensión de tiempo' };
 var PRECIOS_MARCA = { marca_registro:699, marca_sou:249, marca_extension:194 };
-var PRECIOS = {
-  alabama:{formacion:499,mantenimiento:399},alaska:{formacion:599,mantenimiento:399},arizona:{formacion:399,mantenimiento:399},
-  arkansas:{formacion:499,mantenimiento:499},california:{formacion:399,mantenimiento:1119},colorado:{formacion:399,mantenimiento:399},
-  connecticut:{formacion:499,mantenimiento:399},delaware:{formacion:499,mantenimiento:599},districtofcolumbia:{formacion:399,mantenimiento:599},
-  florida:{formacion:499,mantenimiento:499},georgia:{formacion:499,mantenimiento:399},hawaii:{formacion:399,mantenimiento:399},
-  idaho:{formacion:399,mantenimiento:399},illinois:{formacion:499,mantenimiento:399},indiana:{formacion:399,mantenimiento:399},
-  iowa:{formacion:399,mantenimiento:399},kansas:{formacion:499,mantenimiento:399},kentucky:{formacion:399,mantenimiento:399},
-  louisiana:{formacion:399,mantenimiento:399},maine:{formacion:499,mantenimiento:399},maryland:{formacion:399,mantenimiento:599},
-  massachusetts:{formacion:799,mantenimiento:799},michigan:{formacion:399,mantenimiento:399},minnesota:{formacion:499,mantenimiento:399},
-  mississippi:{formacion:399,mantenimiento:399},missouri:{formacion:399,mantenimiento:399},montana:{formacion:399,mantenimiento:399},
-  nebraska:{formacion:399,mantenimiento:399},nevada:{formacion:799,mantenimiento:699},newhampshire:{formacion:399,mantenimiento:399},
-  newjersey:{formacion:499,mantenimiento:399},newmexico:{formacion:399,mantenimiento:399},newyork:{formacion:499,mantenimiento:399},
-  northcarolina:{formacion:499,mantenimiento:499},northdakota:{formacion:499,mantenimiento:399},ohio:{formacion:399,mantenimiento:399},
-  oklahoma:{formacion:399,mantenimiento:399},oregon:{formacion:399,mantenimiento:399},pennsylvania:{formacion:499,mantenimiento:399},
-  rhodeisland:{formacion:499,mantenimiento:399},southcarolina:{formacion:499,mantenimiento:399},southdakota:{formacion:499,mantenimiento:399},
-  tennessee:{formacion:599,mantenimiento:599},texas:{formacion:599,mantenimiento:399},utah:{formacion:399,mantenimiento:399},
-  vermont:{formacion:499,mantenimiento:399},virginia:{formacion:399,mantenimiento:399},washington:{formacion:499,mantenimiento:399},
-  westvirginia:{formacion:399,mantenimiento:399},wisconsin:{formacion:499,mantenimiento:399},wyoming:{formacion:399,mantenimiento:399}
-};
+var ESTADOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/estados';
+var PRECIOS = null;
 
 function polarisValorVigente(clave) {
   var valor = localStorage.getItem(clave);
@@ -278,14 +261,28 @@ var servicio = params.get('servicio');
 
 var esMarca = PRECIOS_MARCA.hasOwnProperty(servicio);
 
-(function init(){
+async function init(){
   var resumen = document.getElementById('resumen-pago');
 
   if (esMarca) {
     var importeMarca = PRECIOS_MARCA[servicio];
     resumen.innerHTML = 'Vas a pagar <strong>$' + importeMarca + '</strong> — ' + NOMBRES_SERVICIO_MARCA[servicio];
     document.getElementById('grupo-llc-nombre').style.display = 'none';
-  } else if (NOMBRES_ESTADO[estado] && PRECIOS[estado] && (servicio === 'formacion' || servicio === 'mantenimiento')) {
+  } else if (NOMBRES_ESTADO[estado] && (servicio === 'formacion' || servicio === 'mantenimiento')) {
+    try {
+      var res = await fetch(ESTADOS_ENDPOINT);
+      if (!res.ok) throw new Error('respuesta no ok');
+      PRECIOS = await res.json();
+    } catch (e) {
+      resumen.innerHTML = 'No hemos podido cargar el precio actualizado. <a href="javascript:location.reload()">Recarga la página</a> o contacta con nosotros si el problema persiste.';
+      document.getElementById('form-card').style.display = 'none';
+      return;
+    }
+    if (!PRECIOS[estado]) {
+      resumen.innerHTML = 'No encontramos el servicio solicitado. Vuelve a <a href="precios-llc.html">la tabla de precios</a> y elige de nuevo.';
+      document.getElementById('form-card').style.display = 'none';
+      return;
+    }
     var importe = PRECIOS[estado][servicio];
     resumen.innerHTML = 'Vas a pagar <strong>$' + importe + '</strong> — ' + NOMBRES_SERVICIO[servicio] + ' en ' + NOMBRES_ESTADO[estado];
 
@@ -305,7 +302,8 @@ var esMarca = PRECIOS_MARCA.hasOwnProperty(servicio);
     document.getElementById('grupo-ref').style.display = '';
     document.getElementById('ref-code-display').textContent = refCode;
   }
-})();
+}
+init();
 
 function enviarFormulario(ev) {
   ev.preventDefault();
