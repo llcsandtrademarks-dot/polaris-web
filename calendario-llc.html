@@ -520,7 +520,7 @@ function buildEventPool(tipo, estado, tieneEmpleados, tieneSales, esResidente, y
     CA: { tipo:'fixed', m:4, d:15,  nota:'California LLC Annual Tax ($800 mínimo Franchise Tax). Statement of Information bienal ($20)' },
     CO: { tipo:'anniversary', d:1,  nota:'Colorado Periodic Report — mes de aniversario. ~$10' },
     CT: { tipo:'anniversary', d:1,  nota:'Connecticut Annual Report — mes de aniversario. ~$80' },
-    DE: { tipo:'none',              nota:'Delaware no exige Annual Report para LLCs. Sí Registered Agent fee anual y Franchise Tax ($300)' },
+    DE: { tipo:'none',              nota:'Delaware no exige Annual Report para LLCs. Sí Registered Agent fee anual y Franchise Tax ($400)' },
     FL: { tipo:'fixed', m:5, d:1,   nota:'Florida Annual Report — vence 1 mayo ($138.75). Multa $400 después del 1 mayo' },
     GA: { tipo:'fixed', m:4, d:1,   nota:'Georgia Annual Registration — vence 1 abril. ~$50' },
     HI: { tipo:'anniversary', d:1,  nota:'Hawaii Annual Report — mes de aniversario. ~$15' },
@@ -571,7 +571,7 @@ function buildEventPool(tipo, estado, tieneEmpleados, tieneSales, esResidente, y
       // Sin annual report: mostrar nota informativa solo para DE
       if (estado === 'DE') {
         eventos.push({ m:6, d:1, tipo:'estatal', nombre:'Delaware — Registered Agent fee anual', nota:'Sin Annual Report formal para LLCs. Sí se paga fee al agente residente' });
-        eventos.push({ m:3, d:1, tipo:'estatal', nombre:'Delaware — Franchise Tax LLC ($300)', nota:'$300 fija para la mayoría de LLCs de Delaware' });
+        eventos.push({ m:3, d:1, tipo:'estatal', nombre:'Delaware — Franchise Tax LLC ($400)', nota:'$400 fija para la mayoría de LLCs de Delaware' });
       }
     } else if (cfg.tipo === 'fixed') {
       // Fecha fija conocida

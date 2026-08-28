@@ -257,61 +257,26 @@
 </footer>
 
 <script>
-// Tabla de precios — debe coincidir exactamente con PRECIOS en el Worker polaris-pagos.
-// El Worker es la única fuente de verdad para el importe cobrado; esto es solo para mostrar y construir enlaces.
-var ESTADOS = [
-  {slug:'wyoming', nombre:'Wyoming', formacion:399, mantenimiento:399, recomendado:true},
-  {slug:'newmexico', nombre:'New Mexico', formacion:399, mantenimiento:399},
-  {slug:'alabama', nombre:'Alabama', formacion:499, mantenimiento:399},
-  {slug:'alaska', nombre:'Alaska', formacion:599, mantenimiento:399},
-  {slug:'arizona', nombre:'Arizona', formacion:399, mantenimiento:399},
-  {slug:'arkansas', nombre:'Arkansas', formacion:499, mantenimiento:499},
-  {slug:'california', nombre:'California', formacion:399, mantenimiento:1119},
-  {slug:'colorado', nombre:'Colorado', formacion:399, mantenimiento:399},
-  {slug:'connecticut', nombre:'Connecticut', formacion:499, mantenimiento:399},
-  {slug:'delaware', nombre:'Delaware', formacion:499, mantenimiento:599},
-  {slug:'districtofcolumbia', nombre:'District of Columbia', formacion:399, mantenimiento:599},
-  {slug:'florida', nombre:'Florida', formacion:499, mantenimiento:499},
-  {slug:'georgia', nombre:'Georgia', formacion:499, mantenimiento:399},
-  {slug:'hawaii', nombre:'Hawaii', formacion:399, mantenimiento:399},
-  {slug:'idaho', nombre:'Idaho', formacion:399, mantenimiento:399},
-  {slug:'illinois', nombre:'Illinois', formacion:499, mantenimiento:399},
-  {slug:'indiana', nombre:'Indiana', formacion:399, mantenimiento:399},
-  {slug:'iowa', nombre:'Iowa', formacion:399, mantenimiento:399},
-  {slug:'kansas', nombre:'Kansas', formacion:499, mantenimiento:399},
-  {slug:'kentucky', nombre:'Kentucky', formacion:399, mantenimiento:399},
-  {slug:'louisiana', nombre:'Louisiana', formacion:399, mantenimiento:399},
-  {slug:'maine', nombre:'Maine', formacion:499, mantenimiento:399},
-  {slug:'maryland', nombre:'Maryland', formacion:399, mantenimiento:599},
-  {slug:'massachusetts', nombre:'Massachusetts', formacion:799, mantenimiento:799},
-  {slug:'michigan', nombre:'Michigan', formacion:399, mantenimiento:399},
-  {slug:'minnesota', nombre:'Minnesota', formacion:499, mantenimiento:399},
-  {slug:'mississippi', nombre:'Mississippi', formacion:399, mantenimiento:399},
-  {slug:'missouri', nombre:'Missouri', formacion:399, mantenimiento:399},
-  {slug:'montana', nombre:'Montana', formacion:399, mantenimiento:399},
-  {slug:'nebraska', nombre:'Nebraska', formacion:399, mantenimiento:399},
-  {slug:'nevada', nombre:'Nevada', formacion:799, mantenimiento:699},
-  {slug:'newhampshire', nombre:'New Hampshire', formacion:399, mantenimiento:399},
-  {slug:'newjersey', nombre:'New Jersey', formacion:499, mantenimiento:399},
-  {slug:'newyork', nombre:'New York', formacion:499, mantenimiento:399},
-  {slug:'northcarolina', nombre:'North Carolina', formacion:499, mantenimiento:499},
-  {slug:'northdakota', nombre:'North Dakota', formacion:499, mantenimiento:399},
-  {slug:'ohio', nombre:'Ohio', formacion:399, mantenimiento:399},
-  {slug:'oklahoma', nombre:'Oklahoma', formacion:399, mantenimiento:399},
-  {slug:'oregon', nombre:'Oregon', formacion:399, mantenimiento:399},
-  {slug:'pennsylvania', nombre:'Pennsylvania', formacion:499, mantenimiento:399},
-  {slug:'rhodeisland', nombre:'Rhode Island', formacion:499, mantenimiento:399},
-  {slug:'southcarolina', nombre:'South Carolina', formacion:499, mantenimiento:399},
-  {slug:'southdakota', nombre:'South Dakota', formacion:499, mantenimiento:399},
-  {slug:'tennessee', nombre:'Tennessee', formacion:599, mantenimiento:599},
-  {slug:'texas', nombre:'Texas', formacion:599, mantenimiento:399},
-  {slug:'utah', nombre:'Utah', formacion:399, mantenimiento:399},
-  {slug:'vermont', nombre:'Vermont', formacion:499, mantenimiento:399},
-  {slug:'virginia', nombre:'Virginia', formacion:399, mantenimiento:399},
-  {slug:'washington', nombre:'Washington', formacion:499, mantenimiento:399},
-  {slug:'westvirginia', nombre:'West Virginia', formacion:399, mantenimiento:399},
-  {slug:'wisconsin', nombre:'Wisconsin', formacion:499, mantenimiento:399}
+var ORDEN_ESTADOS = [
+  {slug:'wyoming', recomendado:true},
+  {slug:'newmexico'}, {slug:'alabama'}, {slug:'alaska'}, {slug:'arizona'},
+  {slug:'arkansas'}, {slug:'california'}, {slug:'colorado'},
+  {slug:'connecticut'}, {slug:'delaware'}, {slug:'districtofcolumbia'},
+  {slug:'florida'}, {slug:'georgia'}, {slug:'hawaii'}, {slug:'idaho'},
+  {slug:'illinois'}, {slug:'indiana'}, {slug:'iowa'}, {slug:'kansas'},
+  {slug:'kentucky'}, {slug:'louisiana'}, {slug:'maine'}, {slug:'maryland'},
+  {slug:'massachusetts'}, {slug:'michigan'}, {slug:'minnesota'},
+  {slug:'mississippi'}, {slug:'missouri'}, {slug:'montana'},
+  {slug:'nebraska'}, {slug:'nevada'}, {slug:'newhampshire'},
+  {slug:'newjersey'}, {slug:'newyork'}, {slug:'northcarolina'},
+  {slug:'northdakota'}, {slug:'ohio'}, {slug:'oklahoma'}, {slug:'oregon'},
+  {slug:'pennsylvania'}, {slug:'rhodeisland'}, {slug:'southcarolina'},
+  {slug:'southdakota'}, {slug:'tennessee'}, {slug:'texas'}, {slug:'utah'},
+  {slug:'vermont'}, {slug:'virginia'}, {slug:'washington'},
+  {slug:'westvirginia'}, {slug:'wisconsin'}
 ];
+
+var ESTADOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/estados';
 
 var LINKS_STRIPE = {
   399: 'https://buy.stripe.com/4gM6oJ9XQ9JTgooap9fMA05',
@@ -351,24 +316,39 @@ function celdaPrecio(servicio, estado, importe) {
   '</div>';
 }
 
-(function render() {
+async function cargarYRenderizar() {
   var tbody = document.getElementById('tabla-precios-body');
   var selector = document.getElementById('selector-estado');
+  var wrap = document.querySelector('.precios-table-wrap');
+
+  var datos;
+  try {
+    var res = await fetch(ESTADOS_ENDPOINT);
+    if (!res.ok) throw new Error('respuesta no ok');
+    datos = await res.json();
+  } catch (e) {
+    wrap.innerHTML = '<p style="text-align:center;padding:2rem;color:var(--text-muted);">No hemos podido cargar los precios actualizados. <a href="javascript:location.reload()">Recarga la página</a> o contacta con nosotros si el problema persiste.</p>';
+    return;
+  }
+
   var filas = '';
-  ESTADOS.forEach(function(e) {
+  ORDEN_ESTADOS.forEach(function(o) {
+    var d = datos[o.slug];
+    if (!d) return;
     var opt = document.createElement('option');
-    opt.value = e.slug;
-    opt.textContent = e.nombre;
+    opt.value = o.slug;
+    opt.textContent = d.nombre;
     selector.appendChild(opt);
 
-    filas += '<tr class="estado-row" id="estado-' + e.slug + '">' +
-      '<td><div class="estado-nombre">' + e.nombre + (e.recomendado ? ' <span class="estado-badge">★ Opción recomendada</span>' : '') + '</div></td>' +
-      '<td>' + celdaPrecio('formacion', e.slug, e.formacion) + '</td>' +
-      '<td>' + celdaPrecio('mantenimiento', e.slug, e.mantenimiento) + '</td>' +
+    filas += '<tr class="estado-row" id="estado-' + o.slug + '">' +
+      '<td><div class="estado-nombre">' + d.nombre + (o.recomendado ? ' <span class="estado-badge">★ Opción recomendada</span>' : '') + '</div></td>' +
+      '<td>' + celdaPrecio('formacion', o.slug, d.formacion) + '</td>' +
+      '<td>' + celdaPrecio('mantenimiento', o.slug, d.mantenimiento) + '</td>' +
     '</tr>';
   });
   tbody.innerHTML = filas;
-})();
+}
+cargarYRenderizar();
 
 function irAEstado(slug) {
   if (!slug) return;
