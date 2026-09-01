@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
 <!-- Google tag (gtag.js) — Consent Mode v2 -->
@@ -12,14 +13,35 @@
       ad_personalization: 'denied',
       wait_for_update: 500
     });
-    if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
-      gtag('consent', 'update', {
-        ad_storage: 'granted',
-        analytics_storage: 'granted',
-        ad_user_data: 'granted',
-        ad_personalization: 'granted'
-      });
-    }
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
   </script>
 <script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
 <script>
@@ -29,64 +51,49 @@
   </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Precios de LLC por estado — Proyecto Polaris</title><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado. Paga con tarjeta o transferencia." name="description"/><link href="https://proyecto-polaris.com/precios-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Precios de LLC por estado — Proyecto Polaris" name="twitter:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/precios-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Precios de LLC por estado — Proyecto Polaris" property="og:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<title>¿Qué incluye la Creación de tu LLC? — Proyecto Polaris</title><meta content="Todo lo que incluye la creación de tu LLC en EE.UU. por $299 usd + tasas: Artículos de Organización, EIN, agente residente, dirección registrada, buzón y más." name="description"/><link href="https://proyecto-polaris.com/que-incluye-creacion-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="¿Qué incluye la Creación de tu LLC? — Proyecto Polaris" name="twitter:title"/><meta content="Todo lo que incluye la creación de tu LLC en EE.UU. — Artículos de Organización, EIN, agente residente y más." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/que-incluye-creacion-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="¿Qué incluye la Creación de tu LLC? — Proyecto Polaris" property="og:title"/><meta content="Todo lo que incluye la creación de tu LLC en EE.UU. por $299 usd + tasas." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
 <link href="shared.css" rel="stylesheet"/>
 <style>
-  .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
-  .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
-  .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
-  .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+    .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+    .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
 
-  .selector-bar { max-width: 1100px; margin: 0 auto; padding: 1.75rem 2rem 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-  .selector-bar label { font-size: 14px; font-weight: 600; color: var(--navy); }
-  .selector-bar select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; min-width: 260px; }
+    .incluye-wrap { max-width: 720px; margin: 0 auto; padding: 3rem 2rem 4rem; }
+    .incluye-price-box { background: var(--navy-pale); border: 1.5px solid var(--navy-light); border-radius: 14px; padding: 1.5rem 2rem; text-align: center; margin-bottom: 2rem; }
+    .incluye-price { font-size: 1.6rem; font-weight: 700; color: var(--navy); }
+    .incluye-price span { font-size: 0.95rem; font-weight: 500; color: var(--text-muted); }
+    .incluye-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 0.5rem 2rem; }
+    .incluye-list { list-style: none; }
+    .incluye-list li { display: flex; align-items: flex-start; gap: 12px; padding: 1rem 0; font-size: 0.95rem; color: var(--text); line-height: 1.6; }
+    .incluye-list li + li { border-top: 1px solid var(--border); }
+    .incluye-check { flex-shrink: 0; width: 22px; height: 22px; border-radius: 50%; background: #1a7a4a; display: flex; align-items: center; justify-content: center; margin-top: 1px; }
+    .incluye-check svg { display: block; }
+    .incluye-cta-wrap { text-align: center; margin-top: 2.25rem; }
 
-  .precios-table-wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem 3rem; overflow-x: auto; }
-  table.precios-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
-  table.precios-table th { background: var(--navy-pale); color: var(--navy); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; padding: 12px 14px; text-align: left; }
-  .que-incluye-link { text-transform: none; font-weight: 400; font-size: 11px; color: var(--navy-light); text-decoration: underline; margin-left: 6px; white-space: nowrap; }
-  table.precios-table td { padding: 14px; border-top: 1px solid var(--border); vertical-align: top; }
-  table.precios-table tr.estado-row { transition: background 0.4s; }
-  table.precios-table tr.estado-row.highlight { background: #fff6df; }
-  .estado-nombre { font-weight: 700; color: var(--navy); font-size: 14.5px; display: flex; align-items: center; gap: 6px; }
-  .estado-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ba7517; color: #fff; }
-  .precio-cell { display: flex; flex-direction: column; gap: 8px; min-width: 190px; }
-  .precio-monto { font-size: 17px; font-weight: 700; color: var(--navy); }
-  .precio-botones { display: flex; gap: 8px; flex-wrap: wrap; }
-  .precio-botones a { font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 7px; text-decoration: none; white-space: nowrap; }
-  .btn-tarjeta { background: var(--navy); color: var(--white); }
-  .btn-tarjeta:hover { background: var(--navy-mid); }
-  .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
-  .btn-transferencia:hover { background: var(--navy); color: var(--white); }
-
-  @media (max-width: 720px) {
-    .page-header { padding: 2.5rem 1.25rem 2rem; }
-    .selector-bar { padding-left: 1.25rem; padding-right: 1.25rem; }
-    .precios-table-wrap { padding-left: 0.6rem; padding-right: 0.6rem; }
-    table.precios-table { table-layout: fixed; width: 100%; }
-    table.precios-table th:first-child, table.precios-table td:first-child { width: 30%; }
-    table.precios-table th:not(:first-child), table.precios-table td:not(:first-child) { width: 35%; }
-    table.precios-table th, table.precios-table td { padding: 8px 4px; }
-    table.precios-table th { font-size: 9.5px; letter-spacing: 0.03em; }
-    .que-incluye-link { display: block; margin-left: 0; margin-top: 2px; font-size: 9.5px; }
-    .estado-nombre { font-size: 12px; flex-wrap: wrap; gap: 4px; line-height: 1.3; min-width: 0; overflow-wrap: break-word; word-break: break-word; }
-    .estado-badge { font-size: 8px; padding: 1px 5px; white-space: normal; }
-    .precio-cell { min-width: 0; gap: 5px; }
-    .precio-monto { font-size: 13px; }
-    .precio-botones { flex-direction: column; gap: 5px; }
-    .precio-botones a { font-size: 10px; padding: 6px 4px; text-align: center; white-space: normal; line-height: 1.25; }
-  }
-
-  @media (max-width: 380px) {
-    .precio-monto { font-size: 12px; }
-    .precio-botones a { font-size: 9.5px; }
-  }
-</style>
-<script>
+    @media (max-width: 600px) {
+      .incluye-wrap { padding: 2rem 1.25rem 3rem; }
+      .incluye-card { padding: 0.5rem 1.25rem; }
+      .incluye-price-box { padding: 1.25rem 1.25rem; }
+    }
+  </style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": "Creación de LLC para Extranjeros",
+  "provider": {
+    "@type": "ProfessionalService",
+    "name": "Proyecto Polaris",
+    "url": "https://proyecto-polaris.com"
+  },
+  "description": "Preparación y presentación de los Artículos de Organización, trámite del EIN, agente residente, dirección registrada y buzón durante 1 año.",
+  "areaServed": "Worldwide",
+  "url": "https://proyecto-polaris.com/que-incluye-creacion-llc.html"
+}</script>  <script>
     // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
     (function(){
       var params = new URLSearchParams(window.location.search);
@@ -180,31 +187,30 @@
 <a href="nosotros.html">Nosotros</a>
 <a class="nav-cta" href="contacto.html">Contactar</a>
 </div>
-
 <div class="page-header">
-<p class="page-header-eyebrow">Precios por estado</p>
-<h1>¿Cuánto cuesta tu LLC?</h1>
-<p>Descubre cuánto te cuesta crear tu LLC y cuánto su renovación anual y cumplimiento. Y si tienes dudas, te ayudamos a escoger el mejor estado para ti.</p>
+<p class="page-header-eyebrow">¿Qué incluye?</p>
+<h1>Creación de tu LLC en EE.UU.</h1>
+<p>Todo lo que necesitas para arrancar tu empresa en Estados Unidos, en un solo pago y sin trámites sueltos.</p>
 </div>
-
-<div class="selector-bar">
-  <label for="selector-estado">Ir directo a tu estado:</label>
-  <select id="selector-estado" onchange="irAEstado(this.value)">
-    <option value="">— Seleccionar estado —</option>
-  </select>
+<div class="incluye-wrap">
+<div class="incluye-price-box">
+<p class="incluye-price">$299 usd + tasas <span>(según estado elegido)</span></p>
 </div>
-
-<div class="precios-table-wrap">
-  <table class="precios-table">
-    <thead>
-      <tr>
-        <th>Estado</th>
-        <th>Formación LLC <a href="que-incluye-creacion-llc.html" class="que-incluye-link">¿Qué incluye?</a></th>
-        <th>Renovación anual y cumplimiento <a href="que-incluye-renovacion-llc.html" class="que-incluye-link">¿Qué incluye?</a></th>
-      </tr>
-    </thead>
-    <tbody id="tabla-precios-body"></tbody>
-  </table>
+<div class="incluye-card">
+<ul class="incluye-list">
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Preparación y presentación de los Artículos de Organización</li>
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Trámite del EIN (para extranjeros, actualmente unas 6 semanas)</li>
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Agente residente durante 1 año</li>
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Dirección registrada</li>
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Servicio de recepción y reenvío de correo postal durante 1 año (ahí llegará tu EIN)</li>
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Alertas de cumplimiento para que no se te pase ninguna fecha</li>
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Acuerdo Operativo</li>
+<li><span class="incluye-check"><svg width="12" height="12" viewbox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></polyline></svg></span>Soporte por email en todo momento</li>
+</ul>
+</div>
+<div class="incluye-cta-wrap">
+<a class="btn btn-navy" href="precios-llc.html">Ver precios por estado →</a>
+</div>
 </div>
 <!-- ===== REVIEWS CAROUSEL ===== -->
 <section class="reviews-section">
@@ -409,7 +415,6 @@
   }
 })();
 </script>
-
 <footer>
 <div class="footer-grid">
 <div>
@@ -459,110 +464,30 @@
 <div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
 </div>
 </footer>
-
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
 <script>
-var ORDEN_ESTADOS = [
-  {slug:'wyoming', recomendado:true},
-  {slug:'newmexico'}, {slug:'alabama'}, {slug:'alaska'}, {slug:'arizona'},
-  {slug:'arkansas'}, {slug:'california'}, {slug:'colorado'},
-  {slug:'connecticut'}, {slug:'delaware'}, {slug:'districtofcolumbia'},
-  {slug:'florida'}, {slug:'georgia'}, {slug:'hawaii'}, {slug:'idaho'},
-  {slug:'illinois'}, {slug:'indiana'}, {slug:'iowa'}, {slug:'kansas'},
-  {slug:'kentucky'}, {slug:'louisiana'}, {slug:'maine'}, {slug:'maryland'},
-  {slug:'massachusetts'}, {slug:'michigan'}, {slug:'minnesota'},
-  {slug:'mississippi'}, {slug:'missouri'}, {slug:'montana'},
-  {slug:'nebraska'}, {slug:'nevada'}, {slug:'newhampshire'},
-  {slug:'newjersey'}, {slug:'newyork'}, {slug:'northcarolina'},
-  {slug:'northdakota'}, {slug:'ohio'}, {slug:'oklahoma'}, {slug:'oregon'},
-  {slug:'pennsylvania'}, {slug:'rhodeisland'}, {slug:'southcarolina'},
-  {slug:'southdakota'}, {slug:'tennessee'}, {slug:'texas'}, {slug:'utah'},
-  {slug:'vermont'}, {slug:'virginia'}, {slug:'washington'},
-  {slug:'westvirginia'}, {slug:'wisconsin'}
-];
-
-var ESTADOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/estados';
-
-var LINKS_STRIPE = {
-  399: 'https://buy.stripe.com/4gM6oJ9XQ9JTgooap9fMA05',
-  499: 'https://buy.stripe.com/cNibJ36LEaNXdcc7cXfMA0i',
-  599: 'https://buy.stripe.com/3cIaEZ9XQ8FPegg54PfMA0h',
-  699: 'https://buy.stripe.com/9B6bJ3b1U5tDa00dBlfMA0g',
-  799: 'https://buy.stripe.com/9B628t9XQ9JT8VWcxhfMA0f',
-  1119: 'https://buy.stripe.com/fZu8wR2vo9JTeggap9fMA0e'
-};
-
-function polarisValorVigente(clave) {
-  var valor = localStorage.getItem(clave);
-  var ts = localStorage.getItem(clave + '_ts');
-  if (!valor || !ts) return null;
-  var dias = (Date.now() - Number(ts)) / (1000 * 60 * 60 * 24);
-  if (dias > 30) return null;
-  return valor;
-}
-
-function linkStripe(servicio, estado, importe) {
-  var url = LINKS_STRIPE[importe] + '?client_reference_id=' + servicio + '_' + estado;
-  var presc = polarisValorVigente('polaris_presc');
-  if (presc) { url += '&prefilled_promo_code=' + encodeURIComponent(presc); }
-  return url;
-}
-function linkTransferencia(servicio, estado) {
-  return 'pago-transferencia.html?estado=' + estado + '&servicio=' + servicio;
-}
-
-function celdaPrecio(servicio, estado, importe) {
-  return '<div class="precio-cell">' +
-    '<div class="precio-monto">$' + importe + (servicio==='mantenimiento' ? '/año' : '') + '</div>' +
-    '<div class="precio-botones">' +
-      '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta</a>' +
-      '<a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="' + linkTransferencia(servicio, estado) + '">Pagar por transferencia</a>' +
-    '</div>' +
-  '</div>';
-}
-
-async function cargarYRenderizar() {
-  var tbody = document.getElementById('tabla-precios-body');
-  var selector = document.getElementById('selector-estado');
-  var wrap = document.querySelector('.precios-table-wrap');
-
-  var datos;
-  try {
-    var res = await fetch(ESTADOS_ENDPOINT);
-    if (!res.ok) throw new Error('respuesta no ok');
-    datos = await res.json();
-  } catch (e) {
-    wrap.innerHTML = '<p style="text-align:center;padding:2rem;color:var(--text-muted);">No hemos podido cargar los precios actualizados. <a href="javascript:location.reload()">Recarga la página</a> o contacta con nosotros si el problema persiste.</p>';
-    return;
-  }
-
-  var filas = '';
-  ORDEN_ESTADOS.forEach(function(o) {
-    var d = datos[o.slug];
-    if (!d) return;
-    var opt = document.createElement('option');
-    opt.value = o.slug;
-    opt.textContent = d.nombre;
-    selector.appendChild(opt);
-
-    filas += '<tr class="estado-row" id="estado-' + o.slug + '">' +
-      '<td><div class="estado-nombre">' + d.nombre + (o.recomendado ? ' <span class="estado-badge">★ Opción recomendada</span>' : '') + '</div></td>' +
-      '<td>' + celdaPrecio('formacion', o.slug, d.formacion) + '</td>' +
-      '<td>' + celdaPrecio('mantenimiento', o.slug, d.mantenimiento) + '</td>' +
-    '</tr>';
-  });
-  tbody.innerHTML = filas;
-}
-cargarYRenderizar();
-
-function irAEstado(slug) {
-  if (!slug) return;
-  document.querySelectorAll('.estado-row.highlight').forEach(function(r){ r.classList.remove('highlight'); });
-  var row = document.getElementById('estado-' + slug);
-  if (!row) return;
-  row.classList.add('highlight');
-  row.scrollIntoView({ behavior: 'smooth', block: 'center' });
-}
-</script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
 <!-- POP-UP CALENDARIO -->
 <div id="cal-popup-overlay">
 <div id="cal-popup">
