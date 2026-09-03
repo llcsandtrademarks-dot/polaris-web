@@ -514,3 +514,42 @@ a.review-card, a.review-card:visited { color: inherit; text-decoration: none; }
   0%,100% { box-shadow: 0 3px 12px rgba(192,160,30,0.5); }
   50%      { box-shadow: 0 3px 22px rgba(192,160,30,0.85); }
 }
+
+/* Botón flotante de WhatsApp */
+.wa-float-btn {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 56px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #25D366;
+  border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  z-index: 9999;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+.wa-float-btn:hover,
+.wa-float-btn:focus-visible {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+.wa-float-btn svg {
+  width: 28px;
+  height: 28px;
+}
+@media (max-width: 600px) {
+  .wa-float-btn {
+    width: 48px;
+    height: 48px;
+    right: 16px;
+    bottom: 84px;
+  }
+  .wa-float-btn svg {
+    width: 24px;
+    height: 24px;
+  }
+}
