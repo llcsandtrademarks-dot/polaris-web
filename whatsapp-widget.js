@@ -57,6 +57,14 @@
       '</svg>' +
       '<span>Contáctanos</span>';
 
+    enlace.addEventListener('click', function() {
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18177147225/CPkqCJDNpe4cENmCxdtD'
+        });
+      }
+    });
+
     document.body.appendChild(enlace);
   }
 
