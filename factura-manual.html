@@ -127,11 +127,11 @@
         <div class="fm-row">
           <div class="fm-field">
             <label for="f-metodo">Método de pago</label>
-            <input type="text" id="f-metodo" list="metodos-sugeridos" placeholder="Zelle, Cripto, Corrección Mercury…">
+            <input type="text" id="f-metodo" list="metodos-sugeridos" placeholder="Zelle, Cripto, Mercury…">
             <datalist id="metodos-sugeridos">
               <option value="Zelle">
               <option value="Cripto">
-              <option value="Corrección Mercury">
+              <option value="Mercury">
             </datalist>
           </div>
           <div class="fm-field">
@@ -141,7 +141,7 @@
         </div>
 
         <button type="submit" class="btn btn-navy fm-submit" id="btn-crear">Crear factura</button>
-        <div class="fm-msg err" id="form-error"></div>
+        <div class="fm-msg err" id="form-error" style="display:none;"></div>
       </form>
     </div>
   </div>
