@@ -60,7 +60,7 @@
     enlace.addEventListener('click', function() {
       if (typeof gtag !== 'undefined') {
         gtag('event', 'conversion', {
-          'send_to': 'AW-18177147225/CPkqCJDNpe4cENmCxdtD'
+          'send_to': ['AW-18177147225/CPkqCJDNpe4cENmCxdtD', 'G-DN126T6ZDC']
         });
       }
     });
