@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Paga tu servicio puntual — Proyecto Polaris</title><meta content="Paga directamente tu reporte anual al IRS, reporte anual al estado o tramitación de EIN. Sin necesidad de plan ni de contactar antes." name="description"/><link href="https://proyecto-polaris.com/pago-servicios-puntuales.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Paga tu servicio puntual — Proyecto Polaris" name="twitter:title"/><meta content="Elige tu servicio puntual de LLC y paga directamente, sin plan ni contacto previo." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/pago-servicios-puntuales.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Paga tu servicio puntual — Proyecto Polaris" property="og:title"/><meta content="Elige el servicio puntual que necesitas — reporte anual al IRS, reporte anual al estado o tramitación de EIN — y paga con tarjeta o transferencia." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="shared.css" rel="stylesheet"/>
+<style>
+    .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+    .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    .srv-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+    .pay-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pay-buttons a { font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 7px; text-decoration: none; white-space: nowrap; transition: background 0.2s, color 0.2s; }
+    .btn-tarjeta { background: var(--navy); color: var(--white); }
+    .btn-tarjeta:hover { background: var(--navy-mid); }
+    .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+    .btn-transferencia:hover { background: var(--navy); color: var(--white); }
+    .pay-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 10px; }
+    .pay-footnote { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 2.5rem; }
+    .pay-footnote a { color: var(--navy-light); font-weight: 600; }
+  </style>
+</head>
+<body>
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+<div class="page-header">
+<p class="page-header-eyebrow">Servicios puntuales</p>
+<h1>Paga tu servicio puntual</h1>
+<p>Elige el servicio y paga directamente. Sin necesidad de plan ni de contactar antes.</p>
+</div>
+<section class="section">
+<div class="srv-card-grid">
+<div class="srv-card">
+<div class="srv-card-img-wrap"><img alt="Reporte anual IRS" class="srv-card-img" height="600" src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&amp;q=80&amp;fit=crop" width="800"/></div>
+<div class="srv-card-body">
+<p class="srv-card-title">Reporte anual al IRS</p>
+<p class="srv-card-price" id="precio-reporte-irs">$159</p>
+<p class="srv-card-desc">Declaración fiscal 1120+5472 o 1065+K-1 (sin nexus) para LLCs extranjeras, según si tu LLC es de socio único o de varios socios.</p>
+<div class="pay-buttons">
+<a class="btn-tarjeta" href="https://buy.stripe.com/9B65kF5HA2hrc8854PfMA00" rel="noopener" target="_blank">Pagar con tarjeta</a>
+<a class="btn-transferencia" href="https://app.mercury.com/pay/s8scz0v2qjfqdl1m" rel="noopener" target="_blank">Pagar por transferencia</a>
+</div>
+<p class="pay-note">Indica el importe exacto: $159 (o $199 si pagas desde el 1 de octubre) y el concepto "Reporte IRS".</p>
+</div>
+</div>
+<div class="srv-card">
+<div class="srv-card-img-wrap"><img alt="Reporte anual estado" class="srv-card-img" height="600" src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=600&amp;q=80&amp;fit=crop" width="800"/></div>
+<div class="srv-card-body">
+<p class="srv-card-title">Reporte anual al estado</p>
+<p class="srv-card-price">$99</p>
+<p class="srv-card-desc">Cumplimiento de los requisitos anuales del estado donde está registrada tu LLC.</p>
+<div class="pay-buttons">
+<a class="btn-tarjeta" href="https://buy.stripe.com/3cIcN73zs5tD4FG68TfMA0l" rel="noopener" target="_blank">Pagar con tarjeta</a>
+<a class="btn-transferencia" href="https://app.mercury.com/pay/0zs8692tw2l0hb76" rel="noopener" target="_blank">Pagar por transferencia</a>
+</div>
+<p class="pay-note">Indica el importe exacto: $99 y el concepto "Reporte estatal".</p>
+</div>
+</div>
+<div class="srv-card">
+<div class="srv-card-img-wrap"><img alt="Tramitación EIN" class="srv-card-img" height="600" src="https://images.unsplash.com/photo-1560264280-88b68371db39?w=600&amp;q=80&amp;fit=crop" width="800"/></div>
+<div class="srv-card-body">
+<p class="srv-card-title">Tramitación EIN</p>
+<p class="srv-card-price">$99</p>
+<p class="srv-card-desc">Obtención del número de identificación fiscal de tu empresa ante el IRS.</p>
+<div class="pay-buttons">
+<a class="btn-tarjeta" href="https://buy.stripe.com/8x2cN7b1U1dnb44fJtfMA0k" rel="noopener" target="_blank">Pagar con tarjeta</a>
+<a class="btn-transferencia" href="https://app.mercury.com/pay/0zs8692tw2l0hb76" rel="noopener" target="_blank">Pagar por transferencia</a>
+</div>
+<p class="pay-note">Indica el importe exacto: $99 y el concepto "EIN".</p>
+</div>
+</div>
+</div>
+<p class="pay-footnote">¿Dudas sobre cuál necesitas? <a href="contacto.html">Contáctanos antes de pagar.</a></p>
+</section>
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="precios-llc.html">Precios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="contacto.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="/blog/">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="privacidad.html">Política de privacidad</a></li>
+<li><a href="terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
+<script>
+(function(){
+  // Precio del "Reporte anual al IRS" sube de $159 a $199 a partir del
+  // 1 oct. 2026 00:00 hora de Los Ángeles (equivalente al cierre del
+  // 30 de septiembre 23:59 hora de Los Ángeles).
+  var el = document.getElementById("precio-reporte-irs");
+  if (!el) return;
+  try {
+    var parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Los_Angeles",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }).formatToParts(new Date());
+    var v = {};
+    parts.forEach(function(p){ v[p.type] = p.value; });
+    // hour12:false puede devolver "24" a medianoche en vez de "00"
+    var hour = v.hour === "24" ? "00" : v.hour;
+    var nowLA = new Date(Date.UTC(v.year, v.month - 1, v.day, hour, v.minute, v.second));
+    var cutoff = new Date(Date.UTC(2026, 9, 1, 0, 0, 0)); // 2026-10-01T00:00:00 America/Los_Angeles
+    if (nowLA >= cutoff) {
+      el.textContent = "$199";
+    }
+  } catch (e) {
+    // Si Intl/timeZone fallara, se deja el precio base ($159) del HTML.
+  }
+})();
+</script>
+<script src="/whatsapp-widget.js" defer></script>
+</body>
+</html>
