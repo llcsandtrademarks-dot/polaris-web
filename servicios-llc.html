@@ -223,9 +223,9 @@
 <div class="srv-card-img-wrap"><img alt="Reporte anual IRS" class="srv-card-img" height="600" src="https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&amp;q=80&amp;fit=crop" width="800"/></div>
 <div class="srv-card-body">
 <p class="srv-card-title">Reporte anual al IRS</p>
-<p class="srv-card-price">$159</p>
-<p class="srv-card-note">⚠️ Sube a $199 el 1 sept. 2026</p>
-<p class="srv-card-desc">Declaración fiscal Form 5472 para LLCs extranjeras.</p>
+<p class="srv-card-price" id="precio-reporte-irs">$159</p>
+<p class="srv-card-note">⚠️ Sube a $199 el 1 oct. 2026</p>
+<p class="srv-card-desc">Declaración fiscal 1120+5472 o 1065+K-1 (sin nexus) para LLCs extranjeras, según si tu LLC es de socio único o de varios socios.</p>
 <span class="srv-card-cta">Saber más →</span>
 </div>
 </a>
@@ -640,6 +640,38 @@ if (!sessionStorage.getItem('calPopupSeen')) {
       dot.classList.add("visible");
     }, 400);
   }, 5000);
+})();
+</script>
+<script>
+(function(){
+  // Precio del "Reporte anual al IRS" sube de $159 a $199 a partir del
+  // 1 oct. 2026 00:00 hora de Los Ángeles (equivalente al cierre del
+  // 30 de septiembre 23:59 hora de Los Ángeles).
+  var el = document.getElementById("precio-reporte-irs");
+  if (!el) return;
+  try {
+    var parts = new Intl.DateTimeFormat("en-US", {
+      timeZone: "America/Los_Angeles",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false
+    }).formatToParts(new Date());
+    var v = {};
+    parts.forEach(function(p){ v[p.type] = p.value; });
+    // hour12:false puede devolver "24" a medianoche en vez de "00"
+    var hour = v.hour === "24" ? "00" : v.hour;
+    var nowLA = new Date(Date.UTC(v.year, v.month - 1, v.day, hour, v.minute, v.second));
+    var cutoff = new Date(Date.UTC(2026, 9, 1, 0, 0, 0)); // 2026-10-01T00:00:00 America/Los_Angeles
+    if (nowLA >= cutoff) {
+      el.textContent = "$199";
+    }
+  } catch (e) {
+    // Si Intl/timeZone fallara, se deja el precio base ($159) del HTML.
+  }
 })();
 </script>
 <script src="/whatsapp-widget.js" defer></script>
