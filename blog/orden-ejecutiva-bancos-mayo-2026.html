@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="../favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Orden ejecutiva de bancos en EE. UU. (mayo 2026): qué cambia y qué no para tu LLC | Proyecto Polaris</title><meta content="La Orden Ejecutiva 14406 sobre bancos: qué dice de verdad, a quién aplica y qué significa (o no) para dueños extranjeros de una LLC." name="description"/><link href="https://proyecto-polaris.com/blog/orden-ejecutiva-bancos-mayo-2026.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Orden ejecutiva de bancos en EE. UU. (mayo 2026): qué cambia y qué no para tu LLC | Proyecto Polaris" name="twitter:title"/><meta content="La Orden Ejecutiva 14406 sobre bancos: qué dice de verdad, a quién aplica y qué significa (o no) para dueños extranjeros de una LLC." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="article" property="og:type"/><meta content="https://proyecto-polaris.com/blog/orden-ejecutiva-bancos-mayo-2026.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Orden ejecutiva de bancos en EE. UU. (mayo 2026): qué cambia y qué no para tu LLC | Proyecto Polaris" property="og:title"/><meta content="La Orden Ejecutiva 14406 sobre bancos: qué dice de verdad, a quién aplica y qué significa (o no) para dueños extranjeros de una LLC." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="../favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="../favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="../shared.css" rel="stylesheet"/>
+<style>
+    .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+    .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    .page-header-meta { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 0.75rem; }
+    .legal-content { max-width: 760px; }
+    .legal-content h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 0.75rem; }
+    .legal-content h2:first-of-type { margin-top: 0; }
+    .legal-content h3 { font-family: 'Playfair Display', serif; font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 1.75rem 0 0.5rem; }
+    .legal-content p { font-size: 0.97rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1rem; }
+    .legal-content ul, .legal-content ol { margin: 0 0 1rem 1.25rem; padding: 0; }
+    .legal-content li { font-size: 0.97rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.4rem; }
+    .blog-back { display: inline-block; font-size: 13px; font-weight: 600; color: var(--navy-light); text-decoration: none; margin-bottom: 1.5rem; }
+    .blog-back:hover { text-decoration: underline; }
+    .video-embed { position: relative; width: 100%; padding-top: 56.25%; margin: 1.5rem 0 2rem; border-radius: 12px; overflow: hidden; background: #0d2137; }
+    .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  </style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Orden ejecutiva de bancos en EE. UU. (mayo 2026): qué cambia y qué no para tu LLC",
+  "description": "La Orden Ejecutiva 14406 sobre bancos: qué dice de verdad, a quién aplica y qué significa (o no) para dueños extranjeros de una LLC.",
+  "datePublished": "2026-09-10",
+  "dateModified": "2026-09-10",
+  "author": { "@type": "Organization", "name": "Proyecto Polaris" },
+  "publisher": { "@type": "Organization", "name": "Proyecto Polaris", "url": "https://proyecto-polaris.com" },
+  "url": "https://proyecto-polaris.com/blog/orden-ejecutiva-bancos-mayo-2026.html"
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "Cambios en la normativa de los bancos en Estados Unidos!",
+  "description": "Vídeo del canal de Proyecto Polaris que explica la Orden Ejecutiva 14406 sobre bancos y verificación de identidad de clientes, y qué significa realmente para los dueños extranjeros de una LLC.",
+  "thumbnailUrl": "https://i.ytimg.com/vi/tlzj4tNuylY/hqdefault.jpg",
+  "uploadDate": "2026-09-10T10:10:23-07:00",
+  "contentUrl": "https://www.youtube.com/watch?v=tlzj4tNuylY",
+  "embedUrl": "https://www.youtube.com/embed/tlzj4tNuylY",
+  "publisher": { "@type": "Organization", "name": "Proyecto Polaris", "url": "https://proyecto-polaris.com" }
+}</script>  <script>
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
+    })();
+  </script>
+<style>
+/* ── POPUP CALENDARIO ─────────────────────────────── */
+#cal-popup-overlay {
+  position: fixed; inset: 0; background: rgba(10,20,35,0.55);
+  z-index: 200; display: none; align-items: center; justify-content: center;
+  animation: fadeInOverlay 0.35s ease;
+}
+@keyframes fadeInOverlay { from { opacity:0 } to { opacity:1 } }
+#cal-popup {
+  background: var(--white); border-radius: 16px; padding: 2.25rem 2.5rem;
+  max-width: 460px; width: calc(100% - 2rem); position: relative;
+  box-shadow: 0 24px 60px rgba(13,33,55,0.28);
+  animation: slideUp 0.35s ease;
+}
+@keyframes slideUp { from { transform:translateY(30px); opacity:0 } to { transform:translateY(0); opacity:1 } }
+#cal-popup-close {
+  position: absolute; top: 1rem; right: 1rem;
+  background: none; border: none; cursor: pointer;
+  color: var(--text-muted); font-size: 20px; line-height: 1; padding: 4px;
+}
+#cal-popup-close:hover { color: var(--text); }
+.cal-popup-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.5rem; }
+.cal-popup-title { font-family: 'Playfair Display', serif; font-size: 1.35rem; font-weight: 700; color: var(--navy); margin-bottom: 0.6rem; line-height: 1.3; }
+.cal-popup-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; margin-bottom: 1.5rem; }
+.cal-popup-btn { display: inline-flex; align-items: center; gap: 8px; background: var(--navy); color: var(--white); font-size: 14px; font-weight: 700; padding: 11px 24px; border-radius: 8px; text-decoration: none; transition: background 0.2s; }
+.cal-popup-btn:hover { background: var(--navy-mid); }
+.cal-popup-skip { display: block; margin-top: 0.85rem; font-size: 12px; color: var(--text-muted); cursor: pointer; background: none; border: none; text-decoration: underline; }
+
+/* ── WIDGET FLOTANTE ──────────────────────────────── */
+#cal-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 150;
+  display: none;
+  animation: widgetIn 0.3s ease;
+}
+@keyframes widgetIn { from { transform:scale(0.7); opacity:0 } to { transform:scale(1); opacity:1 } }
+#cal-widget a {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); color: var(--white);
+  font-size: 13px; font-weight: 700;
+  padding: 11px 18px; border-radius: 50px;
+  text-decoration: none; box-shadow: 0 6px 20px rgba(13,33,55,0.35);
+  transition: background 0.2s, transform 0.2s;
+}
+#cal-widget a:hover { background: var(--navy-mid); transform: translateY(-2px); }
+#cal-widget-close {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text-muted); color: white; border: none;
+  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+</style>
+</head>
+<body data-wa-categoria="llc">
+<div class="tp-badge-bar">
+<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
+<a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/4.5/128x24.png" width="128"/>
+<span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
+</a>
+</div>
+<nav>
+<a class="nav-logo" href="../index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="../logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="../index.html">Inicio</a></li>
+<li><a href="../servicios-llc.html">Servicios LLC</a></li>
+<li><a href="../servicios-marca.html">Registro de marca</a></li>
+<li><a href="../nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="../contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="../index.html">Inicio</a>
+<a href="../servicios-llc.html">Servicios LLC</a>
+<a href="../servicios-marca.html">Registro de marca</a>
+<a href="../nosotros.html">Nosotros</a>
+<a class="nav-cta" href="../contacto.html">Contactar</a>
+</div>
+<div class="page-header">
+<p class="page-header-eyebrow">Blog</p>
+<h1>Orden ejecutiva de bancos en EE. UU. (mayo 2026): qué cambia y qué no para tu LLC</h1>
+<p class="page-header-meta">10 sep 2026 · 4 min de lectura</p>
+</div>
+<section class="section">
+<a class="blog-back" href="index.html">← Volver al blog</a>
+<div class="legal-content">
+<p>El 19 de mayo de 2026, el presidente de Estados Unidos firmó la Orden Ejecutiva 14406 sobre bancos y verificación de identidad de clientes. Se ha hablado mucho de ella en redes, pero casi nada de lo que circula aplica a los dueños extranjeros de una LLC — aquí te explicamos exactamente qué dice y qué significa para tu cuenta bancaria.</p>
+<div class="video-embed">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" src="https://www.youtube.com/embed/tlzj4tNuylY" title="Cambios en la normativa de los bancos en Estados Unidos!"></iframe>
+</div>
+<h2>Qué es la Orden Ejecutiva 14406 y qué dice realmente</h2>
+<p>Instruye a la Reserva Federal, la OCC, la FDIC y la NCUA a tratar el estatus migratorio como un factor de riesgo financiero, y le pide al Tesoro que revise en 180 días los requisitos de identificación de clientes. No impone un mandato universal que obligue a los bancos a recolectar ciudadanía o estatus migratorio de todo el mundo — únicamente lo sugiere, con enfoque basado en riesgo.</p>
+<p>Texto oficial completo: <a href="https://www.federalregister.gov/documents/2026/05/22/2026-10400/restoring-integrity-to-americas-financial-system" rel="noopener" target="_blank">federalregister.gov</a></p>
+<h2>A quién va dirigida (y a quién no)</h2>
+<p>Va dirigida a personas que viven en Estados Unidos sin estatus migratorio legal. No está dirigida a dueños extranjeros de LLC que operan su negocio —por ejemplo de Amazon FBA— desde fuera del país.</p>
+<h2>Lo que NO cambia si eres dueño extranjero de una LLC</h2>
+<p>La orden no obliga a los bancos a cerrar cuentas, no congela cuentas abiertas con ITIN, y no obliga a las LLC a tramitar un ITIN personal para sus dueños.</p>
+<h2>Qué necesitas de verdad para abrir tu cuenta bancaria</h2>
+<p>Si eres extranjero, vives fuera de Estados Unidos y no operas el negocio desde dentro del país (por ejemplo, sin inventario almacenado en una bodega estadounidense), sigues sin estar sujeto a pedir un ITIN. Lo que necesitas es tu EIN.</p>
+<h2>Por qué no debes fiarte de ChatGPT para esto</h2>
+<p>ChatGPT recopila información de muchas fuentes, pero no es abogado ni experto fiscal — y si no le das el contexto completo de tu situación, la respuesta puede ser errónea. Esta información tampoco sustituye asesoría legal: lo mejor es consultar con un preparador de impuestos de confianza, que además viva en Estados Unidos y esté al día con el sistema.</p>
+<h2>¿Tienes dudas sobre tu situación concreta?</h2>
+<p>Si después de leer esto no tienes claro cómo te afecta (o no te afecta), escríbenos y lo revisamos contigo.</p>
+<p><a href="../contacto.html">Contactar con Proyecto Polaris</a></p>
+</div>
+</section>
+<!-- ===== REVIEWS CAROUSEL ===== -->
+<section class="reviews-section">
+<div class="section" style="padding-bottom:0;">
+<p class="section-eyebrow">Opiniones de clientes</p>
+<h2 class="section-title" style="font-family:'Playfair Display',serif;">Lo que dicen nuestros clientes</h2>
+</div>
+<div class="reviews-outer">
+<div class="reviews-track" id="reviewsTrack">
+<div class="rev-slide">
+<a class="review-card review-card-tp" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" style="justify-content:center;" target="_blank">
+<div class="review-body" style="text-align:center;">
+<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
+<img alt="Trustpilot: 4,3 sobre 5 estrellas" height="48" src="https://images-static.trustpilot.com/api/stars/4.5/256x48.png" style="height:48px;width:auto;margin:0 auto 1rem;display:block;" width="256"/>
+<p class="review-name" style="font-size:1.1rem;">4,3 · Excelente</p>
+<p class="review-text" style="font-style:normal;margin-top:0.5rem;margin-bottom:0;">Descubre lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"En Polaris he conseguido justo el soporte y servicio que necesito, profesionales que conocen muy bien el mercado, trabajando con estrategia impecable..."</p>
+<p class="review-name">Jose Ferreira</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Portugal · 15 jul 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Honestidad, amabilidad, profesionalismo etc. A decir verdad me quedo corta al querer expresar lo contenta, satisfecha y sobretodo lo muy agradecida que estoy..."</p>
+<p class="review-name">Ivette Chacon</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">EE.UU. · ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"El acompañamiento y el asesoramiento que recibimos en todo momento hicieron que todo el proceso fuera mucho más fácil para nosotros..."</p>
+<p class="review-name">Joel y Vanesa</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Argentina · 4 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Recomiendo ampliamente a este equipo de trabajo, son gente 100% confiable, amable y que en todo momento están al pendiente..."</p>
+<p class="review-name">Yadira Velasco Arteaga</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">México · 6 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Destaco totalmente la atención de este equipo: amables, puntuales y extremadamente rápidos..."</p>
+<p class="review-name">Gabriel Velez</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Colombia · 13 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Por se cumplió el objetivo, con todos los puntos acordados y en corto tiempo"</p>
+<p class="review-name">Priscila</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Venezuela · 25 mar 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"La empresa más confiable que he contratado"</p>
+<p class="review-name">Brenux LLC</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">España · 10 abr 2026</p>
+</div>
+</a>
+</div>
+</div>
+<div class="carousel-arrows" style="margin-top:1.5rem;">
+<button aria-label="Anterior" class="carousel-arrow" id="revPrev">←</button>
+<button aria-label="Siguiente" class="carousel-arrow" id="revNext">→</button>
+</div>
+</div>
+</section>
+<script>
+(function(){
+  var outer = document.querySelector('.reviews-outer');
+  var track = document.getElementById('reviewsTrack');
+  if (!track || !outer) return;
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.rev-slide'));
+  var total = slides.length;
+  var current = 0;
+  var timer = null;
+  var started = false;
+
+  // Use CSS scroll-based approach for reliability
+  function updateSlides() {
+    slides.forEach(function(s, i) {
+      var card = s.querySelector('.review-card');
+      if (i === current) {
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      } else {
+        card.style.opacity = '0.38';
+        card.style.transform = 'scale(0.94)';
+      }
+    });
+  }
+
+  function goTo(n, animated) {
+    current = ((n % total) + total) % total;
+    // Scroll the active slide into center view
+    var slide = slides[current];
+    var outerW = outer.offsetWidth;
+    var slideW = slide.offsetWidth;
+    // offset = slide's left position - center padding
+    var slideLeft = slide.offsetLeft;
+    var scrollTo = slideLeft - (outerW - slideW) / 2;
+    if (animated) {
+      track.style.transition = 'transform 0.45s cubic-bezier(.4,0,.2,1)';
+    } else {
+      track.style.transition = 'none';
+    }
+    track.style.transform = 'translateX(' + (-scrollTo) + 'px)';
+    updateSlides();
+  }
+
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(function(){ goTo(current + 1, true); }, 7000);
+  }
+  function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+
+  function init() {
+    if (started) return;
+    started = true;
+    // Wait one frame to ensure layout is complete
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        goTo(0, false);
+        startTimer();
+      });
+    });
+  }
+
+  document.getElementById('revNext').addEventListener('click', function(){
+    stopTimer(); goTo(current + 1, true); startTimer();
+  });
+  document.getElementById('revPrev').addEventListener('click', function(){
+    stopTimer(); goTo(current - 1, true); startTimer();
+  });
+
+  // Touch/swipe
+  var tx = 0;
+  outer.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
+  outer.addEventListener('touchend', function(e){
+    var dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) { stopTimer(); goTo(current + (dx > 0 ? 1 : -1), true); startTimer(); }
+  }, {passive:true});
+
+  // Recalc on resize
+  window.addEventListener('resize', function(){ if (started) { requestAnimationFrame(function(){ goTo(current, false); }); } });
+
+  // IntersectionObserver — start only when visible
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) { init(); obs.disconnect(); }
+    }, { threshold: 0.2 });
+    obs.observe(outer);
+  } else {
+    window.addEventListener('load', init);
+  }
+})();
+</script>
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="../logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="../servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="../precios-llc.html">Precios de LLC</a></li>
+<li><a href="../servicios-marca.html">Registro de marca</a></li>
+<li><a href="../contacto.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="../calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="../referidos.html">Programa de referidos</a></li>
+<li><a href="../preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="../nosotros.html">Nosotros</a></li>
+<li><a href="../contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="../privacidad.html">Política de privacidad</a></li>
+<li><a href="../terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="../privacidad.html">Privacidad</a><a href="../terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="../privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
+<!-- POP-UP CALENDARIO -->
+<div id="cal-popup-overlay">
+<div id="cal-popup">
+<button aria-label="Cerrar" id="cal-popup-close" onclick="closePopup()">✕</button>
+<p class="cal-popup-eyebrow">Herramienta exclusiva</p>
+<h2 class="cal-popup-title">Descarga tu calendario personalizado de gestiones fiscales</h2>
+<p class="cal-popup-desc">Genera tu calendario personalizado de gestiones federales y estatales — con todas las fechas clave para tu LLC, listo para descargar en PDF.</p>
+<a class="cal-popup-btn" href="../calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+      Ver mi calendario
+    </a>
+<button class="cal-popup-skip" onclick="closePopup()">No, gracias</button>
+</div>
+</div>
+<!-- WIDGET FLOTANTE -->
+<div id="cal-widget">
+<a href="../calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+    Mi calendario LLC
+  </a>
+<button aria-label="Cerrar widget" id="cal-widget-close" onclick="document.getElementById('cal-widget').style.display='none'">✕</button>
+</div>
+<script>
+function closePopup() {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+// Auto-show after 2.5s, only once per session
+if (!sessionStorage.getItem('calPopupSeen')) {
+  setTimeout(function() {
+    var el = document.getElementById('cal-popup-overlay');
+    if (el) el.style.display = 'flex';
+    sessionStorage.setItem('calPopupSeen', '1');
+  }, 2500);
+} else {
+  document.getElementById('cal-popup-overlay').style.display = 'none';
+  document.getElementById('cal-widget').style.display = 'block';
+}
+</script>
+<!-- Widget Referidos -->
+<div id="ref-widget-wrap">
+  <a href="../referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>
+  <a href="../referidos.html" id="ref-widget-banner">Programa de referidos<br>Apuntate y gana</a>
+</div>
+<script>
+(function(){
+  var banner = document.getElementById("ref-widget-banner");
+  var dot = document.getElementById("ref-widget-dot");
+  if (!banner) return;
+  // Collapse after 5 seconds
+  setTimeout(function(){
+    banner.style.transition = "opacity 0.4s, max-height 0.4s";
+    banner.style.opacity = "0";
+    setTimeout(function(){
+      banner.style.display = "none";
+      dot.classList.add("visible");
+    }, 400);
+  }, 5000);
+})();
+</script>
+<script src="/whatsapp-widget.js" defer></script>
+</body>
+</html>
