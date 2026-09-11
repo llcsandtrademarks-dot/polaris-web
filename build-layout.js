@@ -1,0 +1,231 @@
+#!/usr/bin/env node
+/**
+ * build-layout.js — inyecta el header y footer únicos del sitio en cada página HTML.
+ *
+ * USO:
+ *   node build-layout.js
+ *
+ * Ejecutar antes de cada commit que toque header.html, footer.html, o el
+ * menú/pie de cualquier página — así todas las páginas quedan sincronizadas
+ * con las mismas dos fuentes.
+ *
+ * QUÉ HACE:
+ *   1. Lee header.html y footer.html (en la raíz del repo). Son plantillas con
+ *      dos placeholders de ruta relativa:
+ *        {{ROOT}}     -> prefijo hacia la raíz del sitio ('' en páginas raíz,
+ *                        '../' en páginas dentro de blog/, etc. según la
+ *                        profundidad real de cada archivo).
+ *        {{BLOGHOME}} -> ruta relativa hacia blog/index.html desde cada página.
+ *   2. Recorre todas las páginas .html del sitio.
+ *   3. En cada una, sustituye el bloque marcado con
+ *        <!-- HEADER:START --> ... <!-- HEADER:END -->
+ *      y el marcado con
+ *        <!-- FOOTER:START --> ... <!-- FOOTER:END -->
+ *      Si una página todavía no tiene esos marcadores (primera vez que se
+ *      ejecuta el script sobre ella), localiza el <nav>...</nav> +
+ *      .mobile-menu existentes para el header, y el <footer>...</footer>
+ *      existente para el footer, y los envuelve con los marcadores.
+ *   4. Se asegura además de que la página cargue <script src="/nav-dropdown.js">.
+ *      Varias páginas (admin.html, factura*.html, los artículos de blog) tenían
+ *      el HTML del menú desplegable pero NO el script, así que los desplegables
+ *      y la animación del menú móvil no hacían nada. Si falta, se añade justo
+ *      antes de </body>.
+ *
+ * PÁGINAS EXCLUIDAS A PROPÓSITO (no se tocan):
+ *   - instrucciones-registro-de-marca/index.html
+ *   - plan-basico-uspto/index.html
+ *   - registro-de-marca-en-la-uspto/index.html
+ *   - sou-office-action-extension-de-tiempo/index.html
+ *   Las 4 son solo un redirect instantáneo (meta-refresh + JS) a un dominio
+ *   externo distinto — no tienen contenido ni header/footer real que inyectar.
+ *
+ * Para añadir una página nueva al sitio: simplemente créala con un <nav> y un
+ * <footer> cualquiera (o copia uno de otra página) y ejecuta este script —
+ * quedará alineada automáticamente.
+ */
+
+const fs = require('fs');
+const path = require('path');
+
+const ROOT_DIR = __dirname;
+
+const EXCLUDED = new Set([
+  path.join(ROOT_DIR, 'header.html'),
+  path.join(ROOT_DIR, 'footer.html'),
+  path.join(ROOT_DIR, 'instrucciones-registro-de-marca', 'index.html'),
+  path.join(ROOT_DIR, 'plan-basico-uspto', 'index.html'),
+  path.join(ROOT_DIR, 'registro-de-marca-en-la-uspto', 'index.html'),
+  path.join(ROOT_DIR, 'sou-office-action-extension-de-tiempo', 'index.html'),
+]);
+
+const SKIP_DIRS = new Set(['.git', 'node_modules']);
+
+function listHtmlFiles(dir, out) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      if (SKIP_DIRS.has(entry.name)) continue;
+      listHtmlFiles(path.join(dir, entry.name), out);
+    } else if (entry.isFile() && entry.name.toLowerCase().endsWith('.html')) {
+      out.push(path.join(dir, entry.name));
+    }
+  }
+  return out;
+}
+
+function toUrlPath(p) {
+  return p.split(path.sep).join('/');
+}
+
+// Encuentra el índice justo después del cierre de la etiqueta que abre en
+// openIdx (el '<' de p.ej. "<nav>" o "<div class=...>"), contando aperturas y
+// cierres de esa misma etiqueta para no cortar en medio de un div anidado.
+function findTagEnd(html, openIdx, tagName) {
+  const re = new RegExp('<(/?)' + tagName + '(\\s[^>]*)?>', 'gi');
+  re.lastIndex = openIdx;
+  let depth = 0;
+  let m;
+  while ((m = re.exec(html))) {
+    if (m[1] === '/') {
+      depth--;
+      if (depth === 0) return m.index + m[0].length;
+    } else {
+      depth++;
+    }
+  }
+  return -1;
+}
+
+function upsertBlock(html, { startMarker, endMarker, openTagRegex, tagName, newInner, file }) {
+  const markerBlockRe = new RegExp(
+    startMarker.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&') +
+      '[\\s\\S]*?' +
+      endMarker.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&'),
+  );
+  const newBlock = `${startMarker}\n${newInner}\n${endMarker}`;
+
+  if (markerBlockRe.test(html)) {
+    return html.replace(markerBlockRe, newBlock);
+  }
+
+  const openMatch = openTagRegex.exec(html);
+  if (!openMatch) {
+    throw new Error(`No se encontró <${tagName}> ni marcadores ${startMarker} en ${file}`);
+  }
+  const startIdx = openMatch.index;
+  const endIdx = findTagEnd(html, startIdx, tagName);
+  if (endIdx === -1) {
+    throw new Error(`No se pudo cerrar <${tagName}> correctamente en ${file}`);
+  }
+  return html.slice(0, startIdx) + newBlock + html.slice(endIdx);
+}
+
+function buildHeaderInner(html, template, ROOT, BLOGHOME, file) {
+  const rendered = template.split('{{ROOT}}').join(ROOT).split('{{BLOGHOME}}').join(BLOGHOME).trim();
+
+  // El header cubre <nav>...</nav> seguido de <div class="mobile-menu">...</div>.
+  // Si ya existen los marcadores HEADER:START/END los usamos directamente.
+  const markerRe = /<!-- HEADER:START -->[\s\S]*?<!-- HEADER:END -->/;
+  if (markerRe.test(html)) {
+    return html.replace(markerRe, `<!-- HEADER:START -->\n${rendered}\n<!-- HEADER:END -->`);
+  }
+
+  const navRe = /<nav(\s[^>]*)?>/i;
+  const navMatch = navRe.exec(html);
+  if (!navMatch) {
+    throw new Error(`No se encontró <nav> ni marcadores HEADER:START en ${file}`);
+  }
+  const navStart = navMatch.index;
+  const navEnd = findTagEnd(html, navStart, 'nav');
+  if (navEnd === -1) throw new Error(`No se pudo cerrar <nav> en ${file}`);
+
+  // Justo después del </nav> debe venir el <div class="mobile-menu">...
+  const mobileMenuRe = /<div\s+class="mobile-menu"[^>]*>/i;
+  mobileMenuRe.lastIndex = navEnd;
+  const mmSearch = html.slice(navEnd, navEnd + 400);
+  const mmMatch = mobileMenuRe.exec(mmSearch);
+  if (!mmMatch) {
+    throw new Error(`No se encontró el .mobile-menu justo después de </nav> en ${file}`);
+  }
+  const mmStart = navEnd + mmMatch.index;
+  const mmEnd = findTagEnd(html, mmStart, 'div');
+  if (mmEnd === -1) throw new Error(`No se pudo cerrar .mobile-menu en ${file}`);
+
+  const newBlock = `<!-- HEADER:START -->\n${rendered}\n<!-- HEADER:END -->`;
+  return html.slice(0, navStart) + newBlock + html.slice(mmEnd);
+}
+
+function buildFooterInner(html, template, ROOT, BLOGHOME, file) {
+  const rendered = template.split('{{ROOT}}').join(ROOT).split('{{BLOGHOME}}').join(BLOGHOME).trim();
+
+  const markerRe = /<!-- FOOTER:START -->[\s\S]*?<!-- FOOTER:END -->/;
+  if (markerRe.test(html)) {
+    return html.replace(markerRe, `<!-- FOOTER:START -->\n${rendered}\n<!-- FOOTER:END -->`);
+  }
+
+  const footerRe = /<footer(\s[^>]*)?>/i;
+  const footerMatch = footerRe.exec(html);
+  if (!footerMatch) {
+    throw new Error(`No se encontró <footer> ni marcadores FOOTER:START en ${file}`);
+  }
+  const footerStart = footerMatch.index;
+  const footerEnd = findTagEnd(html, footerStart, 'footer');
+  if (footerEnd === -1) throw new Error(`No se pudo cerrar <footer> en ${file}`);
+
+  const newBlock = `<!-- FOOTER:START -->\n${rendered}\n<!-- FOOTER:END -->`;
+  return html.slice(0, footerStart) + newBlock + html.slice(footerEnd);
+}
+
+// El header (dropdowns, acordeón móvil, resaltado del enlace activo, intro del
+// menú) depende de nav-dropdown.js. Si la página no lo carga, lo añade justo
+// antes de </body>, junto a whatsapp-widget.js si ya está.
+function ensureNavScript(html, file) {
+  if (/src=["']\/?nav-dropdown\.js["']/i.test(html)) return html;
+  const bodyCloseIdx = html.lastIndexOf('</body>');
+  if (bodyCloseIdx === -1) {
+    throw new Error(`No se encontró </body> para añadir nav-dropdown.js en ${file}`);
+  }
+  const tag = '<script src="/nav-dropdown.js" defer></script>\n';
+  return html.slice(0, bodyCloseIdx) + tag + html.slice(bodyCloseIdx);
+}
+
+function main() {
+  const headerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'header.html'), 'utf8');
+  const footerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'footer.html'), 'utf8');
+
+  const allHtml = listHtmlFiles(ROOT_DIR, []);
+  const targets = allHtml.filter((f) => !EXCLUDED.has(f));
+
+  let changed = 0;
+  for (const file of targets) {
+    const fileDir = path.dirname(file);
+    const rootRel = toUrlPath(path.relative(fileDir, ROOT_DIR));
+    const ROOT = rootRel === '' ? '' : rootRel + '/';
+    const blogHomeAbs = path.join(ROOT_DIR, 'blog', 'index.html');
+    const BLOGHOME = toUrlPath(path.relative(fileDir, blogHomeAbs));
+
+    const before = fs.readFileSync(file, 'utf8');
+    let after = before;
+    after = (function () {
+      try {
+        let html = buildHeaderInner(after, headerTemplate, ROOT, BLOGHOME, file);
+        html = buildFooterInner(html, footerTemplate, ROOT, BLOGHOME, file);
+        html = ensureNavScript(html, file);
+        return html;
+      } catch (err) {
+        console.error(`✗ ${toUrlPath(path.relative(ROOT_DIR, file))}: ${err.message}`);
+        process.exitCode = 1;
+        return after;
+      }
+    })();
+
+    if (after !== before) {
+      fs.writeFileSync(file, after, 'utf8');
+      changed++;
+      console.log(`✓ ${toUrlPath(path.relative(ROOT_DIR, file))}`);
+    }
+  }
+
+  console.log(`\n${changed}/${targets.length} páginas actualizadas.`);
+}
+
+main();

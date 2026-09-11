@@ -46,29 +46,61 @@
 </head>
 <body>
 
+<!-- HEADER:START -->
 <nav>
-  <a class="nav-logo" href="index.html">
-    <img src="logo.png" alt="Proyecto Polaris" class="nav-logo-img" onerror="this.style.display='none'">
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
     Proyecto <span>Polaris</span>
-  </a>
-  <ul class="nav-links">
-    <li><a href="index.html">Inicio</a></li>
-    <li><a href="servicios-llc.html">Servicios LLC</a></li>
-    <li><a href="servicios-marca.html">Registro de marca</a></li>
-    <li><a href="nosotros.html">Nosotros</a></li>
-    <li><a href="contacto.html" class="nav-cta">Contactar</a></li>
-  </ul>
-  <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menú">
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-  </button>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="calendario-llc.html">Calendario fiscal</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Noticias</a></li>
+<li><a href="precio-maximo-llc.html">¿Estás pagando de más?</a></li>
+</ul>
+</li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html">Inicio</a>
-  <a href="servicios-llc.html">Servicios LLC</a>
-  <a href="servicios-marca.html">Registro de marca</a>
-  <a href="nosotros.html">Nosotros</a>
-  <a href="contacto.html" class="nav-cta">Contactar</a>
+<a href="index.html">Inicio</a>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
 </div>
+</div>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="calendario-llc.html">Calendario fiscal</a>
+<a href="referidos.html">Programa de referidos</a>
+<a href="preguntas-frecuentes.html">Preguntas frecuentes</a>
+<a href="blog/index.html">Noticias</a>
+<a href="precio-maximo-llc.html">¿Estás pagando de más?</a>
+</div>
+</div>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+<!-- HEADER:END -->
 
 <div class="section">
 
@@ -171,52 +203,57 @@
 
 </div>
 
+<!-- FOOTER:START -->
 <footer>
-  <div class="footer-grid">
-    <div>
-      <div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
-        <img src="logo.png" alt="Proyecto Polaris" style="width:32px;height:32px;border-radius:8px;">
-        <span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
-      </div>
-      <p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
-      <p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Servicios</p>
-      <ul>
-        <li><a href="servicios-llc.html">Servicios de LLC</a></li>
-        <li><a href="precios-llc.html">Precios de LLC</a></li>
-        <li><a href="servicios-marca.html">Registro de marca</a></li>
-        <li><a href="precios-marca.html">Precios de registro de marca</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Recursos</p>
-      <ul>
-        <li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
-        <li><a href="referidos.html">Programa de referidos</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Empresa</p>
-      <ul>
-        <li><a href="nosotros.html">Nosotros</a></li>
-        <li><a href="contacto.html">Contacto</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <p class="footer-col-title">Legal</p>
-      <ul>
-        <li><a href="privacidad.html">Política de privacidad</a></li>
-        <li><a href="terminos.html">Términos de servicio</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
-    <div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
-  </div>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="precios-llc.html">Precios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="precios-marca.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="privacidad.html">Política de privacidad</a></li>
+<li><a href="terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+</div>
 </footer>
+<!-- FOOTER:END -->
 
 <script>
 var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
@@ -365,5 +402,6 @@ function nuevaFactura() {
   mostrarForm();
 }
 </script>
+<script src="/nav-dropdown.js" defer></script>
 </body>
 </html>
