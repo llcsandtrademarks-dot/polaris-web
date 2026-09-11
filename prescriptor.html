@@ -78,22 +78,52 @@
     Proyecto <span>Polaris</span>
   </a>
   <ul class="nav-links">
-    <li><a href="index.html">Inicio</a></li>
-    <li><a href="servicios-llc.html">Servicios LLC</a></li>
-    <li><a href="servicios-marca.html">Registro de marca</a></li>
-    <li><a href="nosotros.html">Nosotros</a></li>
-    <li><a href="contacto.html" class="nav-cta">Contactar</a></li>
-  </ul>
+<li><a href="index.html">Inicio</a></li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="calendario-llc.html">Calendario</a></li>
+<li><a href="referidos.html">Referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas</a></li>
+<li><a href="blog/index.html">Noticias</a></li>
+<li><a href="precio-maximo-llc.html">Precio máximo LLC</a></li>
+</ul>
+</li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
   <button class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')" aria-label="Menú">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
   </button>
 </nav>
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html">Inicio</a>
-  <a href="servicios-llc.html">Servicios LLC</a>
-  <a href="servicios-marca.html">Registro de marca</a>
-  <a href="nosotros.html">Nosotros</a>
-  <a href="contacto.html" class="nav-cta">Contactar</a>
+<a href="index.html">Inicio</a>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+</div>
+</div>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="calendario-llc.html">Calendario</a>
+<a href="referidos.html">Referidos</a>
+<a href="preguntas-frecuentes.html">Preguntas</a>
+<a href="blog/index.html">Noticias</a>
+<a href="precio-maximo-llc.html">Precio máximo LLC</a>
+</div>
+</div>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
 </div>
 
 <div class="section">
@@ -240,5 +270,6 @@ if (!token) {
 }
 </script>
 <script src="/whatsapp-widget.js" defer></script>
+<script src="/nav-dropdown.js" defer></script>
 </body>
 </html>
