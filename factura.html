@@ -79,7 +79,17 @@
   table.factura-tabla tfoot td:last-child { text-align: right; }
   #v-equivalente { display: none; font-size: 11px; font-weight: 400; color: var(--text-muted); margin-top: 2px; }
 
-  .btn-pdf { margin-top: 1.75rem; width: 100%; justify-content: center; }
+  /* Fuera de pantalla, nunca display:none: html2canvas necesita layout real para
+     capturarlo (con display:none el PDF sale en blanco). Ancho fijo = máximo actual
+     (640px - 2*2rem de padding) para que el PDF no dependa del tamaño de pantalla.
+     Evita que el cliente imprima/guarde esta página en vez de usar el botón. */
+  #factura-capture.fuera { position: absolute; left: -9999px; top: 0; width: 576px; }
+
+  .factura-lista { text-align: center; }
+  .factura-lista h1 { font-family: 'Playfair Display', serif; font-size: 1.75rem; color: var(--navy); margin-bottom: 0.6rem; }
+  .factura-lista p { color: var(--text-muted); margin-bottom: 0.5rem; }
+  .btn-pdf { display: flex; margin: 1.75rem auto 0; width: auto; min-width: 280px; justify-content: center; font-size: 17px; padding: 18px 40px; }
+  .factura-aviso { font-size: 13px; color: var(--text-muted); text-align: center; margin-top: 1.25rem; }
 </style>
 </head>
 <body>
@@ -149,7 +159,11 @@
   </div>
 
   <div id="factura-card">
-    <div id="factura-capture">
+    <div class="factura-lista">
+      <h1>Tu factura está lista</h1>
+      <p>Haz clic en el botón para descargar tu factura en PDF.</p>
+    </div>
+    <div id="factura-capture" class="fuera">
       <div class="factura-brand">
         <img src="logo.png" alt="Proyecto Polaris" class="factura-brand-logo" onerror="this.style.display='none'">
         <span class="factura-brand-name">Proyecto Polaris</span>
@@ -183,6 +197,7 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Descargar factura
     </button>
+    <p class="factura-aviso">Es muy importante que descargues y guardes esta factura en un lugar seguro.</p>
   </div>
 </div>
 
@@ -243,6 +258,12 @@ var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
 var params = new URLSearchParams(window.location.search);
 var token = params.get('token');
 var _facturaData = null;
+
+// Solo uso interno (enlaces de revisión en los avisos a Samir): con ?revisar=1 la
+// factura se muestra completa en pantalla. Los clientes nunca reciben este parámetro.
+if (params.get('revisar') === '1') {
+  document.getElementById('factura-capture').classList.remove('fuera');
+}
 
 function mostrarError() {
   document.getElementById('estado-carga').style.display = 'none';
