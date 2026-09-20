@@ -29,7 +29,7 @@
   </script>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Precios de LLC por estado — Proyecto Polaris</title><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado. Paga con tarjeta o transferencia." name="description"/><link href="https://proyecto-polaris.com/precios-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Precios de LLC por estado — Proyecto Polaris" name="twitter:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/precios-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Precios de LLC por estado — Proyecto Polaris" property="og:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<title>Precios del plan PREMIUM por estado — Proyecto Polaris</title><meta content="Descubre cuánto cuesta crear tu LLC con el plan PREMIUM (incluye formularios IRS y tramitación acelerada) y su renovación anual y cumplimiento, según el estado." name="description"/><link href="https://proyecto-polaris.com/precios-premium-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Precios del plan PREMIUM por estado — Proyecto Polaris" name="twitter:title"/><meta content="Descubre cuánto cuesta crear tu LLC con el plan PREMIUM (incluye formularios IRS y tramitación acelerada) y su renovación anual y cumplimiento, según el estado." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/precios-premium-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Precios del plan PREMIUM por estado — Proyecto Polaris" property="og:title"/><meta content="Descubre cuánto cuesta crear tu LLC con el plan PREMIUM (incluye formularios IRS y tramitación acelerada) y su renovación anual y cumplimiento, según el estado." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <!-- FONTS:START -->
@@ -38,6 +38,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
 <!-- FONTS:END -->
 <link href="shared.css" rel="stylesheet"/>
+<style>
+    /* Tipografía de titulares: Plus Jakarta Sans (toda página nueva lleva este bloque desde el principio) */
+    :root { --font-heading: 'Plus Jakarta Sans', sans-serif; }
+</style>
 <style>
     .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy); background: var(--white); border: 1.5px solid var(--navy); padding: 8px 16px; border-radius: 8px; text-decoration: none; transition: background 0.2s, color 0.2s; }
     .back-btn:hover { background: var(--navy); color: var(--white); }
@@ -202,9 +206,9 @@
 <!-- HEADER:END -->
 
 <div class="page-header">
-<p class="page-header-eyebrow">Precios por estado</p>
-<h1>¿Cuánto cuesta tu LLC?</h1>
-<p>Descubre cuánto te cuesta crear tu LLC y cuánto su renovación anual y cumplimiento. Y si tienes dudas, te ayudamos a escoger el mejor estado para ti.</p>
+<p class="page-header-eyebrow">PRECIOS POR ESTADO — PLAN PREMIUM</p>
+<h1>¿Cuánto cuesta tu LLC con el plan PREMIUM?</h1>
+<p>Descubre cuánto te cuesta crear tu LLC con el plan PREMIUM (incluye formularios IRS y tramitación acelerada) y cuánto su renovación anual y cumplimiento.</p>
 </div>
 
 <div class="selector-bar">
@@ -221,7 +225,7 @@
     <thead>
       <tr>
         <th>Estado</th>
-        <th>Formación LLC <a href="que-incluye-creacion-llc.html" class="que-incluye-link">¿Qué incluye?</a></th>
+        <th>Formación LLC — plan PREMIUM</th>
         <th>Renovación anual y cumplimiento <a href="que-incluye-renovacion-llc.html" class="que-incluye-link">¿Qué incluye?</a></th>
       </tr>
     </thead>
@@ -542,6 +546,12 @@ function notaPlanMensual(servicio, importe) {
   return '<span class="plan-mensual">, o $49 al mes — <a href="contacto.html?motivo=plan-mensual">contáctanos para pasarte al plan mensual</a></span>';
 }
 
+// PREMIUM: la creación cuesta el precio de formación del estado + $200. Solo se muestra el precio.
+var SUPLEMENTO_PREMIUM = 200;
+function celdaPrecioPremium(importe) {
+  return '<div class="precio-cell"><div class="precio-monto">$' + importe + '</div></div>';
+}
+
 function celdaPrecio(servicio, estado, importe) {
   return '<div class="precio-cell">' +
     '<div class="precio-monto">$' + importe + (servicio==='mantenimiento' ? '/año' : '') + notaPlanMensual(servicio, importe) + '</div>' +
@@ -578,7 +588,7 @@ async function cargarYRenderizar() {
 
     filas += '<tr class="estado-row" id="estado-' + o.slug + '">' +
       '<td><div class="estado-nombre">' + d.nombre + (o.recomendado ? ' <span class="estado-badge">★ Opción recomendada</span>' : '') + '</div></td>' +
-      '<td>' + celdaPrecio('formacion', o.slug, d.formacion) + '</td>' +
+      '<td>' + celdaPrecioPremium(Number(d.formacion) + SUPLEMENTO_PREMIUM) + '</td>' +
       '<td>' + celdaPrecio('mantenimiento', o.slug, d.mantenimiento) + '</td>' +
     '</tr>';
   });

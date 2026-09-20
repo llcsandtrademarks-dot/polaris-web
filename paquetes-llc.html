@@ -124,6 +124,12 @@
     .cmp-table.hl-standard th.col-standard { background: #cbdef1; }
     .cmp-table.hl-standard td.col-standard { background: #edf4fb; }
     .cmp-table.hl-standard .col-arrow { transform: translateX(3px); }
+    .cmp-table.hl-premium th.col-premium { background: #cbdef1; }
+    .cmp-table.hl-premium td.col-premium { background: #edf4fb; }
+    .cmp-table.hl-premium .col-premium .col-arrow { transform: translateX(3px); }
+    .cmp-table.hl-smart th.col-smart { background: #ffe88f; }
+    .cmp-table.hl-smart td.col-smart { background: #fff6cf; }
+    .cmp-table.hl-smart .col-smart .col-arrow { transform: translateX(3px); }
     .cmp-cards { display: none; }
     .faq-wrap { max-width: 780px; margin: 0 auto; padding: 3.5rem 2rem 1rem; }
     .faq-wrap h2 { font-family: var(--font-heading); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--navy); margin-bottom: 1.5rem; }
@@ -272,8 +278,8 @@
 <th scope="col" class="cmp-corner"><a class="back-home" href="index.html"><span aria-hidden="true">←</span> Volver al inicio</a><span class="sr-only">Servicio</span></th>
 <th scope="col" class="col-basico"><span class="plan-h">BASICO</span></th>
 <th scope="col" class="col-standard col-clickable"><span class="col-badge">El más pedido</span><a class="col-link" href="precios-llc.html"><span class="plan-h">STANDARD</span> <span class="col-arrow" aria-hidden="true">→</span></a></th>
-<th scope="col" class="col-premium"><span class="plan-h">PREMIUM</span></th>
-<th scope="col" class="col-smart"><span class="plan-h">SMART</span></th>
+<th scope="col" class="col-premium col-clickable"><a class="col-link" href="precios-premium-llc.html"><span class="plan-h">PREMIUM</span> <span class="col-arrow" aria-hidden="true">→</span></a></th>
+<th scope="col" class="col-smart col-clickable"><a class="col-link" href="precios-smart-llc.html"><span class="plan-h">SMART</span> <span class="col-arrow" aria-hidden="true">→</span></a></th>
 </tr>
 </thead>
 <tbody>
@@ -281,85 +287,85 @@
 <th scope="row">Precio</th>
 <td class="col-basico"><span class="price-big">$0</span><span class="price-sub">+ tasa estatal</span></td>
 <td class="col-standard col-clickable"><span class="price-big">$299</span><span class="price-sub">+ tasa estatal</span></td>
-<td class="col-premium"><span class="price-big">$499</span><span class="price-sub">+ tasa estatal</span></td>
-<td class="col-smart"><span class="price-big">$0</span><span class="price-sub">+ tasa estatal + $49/mes</span></td>
+<td class="col-premium col-clickable"><span class="price-big">$499</span><span class="price-sub">+ tasa estatal</span></td>
+<td class="col-smart col-clickable"><span class="price-big">$0</span><span class="price-sub">+ tasa estatal + $49/mes</span></td>
 </tr>
 <tr>
 <th scope="row">Preparación y presentación de los Estatutos de Organización</th>
 <td class="col-basico"><span class="pill-inc">Incluido</span></td>
 <td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span></td>
-<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart col-clickable"><span class="pill-inc">Incluido</span></td>
 </tr>
 <tr>
 <th scope="row">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></th>
 <td class="col-basico"><span class="cell-price">$99</span></td>
 <td class="col-standard col-clickable"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
-<td class="col-premium"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
-<td class="col-smart"><span class="cell-price">$99</span></td>
+<td class="col-premium col-clickable"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+<td class="col-smart col-clickable"><span class="pill-inc">Incluido</span></td>
 </tr>
 <tr>
 <th scope="row">Número de Identificación Fiscal (EIN)<span class="row-note">(Necesario para abrir cuenta bancaria)</span></th>
 <td class="col-basico"><span class="cell-price">$99</span></td>
 <td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span></td>
-<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart col-clickable"><span class="pill-inc">Incluido</span></td>
 </tr>
 <tr>
 <th scope="row">Acuerdo Operativo</th>
 <td class="col-basico"><span class="cell-price">$99</span></td>
 <td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span></td>
-<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart col-clickable"><span class="pill-inc">Incluido</span></td>
 </tr>
 <tr>
 <th scope="row">Formularios IRS para no residentes sin ECI (1120-5472 / 1065-K1)<span class="row-note">Obligatorio todos los años</span></th>
 <td class="col-basico"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
 <td class="col-standard col-clickable"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span><span class="cell-sub">(en el año de la creación)</span></td>
-<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span><span class="cell-sub">(en el año de la creación)</span></td>
+<td class="col-smart col-clickable"><span class="pill-inc">Incluido</span></td>
 </tr>
 <tr>
 <th scope="row"><span class="row-line">Servicio Dirección y Buzón de Correo físico</span><span class="row-line">Alertas de Cumplimiento</span></th>
 <td class="col-basico"><span class="cell-price">$99/año</span></td>
 <td class="col-standard col-clickable"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
-<td class="col-premium"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
-<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium col-clickable"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+<td class="col-smart col-clickable"><span class="pill-inc">Incluido</span></td>
 </tr>
 <tr>
 <th scope="row">Tramitación Acelerada</th>
 <td class="col-basico"><span class="cell-price">$49</span></td>
 <td class="col-standard col-clickable"><span class="cell-price">$49</span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span></td>
-<td class="col-smart"><span class="cell-price">$49</span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart col-clickable"><span class="cell-price">$49</span></td>
 </tr>
 <tr>
 <th scope="row">Nombre de Dominio + Email Empresarial</th>
 <td class="col-basico"><span class="cell-price">$49 / 1 año</span></td>
 <td class="col-standard col-clickable"><span class="cell-price">$39 / 1 año</span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span></td>
-<td class="col-smart"><span class="cell-price">$49 / 1 año</span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart col-clickable"><span class="cell-price">$49 / 1 año</span></td>
 </tr>
 <tr>
 <th scope="row">Página web*</th>
 <td class="col-basico"><span class="cell-price">$159</span></td>
 <td class="col-standard col-clickable"><span class="cell-price">$159</span></td>
-<td class="col-premium"><span class="cell-price">$99</span></td>
-<td class="col-smart"><span class="cell-price">$159</span></td>
+<td class="col-premium col-clickable"><span class="cell-price">$99</span></td>
+<td class="col-smart col-clickable"><span class="cell-price">$159</span></td>
 </tr>
 <tr>
 <th scope="row">Soporte por WhatsApp y Email</th>
 <td class="col-basico"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
 <td class="col-standard col-clickable"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span></td>
-<td class="col-smart"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart col-clickable"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
 </tr>
 <tr>
 <th scope="row">Consultoría 1h</th>
 <td class="col-basico"><span class="cell-price">$69</span></td>
 <td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
-<td class="col-premium"><span class="pill-inc">Incluido</span></td>
-<td class="col-smart"><span class="cell-price">$69</span></td>
+<td class="col-premium col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart col-clickable"><span class="cell-price">$69</span></td>
 </tr>
 </tbody>
 </table>
@@ -367,8 +373,8 @@
 <div class="cmp-btns-spacer"></div>
 <div><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
 <div><a class="plan-btn is-link" href="precios-llc.html">Ver precio por estado</a></div>
-<div><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
-<div><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+<div><a class="plan-btn is-link" href="precios-premium-llc.html">Ver precio por estado</a></div>
+<div><a class="plan-btn is-link" href="precios-smart-llc.html">Ver precio por estado</a></div>
 </div>
 <div class="cmp-cards">
 <article class="cmp-card col-basico">
@@ -409,7 +415,8 @@
 </ul>
 <div class="card-cta"><a class="plan-btn is-link" href="precios-llc.html">Ver precio por estado</a></div>
 </article>
-<article class="cmp-card col-premium">
+<article class="cmp-card col-premium is-link">
+<a class="card-link" href="precios-premium-llc.html" aria-label="Plan PREMIUM: ver precios por estado"></a>
 <h3 class="plan-h">PREMIUM</h3>
 <p class="card-price"><span class="price-big">$499</span> <span class="price-sub">+ tasa estatal</span></p>
 <ul class="card-list">
@@ -425,14 +432,15 @@
 <li><span class="li-label">Soporte por WhatsApp y Email</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
 <li><span class="li-label">Consultoría 1h</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
 </ul>
-<div class="card-cta"><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+<div class="card-cta"><a class="plan-btn is-link" href="precios-premium-llc.html">Ver precio por estado</a></div>
 </article>
-<article class="cmp-card col-smart">
+<article class="cmp-card col-smart is-link">
+<a class="card-link" href="precios-smart-llc.html" aria-label="Plan SMART: ver precios por estado"></a>
 <h3 class="plan-h">SMART</h3>
 <p class="card-price"><span class="price-big">$0</span> <span class="price-sub">+ tasa estatal + $49/mes</span></p>
 <ul class="card-list">
 <li><span class="li-label">Preparación y presentación de los Estatutos de Organización</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
-<li><span class="li-label">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></span><span class="li-val"><span class="cell-price">$99</span></span></li>
+<li><span class="li-label">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
 <li><span class="li-label">Número de Identificación Fiscal (EIN)<span class="row-note">(Necesario para abrir cuenta bancaria)</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
 <li><span class="li-label">Acuerdo Operativo</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
 <li><span class="li-label">Formularios IRS para no residentes sin ECI (1120-5472 / 1065-K1)<span class="row-note">Obligatorio todos los años</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
@@ -443,7 +451,7 @@
 <li><span class="li-label">Soporte por WhatsApp y Email</span><span class="li-val"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></span></li>
 <li><span class="li-label">Consultoría 1h</span><span class="li-val"><span class="cell-price">$69</span></span></li>
 </ul>
-<div class="card-cta"><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+<div class="card-cta"><a class="plan-btn is-link" href="precios-smart-llc.html">Ver precio por estado</a></div>
 </article>
 </div>
 </section>
@@ -489,13 +497,17 @@
 (function () {
   var table = document.querySelector('.cmp-table');
   if (!table) return;
-  table.querySelectorAll('.col-standard.col-clickable').forEach(function (cell) {
-    cell.addEventListener('click', function (e) {
-      if (e.target.closest('a')) return; // el enlace de la cabecera navega por sí solo
-      window.location.href = 'precios-llc.html';
+  // Columnas clicables: toda la columna lleva a la página de precios de su plan (BASICO aún no tiene).
+  var destinos = { standard: 'precios-llc.html', premium: 'precios-premium-llc.html', smart: 'precios-smart-llc.html' };
+  Object.keys(destinos).forEach(function (plan) {
+    table.querySelectorAll('.col-' + plan + '.col-clickable').forEach(function (cell) {
+      cell.addEventListener('click', function (e) {
+        if (e.target.closest('a')) return; // el enlace de la cabecera navega por sí solo
+        window.location.href = destinos[plan];
+      });
+      cell.addEventListener('mouseenter', function () { table.classList.add('hl-' + plan); });
+      cell.addEventListener('mouseleave', function () { table.classList.remove('hl-' + plan); });
     });
-    cell.addEventListener('mouseenter', function () { table.classList.add('hl-standard'); });
-    cell.addEventListener('mouseleave', function () { table.classList.remove('hl-standard'); });
   });
 })();
 </script>

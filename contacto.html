@@ -275,6 +275,7 @@
         <option value="" disabled selected>Selecciona una opción</option>
         <option value="auditoria-llc">Quiero mi auditoría de precio de LLC</option>
         <option value="oferta-llc-marca">Quiero la oferta de LLC + registro de marca</option>
+        <option value="plan-mensual">Quiero pasarme al plan mensual</option>
         <option value="abrir-llc">Quiero abrir una LLC</option>
         <option value="ayuda-llc">Ya tengo una LLC y necesito ayuda</option>
         <option value="cambiar-gestor">Quiero cambiar de empresa gestora</option>
@@ -635,6 +636,7 @@
   var tipoConfig = {
     'auditoria-llc':    { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
     'oferta-llc-marca': { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
+    'plan-mensual':     { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
     'abrir-llc':        { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
     'ayuda-llc':        { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
     'cambiar-gestor':   { placeholder: 'Cuéntanos brevemente tu situación.', min: 0 },
@@ -653,14 +655,15 @@
   var counterEl = document.getElementById('char-counter');
   var errMsg    = document.getElementById('err-mensaje');
 
-  // Prellenado desde landings de campaña (precio-maximo-llc.html y oferta-llc-marca.html)
+  // Prellenado desde landings de campaña (precio-maximo-llc.html, oferta-llc-marca.html y las páginas de precios: ?motivo=plan-mensual)
   var urlParams = new URLSearchParams(window.location.search);
   var motivoParam = urlParams.get('motivo');
   var estadoParam = urlParams.get('estado');
-  var motivoToTipo = { 'auditoria': 'auditoria-llc', 'oferta-llc-marca': 'oferta-llc-marca' };
+  var motivoToTipo = { 'auditoria': 'auditoria-llc', 'oferta-llc-marca': 'oferta-llc-marca', 'plan-mensual': 'plan-mensual' };
   var mensajesPrellenado = {
     'auditoria-llc': 'Vengo desde la comprobación de precio de renovación anual y cumplimiento de mi LLC' + (estadoParam ? ' en ' + estadoParam : '') + '. Quiero una auditoría de lo que estoy pagando de más.',
-    'oferta-llc-marca': 'Vengo desde la oferta de formación de LLC + registro de marca por 799 USD. Quiero más información.'
+    'oferta-llc-marca': 'Vengo desde la oferta de formación de LLC + registro de marca por 799 USD. Quiero más información.',
+    'plan-mensual': 'Vengo desde la página de precios. Quiero pasarme al plan mensual ($49 al mes) de renovación anual y cumplimiento de mi LLC.'
   };
   if (motivoParam && motivoToTipo[motivoParam]) {
     var tipoPrellenado = motivoToTipo[motivoParam];
