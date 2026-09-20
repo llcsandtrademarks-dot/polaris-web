@@ -81,6 +81,9 @@
   table.factura-tabla tfoot td { padding: 14px 0 0; font-size: 1.15rem; font-weight: 700; color: var(--navy); }
   table.factura-tabla tfoot td:last-child { text-align: right; }
   #v-equivalente { display: none; font-size: 11px; font-weight: 400; color: var(--text-muted); margin-top: 2px; }
+  /* Notas (opcional): texto plano sin etiqueta bajo el total. Oculto si no hay notas, para
+     que no deje ningun hueco en blanco en el PDF. */
+  #v-notas { display: none; margin-top: 1.25rem; font-size: 13px; line-height: 1.5; color: var(--text); white-space: pre-wrap; overflow-wrap: anywhere; }
 
   /* Fuera de pantalla, nunca display:none: html2canvas necesita layout real para
      capturarlo (con display:none el PDF sale en blanco). Ancho fijo = máximo actual
@@ -194,6 +197,7 @@
             <tr><td>Total</td><td><span id="v-importe"></span><div id="v-equivalente"></div></td></tr>
           </tfoot>
         </table>
+        <div id="v-notas"></div>
       </div>
     </div>
     <button class="btn btn-navy btn-pdf" onclick="descargarPDF()">
@@ -310,6 +314,11 @@ if (!token) {
       if (r.data.equivalente) {
         document.getElementById('v-equivalente').textContent = r.data.equivalente;
         document.getElementById('v-equivalente').style.display = 'block';
+      }
+      if (r.data.notas && String(r.data.notas).trim()) {
+        var notasEl = document.getElementById('v-notas');
+        notasEl.textContent = String(r.data.notas).trim();
+        notasEl.style.display = 'block';
       }
       renderClienteBloque(r.data);
     })
