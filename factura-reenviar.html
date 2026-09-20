@@ -7,13 +7,16 @@
 <meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/>
 <title>Reenviar factura — Proyecto Polaris</title>
 <link rel="stylesheet" href="shared.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
 <style>
   .section { max-width: 560px; margin: 0 auto; padding: 3rem 2rem; }
   #estado-carga { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
   #estado-error { display: none; text-align: center; padding: 3rem 1rem; }
-  #estado-error h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+  #estado-error h1 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
   #estado-error p { color: var(--text-muted); margin-bottom: 1.5rem; }
 
   #reenvio-card { display: none; }
@@ -21,7 +24,7 @@
 
   .rv-brand { background: var(--navy); padding: 1.5rem 2.25rem; display: flex; align-items: center; gap: 12px; }
   .rv-brand-logo { width: 36px; height: 36px; border-radius: 8px; }
-  .rv-brand-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--white); }
+  .rv-brand-name { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--white); }
   .rv-brand-tag { margin-left: auto; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: rgba(255,255,255,0.7); }
 
   .rv-fila { display: flex; justify-content: space-between; gap: 1rem; padding: 1rem 2.25rem; border-bottom: 1px solid var(--border); font-size: 14px; }

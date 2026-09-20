@@ -1,0 +1,821 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compara nuestros planes — Proyecto Polaris</title><meta content="Compara los 4 planes de Proyecto Polaris para abrir tu LLC en EE.UU.: BASICO, STANDARD, PREMIUM y SMART. Qué incluye cada uno, con el detalle exacto." name="description"/><link href="https://proyecto-polaris.com/paquetes-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Compara nuestros planes — Proyecto Polaris" name="twitter:title"/><meta content="Compara los 4 planes de Proyecto Polaris para abrir tu LLC en EE.UU.: BASICO, STANDARD, PREMIUM y SMART. Qué incluye cada uno, con el detalle exacto." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/paquetes-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Compara nuestros planes — Proyecto Polaris" property="og:title"/><meta content="Compara los 4 planes de Proyecto Polaris para abrir tu LLC en EE.UU.: BASICO, STANDARD, PREMIUM y SMART. Qué incluye cada uno, con el detalle exacto." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
+<link href="shared.css" rel="stylesheet"/>
+<style>
+    /* Tipografía de titulares: Plus Jakarta Sans (toda página nueva lleva este bloque desde el principio) */
+    :root { --font-heading: 'Plus Jakarta Sans', sans-serif; }
+</style>
+<style>
+    .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+    .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 560px; margin: 0 auto; line-height: 1.7; }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+    .cmp-wrap { max-width: 1100px; margin: 0 auto; padding: 3.5rem 2rem 1rem; }
+    .cmp-table { width: 100%; border-collapse: separate; border-spacing: 0; background: var(--white); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; font-size: 14px; }
+    .cmp-table th, .cmp-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .cmp-table tbody tr:last-child th, .cmp-table tbody tr:last-child td { border-bottom: 0; }
+    .cmp-table thead th { background: var(--navy-pale); text-align: center; padding: 22px 12px 16px; border-bottom: 2px solid var(--border); position: relative; }
+    .cmp-table tbody th { text-align: left; font-weight: 600; color: var(--navy); width: 34%; line-height: 1.45; }
+    .cmp-table td { text-align: center; width: 16.5%; }
+    .cmp-table tbody tr:hover th, .cmp-table tbody tr:hover td { background: #f4f8fc; }
+    .plan-h { font-size: 13px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy); }
+    .col-badge { display: inline-block; background: var(--navy); color: var(--white); font-size: 10px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 10px; border-radius: 999px; margin-bottom: 6px; }
+    .cmp-table thead th.col-standard { background: #dbe8f5; }
+    .cmp-table td.col-standard { background: #f7fafd; }
+    .cmp-table thead th.col-smart { background: #fff1b8; }
+    .cmp-table td.col-smart { background: #fffbe8; }
+    .col-smart .plan-h { font-style: italic; text-decoration: underline; text-underline-offset: 3px; }
+    .cmp-table tbody tr:hover td.col-smart { background: #fff6cf; }
+    .row-price th, .row-price td { padding-top: 20px; padding-bottom: 20px; }
+    .price-big { display: block; font-family: var(--font-heading); font-size: 1.7rem; font-weight: 700; color: var(--navy); line-height: 1.1; }
+    .price-sub { display: block; font-size: 12px; font-weight: 600; color: var(--text-muted); margin-top: 4px; }
+    .row-line { display: block; }
+    .row-line + .row-line { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border); }
+    .row-note { display: block; font-size: 12px; font-weight: 500; color: #c0392b; margin-top: 4px; line-height: 1.4; }
+    .cell-price { font-weight: 700; color: var(--navy); }
+    .cell-sub { display: block; font-size: 11px; font-style: italic; color: var(--text-muted); margin-top: 4px; }
+    .pill-inc { display: inline-block; background: #e3f4e9; color: #14683d; border: 1px solid #bfe3cc; border-radius: 8px; padding: 4px 12px; font-size: 13px; font-weight: 600; }
+    .mark-no { display: inline-flex; color: #c0392b; }
+    .cell-free { font-weight: 700; color: var(--navy); }
+    .mark-yes { display: block; color: #1a7a4a; line-height: 0; margin-top: 4px; }
+    .cmp-foot { max-width: 1100px; margin: 0 auto; padding: 1.25rem 2rem 0; font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+
+    .col-clickable { cursor: pointer; }
+    .plan-btn { display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 8px; border: 1.5px solid var(--navy); background: var(--white); color: var(--navy); text-decoration: none; cursor: default; line-height: 1.3; }
+    .plan-btn.is-link { cursor: pointer; transition: background 0.2s; }
+    .plan-btn.is-link:hover { background: var(--navy-pale); }
+    .plan-btn:focus-visible { outline: 3px solid #7aaed4; outline-offset: 2px; }
+    .cmp-table { table-layout: fixed; }
+    .cmp-table thead th:first-child { width: 34%; }
+    .cmp-table thead th:not(:first-child) { width: 16.5%; }
+    .cmp-btns { display: grid; grid-template-columns: 34% repeat(4, 16.5%); padding: 1.1rem 1px 0; }
+    .cmp-btns > div { padding: 0 8px; }
+    .cmp-btns .plan-btn { width: 100%; padding: 10px 8px; font-size: 12.5px; line-height: 1.25; }
+    .card-cta { padding: 1rem 0 1.1rem; }
+    .card-cta .plan-btn { width: 100%; position: relative; z-index: 3; }
+    .col-link { color: inherit; text-decoration: none; display: inline-block; }
+    .col-link:focus-visible { outline: 3px solid #7aaed4; outline-offset: 3px; border-radius: 4px; }
+    .col-arrow { display: inline-block; transition: transform 0.2s; }
+    .cmp-table.hl-standard th.col-standard { background: #cbdef1; }
+    .cmp-table.hl-standard td.col-standard { background: #edf4fb; }
+    .cmp-table.hl-standard .col-arrow { transform: translateX(3px); }
+    .cmp-cards { display: none; }
+    .faq-wrap { max-width: 780px; margin: 0 auto; padding: 3.5rem 2rem 1rem; }
+    .faq-wrap h2 { font-family: var(--font-heading); font-size: clamp(1.4rem, 3vw, 1.9rem); font-weight: 700; color: var(--navy); margin-bottom: 1.5rem; }
+    .cta-final { text-align: center; padding: 2.5rem 2rem 4.5rem; }
+    .cta-final p { font-size: 1rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .cta-final .cta-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .cta-final h3 { font-family: var(--font-heading); font-size: 1.3rem; color: var(--navy); margin-bottom: 0.5rem; }
+
+    @media (max-width: 820px) {
+      .cmp-wrap { padding: 2.5rem 1.25rem 0.5rem; }
+      .cmp-table, .cmp-btns { display: none; }
+      .cmp-cards { display: grid; gap: 1.25rem; }
+      .cmp-card { position: relative; background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.5rem 1.25rem 0.5rem; }
+      .cmp-card.is-featured { border: 2px solid var(--navy-light); box-shadow: 0 12px 32px rgba(13,33,55,0.12); }
+      .cmp-card.is-link { cursor: pointer; transition: box-shadow 0.2s; }
+      .cmp-card.is-link:hover { box-shadow: 0 16px 40px rgba(13,33,55,0.2); }
+      .card-link { position: absolute; inset: 0; z-index: 2; border-radius: 16px; }
+      .card-link:focus-visible { outline: 3px solid #7aaed4; outline-offset: 2px; }
+      .cmp-card.is-featured .col-badge { position: absolute; top: -12px; left: 1.25rem; margin: 0; }
+      .cmp-card.col-smart { background: #fffbe8; border-color: #ecd679; }
+      .cmp-card .plan-h { display: block; margin-bottom: 0.5rem; }
+      .card-price { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 10px; padding-bottom: 1rem; border-bottom: 2px solid var(--border); }
+      .card-price .price-big, .card-price .price-sub { display: inline; margin: 0; }
+      .card-price .price-big { font-size: 2rem; }
+      .card-list { list-style: none; }
+      .card-list li { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+      .card-list li:last-child { border-bottom: 0; }
+      .li-label { flex: 1; font-weight: 600; color: var(--navy); line-height: 1.4; }
+      .li-val { flex-shrink: 0; text-align: right; max-width: 42%; }
+      .cmp-foot { padding-left: 1.25rem; padding-right: 1.25rem; }
+      .faq-wrap { padding: 2.5rem 1.25rem 0.5rem; }
+    }
+  </style>
+  <script>
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
+    })();
+  </script>
+<style>
+/* ── WIDGET FLOTANTE ──────────────────────────────── */
+#cal-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 150;
+  display: block;
+  animation: widgetIn 0.3s ease;
+}
+@keyframes widgetIn { from { transform:scale(0.7); opacity:0 } to { transform:scale(1); opacity:1 } }
+#cal-widget a {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); color: var(--white);
+  font-size: 13px; font-weight: 700;
+  padding: 11px 18px; border-radius: 50px;
+  text-decoration: none; box-shadow: 0 6px 20px rgba(13,33,55,0.35);
+  transition: background 0.2s, transform 0.2s;
+}
+#cal-widget a:hover { background: var(--navy-mid); transform: translateY(-2px); }
+#cal-widget-close {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text-muted); color: white; border: none;
+  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+</style>
+
+</head>
+<body data-wa-categoria="llc">
+<!-- TRUSTPILOT-BAR:START -->
+<div class="tp-badge-bar">
+<a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/5/128x24.png" width="128"/>
+<span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
+</a>
+</div>
+<!-- TRUSTPILOT-BAR:END -->
+<!-- HEADER:START -->
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="calendario-llc.html">Calendario fiscal</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Noticias</a></li>
+<li><a href="precio-maximo-llc.html">¿Estás pagando de más?</a></li>
+</ul>
+</li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+</div>
+</div>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="calendario-llc.html">Calendario fiscal</a>
+<a href="referidos.html">Programa de referidos</a>
+<a href="preguntas-frecuentes.html">Preguntas frecuentes</a>
+<a href="blog/index.html">Noticias</a>
+<a href="precio-maximo-llc.html">¿Estás pagando de más?</a>
+</div>
+</div>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+<!-- HEADER:END -->
+
+<div class="page-header">
+<p class="page-header-eyebrow">Comparativa de planes</p>
+<h1>¿Qué plan te conviene?</h1>
+<p>Las 4 formas de trabajar con nosotros, con el detalle exacto de qué incluye cada uno. Elige según cuánto quieras delegar.</p>
+</div>
+<section class="cmp-wrap">
+<table class="cmp-table">
+<caption class="sr-only">Comparativa de los planes BASICO, STANDARD, PREMIUM y SMART</caption>
+<thead>
+<tr>
+<th scope="col"><span class="sr-only">Servicio</span></th>
+<th scope="col" class="col-basico"><span class="plan-h">BASICO</span></th>
+<th scope="col" class="col-standard col-clickable"><span class="col-badge">El más pedido</span><a class="col-link" href="precios-llc.html"><span class="plan-h">STANDARD</span> <span class="col-arrow" aria-hidden="true">→</span></a></th>
+<th scope="col" class="col-premium"><span class="plan-h">PREMIUM</span></th>
+<th scope="col" class="col-smart"><span class="plan-h">SMART</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-price">
+<th scope="row">Precio</th>
+<td class="col-basico"><span class="price-big">$0</span><span class="price-sub">+ tasa estatal</span></td>
+<td class="col-standard col-clickable"><span class="price-big">$299</span><span class="price-sub">+ tasa estatal</span></td>
+<td class="col-premium"><span class="price-big">$499</span><span class="price-sub">+ tasa estatal</span></td>
+<td class="col-smart"><span class="price-big">$0</span><span class="price-sub">+ tasa estatal + $49/mes</span></td>
+</tr>
+<tr>
+<th scope="row">Preparación y presentación de los Estatutos de Organización</th>
+<td class="col-basico"><span class="pill-inc">Incluido</span></td>
+<td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+</tr>
+<tr>
+<th scope="row">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></th>
+<td class="col-basico"><span class="cell-price">$99</span></td>
+<td class="col-standard col-clickable"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+<td class="col-premium"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+<td class="col-smart"><span class="cell-price">$99</span></td>
+</tr>
+<tr>
+<th scope="row">Número de Identificación Fiscal (EIN)<span class="row-note">(Necesario para abrir cuenta bancaria)</span></th>
+<td class="col-basico"><span class="cell-price">$99</span></td>
+<td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+</tr>
+<tr>
+<th scope="row">Acuerdo Operativo</th>
+<td class="col-basico"><span class="cell-price">$99</span></td>
+<td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+</tr>
+<tr>
+<th scope="row">Formularios IRS para no residentes sin ECI (1120-5472 / 1065-K1)<span class="row-note">Obligatorio todos los años</span></th>
+<td class="col-basico"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
+<td class="col-standard col-clickable"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span><span class="cell-sub">(en el año de la creación)</span></td>
+<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+</tr>
+<tr>
+<th scope="row"><span class="row-line">Servicio Dirección y Buzón de Correo físico</span><span class="row-line">Alertas de Cumplimiento</span></th>
+<td class="col-basico"><span class="cell-price">$99/año</span></td>
+<td class="col-standard col-clickable"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+<td class="col-premium"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></td>
+<td class="col-smart"><span class="pill-inc">Incluido</span></td>
+</tr>
+<tr>
+<th scope="row">Tramitación Acelerada</th>
+<td class="col-basico"><span class="cell-price">$49</span></td>
+<td class="col-standard col-clickable"><span class="cell-price">$49</span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart"><span class="cell-price">$49</span></td>
+</tr>
+<tr>
+<th scope="row">Nombre de Dominio + Email Empresarial</th>
+<td class="col-basico"><span class="cell-price">$49 / 1 año</span></td>
+<td class="col-standard col-clickable"><span class="cell-price">$39 / 1 año</span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart"><span class="cell-price">$49 / 1 año</span></td>
+</tr>
+<tr>
+<th scope="row">Página web*</th>
+<td class="col-basico"><span class="cell-price">$159</span></td>
+<td class="col-standard col-clickable"><span class="cell-price">$159</span></td>
+<td class="col-premium"><span class="cell-price">$99</span></td>
+<td class="col-smart"><span class="cell-price">$159</span></td>
+</tr>
+<tr>
+<th scope="row">Soporte por WhatsApp y Email</th>
+<td class="col-basico"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
+<td class="col-standard col-clickable"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></td>
+</tr>
+<tr>
+<th scope="row">Consultoría 1h</th>
+<td class="col-basico"><span class="cell-price">$69</span></td>
+<td class="col-standard col-clickable"><span class="pill-inc">Incluido</span></td>
+<td class="col-premium"><span class="pill-inc">Incluido</span></td>
+<td class="col-smart"><span class="cell-price">$69</span></td>
+</tr>
+</tbody>
+</table>
+<div class="cmp-btns">
+<div class="cmp-btns-spacer"></div>
+<div><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+<div><a class="plan-btn is-link" href="precios-llc.html">Ver precio por estado</a></div>
+<div><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+<div><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+</div>
+<div class="cmp-cards">
+<article class="cmp-card col-basico">
+<h3 class="plan-h">BASICO</h3>
+<p class="card-price"><span class="price-big">$0</span> <span class="price-sub">+ tasa estatal</span></p>
+<ul class="card-list">
+<li><span class="li-label">Preparación y presentación de los Estatutos de Organización</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></span><span class="li-val"><span class="cell-price">$99</span></span></li>
+<li><span class="li-label">Número de Identificación Fiscal (EIN)<span class="row-note">(Necesario para abrir cuenta bancaria)</span></span><span class="li-val"><span class="cell-price">$99</span></span></li>
+<li><span class="li-label">Acuerdo Operativo</span><span class="li-val"><span class="cell-price">$99</span></span></li>
+<li><span class="li-label">Formularios IRS para no residentes sin ECI (1120-5472 / 1065-K1)<span class="row-note">Obligatorio todos los años</span></span><span class="li-val"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></span></li>
+<li><span class="li-label"><span class="row-line">Servicio Dirección y Buzón de Correo físico</span><span class="row-line">Alertas de Cumplimiento</span></span><span class="li-val"><span class="cell-price">$99/año</span></span></li>
+<li><span class="li-label">Tramitación Acelerada</span><span class="li-val"><span class="cell-price">$49</span></span></li>
+<li><span class="li-label">Nombre de Dominio + Email Empresarial</span><span class="li-val"><span class="cell-price">$49 / 1 año</span></span></li>
+<li><span class="li-label">Página web*</span><span class="li-val"><span class="cell-price">$159</span></span></li>
+<li><span class="li-label">Soporte por WhatsApp y Email</span><span class="li-val"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></span></li>
+<li><span class="li-label">Consultoría 1h</span><span class="li-val"><span class="cell-price">$69</span></span></li>
+</ul>
+<div class="card-cta"><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+</article>
+<article class="cmp-card col-standard is-featured is-link">
+<a class="card-link" href="precios-llc.html" aria-label="Plan STANDARD: ver precios por estado"></a>
+<span class="col-badge">El más pedido</span>
+<h3 class="plan-h">STANDARD</h3>
+<p class="card-price"><span class="price-big">$299</span> <span class="price-sub">+ tasa estatal</span></p>
+<ul class="card-list">
+<li><span class="li-label">Preparación y presentación de los Estatutos de Organización</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></span><span class="li-val"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></span></li>
+<li><span class="li-label">Número de Identificación Fiscal (EIN)<span class="row-note">(Necesario para abrir cuenta bancaria)</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Acuerdo Operativo</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Formularios IRS para no residentes sin ECI (1120-5472 / 1065-K1)<span class="row-note">Obligatorio todos los años</span></span><span class="li-val"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></span></li>
+<li><span class="li-label"><span class="row-line">Servicio Dirección y Buzón de Correo físico</span><span class="row-line">Alertas de Cumplimiento</span></span><span class="li-val"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></span></li>
+<li><span class="li-label">Tramitación Acelerada</span><span class="li-val"><span class="cell-price">$49</span></span></li>
+<li><span class="li-label">Nombre de Dominio + Email Empresarial</span><span class="li-val"><span class="cell-price">$39 / 1 año</span></span></li>
+<li><span class="li-label">Página web*</span><span class="li-val"><span class="cell-price">$159</span></span></li>
+<li><span class="li-label">Soporte por WhatsApp y Email</span><span class="li-val"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></span></li>
+<li><span class="li-label">Consultoría 1h</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+</ul>
+<div class="card-cta"><a class="plan-btn is-link" href="precios-llc.html">Ver precio por estado</a></div>
+</article>
+<article class="cmp-card col-premium">
+<h3 class="plan-h">PREMIUM</h3>
+<p class="card-price"><span class="price-big">$499</span> <span class="price-sub">+ tasa estatal</span></p>
+<ul class="card-list">
+<li><span class="li-label">Preparación y presentación de los Estatutos de Organización</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></span><span class="li-val"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></span></li>
+<li><span class="li-label">Número de Identificación Fiscal (EIN)<span class="row-note">(Necesario para abrir cuenta bancaria)</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Acuerdo Operativo</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Formularios IRS para no residentes sin ECI (1120-5472 / 1065-K1)<span class="row-note">Obligatorio todos los años</span></span><span class="li-val"><span class="pill-inc">Incluido</span><span class="cell-sub">(en el año de la creación)</span></span></li>
+<li><span class="li-label"><span class="row-line">Servicio Dirección y Buzón de Correo físico</span><span class="row-line">Alertas de Cumplimiento</span></span><span class="li-val"><span class="cell-free">Gratis 1 año</span><span class="mark-yes"><svg class="ic-check" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg></span></span></li>
+<li><span class="li-label">Tramitación Acelerada</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Nombre de Dominio + Email Empresarial</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Página web*</span><span class="li-val"><span class="cell-price">$99</span></span></li>
+<li><span class="li-label">Soporte por WhatsApp y Email</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Consultoría 1h</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+</ul>
+<div class="card-cta"><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+</article>
+<article class="cmp-card col-smart">
+<h3 class="plan-h">SMART</h3>
+<p class="card-price"><span class="price-big">$0</span> <span class="price-sub">+ tasa estatal + $49/mes</span></p>
+<ul class="card-list">
+<li><span class="li-label">Preparación y presentación de los Estatutos de Organización</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Agente Registrado<span class="row-note">Obligatorio — si no lo contratas con nosotros, tienes que proporcionarnos los datos del que ya tengas.</span></span><span class="li-val"><span class="cell-price">$99</span></span></li>
+<li><span class="li-label">Número de Identificación Fiscal (EIN)<span class="row-note">(Necesario para abrir cuenta bancaria)</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Acuerdo Operativo</span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Formularios IRS para no residentes sin ECI (1120-5472 / 1065-K1)<span class="row-note">Obligatorio todos los años</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label"><span class="row-line">Servicio Dirección y Buzón de Correo físico</span><span class="row-line">Alertas de Cumplimiento</span></span><span class="li-val"><span class="pill-inc">Incluido</span></span></li>
+<li><span class="li-label">Tramitación Acelerada</span><span class="li-val"><span class="cell-price">$49</span></span></li>
+<li><span class="li-label">Nombre de Dominio + Email Empresarial</span><span class="li-val"><span class="cell-price">$49 / 1 año</span></span></li>
+<li><span class="li-label">Página web*</span><span class="li-val"><span class="cell-price">$159</span></span></li>
+<li><span class="li-label">Soporte por WhatsApp y Email</span><span class="li-val"><span class="mark-no"><svg class="ic-x" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></svg><span class="sr-only">No incluido</span></span></span></li>
+<li><span class="li-label">Consultoría 1h</span><span class="li-val"><span class="cell-price">$69</span></span></li>
+</ul>
+<div class="card-cta"><button type="button" class="plan-btn" aria-disabled="true">Ver precio por estado</button></div>
+</article>
+</div>
+</section>
+<p class="cmp-foot">*Incluye 1 página web sencilla (una sola página, no un sitio completo — para una web completa, consúltanos y te damos un presupuesto aparte). El hosting no está incluido, a menos que se especifique lo contrario; corre a cargo del cliente.</p>
+<section class="faq-wrap">
+<h2>Preguntas sobre los planes</h2>
+<div class="faq-item">
+<button class="faq-q" type="button" aria-expanded="false" id="pq-1" aria-controls="pa-1">
+<span>¿El precio es un pago único o hay cobros recurrentes?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="pa-1" role="region" aria-labelledby="pq-1">
+<p>Es un pago único por la formación. Ningún plan implica un cobro automático año tras año — a diferencia de otras plataformas, no te cargamos la tarjeta sin avisarte. El agente registrado y el resto de servicios anuales se renuevan solo si tú decides seguir con nosotros: te avisamos antes de cada renovación (o cada mes, si estás en el plan SMART) y decides en ese momento.</p>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-q" type="button" aria-expanded="false" id="pq-2" aria-controls="pa-2">
+<span>¿Puedo añadir servicios más adelante?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="pa-2" role="region" aria-labelledby="pq-2">
+<p>Sí. Si empiezas con BASICO o STANDARD y luego necesitas algo del plan superior — por ejemplo, los formularios del IRS o la tramitación acelerada — puedes añadirlo por separado cuando lo necesites, o elegir uno de nuestros planes de cumplimiento todo incluido.</p>
+</div>
+</div>
+<div class="faq-item">
+<button class="faq-q" type="button" aria-expanded="false" id="pq-3" aria-controls="pa-3">
+<span>¿Necesitaré firmar algo?</span>
+<span class="faq-q-icon" aria-hidden="true">+</span>
+</button>
+<div class="faq-a" id="pa-3" role="region" aria-labelledby="pq-3">
+<p>No. Los documentos que requieren firma los firma nuestro equipo — como organizador, en el caso de una LLC — para que tú no tengas que firmar nada.</p>
+</div>
+</div>
+</section>
+<section class="cta-final">
+<h3>¿No sabes cuál elegir?</h3>
+<p>Escríbenos y te decimos cuál te conviene según tu caso — sin compromiso.</p>
+<div class="cta-row">
+<a class="btn btn-navy" href="contacto.html">Escríbenos</a>
+</div>
+</section>
+<script>
+(function () {
+  var table = document.querySelector('.cmp-table');
+  if (!table) return;
+  table.querySelectorAll('.col-standard.col-clickable').forEach(function (cell) {
+    cell.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return; // el enlace de la cabecera navega por sí solo
+      window.location.href = 'precios-llc.html';
+    });
+    cell.addEventListener('mouseenter', function () { table.classList.add('hl-standard'); });
+    cell.addEventListener('mouseleave', function () { table.classList.remove('hl-standard'); });
+  });
+})();
+</script>
+<script>
+(function () {
+  document.querySelectorAll('.faq-q').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var item = btn.closest('.faq-item');
+      var a = item.querySelector('.faq-a');
+      var open = item.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      a.style.maxHeight = open ? a.scrollHeight + 'px' : '0px';
+    });
+  });
+})();
+</script>
+<!-- ===== REVIEWS CAROUSEL ===== -->
+<section class="reviews-section">
+<div class="section" style="padding-bottom:0;">
+<p class="section-eyebrow">Opiniones de clientes</p>
+<h2 class="section-title" style="font-family:var(--font-heading);">Lo que dicen nuestros clientes</h2>
+</div>
+<div class="reviews-outer">
+<div class="reviews-track" id="reviewsTrack">
+<div class="rev-slide">
+<a class="review-card review-card-tp" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" style="justify-content:center;" target="_blank">
+<div class="review-body" style="text-align:center;">
+<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
+<img alt="Trustpilot: 4,3 sobre 5 estrellas" height="48" src="https://images-static.trustpilot.com/api/stars/4.5/256x48.png" style="height:48px;width:auto;margin:0 auto 1rem;display:block;" width="256"/>
+<p class="review-name" style="font-size:1.1rem;">4,3 · Excelente</p>
+<p class="review-text" style="font-style:normal;margin-top:0.5rem;margin-bottom:0;">Descubre lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">En Polaris he conseguido justo el soporte y servicio que necesito.</p>
+<p class="review-text">"En Polaris he conseguido justo el soporte y servicio que necesito, profesionales que conocen muy bien el mercado, trabajando con estrategia impecable, aportando soluciones, enseñándome y compartiendo información muy relevante y aspectos que no todos querrán compartir; en resumidas cuentas, un equipo flexible pero muy disciplinado, que comprende tus necesidades y te acompaña de principio a fin en tu propósito de negocio."</p>
+<p class="review-name">Jose Ferreira</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Portugal · 16 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Honestidad, amabilidad, profesionalismo, etc.</p>
+<p class="review-text">"Honestidad, amabilidad, profesionalismo etc. A decir verdad me quedo corta al querer expresar lo contenta, satisfecha y sobretodo lo muy agradecida que estoy de contar con sus servicios de Proyecto Polaris, la verdad 5 estrellas no es suficiente, los recomiendo al 100%, muchísimas gracias Yadi y Samir por siempre estar ahí y responder cada que surge una duda. Agradecida 🙌"</p>
+<p class="review-name">Ivette Chacon</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">EE.UU. · 4 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">El acompañamiento y el asesoramiento...</p>
+<p class="review-text">"El acompañamiento y el asesoramiento que recibimos en todo momento hicieron que todo el proceso fuera mucho más fácil para nosotros. Los recomendamos al 100% por su seriedad, profesionalismo y excelente atención."</p>
+<p class="review-name">Joel y Vanesa</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Argentina · 4 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Recomiendo ampliamente a este equipo de...</p>
+<p class="review-text">"Recomiendo ampliamente a este equipo de trabajo, son gente 100% confiable, amable y que en todo momento están al pendiente de las necesidades de sus clientes y resolviendo dudas. Gracias por su apoyo y mucho éxito!!"</p>
+<p class="review-name">Yadira Velasco Arteaga</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">México · 8 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Destaco totalmente la atención de este...</p>
+<p class="review-text">"Destaco totalmente la atención de este equipo: amables, puntuales y extremadamente rápidos. Su capacidad para asesorar y resolver cualquier duda con claridad, sumada al orden impecable en todos sus procesos, marca la diferencia. ¡Un servicio de excelente calidad!"</p>
+<p class="review-name">Gabriel Velez</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Colombia · 13 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Por se cumplió el objetivo</p>
+<p class="review-text">"Por se cumplió el objetivo, con todos los puntos acordados y en corto tiempo"</p>
+<p class="review-name">Priscila</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Venezuela · 24 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">La empresa más confiable que he...</p>
+<p class="review-text">"La empresa más confiable que he contratado"</p>
+<p class="review-name">Brenux LLC</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">España · 22 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Cordiales, profesionales y efectivos</p>
+<p class="review-text">"Fueron sumamente cordiales y efectivos. Están buscando hacer las cosas bien y no sacar plata a los clientes. Me resultaron honestos y transparentes, cosa que no es fácil encontrar hoy en día."</p>
+<p class="review-name">Matias O.</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Uruguay · 25 ago 2026</p>
+</div>
+</a>
+</div>
+</div>
+<div class="carousel-arrows" style="margin-top:1.5rem;">
+<button aria-label="Anterior" class="carousel-arrow" id="revPrev">←</button>
+<button aria-label="Siguiente" class="carousel-arrow" id="revNext">→</button>
+</div>
+</div>
+</section>
+<script>
+(function(){
+  var outer = document.querySelector('.reviews-outer');
+  var track = document.getElementById('reviewsTrack');
+  if (!track || !outer) return;
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.rev-slide'));
+  var total = slides.length;
+  var current = 0;
+  var timer = null;
+  var started = false;
+
+  // Use CSS scroll-based approach for reliability
+  function updateSlides() {
+    slides.forEach(function(s, i) {
+      var card = s.querySelector('.review-card');
+      if (i === current) {
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      } else {
+        card.style.opacity = '0.38';
+        card.style.transform = 'scale(0.94)';
+      }
+    });
+  }
+
+  function goTo(n, animated) {
+    current = ((n % total) + total) % total;
+    // Scroll the active slide into center view
+    var slide = slides[current];
+    var outerW = outer.offsetWidth;
+    var slideW = slide.offsetWidth;
+    // offset = slide's left position - center padding
+    var slideLeft = slide.offsetLeft;
+    var scrollTo = slideLeft - (outerW - slideW) / 2;
+    if (animated) {
+      track.style.transition = 'transform 0.45s cubic-bezier(.4,0,.2,1)';
+    } else {
+      track.style.transition = 'none';
+    }
+    track.style.transform = 'translateX(' + (-scrollTo) + 'px)';
+    updateSlides();
+  }
+
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(function(){ goTo(current + 1, true); }, 7000);
+  }
+  function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+
+  function init() {
+    if (started) return;
+    started = true;
+    // Wait one frame to ensure layout is complete
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        goTo(0, false);
+        startTimer();
+      });
+    });
+  }
+
+  document.getElementById('revNext').addEventListener('click', function(){
+    stopTimer(); goTo(current + 1, true); startTimer();
+  });
+  document.getElementById('revPrev').addEventListener('click', function(){
+    stopTimer(); goTo(current - 1, true); startTimer();
+  });
+
+  // Touch/swipe
+  var tx = 0;
+  outer.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
+  outer.addEventListener('touchend', function(e){
+    var dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) { stopTimer(); goTo(current + (dx > 0 ? 1 : -1), true); startTimer(); }
+  }, {passive:true});
+
+  // Recalc on resize
+  window.addEventListener('resize', function(){ if (started) { requestAnimationFrame(function(){ goTo(current, false); }); } });
+
+  // IntersectionObserver — start only when visible
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) { init(); obs.disconnect(); }
+    }, { threshold: 0.2 });
+    obs.observe(outer);
+  } else {
+    window.addEventListener('load', init);
+  }
+})();
+</script>
+<!-- FOOTER:START -->
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="precios-llc.html">Precios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="precios-marca.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="privacidad.html">Política de privacidad</a></li>
+<li><a href="terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- FOOTER:END -->
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
+<!-- WIDGET FLOTANTE -->
+<div id="cal-widget">
+<a href="calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+    Mi calendario LLC
+  </a>
+<button aria-label="Cerrar widget" id="cal-widget-close" onclick="document.getElementById('cal-widget').style.display='none'">✕</button>
+</div>
+<!-- Widget Referidos -->
+<div id="ref-widget-wrap">
+  <a href="referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>
+  <a href="referidos.html" id="ref-widget-banner">Programa de referidos<br>Apuntate y gana</a>
+</div>
+<script>
+(function(){
+  var banner = document.getElementById("ref-widget-banner");
+  var dot = document.getElementById("ref-widget-dot");
+  if (!banner) return;
+  // Collapse after 5 seconds
+  setTimeout(function(){
+    banner.style.transition = "opacity 0.4s, max-height 0.4s";
+    banner.style.opacity = "0";
+    setTimeout(function(){
+      banner.style.display = "none";
+      dot.classList.add("visible");
+    }, 400);
+  }, 5000);
+})();
+</script>
+<script src="/whatsapp-widget.js" defer></script>
+<script src="/nav-dropdown.js" defer></script>
+</body>
+</html>

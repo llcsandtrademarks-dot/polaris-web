@@ -7,13 +7,16 @@
 <meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/>
 <title>Panel de administración — Proyecto Polaris</title>
 <link rel="stylesheet" href="shared.css">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
 <style>
   .section { max-width: 1000px; margin: 0 auto; padding: 3rem 2rem; }
 
   .fm-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; }
-  .fm-title { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 1.25rem; }
+  .fm-title { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 1.25rem; }
 
   .fm-field { margin-bottom: 1.1rem; }
   .fm-field label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 5px; }
@@ -33,10 +36,10 @@
   #gate-password .fm-card { max-width: 340px; margin: 0 auto; text-align: left; }
   #inventario { display: none; }
 
-  .inv-block-title { font-family: 'Playfair Display', serif; font-size: 1.15rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 1rem; }
+  .inv-block-title { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 1rem; }
   .inv-block-title:first-child { margin-top: 0; }
   .inv-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
-  .inv-card-title { font-family: 'Playfair Display', serif; font-size: 1.02rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+  .inv-card-title { font-family: var(--font-heading); font-size: 1.02rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
   .inv-card-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; flex: 1; margin-bottom: 1rem; }
   .inv-card-cta { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy); border: 1.5px solid var(--navy); padding: 6px 14px; border-radius: 6px; align-self: flex-start; transition: background 0.2s, color 0.2s; }
   .srv-card:hover .inv-card-cta { background: var(--navy); color: var(--white); }
@@ -168,6 +171,11 @@
         <div class="inv-card-title">Registro de marca</div>
         <div class="inv-card-desc">Detalle de servicios de registro de marca</div>
         <a href="servicios-marca.html" class="inv-card-cta">Abrir →</a>
+      </div>
+      <div class="fm-card" style="display:flex;flex-direction:column;">
+        <div class="inv-card-title">Comparativa de planes</div>
+        <div class="inv-card-desc">Tabla comparativa de los 4 planes (BASICO, STANDARD, PREMIUM, SMART) con qué incluye cada uno</div>
+        <a href="paquetes-llc.html" class="inv-card-cta">Abrir →</a>
       </div>
       <div class="fm-card" style="display:flex;flex-direction:column;">
         <div class="inv-card-title">Precios de LLC</div>

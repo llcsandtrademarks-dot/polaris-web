@@ -25,6 +25,20 @@
  *      ejecuta el script sobre ella), localiza el <nav>...</nav> +
  *      .mobile-menu existentes para el header, y el <footer>...</footer>
  *      existente para el footer, y los envuelve con los marcadores.
+ *   3b. Igual con la zona <!-- FONTS:START --> ... <!-- FONTS:END --> del <head>
+ *      (preconnect + <link> único de Google Fonts). El bloque vive en la
+ *      constante FONTS_BLOCK de este script: para añadir/quitar una familia
+ *      tipográfica, se edita ahí y se ejecuta el script. La primera vez en
+ *      cada página elimina los <link> sueltos de fonts.googleapis.com /
+ *      fonts.gstatic.com y pone el bloque en su lugar.
+ *   3c. Igual con la barra Trustpilot superior, zona
+ *      <!-- TRUSTPILOT-BAR:START --> ... <!-- TRUSTPILOT-BAR:END -->. Su HTML vive
+ *      en la constante TP_BAR_BLOCK de este script (ahí se cambia la URL de
+ *      estrellas si la puntuación cambia). OJO: solo actúa en las páginas que YA
+ *      llevan la barra (o sus marcadores). Las páginas transaccionales/legales
+ *      (admin, factura*, pagos, privacidad, términos, etc.) no la llevan a
+ *      propósito y el script no se la añade. Para dársela a una página nueva,
+ *      basta con poner los marcadores vacíos justo después de <body ...>.
  *   4. Se asegura además de que la página cargue <script src="/nav-dropdown.js">.
  *      Varias páginas (admin.html, factura*.html, los artículos de blog) tenían
  *      el HTML del menú desplegable pero NO el script, así que los desplegables
@@ -175,6 +189,67 @@ function buildFooterInner(html, template, ROOT, BLOGHOME, file) {
   return html.slice(0, footerStart) + newBlock + html.slice(footerEnd);
 }
 
+// Bloque único de tipografías (Google Fonts) que se inyecta en el <head> de todas
+// las páginas. Playfair Display = titulares por defecto (var(--font-heading) en
+// shared.css), Plus Jakarta Sans = titulares de la home (override en index.html),
+// DM Sans = cuerpo.
+const FONTS_BLOCK = [
+  '<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>',
+  '<link href="https://fonts.googleapis.com" rel="preconnect"/>',
+  '<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>',
+].join('\n');
+
+function buildFonts(html, file) {
+  const newBlock = `<!-- FONTS:START -->\n${FONTS_BLOCK}\n<!-- FONTS:END -->`;
+
+  const markerRe = /<!-- FONTS:START -->[\s\S]*?<!-- FONTS:END -->/;
+  if (markerRe.test(html)) {
+    return html.replace(markerRe, () => newBlock);
+  }
+
+  // Primera ejecución: localizar los <link> hardcodeados de Google Fonts
+  // (preconnect a gstatic/googleapis + la hoja css2), poner el bloque donde
+  // estaba el primero y quitar los demás.
+  const linkRe = /<link\b[^>]*fonts\.(?:googleapis|gstatic)\.com[^>]*>[ \t]*\r?\n?/gi;
+  const matches = [...html.matchAll(linkRe)];
+  if (matches.length === 0) {
+    throw new Error(`No se encontraron <link> de Google Fonts ni marcadores FONTS:START en ${file}`);
+  }
+  let out = '';
+  let cursor = 0;
+  matches.forEach((m, i) => {
+    out += html.slice(cursor, m.index);
+    if (i === 0) out += newBlock + '\n';
+    cursor = m.index + m[0].length;
+  });
+  out += html.slice(cursor);
+  return out;
+}
+
+// Barra Trustpilot superior. La URL de estrellas es estática (no se actualiza
+// sola): si cambia la puntuación, se edita aquí y se ejecuta el script.
+const TP_BAR_BLOCK = [
+  '<div class="tp-badge-bar">',
+  '<a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">',
+  '<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/5/128x24.png" width="128"/>',
+  '<span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>',
+  '</a>',
+  '</div>',
+].join('\n');
+
+function buildTpBar(html) {
+  const newBlock = `<!-- TRUSTPILOT-BAR:START -->\n${TP_BAR_BLOCK}\n<!-- TRUSTPILOT-BAR:END -->`;
+
+  const markerRe = /<!-- TRUSTPILOT-BAR:START -->[\s\S]*?<!-- TRUSTPILOT-BAR:END -->/;
+  if (markerRe.test(html)) return html.replace(markerRe, () => newBlock);
+
+  // Primera ejecución: envolver la barra hardcodeada existente. Si la página
+  // no tiene barra, se deja tal cual (no se le añade).
+  const barRe = /<div class="tp-badge-bar">[\s\S]*?<\/div>/;
+  if (!barRe.test(html)) return html;
+  return html.replace(barRe, () => newBlock);
+}
+
 // El header (dropdowns, acordeón móvil, resaltado del enlace activo, intro del
 // menú) depende de nav-dropdown.js. Si la página no lo carga, lo añade justo
 // antes de </body>, junto a whatsapp-widget.js si ya está.
@@ -207,7 +282,9 @@ function main() {
     let after = before;
     after = (function () {
       try {
-        let html = buildHeaderInner(after, headerTemplate, ROOT, BLOGHOME, file);
+        let html = buildFonts(after, file);
+        html = buildTpBar(html);
+        html = buildHeaderInner(html, headerTemplate, ROOT, BLOGHOME, file);
         html = buildFooterInner(html, footerTemplate, ROOT, BLOGHOME, file);
         html = ensureNavScript(html, file);
         return html;

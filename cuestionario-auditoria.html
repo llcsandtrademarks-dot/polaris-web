@@ -53,15 +53,18 @@
   <link href="https://proyecto-polaris.com/cuestionario-auditoria.html" rel="canonical"/>
 
   <link rel="stylesheet" href="shared.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-
+  <!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
+  
   <style>
     .hero { background: var(--navy); padding: 3.5rem 2.5rem 3rem; }
     .hero-inner { max-width: 720px; margin: 0 auto; }
     .hero-top-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 1.5rem; flex-wrap: wrap; }
     .hero-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.6rem; }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 0.75rem; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(1.6rem, 3.2vw, 2.3rem); font-weight: 700; color: var(--white); line-height: 1.25; margin-bottom: 0.75rem; }
     .hero p { font-size: 0.97rem; color: rgba(255,255,255,0.68); line-height: 1.7; max-width: 480px; }
     .hero-top-link { font-size: 13px; color: rgba(255,255,255,0.75); text-decoration: underline; white-space: nowrap; margin-top: 4px; }
     .hero-top-link:hover { color: var(--white); }
@@ -95,7 +98,7 @@
 
     #confirm-section { display: none; }
     .confirm-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2.5rem 2.25rem; text-align: center; }
-    .confirm-card h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--navy); margin-bottom: 0.75rem; }
+    .confirm-card h2 { font-family: var(--font-heading); font-size: 1.4rem; color: var(--navy); margin-bottom: 0.75rem; }
     .confirm-card p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
 
     .form-error { font-size: 13px; color: #c0392b; margin-top: 12px; text-align: center; display: none; line-height: 1.6; }

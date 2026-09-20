@@ -39,19 +39,22 @@
     if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
   })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
 <style>
   .section { max-width: 780px; margin: 0 auto; padding: 3rem 2rem; }
   #estado-carga { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
   #estado-error { display: none; text-align: center; padding: 3rem 1rem; }
-  #estado-error h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+  #estado-error h1 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
   #estado-error p { color: var(--text-muted); margin-bottom: 1.5rem; }
 
   #portal-card { display: none; }
   .portal-header { margin-bottom: 1.75rem; }
   .portal-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.4rem; }
-  .portal-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--navy); }
+  .portal-header h1 { font-family: var(--font-heading); font-size: clamp(1.5rem, 3vw, 2rem); font-weight: 700; color: var(--navy); }
 
   .totales-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; }
   .total-card { flex: 1; min-width: 180px; background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 1.25rem 1.5rem; }

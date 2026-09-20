@@ -32,13 +32,23 @@
 <title>Precios de LLC por estado — Proyecto Polaris</title><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado. Paga con tarjeta o transferencia." name="description"/><link href="https://proyecto-polaris.com/precios-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Precios de LLC por estado — Proyecto Polaris" name="twitter:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/precios-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Precios de LLC por estado — Proyecto Polaris" property="og:title"/><meta content="Descubre cuánto cuesta crear tu LLC y su renovación anual y cumplimiento según el estado." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
 <link href="shared.css" rel="stylesheet"/>
 <style>
+    .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy); background: var(--white); border: 1.5px solid var(--navy); padding: 8px 16px; border-radius: 8px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .back-btn:hover { background: var(--navy); color: var(--white); }
+    .selector-bar .back-btn { margin-left: auto; }
+    .ver-todos { display: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); background: transparent; border: 0; padding: 8px 4px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .ver-todos.visible { display: inline-block; }
+    .ver-todos:hover { color: var(--navy-light); }
+    table.precios-table tr.estado-row.is-hidden { display: none; }
   .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
   .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
-  .page-header h1 { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+  .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
   .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 620px; margin: 0 auto; line-height: 1.7; }
 
   .selector-bar { max-width: 1100px; margin: 0 auto; padding: 1.75rem 2rem 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
@@ -66,6 +76,7 @@
   @media (max-width: 720px) {
     .page-header { padding: 2.5rem 1.25rem 2rem; }
     .selector-bar { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .selector-bar .back-btn { margin-left: 0; }
     .precios-table-wrap { padding-left: 0.6rem; padding-right: 0.6rem; }
     table.precios-table { table-layout: fixed; width: 100%; }
     table.precios-table th:first-child, table.precios-table td:first-child { width: 30%; }
@@ -123,13 +134,14 @@
 </style>
 </head>
 <body data-wa-categoria="llc">
+<!-- TRUSTPILOT-BAR:START -->
 <div class="tp-badge-bar">
-<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
 <a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
-<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/4.5/128x24.png" width="128"/>
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/5/128x24.png" width="128"/>
 <span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
 </a>
 </div>
+<!-- TRUSTPILOT-BAR:END -->
 <!-- HEADER:START -->
 <nav>
 <a class="nav-logo" href="index.html">
@@ -197,6 +209,8 @@
   <select id="selector-estado" onchange="irAEstado(this.value)">
     <option value="">— Seleccionar estado —</option>
   </select>
+  <button type="button" class="ver-todos" id="ver-todos" onclick="verTodosLosEstados()">Ver todos los estados</button>
+  <a class="back-btn" href="paquetes-llc.html">← Volver a la comparativa de planes</a>
 </div>
 
 <div class="precios-table-wrap">
@@ -215,7 +229,7 @@
 <section class="reviews-section">
 <div class="section" style="padding-bottom:0;">
 <p class="section-eyebrow">Opiniones de clientes</p>
-<h2 class="section-title" style="font-family:'Playfair Display',serif;">Lo que dicen nuestros clientes</h2>
+<h2 class="section-title" style="font-family:var(--font-heading);">Lo que dicen nuestros clientes</h2>
 </div>
 <div class="reviews-outer">
 <div class="reviews-track" id="reviewsTrack">
@@ -561,13 +575,22 @@ async function cargarYRenderizar() {
 }
 cargarYRenderizar();
 
+// Filtra la tabla: con un estado elegido solo se ve su fila; sin estado (o con
+// "Ver todos los estados") vuelven a verse todas.
 function irAEstado(slug) {
-  if (!slug) return;
-  document.querySelectorAll('.estado-row.highlight').forEach(function(r){ r.classList.remove('highlight'); });
-  var row = document.getElementById('estado-' + slug);
-  if (!row) return;
-  row.classList.add('highlight');
-  row.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  var filas = document.querySelectorAll('.estado-row');
+  var boton = document.getElementById('ver-todos');
+  if (!slug || !document.getElementById('estado-' + slug)) {
+    filas.forEach(function(r){ r.classList.remove('is-hidden'); });
+    boton.classList.remove('visible');
+    return;
+  }
+  filas.forEach(function(r){ r.classList.toggle('is-hidden', r.id !== 'estado-' + slug); });
+  boton.classList.add('visible');
+}
+function verTodosLosEstados() {
+  document.getElementById('selector-estado').value = '';
+  irAEstado('');
 }
 </script>
 <!-- WIDGET FLOTANTE -->

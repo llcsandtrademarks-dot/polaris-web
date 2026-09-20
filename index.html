@@ -55,39 +55,117 @@
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
 <meta content="Especialistas en apertura y renovación anual y cumplimiento de LLC y registro de marcas USPTO para extranjeros. Profesionales registrados ante el IRS con PTIN. Consulta gratis." name="description"/><link href="https://proyecto-polaris.com/" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Proyecto Polaris — LLC y Marca en EE.UU." name="twitter:title"/><meta content="Especialistas en LLC y registro de marcas USPTO para extranjeros. Profesionales registrados ante el IRS." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Proyecto Polaris — LLC y Marca en EE.UU." property="og:title"/><meta content="Abre tu LLC, protege tu marca y mantén tu empresa en regla en Estados Unidos. Especialistas en clientes extranjeros. Consulta gratis." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=DM+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
 <link href="shared.css" rel="stylesheet"/>
 <style>
-    .hero { position: relative; min-height: 92vh; display: flex; align-items: center; overflow: hidden; }
+    /* Tipografía de titulares SOLO en la home (el resto del sitio sigue con Playfair Display, definido en shared.css) */
+    :root { --font-heading: 'Plus Jakarta Sans', sans-serif; }
+</style>
+<style>
+    html { scroll-behavior: smooth; }
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 88vh; display: flex; align-items: center; overflow: hidden; }
     .hero-bg { position: absolute; inset: 0; z-index: 0; }
     .hero-bg img { width: 100%; height: 100%; object-fit: cover; filter: brightness(1.0); }
-    /* much lighter overlay so photo is clearly visible */
-    .hero-bg::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.62); }
+    .hero-bg::after { content: ''; position: absolute; inset: 0; background: rgba(255,255,255,0.84); }
     .hero-inner { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; }
-    .hero-content { max-width: 600px; }
-    .hero-badges { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 1.5rem; }
-    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--navy); border: 2px solid var(--navy); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 16px; border-radius: 999px; box-shadow: 0 2px 8px rgba(13,33,55,0.25); }
-    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 700; line-height: 1.18; color: var(--navy); margin-bottom: 1rem; }
-    .hero-sub { font-size: 1.1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem; }
-    .two-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 0; }
-    .how-section { background: var(--navy); color: var(--white); padding: 5rem 2rem; text-align: center; }
-    .how-inner { max-width: 900px; margin: 0 auto; }
-    .how-section .section-eyebrow { color: #7aaed4; }
-    .how-section .section-title { color: var(--white); margin-bottom: 3rem; }
-    .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
-    .step { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
-    .step-number { width: 52px; height: 52px; border-radius: 50%; background: var(--white); color: var(--navy); font-weight: 700; font-size: 1.15rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-    .step-title { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
-    .step-desc { font-size: 0.88rem; color: rgba(255,255,255,0.62); line-height: 1.65; }
-    /* CTA band — white background */
-    .cta-band { background: var(--white); border-top: 1px solid var(--border); padding: 4rem 2rem; text-align: center; }
-    .cta-band h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--navy); margin-bottom: 0.75rem; }
-    .cta-band p { font-size: 1rem; color: var(--text-muted); margin-bottom: 2rem; }
+    .hero-content { max-width: 760px; }
+    .hero h1 { font-family: var(--font-heading); font-size: clamp(2.3rem, 5vw, 3.5rem); font-weight: 700; line-height: 1.12; color: var(--navy); margin-bottom: 1.1rem; }
+    .hero-sub { font-size: 1.12rem; color: var(--text); line-height: 1.7; margin-bottom: 1.5rem; }
+    .hero-seal { display: inline-flex; align-items: center; gap: 8px; background: var(--white); border: 1.5px solid var(--border); color: var(--navy); font-size: 13px; font-weight: 600; padding: 8px 16px; border-radius: 999px; margin-bottom: 2rem; }
+    .hero-seal svg { flex-shrink: 0; color: #1a7a4a; }
+    .hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; }
+    .btn-soft { background: var(--white); color: var(--navy); border: 1.5px solid var(--navy); }
+    .btn-soft:hover { background: var(--navy-pale); }
+
+    /* ── SECCIONES CLARAS ── */
+    .home-section { padding: 4.5rem 2rem; }
+    .home-section.bg-white { background: var(--white); }
+    .home-section.bg-pale { background: var(--navy-pale); }
+    .home-inner { max-width: 1100px; margin: 0 auto; }
+    .home-inner.narrow { max-width: 780px; }
+    .home-title { font-family: var(--font-heading); font-size: clamp(1.6rem, 3vw, 2.2rem); font-weight: 700; color: var(--navy); line-height: 1.2; margin-bottom: 1rem; }
+    .home-text { font-size: 1rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1rem; }
+    .center { text-align: center; }
+
+    /* ── VÍDEO ── */
+    .video-section { background: var(--white); padding: 3.5rem 2rem; }
+    .video-frame { max-width: 860px; margin: 0 auto; aspect-ratio: 16 / 9; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 48px rgba(13,33,55,0.16); background: var(--navy-pale); }
+    .video-frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* ── VENTAJAS ── */
+    .adv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2.25rem; }
+    .adv-card { background: var(--white); border: 1px solid var(--border); border-top: 4px solid var(--navy-light); border-radius: 14px; padding: 1.75rem; }
+    .adv-card h3 { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 700; color: var(--navy); margin-bottom: 0.9rem; line-height: 1.3; }
+    .adv-card p { font-size: 0.93rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 0.75rem; }
+    .adv-card p:last-child { margin-bottom: 0; }
+    .adv-card strong { color: var(--navy); }
+
+    /* ── PLANES ── */
+    .plans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 2.5rem; align-items: stretch; }
+    .plan { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; position: relative; }
+    .plan-featured { border: 2px solid var(--navy-light); box-shadow: 0 12px 32px rgba(13,33,55,0.12); }
+    .plan-badge { position: absolute; top: -12px; left: 1.5rem; background: var(--navy); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; }
+    .plan-name { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.6rem; }
+    .plan-price { font-family: var(--font-heading); font-size: 2.3rem; font-weight: 700; color: var(--navy); line-height: 1.1; }
+    .plan-smart { background: #fff6cf; border-color: #ecd679; }
+    .plan-smart .plan-name { font-style: italic; text-decoration: underline; text-underline-offset: 3px; }
+    .plan-price-note { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px; margin-bottom: 1.1rem; min-height: 2.6em; }
+    .plan-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; flex: 1; margin-bottom: 1.4rem; }
+    .plan .btn { justify-content: center; font-size: 14px; padding: 11px 16px; }
+
+    .plans-note { max-width: 780px; margin: 2.5rem auto 0; text-align: center; }
+    .plans-note .home-text { margin-bottom: 1.5rem; }
+
+    /* ── OBJECIONES ── */
+    .obj-list { display: grid; gap: 1rem; margin-top: 2rem; }
+    .obj { background: var(--offwhite); border: 1px solid var(--border); border-radius: 14px; padding: 1.4rem 1.6rem; }
+    .obj h3 { font-family: var(--font-heading); font-size: 1.1rem; font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; line-height: 1.35; }
+    .obj p { font-size: 0.95rem; color: var(--text-muted); line-height: 1.7; }
+
+    /* ── YA TIENES LLC ── */
+    #ya-tienes-llc { scroll-margin-top: 90px; }
+
+    /* ── POPUP GEOLOCALIZADO ── */
+    .geo-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1.25rem; background: rgba(13,33,55,0.55); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); animation: geoFade 0.25s ease; }
+    .geo-overlay[hidden] { display: none; }
+    @keyframes geoFade { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes geoPop { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+    .geo-popup { position: relative; background: var(--white); border-radius: 44px; width: 100%; max-width: 500px; padding: 3.25rem 2.25rem 2.5rem; text-align: center; box-shadow: 0 30px 80px rgba(13,33,55,0.35); animation: geoPop 0.3s ease; }
+    .geo-close { position: absolute; top: -14px; right: -14px; width: 50px; height: 50px; border-radius: 50%; background: var(--navy); color: var(--white); border: 3px solid var(--white); font-size: 24px; font-weight: 700; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(13,33,55,0.35); transition: background 0.2s, transform 0.2s; }
+    .geo-close:hover { background: var(--navy-light); transform: scale(1.08); }
+    .geo-close:focus-visible { outline: 3px solid #7aaed4; outline-offset: 2px; }
+    .geo-logo { width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 1.1rem; display: block; }
+    .geo-text { font-family: var(--font-heading); font-size: clamp(1.25rem, 3.6vw, 1.5rem); font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 1.75rem; transition: opacity 0.2s; }
+    .geo-text.swap { opacity: 0; }
+    .geo-actions { display: flex; flex-direction: column; gap: 10px; }
+    .geo-actions .btn { justify-content: center; border-radius: 999px; font-family: inherit; }
+    .geo-actions button.btn { border: 0; }
+    .geo-actions button.btn-soft { border: 1.5px solid var(--navy); }
+
+    @media (max-width: 1000px) {
+      .plans-grid { grid-template-columns: repeat(2, 1fr); }
+      .adv-grid { grid-template-columns: 1fr; }
+    }
     @media (max-width: 768px) {
-      .hero { min-height: 100dvh; }
-      .two-cards { grid-template-columns: 1fr; }
-      .steps-grid { grid-template-columns: 1fr; }
+      .hero { min-height: auto; }
+      .hero-inner { padding: 3rem 1.25rem; }
+      .home-section, .video-section { padding: 3rem 1.25rem; }
+      .hero-ctas .btn { width: 100%; justify-content: center; }
+    }
+    @media (max-width: 600px) {
+      .plans-grid { grid-template-columns: 1fr; }
+      .plan-price-note { min-height: 0; }
+      .geo-popup { padding: 3rem 1.5rem 2rem; border-radius: 36px; }
+      .geo-close { top: -10px; right: -6px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .geo-overlay, .geo-popup { animation: none; }
     }
   </style>
 <style>
@@ -139,13 +217,14 @@
   </script>
 </head>
 <body data-wa-categoria="neutra">
+<!-- TRUSTPILOT-BAR:START -->
 <div class="tp-badge-bar">
-<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
 <a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
-<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/4.5/128x24.png" width="128"/>
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/5/128x24.png" width="128"/>
 <span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
 </a>
 </div>
+<!-- TRUSTPILOT-BAR:END -->
 <!-- HEADER:START -->
 <nav>
 <a class="nav-logo" href="index.html">
@@ -201,95 +280,135 @@
 <a class="nav-cta" href="contacto.html">Contactar</a>
 </div>
 <!-- HEADER:END -->
+<!-- SECCIÓN 1 — HERO -->
 <section class="hero">
 <div class="hero-bg">
 <img alt="Oficina profesional" height="600" src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1600&amp;q=80&amp;fit=crop" width="800"/>
 </div>
 <div class="hero-inner">
 <div class="hero-content">
-<div class="hero-badges">
-<span class="hero-badge">🌎 Servicio en español</span>
-<span class="hero-badge">⚡ Especialistas en negocios online</span>
-</div>
-<h1>Tu LLC y tu marca en EE.UU., en las manos correctas y sin sorpresas.</h1>
-<p class="hero-sub">Especialistas en registro de marcas y LLCs desde fuera de Estados Unidos. Profesionales registrados ante el IRS (PTIN P03407206).</p>
-<a class="btn btn-navy" href="contacto.html">Contactar →</a>
-</div>
-</div>
-</section>
-<section style="background:var(--offwhite);">
-<div class="section">
-<p class="section-eyebrow">Nuestros servicios</p>
-<h2 class="section-title">Todo lo que necesita tu negocio en EE.UU.</h2>
-<p class="section-desc">Desde abrir tu LLC hasta proteger tu marca. Con profesionales que conocen el sistema desde dentro y los problemas del extranjero desde la experiencia propia.</p>
-<!-- Traslado — horizontal compact -->
-<a class="transfer-box" href="contacto.html">
-<img alt="Estatua de la Libertad con bandera de Estados Unidos" class="transfer-box-img" height="600" src="https://images.unsplash.com/photo-1485738422979-f5c462d49f74?w=600&amp;q=80&amp;fit=crop" width="800"/>
-<div class="transfer-box-content">
-<p class="transfer-title"><strong style="font-size:1.2rem;color:var(--navy);">¿Ya tienes una LLC?</strong> Puedes confiárnosla cuando quieras — <strong style="color:#1a7a4a;font-size:1.1rem;">es GRATIS</strong></p>
-<p class="transfer-desc">Da igual cómo la creaste. Sin cambio de agente residente ni de dirección, y sin ninguna atadura. Tu LLC sigue siendo la misma, solo cambia quién la cuida.</p>
-<span class="transfer-link">🔓 Cómo funciona el traslado</span>
-</div>
-</a>
-<!-- Dos tarjetas -->
-<div class="two-cards">
-<a class="srv-card" href="servicios-llc.html">
-<div class="srv-card-img-wrap">
-<img alt="Bandera americana" class="srv-card-img" height="26" src="bandera-usa.png" width="40"/>
-</div>
-<div class="srv-card-body">
-<p class="srv-card-title">Servicios de LLC</p>
-<p class="srv-card-desc">Creación, renovación anual y cumplimiento, EIN, reportes al IRS y al estado, agente residente, disolución y más.</p>
-<span class="srv-card-cta">Saber más →</span>
-</div>
-</a>
-<a class="srv-card" href="servicios-marca.html">
-<div class="srv-card-img-wrap">
-<img alt="Edificio oficial con banderas de Estados Unidos" class="srv-card-img" height="600" src="https://images.unsplash.com/photo-1501466044931-62695aada8e9?w=600&amp;q=80&amp;fit=crop" width="800"/>
-</div>
-<div class="srv-card-body">
-<p class="srv-card-title">Registro de marca USPTO</p>
-<p class="srv-card-desc">Protege tu marca en Estados Unidos antes de que alguien te la robe. Investigación, registro completo, Brand Registry, office actions y monitoreo.</p>
-<span class="srv-card-cta">Saber más →</span>
-</div>
-</a>
-</div>
-</div>
-</section>
-<hr class="divider"/>
-<section class="how-section">
-<div class="how-inner">
-<p class="section-eyebrow">Cómo trabajamos</p>
-<h2 class="section-title">Un proceso simple, sin sorpresas</h2>
-<div class="steps-grid">
-<div class="step">
-<div class="step-number">1</div>
-<p class="step-title">Cuéntanos tu caso</p>
-<p class="step-desc">Escríbenos. Te respondemos rápido y sin tecnicismos.</p>
-</div>
-<div class="step">
-<div class="step-number">2</div>
-<p class="step-title">Trabajamos juntos</p>
-<p class="step-desc">Te acompañamos en cada paso. Sin costes ocultos ni esperas.</p>
-</div>
-<div class="step">
-<div class="step-number">3</div>
-<p class="step-title">Resultado garantizado</p>
-<p class="step-desc">Tu LLC en regla, tu marca protegida.</p>
+<h1>Polaris, tu LLC en su casa</h1>
+<p class="hero-sub">Formamos y mantenemos tu LLC en EE.UU. con procesos claros, sin venderte nada que no necesites — y si ya tienes una LLC con otra gestora, te la trasladamos gratis.</p>
+<p class="hero-seal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Profesionales registrados ante el IRS (PTIN P03407206)</p>
+<div class="hero-ctas">
+<a class="btn btn-navy" href="contacto.html">Abrir mi LLC gratis hoy</a>
+<a class="btn btn-soft" href="#ya-tienes-llc">¿Ya tienes LLC? Pásate GRATIS a Polaris</a>
 </div>
 </div>
 </div>
 </section>
-<section class="cta-band">
-<h2>¿Tienes dudas sobre tu LLC o marca?</h2>
-<p>Cuéntanos tu situación y te decimos si podemos ayudarte.</p>
-<a class="btn btn-navy" href="contacto.html">Contactar ahora →</a>
+<!-- SECCIÓN 2 — VÍDEO DE BIENVENIDA (Yadira) -->
+<section class="video-section">
+<div class="video-frame">
+<iframe src="https://www.youtube.com/embed/R1RJ42xn7LA" title="Vídeo de bienvenida de Yadira — Proyecto Polaris" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
+</section>
+<!-- SECCIÓN 3 — VENTAJAS, REQUISITOS Y FISCALIDAD -->
+<section class="home-section bg-pale">
+<div class="home-inner">
+<div class="adv-grid" style="margin-top:0;">
+<div class="adv-card">
+<h3>¿Qué ventajas me da una LLC?</h3>
+<p><strong>Si resides en EE.UU.:</strong> separas tu patrimonio personal del de tu negocio, y facturas con una estructura reconocida por bancos, clientes y plataformas de pago americanas.</p>
+<p><strong>Si vives fuera de EE.UU.:</strong> accedes al mismo tipo de estructura sin tener que mudarte — puedes facturar, cobrar y operar en dólares con una empresa registrada en EE.UU., algo que muchas plataformas y clientes internacionales piden o prefieren.</p>
+</div>
+<div class="adv-card">
+<h3>¿Qué necesito para abrir una LLC?</h3>
+<p>En resumen: unos documentos de formación, un agente registrado en el estado donde la abras, y una dirección en EE.UU.</p>
+<p>Nosotros te damos las tres cosas — incluida la dirección, aunque ya vivas en EE.UU., para proteger tu privacidad y no tener que dar tu domicilio personal en ningún registro público.</p>
+</div>
+<div class="adv-card">
+<h3>Si soy extranjero, ¿pagaré impuestos en EE.UU. y en mi país también?</h3>
+<p>Tu LLC no paga impuestos en EE.UU. directamente. Los beneficios pasan a tu declaración personal. Si no tienes residencia ni presencia física en EE.UU., probablemente no debes pagar nada allí.</p>
+<p>Lo que sí debas declarar en tu país depende de la legislación de cada país — eso no lo decidimos nosotros, así que te lo explicamos caso por caso antes de que abras nada.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 4 — CÓMO TRABAJAMOS -->
+<section class="home-section bg-white">
+<div class="home-inner">
+<div class="center">
+<h2 class="home-title">Tenemos 4 formas de trabajar contigo, según cuánto quieras delegar</h2>
+</div>
+<div class="plans-grid">
+<div class="plan">
+<p class="plan-name">Básico</p>
+<p class="plan-price">$0</p>
+<p class="plan-price-note">+ tasa estatal</p>
+<p class="plan-desc">Formación de tu LLC sin coste de servicio. Pagas solo lo que el estado exige. El resto (agente registrado, EIN, acuerdo operativo) se añade por separado si lo necesitas.</p>
+<a class="btn btn-outline" href="paquetes-llc.html">Compara los planes en detalle →</a>
+</div>
+<div class="plan plan-featured">
+<span class="plan-badge">El más pedido</span>
+<p class="plan-name">Standard</p>
+<p class="plan-price">$299</p>
+<p class="plan-price-note">+ tasa estatal</p>
+<p class="plan-desc">El plan más pedido. Formación completa con agente registrado, EIN y acuerdo operativo incluidos, además de dirección y recepción de correo durante 1 año. Después de la creación, eliges: entrar en un plan de renovación anual todo incluido (con el IRS y la renovación de todos los servicios anuales dentro), o contratar cada servicio por separado según lo vayas necesitando.</p>
+<a class="btn btn-navy" href="paquetes-llc.html">Compara los planes en detalle →</a>
+</div>
+<div class="plan">
+<p class="plan-name">Premium</p>
+<p class="plan-price">$499</p>
+<p class="plan-price-note">+ tasa estatal</p>
+<p class="plan-desc">Todo lo del plan STANDARD, más los formularios del IRS para no residentes (1120/5472 o 1065/K1) y tramitación acelerada incluidos. A partir de aquí te olvidas de todo hasta el año siguiente, cuando toque renovar los servicios anuales.</p>
+<a class="btn btn-outline" href="paquetes-llc.html">Compara los planes en detalle →</a>
+</div>
+<div class="plan plan-smart">
+<p class="plan-name">Smart</p>
+<p class="plan-price">$0</p>
+<p class="plan-price-note">+ tasa estatal + $49/mes</p>
+<p class="plan-desc">La forma más fácil de empezar: todo incluido, sin preocupaciones, con una cuota mensual muy baja en vez de un pago inicial.</p>
+<a class="btn btn-outline" href="paquetes-llc.html">Compara los planes en detalle →</a>
+</div>
+</div>
+<div class="plans-note">
+<p class="home-text">Ningún plan implica un cobro automático recurrente. A diferencia de otras plataformas, no te cargamos la tarjeta sin avisarte — cada año (o cada mes, si estás en SMART) te avisamos antes de que toque renovar, y decides tú si sigues con nosotros.</p>
+<a class="btn btn-navy" href="paquetes-llc.html">Compara los planes en detalle</a>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 5 — QUÉ PASA DESPUÉS DE ABRIR LA LLC -->
+<section class="home-section bg-pale">
+<div class="home-inner narrow center">
+<h2 class="home-title">¿Qué pasa después de abrir una LLC?</h2>
+<p class="home-text">Cada año hay que renovar el agente registrado, presentar el reporte que corresponda según el estado, y si eres no residente, declarar ante el IRS. Son pocas gestiones, simples, una vez al año — y ante cualquier duda, nos consultas.</p>
+<p class="home-text">Si eres no residente, es casi seguro que ahora mismo estás pagando más servicios de los que realmente necesitas, o que te estás dejando algún trámite importante sin cumplir sin saberlo.</p>
+<p class="home-text" style="color:var(--navy);font-weight:600;margin-bottom:1.75rem;">En Polaris nos encargamos de todo esto por ti, sin ataduras — sin permanencia y sin cobros automáticos que no hayas confirmado antes.</p>
+<a class="btn btn-navy" href="que-incluye-renovacion-llc.html">Ver qué incluye la renovación anual →</a>
+</div>
+</section>
+<!-- SECCIÓN 6 — OBJECIONES / FAQ DISCURSIVO -->
+<section class="home-section bg-white">
+<div class="home-inner narrow">
+<div class="obj-list" style="margin-top:0;">
+<div class="obj">
+<h3>"Si he contratado una empresa para mantener al día mi LLC, ¿estoy vinculado a ellos?"</h3>
+<p>No. De la misma forma que puedes irte de tu gestoría actual cuando quieras, tampoco vas a estar atado a Polaris — puedes cambiarte cuando quieras, sin permanencia ni penalización.</p>
+</div>
+<div class="obj">
+<h3>"¿Necesito el ITIN para tener mi LLC?"</h3>
+<p>No, en la mayoría de casos no. El ITIN es un número de identificación fiscal personal, distinto del EIN de tu empresa — y muchas gestorías te lo venden como si fuera un paso obligatorio. Solo lo necesitas en situaciones concretas (por ejemplo, si vas a declarar impuestos personales en EE.UU.).</p>
+</div>
+<div class="obj">
+<h3>"¿Qué pasa si me equivoco en algo con el IRS?"</h3>
+<p>Por eso existe la renovación anual y el acompañamiento — para que no llegues a ese punto. Y si algo se te pasó antes de trabajar con nosotros, te decimos exactamente qué hacer para corregirlo, no te asustamos con eso.</p>
+</div>
+</div>
+</div>
+</section>
+<!-- SECCIÓN 7 — CIERRE -->
+<section class="home-section bg-pale">
+<div class="home-inner narrow center">
+<h2 class="home-title" style="margin-bottom:1.75rem;">Empieza tu negocio con confianza.</h2>
+<a class="btn btn-navy" href="contacto.html">Abrir mi LLC con Polaris</a>
+</div>
 </section>
 <!-- ===== REVIEWS CAROUSEL ===== -->
 <section class="reviews-section">
 <div class="section" style="padding-bottom:0;">
 <p class="section-eyebrow">Opiniones de clientes</p>
-<h2 class="section-title" style="font-family:'Playfair Display',serif;">Lo que dicen nuestros clientes</h2>
+<h2 class="section-title" style="font-family:var(--font-heading);">Lo que dicen nuestros clientes</h2>
 </div>
 <div class="reviews-outer">
 <div class="reviews-track" id="reviewsTrack">
@@ -488,6 +607,14 @@
   }
 })();
 </script>
+<!-- SECCIÓN 8 — ¿YA TIENES UNA LLC? (ancla del popup y del botón secundario del hero) -->
+<section class="home-section bg-pale" id="ya-tienes-llc">
+<div class="home-inner narrow center">
+<h2 class="home-title">¿Ya tienes una LLC con otra gestoría?</h2>
+<p class="home-text" style="margin-bottom:1.75rem;">Cambiarte a Polaris no cuesta nada. Nos encargamos de todo el traslado — tú no tienes que hacer ningún trámite, y tu LLC sigue siendo exactamente la misma, con el mismo EIN y la misma estructura.</p>
+<a class="btn btn-navy" href="contacto.html">Pásate GRATIS a Polaris</a>
+</div>
+</section>
 <!-- FOOTER:START -->
 <footer>
 <div class="footer-grid">
@@ -539,6 +666,68 @@
 </div>
 </footer>
 <!-- FOOTER:END -->
+<!-- POPUP GEOLOCALIZADO (solo index.html) -->
+<div class="geo-overlay" id="geoPopup" role="dialog" aria-modal="true" aria-labelledby="geoText">
+<div class="geo-popup">
+<button type="button" class="geo-close" id="geoClose" aria-label="Cerrar">✕</button>
+<img alt="" class="geo-logo" height="56" src="logo.png" width="56"/>
+<p class="geo-text" id="geoText">Somos especialistas en LLCs para hispanohablantes que quieren operar y cobrar en dólares desde EE.UU.</p>
+<div class="geo-actions">
+<button type="button" class="btn btn-navy" id="geoOpen">Abrir mi LLC gratis hoy</button>
+<button type="button" class="btn btn-soft" id="geoTransfer">¿Ya tienes LLC? Pásate GRATIS a Polaris</button>
+</div>
+</div>
+</div>
+<script>
+(function () {
+  var popup = document.getElementById('geoPopup');
+  var text = document.getElementById('geoText');
+  if (!popup) return;
+
+  var MENSAJES = {
+    US: 'Somos especialistas en LLCs para hispanos residentes en Estados Unidos.',
+    ES: 'Somos especialistas en LLCs para personas y marcas españolas que quieren vender y facturar en EE.UU.',
+    MX: 'Somos especialistas en LLCs para mexicanos que quieren operar y cobrar en dólares desde EE.UU.',
+    LATAM: 'Somos especialistas en LLCs para hispanohablantes que quieren operar y cobrar en dólares desde EE.UU.'
+  };
+  function mensajePara(country) { return MENSAJES[country] || MENSAJES.LATAM; }
+
+  function setText(country) {
+    var msg = mensajePara(country);
+    if (text.textContent === msg) return;
+    text.classList.add('swap');
+    setTimeout(function () { text.textContent = msg; text.classList.remove('swap'); }, 200);
+  }
+
+  function close() {
+    popup.hidden = true;
+    document.removeEventListener('keydown', onKey);
+  }
+  function onKey(e) { if (e.key === 'Escape') close(); }
+
+  // Aparece al cargar, sin delay: texto por defecto (resto de LatAm) y se ajusta cuando llega /geo.
+  document.addEventListener('keydown', onKey);
+  document.getElementById('geoClose').focus();
+
+  document.getElementById('geoClose').addEventListener('click', close);
+  document.getElementById('geoOpen').addEventListener('click', close);
+  document.getElementById('geoTransfer').addEventListener('click', function () {
+    close();
+    var t = document.getElementById('ya-tienes-llc');
+    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  popup.addEventListener('click', function (e) { if (e.target === popup) close(); });
+
+  // Para revisar las 4 variantes en local: index.html?pais=US | ES | MX | AR
+  var forced = new URLSearchParams(window.location.search).get('pais');
+  if (forced) { setText(forced.toUpperCase()); return; }
+
+  fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+    .then(function (r) { return r.json(); })
+    .then(function (d) { setText(d && d.country); })
+    .catch(function () { /* se queda el texto por defecto (resto de LatAm) */ });
+})();
+</script>
 <!-- WIDGET FLOTANTE -->
 <div id="cal-widget">
 <a href="calendario-llc.html">

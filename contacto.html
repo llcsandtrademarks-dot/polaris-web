@@ -69,13 +69,15 @@
 <meta content="es_ES" property="og:locale"/>
 <link href="favicon.ico" rel="icon" type="image/x-icon"/>
 <link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
 <link href="shared.css" rel="stylesheet"/>
 <style>
     .contact-wrap { max-width: 680px; margin: 0 auto; padding: 4rem 2rem 5rem; }
-    .contact-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
+    .contact-title { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.4rem); font-weight: 700; color: var(--navy); margin-bottom: 0.5rem; }
     .contact-sub { font-size: 1rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 2.5rem; }
     .contact-info { display: flex; flex-direction: column; gap: 2.5rem; }
     .info-block { background: var(--white); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; }
@@ -192,13 +194,14 @@
 </style>
 </head>
 <body data-wa-categoria="neutra">
+<!-- TRUSTPILOT-BAR:START -->
 <div class="tp-badge-bar">
-<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
 <a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
-<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/4.5/128x24.png" width="128"/>
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/5/128x24.png" width="128"/>
 <span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
 </a>
 </div>
+<!-- TRUSTPILOT-BAR:END -->
 <!-- HEADER:START -->
 <nav>
 <a class="nav-logo" href="index.html">
@@ -352,7 +355,7 @@
 <section class="reviews-section">
 <div class="section" style="padding-bottom:0;">
 <p class="section-eyebrow">Opiniones de clientes</p>
-<h2 class="section-title" style="font-family:'Playfair Display',serif;">Lo que dicen nuestros clientes</h2>
+<h2 class="section-title" style="font-family:var(--font-heading);">Lo que dicen nuestros clientes</h2>
 </div>
 <div class="reviews-outer">
 <div class="reviews-track" id="reviewsTrack">

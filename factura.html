@@ -39,15 +39,18 @@
     if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
   })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   .section { max-width: 640px; margin: 0 auto; padding: 3rem 2rem; }
   #estado-carga { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
   #estado-error { display: none; text-align: center; padding: 3rem 1rem; }
-  #estado-error h1 { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
+  #estado-error h1 { font-family: var(--font-heading); font-size: 1.5rem; color: var(--navy); margin-bottom: 0.75rem; }
   #estado-error p { color: var(--text-muted); margin-bottom: 1.5rem; }
 
   #factura-card { display: none; }
@@ -55,7 +58,7 @@
 
   .factura-brand { background: var(--navy); padding: 1.5rem 2.25rem; display: flex; align-items: center; gap: 12px; }
   .factura-brand-logo { width: 36px; height: 36px; border-radius: 8px; }
-  .factura-brand-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; color: var(--white); }
+  .factura-brand-name { font-family: var(--font-heading); font-size: 1.2rem; font-weight: 700; color: var(--white); }
 
   .factura-emisor { padding: 1.25rem 2.25rem; border-bottom: 1px solid var(--border); background: var(--offwhite); }
   .factura-emisor-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted); margin-bottom: 4px; }
@@ -86,7 +89,7 @@
   #factura-capture.fuera { position: absolute; left: -9999px; top: 0; width: 576px; }
 
   .factura-lista { text-align: center; }
-  .factura-lista h1 { font-family: 'Playfair Display', serif; font-size: 1.75rem; color: var(--navy); margin-bottom: 0.6rem; }
+  .factura-lista h1 { font-family: var(--font-heading); font-size: 1.75rem; color: var(--navy); margin-bottom: 0.6rem; }
   .factura-lista p { color: var(--text-muted); margin-bottom: 0.5rem; }
   .btn-pdf { display: flex; margin: 1.75rem auto 0; width: auto; min-width: 280px; justify-content: center; font-size: 17px; padding: 18px 40px; }
   .factura-aviso { font-size: 13px; color: var(--text-muted); text-align: center; margin-top: 1.25rem; }
