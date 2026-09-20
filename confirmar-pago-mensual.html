@@ -25,6 +25,9 @@
   #estado-resultado { display: none; margin-top: 1.25rem; padding: 0.9rem 1.1rem; border-radius: 10px; font-size: 13.5px; line-height: 1.6; text-align: left; }
   #estado-resultado.ok { display: block; background: #e7f5ea; color: #1f5f33; border: 1px solid #b7ddc0; }
   #estado-resultado.err { display: block; background: #fbeaea; color: #7a2020; border: 1px solid #edbcbc; }
+  #estado-resultado p { color: inherit; margin: 0 0 0.75rem; }
+  #estado-resultado p:last-child { margin-bottom: 0; }
+  #estado-resultado a { color: inherit; text-decoration: underline; }
 
   .btn-confirmar { width: 100%; justify-content: center; }
   .btn-confirmar:disabled { opacity: 0.55; cursor: not-allowed; }
@@ -184,12 +187,20 @@ function confirmarPago() {
   resultado.className = '';
   resultado.style.display = 'none';
 
+  // Fallo de red/servidor (fetch rechazado, 5xx o respuesta que no es JSON): mensaje
+  // consciente del bloqueo de LaLiga a Cloudflare. Los errores de validación del Worker
+  // (4xx con {error}) siguen mostrando su propio texto.
+  function falloDeRed() { var e = new Error('red'); e.esFalloDeRed = true; return e; }
+
   fetch(WORKER_URL + '/confirmar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ token: token })
   })
-    .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
+    .then(function(res){
+      if (res.status >= 500) throw falloDeRed();
+      return res.json().then(function(data){ return { ok: res.ok, data: data }; }, function(){ throw falloDeRed(); });
+    }, function(){ throw falloDeRed(); })
     .then(function(r){
       if (!r.ok) throw new Error(r.data.error || 'Error al confirmar');
       document.getElementById('confirmar-card').innerHTML =
@@ -198,7 +209,14 @@ function confirmarPago() {
     .catch(function(e){
       btn.disabled = false;
       btn.textContent = 'Sí, ya pagué / Solicitar factura';
-      resultado.textContent = 'No se pudo confirmar: ' + e.message;
+      if (e.esFalloDeRed) {
+        resultado.innerHTML =
+          '<p>No hemos podido completar la conexión. Si estás navegando desde España, puede deberse a un bloqueo temporal de tu operador durante la franja de un partido de fútbol (afecta a miles de webs ajenas al fútbol, es un problema conocido y externo a nosotros).</p>' +
+          '<p>Prueba de nuevo en un rato, o si tienes VPN, actívala con un servidor fuera de España.</p>' +
+          '<p>Si el problema persiste, escríbenos a <a href="mailto:contacto@proyecto-polaris.com">contacto@proyecto-polaris.com</a>.</p>';
+      } else {
+        resultado.textContent = 'No se pudo confirmar: ' + e.message;
+      }
       resultado.className = 'err';
       resultado.style.display = 'block';
     });
