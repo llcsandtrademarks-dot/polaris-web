@@ -63,6 +63,11 @@
 
   .btn-enviar { margin-top: 1.75rem; width: 100%; justify-content: center; }
   .error-msg { color: #c0392b; font-size: 13px; margin-top: 10px; display: none; }
+  .error-msg a { color: inherit; text-decoration: underline; }
+  .resumen-pago.resumen-error { background: #fbeaea; border-color: #edbcbc; color: #7a2020; line-height: 1.6; }
+  .resumen-pago.resumen-error p { margin: 0 0 0.75rem; }
+  .resumen-pago.resumen-error a { color: inherit; text-decoration: underline; }
+  .resumen-pago.resumen-error .btn-reintentar { display: inline-block; margin-top: 0.25rem; padding: 0.55rem 1.1rem; border: 0; border-radius: 8px; background: #7a2020; color: #fff; font: inherit; font-size: 13.5px; cursor: pointer; }
 
   #resultado { display: none; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.25rem; text-align: center; }
   #resultado .codigo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: var(--navy); background: var(--navy-pale); border-radius: 8px; padding: 10px 18px; display: inline-block; margin: 0.75rem 0 1.25rem; letter-spacing: 0.04em; }
@@ -290,6 +295,33 @@ var MENSUAL_DATOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.de
 var ESTADOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/estados';
 var PRECIOS = null;
 
+// Fallo de red/servidor (fetch rechazado, 5xx o respuesta que no es JSON): mensaje consciente
+// del bloqueo de LaLiga a Cloudflare. Los errores de validación del Worker (4xx con {error})
+// siguen mostrando su propio texto.
+function falloDeRed() { var e = new Error('red'); e.esFalloDeRed = true; return e; }
+
+var MENSAJE_FALLO_RED_PARRAFOS =
+  '<p>No hemos podido completar la conexión. Si estás navegando desde España, puede deberse a un bloqueo temporal de tu operador durante la franja de un partido de fútbol (afecta a miles de webs ajenas al fútbol, es un problema conocido y externo a nosotros).</p>' +
+  '<p>Prueba de nuevo en un rato, o si tienes VPN, actívala con un servidor fuera de España.</p>' +
+  '<p>Si el problema persiste, escríbenos a <a href="mailto:contacto@proyecto-polaris.com">contacto@proyecto-polaris.com</a>.</p>';
+
+// fetch + JSON que rechaza con falloDeRed() ante fallo de red, 5xx o cuerpo no JSON.
+function fetchJson(url, opts) {
+  return fetch(url, opts).then(function(res){
+    if (res.status >= 500) throw falloDeRed();
+    return res.json().then(function(data){ return { ok: res.ok, status: res.status, data: data }; }, function(){ throw falloDeRed(); });
+  }, function(){ throw falloDeRed(); });
+}
+
+// Fallo de red al cargar la página (precios/token): el formulario aún está vacío, así que el
+// mensaje va en el recuadro de resumen, bien visible, con un botón para reintentar.
+function mostrarFalloRedCarga() {
+  var resumen = document.getElementById('resumen-pago');
+  resumen.className = 'resumen-pago resumen-error';
+  resumen.innerHTML = MENSAJE_FALLO_RED_PARRAFOS + '<button type="button" class="btn-reintentar" onclick="location.reload()">Reintentar</button>';
+  document.getElementById('form-card').style.display = 'none';
+}
+
 function polarisValorVigente(clave) {
   var valor = localStorage.getItem(clave);
   var ts = localStorage.getItem(clave + '_ts');
@@ -317,10 +349,11 @@ async function init(){
     // vuelve a calcular al enviar, así que lo mostrado y lo cobrado no pueden divergir.
     var importePuntual = null;
     try {
-      var resPuntual = await fetch(PRECIOS_PUNTUALES_ENDPOINT);
+      var resPuntual = await fetchJson(PRECIOS_PUNTUALES_ENDPOINT);
       if (!resPuntual.ok) throw new Error('respuesta no ok');
-      importePuntual = (await resPuntual.json())[servicio];
+      importePuntual = resPuntual.data[servicio];
     } catch (e) {
+      if (e.esFalloDeRed) { mostrarFalloRedCarga(); return; }
       resumen.innerHTML = 'No hemos podido cargar el precio actualizado. <a href="javascript:location.reload()">Recarga la página</a> o contacta con nosotros si el problema persiste.';
       document.getElementById('form-card').style.display = 'none';
       return;
@@ -338,10 +371,11 @@ async function init(){
     var datosMensual = null;
     try {
       if (!tokenMensual) throw new Error('falta el token en el enlace');
-      var resMensual = await fetch(MENSUAL_DATOS_ENDPOINT + '?token=' + encodeURIComponent(tokenMensual));
-      datosMensual = await resMensual.json();
+      var resMensual = await fetchJson(MENSUAL_DATOS_ENDPOINT + '?token=' + encodeURIComponent(tokenMensual));
+      datosMensual = resMensual.data;
       if (!resMensual.ok || !datosMensual.ok) throw new Error(datosMensual.error || 'respuesta no ok');
     } catch (e) {
+      if (e.esFalloDeRed) { mostrarFalloRedCarga(); return; }
       resumen.textContent = 'No hemos podido validar tu enlace (' + e.message + '). Puede que haya caducado: escríbenos a contacto@proyecto-polaris.com y te enviamos uno nuevo.';
       document.getElementById('form-card').style.display = 'none';
       return;
@@ -362,10 +396,11 @@ async function init(){
     document.getElementById('grupo-llc-nombre').style.display = 'none';
   } else if (NOMBRES_ESTADO[estado] && (servicio === 'formacion' || servicio === 'mantenimiento')) {
     try {
-      var res = await fetch(ESTADOS_ENDPOINT);
+      var res = await fetchJson(ESTADOS_ENDPOINT);
       if (!res.ok) throw new Error('respuesta no ok');
-      PRECIOS = await res.json();
+      PRECIOS = res.data;
     } catch (e) {
+      if (e.esFalloDeRed) { mostrarFalloRedCarga(); return; }
       resumen.innerHTML = 'No hemos podido cargar el precio actualizado. <a href="javascript:location.reload()">Recarga la página</a> o contacta con nosotros si el problema persiste.';
       document.getElementById('form-card').style.display = 'none';
       return;
@@ -426,12 +461,11 @@ function enviarFormulario(ev) {
     facturacion_direccion: document.getElementById('f-fact-direccion').value.trim()
   };
 
-  fetch(WORKER_URL + '/pago-transferencia', {
+  fetchJson(WORKER_URL + '/pago-transferencia', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(body)
   })
-  .then(function(res){ return res.json().then(function(data){ return { ok: res.ok, data: data }; }); })
   .then(function(r){
     if (!r.ok || !r.data.ok) {
       throw new Error(r.data.error || 'Error al procesar la solicitud');
@@ -449,7 +483,11 @@ function enviarFormulario(ev) {
     document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
   })
   .catch(function(err){
-    errorEl.textContent = 'No pudimos procesar tu solicitud: ' + err.message + '. Inténtalo de nuevo o escríbenos a contacto@proyecto-polaris.com.';
+    if (err.esFalloDeRed) {
+      errorEl.innerHTML = MENSAJE_FALLO_RED_PARRAFOS.replace(/<\/p><p>/g, '<br><br>').replace(/^<p>|<\/p>$/g, '');
+    } else {
+      errorEl.textContent = 'No pudimos procesar tu solicitud: ' + err.message + '. Inténtalo de nuevo o escríbenos a contacto@proyecto-polaris.com.';
+    }
     errorEl.style.display = 'block';
     btn.disabled = false;
     btn.textContent = 'Continuar';
