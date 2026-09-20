@@ -101,6 +101,10 @@
     .mark-yes { display: block; color: #1a7a4a; line-height: 0; margin-top: 4px; }
     .cmp-foot { max-width: 1100px; margin: 0 auto; padding: 1.25rem 2rem 0; font-size: 13px; color: var(--text-muted); line-height: 1.65; }
 
+    .cmp-table thead th.cmp-corner { text-align: left; padding-left: 20px; vertical-align: middle; }
+    .back-home { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; letter-spacing: 0; text-transform: none; color: var(--navy); text-decoration: none; }
+    .back-home:hover { text-decoration: underline; text-underline-offset: 3px; }
+    .back-home:focus-visible { outline: 3px solid #7aaed4; outline-offset: 3px; border-radius: 4px; }
     .col-clickable { cursor: pointer; }
     .plan-btn { display: inline-flex; align-items: center; justify-content: center; font-family: inherit; font-size: 13px; font-weight: 700; padding: 10px 16px; border-radius: 8px; border: 1.5px solid var(--navy); background: var(--white); color: var(--navy); text-decoration: none; cursor: default; line-height: 1.3; }
     .plan-btn.is-link { cursor: pointer; transition: background 0.2s; }
@@ -265,7 +269,7 @@
 <caption class="sr-only">Comparativa de los planes BASICO, STANDARD, PREMIUM y SMART</caption>
 <thead>
 <tr>
-<th scope="col"><span class="sr-only">Servicio</span></th>
+<th scope="col" class="cmp-corner"><a class="back-home" href="index.html"><span aria-hidden="true">←</span> Volver al inicio</a><span class="sr-only">Servicio</span></th>
 <th scope="col" class="col-basico"><span class="plan-h">BASICO</span></th>
 <th scope="col" class="col-standard col-clickable"><span class="col-badge">El más pedido</span><a class="col-link" href="precios-llc.html"><span class="plan-h">STANDARD</span> <span class="col-arrow" aria-hidden="true">→</span></a></th>
 <th scope="col" class="col-premium"><span class="plan-h">PREMIUM</span></th>

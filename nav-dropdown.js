@@ -68,37 +68,78 @@
   // hamburguesa se abre solo, se queda abierto 0.5s, se cierra solo, y el
   // botón parpadea una vez al cerrarse — para que el visitante note que ahí
   // vive la navegación. Una sola vez por sesión (sessionStorage).
+  //
+  // Una página puede personalizarlo definiendo, ANTES de cargar este script,
+  //   window.polarisMenuIntro = {
+  //     delay: 1000,          // ms de espera antes de abrir el menú (defecto 700, desde que corre el script)
+  //     afterLoad: true,      // contar el delay desde que la página termina de cargar (evento load)
+  //     gate: Promise|null,   // si hay una promesa, se espera a que se resuelva (p. ej. cierre de un popup) y entonces se cuenta el delay
+  //     keepButtonWhite: true // tras el parpadeo, el botón se queda con fondo blanco (clase nav-hamburger-highlight)
+  //   };
+  // Sin esa config (todas las demás páginas) el comportamiento es el de siempre.
   (function mobileMenuIntro() {
     var MOBILE_QUERY = '(max-width: 768px)';
     var STORAGE_KEY = 'menuIntroShown';
-    try {
-      if (sessionStorage.getItem(STORAGE_KEY)) return;
-      if (!window.matchMedia(MOBILE_QUERY).matches) return;
-      // Se marca ya como "mostrado" antes de animar, para no repetirlo si el
-      // visitante recarga rápido durante los 0.5s que el menú está abierto.
-      sessionStorage.setItem(STORAGE_KEY, '1');
-    } catch (e) {
-      // sessionStorage puede no estar disponible (modo privado estricto, etc.)
-      return;
-    }
-
+    var cfg = window.polarisMenuIntro || null;
+    var opts = cfg || {};
     var menu = document.getElementById('mobileMenu');
     var hamburger = document.querySelector('.nav-hamburger');
     if (!menu || !hamburger) return;
 
-    setTimeout(function () {
-      // Si el visitante ya cambió a desktop o abrió/cerró el menú a mano,
-      // no interferimos.
+    function highlight() {
+      if (opts.keepButtonWhite) hamburger.classList.add('nav-hamburger-highlight');
+    }
+
+    var alreadyShown = false;
+    try {
       if (!window.matchMedia(MOBILE_QUERY).matches) return;
+      alreadyShown = !!sessionStorage.getItem(STORAGE_KEY);
+      // Con config de página, la marca se pone al EMPEZAR la animación (así, si el
+      // visitante recarga mientras el popup sigue abierto, la intro no se pierde).
+      // Sin config: se marca ya, antes de animar, como siempre.
+      if (!alreadyShown && !cfg) sessionStorage.setItem(STORAGE_KEY, '1');
+    } catch (e) {
+      // sessionStorage puede no estar disponible (modo privado estricto, etc.)
+      return;
+    }
+    if (alreadyShown) { highlight(); return; } // intro ya vista: el botón se mantiene destacado
+
+    function run() {
+      // Si el visitante ya cambió a desktop, no interferimos.
+      if (!window.matchMedia(MOBILE_QUERY).matches) return;
+      if (cfg) { try { sessionStorage.setItem(STORAGE_KEY, '1'); } catch (e) {} }
       menu.classList.add('open');
       setTimeout(function () {
         menu.classList.remove('open');
         hamburger.classList.add('nav-hamburger-blink');
-        hamburger.addEventListener('animationend', function onEnd() {
+        var finished = false;
+        function finish() {
+          if (finished) return;
+          finished = true;
           hamburger.classList.remove('nav-hamburger-blink');
-          hamburger.removeEventListener('animationend', onEnd);
-        });
+          hamburger.removeEventListener('animationend', finish);
+          highlight();
+        }
+        hamburger.addEventListener('animationend', finish);
+        // Respaldo: si el navegador no emite animationend (pestaña en segundo plano,
+        // "reducir movimiento"...), se cierra igualmente tras la duración del parpadeo.
+        setTimeout(finish, 600);
       }, 500);
-    }, 700);
+    }
+
+    var delay = typeof opts.delay === 'number' ? opts.delay : 700;
+    function schedule() { setTimeout(run, delay); }
+
+    function afterLoad(cb) {
+      if (opts.afterLoad && document.readyState !== 'complete') window.addEventListener('load', cb);
+      else cb();
+    }
+
+    if (opts.gate && typeof opts.gate.then === 'function') {
+      // Espera al cierre del popup (o lo que resuelva la promesa) y entonces cuenta el delay.
+      opts.gate.then(function () { afterLoad(schedule); });
+    } else {
+      afterLoad(schedule);
+    }
   })();
 })();

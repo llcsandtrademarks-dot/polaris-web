@@ -64,7 +64,32 @@
 <style>
     /* Tipografía de titulares SOLO en la home (el resto del sitio sigue con Playfair Display, definido en shared.css) */
     :root { --font-heading: 'Plus Jakarta Sans', sans-serif; }
+    /* Popup geolocalizado: no se repite durante 24h (la clase la pone el script de abajo antes del primer pintado) */
+    .geo-seen .geo-overlay { display: none; }
+    /* Tras la intro del menú móvil, el botón hamburguesa se queda con fondo blanco para que destaque */
+    .nav-hamburger.nav-hamburger-highlight { background: var(--white); color: var(--navy); border-radius: 8px; padding: 8px; }
 </style>
+<script>
+  (function () {
+    try {
+      var forzado = new URLSearchParams(window.location.search).has('pais'); // ?pais= ignora la marca (para revisar variantes)
+      // Popup ya mostrado hace menos de 24h (localStorage guarda la marca de tiempo de la última vez que se mostró)
+      var vistoEn = Number(localStorage.getItem('polaris_geo_popup_seen'));
+      var edad = Date.now() - vistoEn;
+      if (!forzado && vistoEn && edad >= 0 && edad < 24 * 60 * 60 * 1000) document.documentElement.classList.add('geo-seen');
+    } catch (e) {}
+    // Intro del menú móvil (nav-dropdown.js): solo en la home se personaliza.
+    // Si se va a mostrar el popup, la animación espera a que se cierre y arranca 1s después;
+    // si no, arranca 1s después de terminar de cargar la página.
+    var popupSeVera = !document.documentElement.classList.contains('geo-seen');
+    window.polarisMenuIntro = {
+      delay: 1000,
+      afterLoad: true,
+      keepButtonWhite: true,
+      gate: popupSeVera ? new Promise(function (resolve) { window.polarisMenuIntroGateResolve = resolve; }) : null
+    };
+  })();
+</script>
 <style>
     html { scroll-behavior: smooth; }
     /* ── HERO ── */
@@ -291,7 +316,7 @@
 <p class="hero-sub">Formamos y mantenemos tu LLC en EE.UU. con procesos claros, sin venderte nada que no necesites — y si ya tienes una LLC con otra gestora, te la trasladamos gratis.</p>
 <p class="hero-seal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Profesionales registrados ante el IRS (PTIN P03407206)</p>
 <div class="hero-ctas">
-<a class="btn btn-navy" href="contacto.html">Abrir mi LLC gratis hoy</a>
+<a class="btn btn-navy" href="paquetes-llc.html">Abrir mi LLC gratis hoy</a>
 <a class="btn btn-soft" href="#ya-tienes-llc">¿Ya tienes LLC? Pásate GRATIS a Polaris</a>
 </div>
 </div>
@@ -401,7 +426,7 @@
 <section class="home-section bg-pale">
 <div class="home-inner narrow center">
 <h2 class="home-title" style="margin-bottom:1.75rem;">Empieza tu negocio con confianza.</h2>
-<a class="btn btn-navy" href="contacto.html">Abrir mi LLC con Polaris</a>
+<a class="btn btn-navy" href="paquetes-llc.html">Abrir mi LLC con Polaris</a>
 </div>
 </section>
 <!-- ===== REVIEWS CAROUSEL ===== -->
@@ -684,6 +709,19 @@
   var text = document.getElementById('geoText');
   if (!popup) return;
 
+  // Una vez cada 24h: si el cliente vuelve a la home antes de que pasen 24h desde la última vez
+  // que se mostró, no se le abre otra vez (localStorage, marca de tiempo en ms).
+  var SEEN_KEY = 'polaris_geo_popup_seen';
+  var VENTANA_MS = 24 * 60 * 60 * 1000;
+  var yaVisto = false;
+  try {
+    var vistoEn = Number(localStorage.getItem(SEEN_KEY));
+    var edad = Date.now() - vistoEn;
+    yaVisto = !!vistoEn && edad >= 0 && edad < VENTANA_MS && !new URLSearchParams(window.location.search).has('pais'); // ?pais= ignora la marca
+  } catch (e) {}
+  if (yaVisto) { popup.hidden = true; return; }
+  try { localStorage.setItem(SEEN_KEY, String(Date.now())); } catch (e) {}
+
   var MENSAJES = {
     US: 'Somos especialistas en LLCs para hispanos residentes en Estados Unidos.',
     ES: 'Somos especialistas en LLCs para personas y marcas españolas que quieren vender y facturar en EE.UU.',
@@ -702,6 +740,7 @@
   function close() {
     popup.hidden = true;
     document.removeEventListener('keydown', onKey);
+    if (window.polarisMenuIntroGateResolve) { window.polarisMenuIntroGateResolve(); window.polarisMenuIntroGateResolve = null; }
   }
   function onKey(e) { if (e.key === 'Escape') close(); }
 
