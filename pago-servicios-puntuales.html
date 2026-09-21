@@ -147,7 +147,7 @@
 <p class="srv-card-price" id="precio-reporte-irs">$159</p>
 <p class="srv-card-desc">Declaración fiscal 1120+5472 o 1065+K-1 (sin nexus) para LLCs extranjeras, según si tu LLC es de socio único o de varios socios.</p>
 <div class="pay-buttons">
-<a class="btn-tarjeta" href="https://buy.stripe.com/9B65kF5HA2hrc8854PfMA00" rel="noopener" target="_blank">Pagar con tarjeta</a>
+<a class="btn-tarjeta" id="pagar-tarjeta-irs" href="https://buy.stripe.com/9B65kF5HA2hrc8854PfMA00" rel="noopener" target="_blank">Pagar con tarjeta</a>
 <a class="btn-transferencia" href="pago-transferencia.html?servicio=reporte_irs" rel="noopener" target="_blank">Pagar por transferencia</a>
 </div>
 </div>
@@ -259,6 +259,9 @@
   // Precio del "Reporte anual al IRS" sube de $159 a $199 a partir del
   // 1 oct. 2026 00:00 hora de Los Ángeles (equivalente al cierre del
   // 30 de septiembre 23:59 hora de Los Ángeles).
+  // El enlace de tarjeta cambia en el MISMO instante y por el MISMO if que el precio mostrado, para
+  // que nunca se vea un precio y se cobre otro: hasta el corte, el link de $159 (que en Stripe
+  // caduca el 30/09 23:59 hora de Los Ángeles); desde el corte, el de $199.
   var el = document.getElementById("precio-reporte-irs");
   if (!el) return;
   try {
@@ -280,6 +283,8 @@
     var cutoff = new Date(Date.UTC(2026, 9, 1, 0, 0, 0)); // 2026-10-01T00:00:00 America/Los_Angeles
     if (nowLA >= cutoff) {
       el.textContent = "$199";
+      var btnIrs = document.getElementById("pagar-tarjeta-irs");
+      if (btnIrs) btnIrs.href = "https://buy.stripe.com/6oU00lfia09jfkkbtdfMA0w";
     }
   } catch (e) {
     // Si Intl/timeZone fallara, se deja el precio base ($159) del HTML.
