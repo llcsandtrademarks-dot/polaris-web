@@ -190,8 +190,8 @@ function buildFooterInner(html, template, ROOT, BLOGHOME, file) {
 }
 
 // Bloque único de tipografías (Google Fonts) que se inyecta en el <head> de todas
-// las páginas. Playfair Display = titulares por defecto (var(--font-heading) en
-// shared.css), Plus Jakarta Sans = titulares de la home (override en index.html),
+// las páginas. Plus Jakarta Sans = titulares por defecto (var(--font-heading) en
+// shared.css), Playfair Display = solo el logo del nav (fijo en .nav-logo),
 // DM Sans = cuerpo.
 const FONTS_BLOCK = [
   '<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>',

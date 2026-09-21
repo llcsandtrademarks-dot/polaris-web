@@ -39,10 +39,6 @@
 <!-- FONTS:END -->
 <link href="shared.css" rel="stylesheet"/>
 <style>
-    /* Tipografía de titulares: Plus Jakarta Sans (toda página nueva lleva este bloque desde el principio) */
-    :root { --font-heading: 'Plus Jakarta Sans', sans-serif; }
-</style>
-<style>
     .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy); background: var(--white); border: 1.5px solid var(--navy); padding: 8px 16px; border-radius: 8px; text-decoration: none; transition: background 0.2s, color 0.2s; }
     .back-btn:hover { background: var(--navy); color: var(--white); }
     .selector-bar .back-btn { margin-left: auto; }
@@ -549,7 +545,8 @@ function notaPlanMensual(servicio, importe) {
 // PREMIUM: la creación cuesta el precio de formación del estado + $200. Solo se muestra el precio.
 var SUPLEMENTO_PREMIUM = 200;
 function celdaPrecioPremium(importe) {
-  return '<div class="precio-cell"><div class="precio-monto">$' + importe + '</div></div>';
+  return '<div class="precio-cell"><div class="precio-monto">$' + importe + '</div>' +
+    '<div class="precio-botones"><a class="btn-tarjeta" href="contacto.html">Contáctanos para pagar</a></div></div>';
 }
 
 function celdaPrecio(servicio, estado, importe) {
