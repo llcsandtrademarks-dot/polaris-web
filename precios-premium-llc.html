@@ -512,6 +512,7 @@ var LINKS_STRIPE = {
   599: 'https://buy.stripe.com/3cIaEZ9XQ8FPegg54PfMA0h',
   699: 'https://buy.stripe.com/9B6bJ3b1U5tDa00dBlfMA0g',
   799: 'https://buy.stripe.com/9B628t9XQ9JT8VWcxhfMA0f',
+  999: 'https://buy.stripe.com/8x26oJ8TMf4d0pqdBlfMA0o',
   1119: 'https://buy.stripe.com/fZu8wR2vo9JTeggap9fMA0e'
 };
 
@@ -542,11 +543,11 @@ function notaPlanMensual(servicio, importe) {
   return '<span class="plan-mensual">, o $49 al mes — <a href="contacto.html?motivo=plan-mensual">contáctanos para pasarte al plan mensual</a></span>';
 }
 
-// PREMIUM: la creación cuesta el precio de formación del estado + $200. Solo se muestra el precio.
+// PREMIUM: la creación cuesta el precio de formación del estado + $200. El Worker (/estados) manda
+// el importe ya calculado en formacion_premium; el cálculo local solo es el respaldo.
 var SUPLEMENTO_PREMIUM = 200;
-function celdaPrecioPremium(importe) {
-  return '<div class="precio-cell"><div class="precio-monto">$' + importe + '</div>' +
-    '<div class="precio-botones"><a class="btn-tarjeta" href="contacto.html">Contáctanos para pagar</a></div></div>';
+function importePremium(d) {
+  return d.formacion_premium || (Number(d.formacion) + SUPLEMENTO_PREMIUM);
 }
 
 function celdaPrecio(servicio, estado, importe) {
@@ -585,7 +586,7 @@ async function cargarYRenderizar() {
 
     filas += '<tr class="estado-row" id="estado-' + o.slug + '">' +
       '<td><div class="estado-nombre">' + d.nombre + (o.recomendado ? ' <span class="estado-badge">★ Opción recomendada</span>' : '') + '</div></td>' +
-      '<td>' + celdaPrecioPremium(Number(d.formacion) + SUPLEMENTO_PREMIUM) + '</td>' +
+      '<td>' + celdaPrecio('formacion_premium', o.slug, importePremium(d)) + '</td>' +
       '<td>' + celdaPrecio('mantenimiento', o.slug, d.mantenimiento) + '</td>' +
     '</tr>';
   });
