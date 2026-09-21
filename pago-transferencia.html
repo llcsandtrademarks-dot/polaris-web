@@ -216,6 +216,7 @@
     <p class="form-section-title" style="margin-top:0;">Tu código de pago</p>
     <div class="codigo" id="resultado-codigo"></div>
     <p id="resultado-mensaje"></p>
+    <p id="resultado-desglose" style="display:none;"></p>
     <a class="btn btn-navy" id="btn-pagar-mercury" href="#" target="_blank" rel="noopener">Ir a pagar por transferencia</a>
   </div>
 </div>
@@ -415,6 +416,15 @@ async function init(){
       return;
     }
     var importe = PRECIOS[estado][servicio];
+    // SMART: el cobro inicial es UN pago = tasa de creación + primer mes; el Worker manda el total.
+    if (servicio === 'formacion_smart') {
+      if (!PRECIOS[estado].formacion_smart_total) {
+        resumen.innerHTML = 'No encontramos el servicio solicitado. Vuelve a <a href="' + TABLA_PRECIOS[servicio] + '">la tabla de precios</a> y elige de nuevo.';
+        document.getElementById('form-card').style.display = 'none';
+        return;
+      }
+      importe = PRECIOS[estado].formacion_smart_total;
+    }
     resumen.innerHTML = 'Vas a pagar <strong>$' + importe + '</strong> — ' + NOMBRES_SERVICIO[servicio] + ' en ' + NOMBRES_ESTADO[estado];
 
     if (servicio === 'mantenimiento') {
@@ -477,6 +487,13 @@ function enviarFormulario(ev) {
     document.getElementById('form-card').style.display = 'none';
     document.getElementById('resultado-codigo').textContent = r.data.codigo;
     document.getElementById('resultado-mensaje').textContent = r.data.mensaje;
+    // SMART: desglose del cobro único con las cifras reales que calcula el Worker según el estado.
+    if (r.data.desglose) {
+      var d = r.data.desglose;
+      var elDesglose = document.getElementById('resultado-desglose');
+      elDesglose.textContent = 'Vas a pagar $' + r.data.importe + ' ($' + d.creacion + ' de creación de tu LLC + $' + d.primer_mes + ' de tu primer mes del plan SMART, todo incluido)';
+      elDesglose.style.display = '';
+    }
     var btnMercury = document.getElementById('btn-pagar-mercury');
     if (r.data.mercury_link) {
       btnMercury.href = r.data.mercury_link;
