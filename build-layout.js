@@ -44,6 +44,16 @@
  *      el HTML del menú desplegable pero NO el script, así que los desplegables
  *      y la animación del menú móvil no hacían nada. Si falta, se añade justo
  *      antes de </body>.
+ *   5. Artículos de blog (blog/*.html salvo blog/index.html): inyecta la
+ *      columna lateral "Artículos recientes" en la zona
+ *        <!-- RELATED:START --> ... <!-- RELATED:END -->
+ *      colocada justo después del <div class="legal-content"> del artículo. La
+ *      lista sale de las tarjetas de blog/index.html (única fuente de verdad:
+ *      título, fecha y enlace), ordenada de más reciente a más antigua, sin el
+ *      propio artículo y con un máximo de RELATED_MAX tarjetas. NO se edita a
+ *      mano por página. Para publicar un artículo nuevo: crear la página, añadir
+ *      su tarjeta a blog/index.html y ejecutar este script — todos los artículos
+ *      se actualizan solos. Estilos: bloque "ARTÍCULOS RECIENTES" de shared.css.
  *
  * PÁGINAS EXCLUIDAS A PROPÓSITO (no se tocan):
  *   Las 4 son solo un redirect instantáneo (meta-refresh + JS) a un dominio
@@ -255,9 +265,78 @@ function ensureNavScript(html, file) {
   return html.slice(0, bodyCloseIdx) + tag + html.slice(bodyCloseIdx);
 }
 
+// ---- Artículos recientes (sidebar de los artículos del blog) ----------------
+
+// Máximo de tarjetas en la columna lateral (todas las demás si hay menos).
+const RELATED_MAX = 5;
+const BLOG_DIR = path.join(ROOT_DIR, 'blog');
+const BLOG_INDEX = path.join(BLOG_DIR, 'index.html');
+const MONTHS_ES = { ene: 0, feb: 1, mar: 2, abr: 3, may: 4, jun: 5, jul: 6, ago: 7, sep: 8, oct: 9, nov: 10, dic: 11 };
+
+// Lee las tarjetas de blog/index.html: { href, title, date (texto), ts }.
+// Ordena de más reciente a más antigua; si dos comparten fecha (o no se puede
+// leer), se respeta el orden en que aparecen en el índice.
+function loadBlogPosts() {
+  const html = fs.readFileSync(BLOG_INDEX, 'utf8');
+  const cardRe = /<a class="srv-card" href="([^"]+)">([\s\S]*?)<\/a>/g;
+  const posts = [];
+  let m;
+  while ((m = cardRe.exec(html))) {
+    const title = /<p class="srv-card-title">([\s\S]*?)<\/p>/.exec(m[2]);
+    const meta = /<p class="srv-card-meta">([\s\S]*?)<\/p>/.exec(m[2]);
+    if (!title || !meta) {
+      throw new Error(`Tarjeta sin título o fecha en blog/index.html (${m[1]})`);
+    }
+    const date = meta[1].split('·')[0].trim();
+    const dm = /^(\d{1,2})\s+([a-záéíóú]{3})\w*\.?\s+(\d{4})$/i.exec(date);
+    const mon = dm ? MONTHS_ES[dm[2].toLowerCase()] : undefined;
+    if (!dm || mon === undefined) {
+      throw new Error(`Fecha ilegible "${date}" en la tarjeta ${m[1]} de blog/index.html`);
+    }
+    posts.push({ href: m[1], title: title[1].trim(), date, ts: Date.UTC(+dm[3], mon, +dm[1]), order: posts.length });
+  }
+  posts.sort((a, b) => b.ts - a.ts || a.order - b.order);
+  return posts;
+}
+
+function isBlogArticle(file) {
+  return path.dirname(file) === BLOG_DIR && path.basename(file).toLowerCase() !== 'index.html';
+}
+
+function buildRelated(html, file, posts) {
+  const self = path.basename(file);
+  const others = posts.filter((p) => p.href !== self).slice(0, RELATED_MAX);
+  const cards = others.map((p) =>
+    [
+      `<a class="related-card" href="${p.href}">`,
+      `<span class="related-card-date">${p.date}</span>`,
+      `<span class="related-card-title">${p.title}</span>`,
+      '</a>',
+    ].join('\n'),
+  );
+  const inner = cards.length
+    ? ['<aside class="related-posts" aria-label="Artículos recientes">', '<p class="related-title">Artículos recientes</p>', ...cards, '</aside>'].join('\n')
+    : '';
+  const newBlock = `<!-- RELATED:START -->\n${inner}\n<!-- RELATED:END -->`;
+
+  const markerRe = /<!-- RELATED:START -->[\s\S]*?<!-- RELATED:END -->/;
+  if (markerRe.test(html)) return html.replace(markerRe, () => newBlock);
+
+  // Primera ejecución: colocar el bloque justo después del cierre del
+  // <div class="legal-content"> (dentro de la misma <section>).
+  const openMatch = /<div class="legal-content">/.exec(html);
+  if (!openMatch) {
+    throw new Error(`No se encontró <div class="legal-content"> ni marcadores RELATED:START en ${file}`);
+  }
+  const endIdx = findTagEnd(html, openMatch.index, 'div');
+  if (endIdx === -1) throw new Error(`No se pudo cerrar .legal-content en ${file}`);
+  return html.slice(0, endIdx) + '\n' + newBlock + html.slice(endIdx);
+}
+
 function main() {
   const headerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'header.html'), 'utf8');
   const footerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'footer.html'), 'utf8');
+  const blogPosts = loadBlogPosts();
 
   const allHtml = listHtmlFiles(ROOT_DIR, []);
   const targets = allHtml.filter((f) => !EXCLUDED.has(f));
@@ -279,6 +358,7 @@ function main() {
         html = buildHeaderInner(html, headerTemplate, ROOT, BLOGHOME, file);
         html = buildFooterInner(html, footerTemplate, ROOT, BLOGHOME, file);
         html = ensureNavScript(html, file);
+        if (isBlogArticle(file)) html = buildRelated(html, file, blogPosts);
         return html;
       } catch (err) {
         console.error(`✗ ${toUrlPath(path.relative(ROOT_DIR, file))}: ${err.message}`);
