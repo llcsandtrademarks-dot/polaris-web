@@ -54,6 +54,9 @@
  *      mano por página. Para publicar un artículo nuevo: crear la página, añadir
  *      su tarjeta a blog/index.html y ejecutar este script — todos los artículos
  *      se actualizan solos. Estilos: bloque "ARTÍCULOS RECIENTES" de shared.css.
+ *      Además, en esos artículos el <link> a shared.css lleva ?v=<hash> (ver
+ *      sharedCssVersion): cambia solo cuando cambia shared.css, para saltarse la
+ *      caché de 7 días del navegador y de la CDN.
  *
  * PÁGINAS EXCLUIDAS A PROPÓSITO (no se tocan):
  *   Las 4 son solo un redirect instantáneo (meta-refresh + JS) a un dominio
@@ -66,6 +69,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
 
 const ROOT_DIR = __dirname;
 
@@ -303,6 +307,22 @@ function isBlogArticle(file) {
   return path.dirname(file) === BLOG_DIR && path.basename(file).toLowerCase() !== 'index.html';
 }
 
+// shared.css se sirve con Cache-Control de 7 días y la CDN de Hostinger puede
+// conservar copias viejas. En los artículos del blog (que dependen de los
+// estilos de RELATED) el enlace lleva ?v=<hash del contenido>: cada vez que
+// shared.css cambia, la URL cambia y ni navegadores ni CDN sirven la copia vieja.
+// El hash ignora los \r para dar el mismo valor en Windows y en Linux.
+function sharedCssVersion() {
+  const css = fs.readFileSync(path.join(ROOT_DIR, 'shared.css'), 'utf8').replace(/\r/g, '');
+  return crypto.createHash('md5').update(css).digest('hex').slice(0, 8);
+}
+
+function buildCssVersion(html, version, file) {
+  const linkRe = /(<link\b[^>]*href=")((?:\.\.\/)*shared\.css)(?:\?v=[0-9a-f]+)?(")/;
+  if (!linkRe.test(html)) throw new Error(`No se encontró <link> a shared.css en ${file}`);
+  return html.replace(linkRe, (_m, a, b, c) => `${a}${b}?v=${version}${c}`);
+}
+
 function buildRelated(html, file, posts) {
   const self = path.basename(file);
   const others = posts.filter((p) => p.href !== self).slice(0, RELATED_MAX);
@@ -337,6 +357,7 @@ function main() {
   const headerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'header.html'), 'utf8');
   const footerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'footer.html'), 'utf8');
   const blogPosts = loadBlogPosts();
+  const cssVersion = sharedCssVersion();
 
   const allHtml = listHtmlFiles(ROOT_DIR, []);
   const targets = allHtml.filter((f) => !EXCLUDED.has(f));
@@ -358,7 +379,10 @@ function main() {
         html = buildHeaderInner(html, headerTemplate, ROOT, BLOGHOME, file);
         html = buildFooterInner(html, footerTemplate, ROOT, BLOGHOME, file);
         html = ensureNavScript(html, file);
-        if (isBlogArticle(file)) html = buildRelated(html, file, blogPosts);
+        if (isBlogArticle(file)) {
+          html = buildRelated(html, file, blogPosts);
+          html = buildCssVersion(html, cssVersion, file);
+        }
         return html;
       } catch (err) {
         console.error(`✗ ${toUrlPath(path.relative(ROOT_DIR, file))}: ${err.message}`);
