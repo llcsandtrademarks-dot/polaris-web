@@ -74,6 +74,7 @@
   .btn-tarjeta:hover { background: var(--navy-mid); }
   .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
   .btn-transferencia:hover { background: var(--navy); color: var(--white); }
+  .nota-recargo-tarjeta { flex-basis: 100%; width: 100%; font-size: 11px; color: var(--text-muted); font-style: italic; margin-top: 2px; }
 
   @media (max-width: 720px) {
     .page-header { padding: 2.5rem 1.25rem 2rem; }
@@ -546,7 +547,7 @@ function celdaPrecio(servicio, estado, importe) {
   return '<div class="precio-cell">' +
     '<div class="precio-monto">$' + importe + (servicio==='mantenimiento' ? '/año' : '') + notaPlanMensual(servicio, importe) + '</div>' +
     '<div class="precio-botones">' +
-      '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta</a>' +
+      '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>' +
       '<a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="' + linkTransferencia(servicio, estado) + '">Pagar por transferencia</a>' +
     '</div>' +
   '</div>';

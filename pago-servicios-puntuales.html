@@ -72,6 +72,7 @@
     .btn-tarjeta:hover { background: var(--navy-mid); }
     .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
     .btn-transferencia:hover { background: var(--navy); color: var(--white); }
+    .nota-recargo-tarjeta { flex-basis: 100%; width: 100%; font-size: 11px; color: var(--text-muted); font-style: italic; margin-top: 2px; }
     .pay-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 10px; }
     .pay-footnote { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 2.5rem; }
     .pay-footnote a { color: var(--navy-light); font-weight: 600; }
@@ -147,7 +148,7 @@
 <p class="srv-card-price" id="precio-reporte-irs">$159</p>
 <p class="srv-card-desc">Declaración fiscal 1120+5472 o 1065+K-1 (sin nexus) para LLCs extranjeras, según si tu LLC es de socio único o de varios socios.</p>
 <div class="pay-buttons">
-<a class="btn-tarjeta" id="pagar-tarjeta-irs" href="https://buy.stripe.com/9B65kF5HA2hrc8854PfMA00" rel="noopener" target="_blank">Pagar con tarjeta</a>
+<a class="btn-tarjeta" id="pagar-tarjeta-irs" href="https://buy.stripe.com/9B65kF5HA2hrc8854PfMA00" rel="noopener" target="_blank">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>
 <a class="btn-transferencia" href="pago-transferencia.html?servicio=reporte_irs" rel="noopener" target="_blank">Pagar por transferencia</a>
 </div>
 </div>
@@ -159,7 +160,7 @@
 <p class="srv-card-price">$99</p>
 <p class="srv-card-desc">Cumplimiento de los requisitos anuales del estado donde está registrada tu LLC.</p>
 <div class="pay-buttons">
-<a class="btn-tarjeta" href="https://buy.stripe.com/3cIcN73zs5tD4FG68TfMA0l" rel="noopener" target="_blank">Pagar con tarjeta</a>
+<a class="btn-tarjeta" href="https://buy.stripe.com/3cIcN73zs5tD4FG68TfMA0l" rel="noopener" target="_blank">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>
 <a class="btn-transferencia" href="pago-transferencia.html?servicio=reporte_estado" rel="noopener" target="_blank">Pagar por transferencia</a>
 </div>
 </div>
@@ -171,7 +172,7 @@
 <p class="srv-card-price">$99</p>
 <p class="srv-card-desc">Obtención del número de identificación fiscal de tu empresa ante el IRS.</p>
 <div class="pay-buttons">
-<a class="btn-tarjeta" href="https://buy.stripe.com/8x2cN7b1U1dnb44fJtfMA0k" rel="noopener" target="_blank">Pagar con tarjeta</a>
+<a class="btn-tarjeta" href="https://buy.stripe.com/8x2cN7b1U1dnb44fJtfMA0k" rel="noopener" target="_blank">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>
 <a class="btn-transferencia" href="pago-transferencia.html?servicio=tramitacion_ein" rel="noopener" target="_blank">Pagar por transferencia</a>
 </div>
 </div>
