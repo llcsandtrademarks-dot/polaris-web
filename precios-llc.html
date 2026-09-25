@@ -68,13 +68,13 @@
   .precio-monto { font-size: 17px; font-weight: 700; color: var(--navy); }
   .plan-mensual { font-size: 12.5px; font-weight: 500; color: var(--text-muted); line-height: 1.45; }
   .plan-mensual a { color: var(--navy-light); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
-  .precio-botones { display: flex; gap: 8px; flex-wrap: wrap; }
+  .precio-botones { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "tarjeta transferencia" "nota transferencia"; gap: 6px 8px; align-items: start; }
   .precio-botones a { font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 7px; text-decoration: none; white-space: nowrap; }
-  .btn-tarjeta { background: var(--navy); color: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center; }
+  .btn-tarjeta { background: var(--navy); color: var(--white); grid-area: tarjeta; }
   .btn-tarjeta:hover { background: var(--navy-mid); }
-  .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); grid-area: transferencia; }
   .btn-transferencia:hover { background: var(--navy); color: var(--white); }
-  .nota-recargo-tarjeta { display: block; max-width: 150px; font-size: 10px; font-weight: 400; font-style: italic; line-height: 1.25; white-space: normal; opacity: 0.9; }
+  .nota-recargo-tarjeta { grid-area: nota; display: block; font-size: 10px; color: var(--text-muted); font-style: italic; font-weight: 400; line-height: 1.25; white-space: normal; margin: 0; }
 
   @media (max-width: 720px) {
     .page-header { padding: 2.5rem 1.25rem 2rem; }
@@ -91,7 +91,7 @@
     .estado-badge { font-size: 8px; padding: 1px 5px; white-space: normal; }
     .precio-cell { min-width: 0; gap: 5px; }
     .precio-monto { font-size: 13px; }
-    .precio-botones { flex-direction: column; gap: 5px; }
+    .precio-botones { grid-template-columns: 1fr; grid-template-areas: "tarjeta" "nota" "transferencia"; gap: 5px; }
     .precio-botones a { font-size: 10px; padding: 6px 4px; text-align: center; white-space: normal; line-height: 1.25; }
   }
 
@@ -547,7 +547,7 @@ function celdaPrecio(servicio, estado, importe) {
   return '<div class="precio-cell">' +
     '<div class="precio-monto">$' + importe + (servicio==='mantenimiento' ? '/año' : '') + notaPlanMensual(servicio, importe) + '</div>' +
     '<div class="precio-botones">' +
-      '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta<span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span></a>' +
+      '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripe(servicio, estado, importe) + '">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>' +
       '<a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="' + linkTransferencia(servicio, estado) + '">Pagar por transferencia</a>' +
     '</div>' +
   '</div>';

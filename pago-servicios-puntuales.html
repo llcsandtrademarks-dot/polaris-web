@@ -66,17 +66,20 @@
     .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
     .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
     .srv-card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
-    .pay-buttons { display: flex; gap: 8px; flex-wrap: wrap; }
+    .pay-buttons { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "tarjeta transferencia" "nota transferencia"; gap: 6px 8px; align-items: start; }
     .pay-buttons a { font-size: 13px; font-weight: 700; padding: 9px 16px; border-radius: 7px; text-decoration: none; white-space: nowrap; transition: background 0.2s, color 0.2s; }
-    .btn-tarjeta { background: var(--navy); color: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center; }
+    .btn-tarjeta { background: var(--navy); color: var(--white); grid-area: tarjeta; }
     .btn-tarjeta:hover { background: var(--navy-mid); }
-    .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+    .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); grid-area: transferencia; }
     .btn-transferencia:hover { background: var(--navy); color: var(--white); }
-  .nota-recargo-tarjeta { display: block; max-width: 150px; font-size: 10px; font-weight: 400; font-style: italic; line-height: 1.25; white-space: normal; opacity: 0.9; }
+  .nota-recargo-tarjeta { grid-area: nota; display: block; font-size: 10px; color: var(--text-muted); font-style: italic; font-weight: 400; line-height: 1.25; white-space: normal; margin: 0; }
     .pay-note { font-size: 11px; color: var(--text-muted); line-height: 1.5; margin-top: 10px; }
     .pay-footnote { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 2.5rem; }
     .pay-footnote a { color: var(--navy-light); font-weight: 600; }
-  </style>
+    @media (max-width: 480px) {
+    .pay-buttons { grid-template-columns: 1fr; grid-template-areas: "tarjeta" "nota" "transferencia"; }
+  }
+</style>
 </head>
 <body>
 <!-- HEADER:START -->
@@ -148,7 +151,7 @@
 <p class="srv-card-price" id="precio-reporte-irs">$159</p>
 <p class="srv-card-desc">Declaración fiscal 1120+5472 o 1065+K-1 (sin nexus) para LLCs extranjeras, según si tu LLC es de socio único o de varios socios.</p>
 <div class="pay-buttons">
-<a class="btn-tarjeta" id="pagar-tarjeta-irs" href="https://buy.stripe.com/9B65kF5HA2hrc8854PfMA00" rel="noopener" target="_blank">Pagar con tarjeta<span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span></a>
+<a class="btn-tarjeta" id="pagar-tarjeta-irs" href="https://buy.stripe.com/9B65kF5HA2hrc8854PfMA00" rel="noopener" target="_blank">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>
 <a class="btn-transferencia" href="pago-transferencia.html?servicio=reporte_irs" rel="noopener" target="_blank">Pagar por transferencia</a>
 </div>
 </div>
@@ -160,7 +163,7 @@
 <p class="srv-card-price">$99</p>
 <p class="srv-card-desc">Cumplimiento de los requisitos anuales del estado donde está registrada tu LLC.</p>
 <div class="pay-buttons">
-<a class="btn-tarjeta" href="https://buy.stripe.com/3cIcN73zs5tD4FG68TfMA0l" rel="noopener" target="_blank">Pagar con tarjeta<span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span></a>
+<a class="btn-tarjeta" href="https://buy.stripe.com/3cIcN73zs5tD4FG68TfMA0l" rel="noopener" target="_blank">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>
 <a class="btn-transferencia" href="pago-transferencia.html?servicio=reporte_estado" rel="noopener" target="_blank">Pagar por transferencia</a>
 </div>
 </div>
@@ -172,7 +175,7 @@
 <p class="srv-card-price">$99</p>
 <p class="srv-card-desc">Obtención del número de identificación fiscal de tu empresa ante el IRS.</p>
 <div class="pay-buttons">
-<a class="btn-tarjeta" href="https://buy.stripe.com/8x2cN7b1U1dnb44fJtfMA0k" rel="noopener" target="_blank">Pagar con tarjeta<span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span></a>
+<a class="btn-tarjeta" href="https://buy.stripe.com/8x2cN7b1U1dnb44fJtfMA0k" rel="noopener" target="_blank">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>
 <a class="btn-transferencia" href="pago-transferencia.html?servicio=tramitacion_ein" rel="noopener" target="_blank">Pagar por transferencia</a>
 </div>
 </div>

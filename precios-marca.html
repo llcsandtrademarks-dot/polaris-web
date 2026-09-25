@@ -53,11 +53,11 @@
   .marca-card-desglose { font-size: 12.5px; color: var(--text-muted); margin-bottom: 1.5rem; }
   .marca-card-botones { display: flex; flex-direction: column; gap: 8px; margin-top: auto; }
   .marca-card-botones a { font-size: 13.5px; font-weight: 700; padding: 11px 16px; border-radius: 8px; text-decoration: none; text-align: center; }
-  .btn-tarjeta { background: var(--navy); color: var(--white); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; text-align: center; }
+  .btn-tarjeta { background: var(--navy); color: var(--white); grid-area: tarjeta; }
   .btn-tarjeta:hover { background: var(--navy-mid); }
-  .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); grid-area: transferencia; }
   .btn-transferencia:hover { background: var(--navy); color: var(--white); }
-  .nota-recargo-tarjeta { display: block; max-width: 150px; font-size: 10px; font-weight: 400; font-style: italic; line-height: 1.25; white-space: normal; opacity: 0.9; }
+  .nota-recargo-tarjeta { display: block; font-size: 10px; color: var(--text-muted); font-style: italic; font-weight: 400; line-height: 1.25; white-space: normal; margin-top: -4px; }
 
   @media (max-width: 720px) {
     .page-header { padding: 2.5rem 1.25rem 2rem; }
@@ -459,7 +459,7 @@ function linkTransferenciaMarca(servicio) {
       '<div class="marca-card-precio">$' + s.total + '</div>' +
       '<div class="marca-card-desglose">' + s.desglose + '</div>' +
       '<div class="marca-card-botones">' +
-        '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripeMarca(s.slug) + '">Pagar con tarjeta<span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span></a>' +
+        '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripeMarca(s.slug) + '">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>' +
         '<a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="' + linkTransferenciaMarca(s.slug) + '">Pagar por transferencia</a>' +
       '</div>' +
     '</div>';
