@@ -1,0 +1,827 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    if (localStorage.getItem('polaris_cookie_consent') === 'accepted') {
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Precios LLC — Plan BÁSICO | Proyecto Polaris</title><meta content="Forma tu LLC con el plan BÁSICO: precio único por estado, sin renovación incluida. Elige tu estado y paga con tarjeta o transferencia." name="description"/><link href="https://proyecto-polaris.com/precios-basico-llc.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="Precios LLC — Plan BÁSICO | Proyecto Polaris" name="twitter:title"/><meta content="Forma tu LLC con el plan BÁSICO: precio único por estado, sin renovación incluida. Elige tu estado y paga con tarjeta o transferencia." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="website" property="og:type"/><meta content="https://proyecto-polaris.com/precios-basico-llc.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="Precios LLC — Plan BÁSICO | Proyecto Polaris" property="og:title"/><meta content="Forma tu LLC con el plan BÁSICO: precio único por estado, sin renovación incluida. Elige tu estado y paga con tarjeta o transferencia." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
+<link href="shared.css" rel="stylesheet"/>
+<style>
+    .back-btn { display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--navy); background: var(--white); border: 1.5px solid var(--navy); padding: 8px 16px; border-radius: 8px; text-decoration: none; transition: background 0.2s, color 0.2s; }
+    .back-btn:hover { background: var(--navy); color: var(--white); }
+    .selector-bar .back-btn { margin-left: auto; }
+    .ver-todos { display: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 700; color: var(--navy); background: transparent; border: 0; padding: 8px 4px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .ver-todos.visible { display: inline-block; }
+    .ver-todos:hover { color: var(--navy-light); }
+    table.precios-table tr.estado-row.is-hidden { display: none; }
+  .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+  .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+  .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+  .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 620px; margin: 0 auto; line-height: 1.7; }
+
+  .selector-bar { max-width: 1100px; margin: 0 auto; padding: 1.75rem 2rem 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+  .selector-bar label { font-size: 14px; font-weight: 600; color: var(--navy); }
+  .selector-bar select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; min-width: 260px; }
+
+  .precios-table-wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 2rem 3rem; overflow-x: auto; }
+  table.precios-table { width: 100%; border-collapse: collapse; background: var(--white); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  table.precios-table th { background: var(--navy-pale); color: var(--navy); font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; padding: 12px 14px; text-align: left; }
+  .que-incluye-link { text-transform: none; font-weight: 400; font-size: 11px; color: var(--navy-light); text-decoration: underline; margin-left: 6px; white-space: nowrap; }
+  table.precios-table td { padding: 14px; border-top: 1px solid var(--border); vertical-align: top; }
+  table.precios-table tr.estado-row { transition: background 0.4s; }
+  table.precios-table tr.estado-row.highlight { background: #fff6df; }
+  .estado-nombre { font-weight: 700; color: var(--navy); font-size: 14.5px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+  .estado-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ba7517; color: #fff; }
+  .precio-cell { display: flex; flex-direction: column; gap: 8px; min-width: 190px; }
+  .precio-monto { font-size: 17px; font-weight: 700; color: var(--navy); }
+  .plan-mensual { font-size: 12.5px; font-weight: 500; color: var(--text-muted); line-height: 1.45; }
+  .plan-mensual a { color: var(--navy-light); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+  .precio-botones { display: grid; grid-template-columns: 1fr 1fr; grid-template-areas: "tarjeta transferencia" "nota transferencia"; gap: 6px 8px; align-items: start; }
+  .precio-botones a { font-size: 12.5px; font-weight: 700; padding: 7px 12px; border-radius: 7px; text-decoration: none; white-space: nowrap; }
+  .btn-tarjeta { background: var(--navy); color: var(--white); grid-area: tarjeta; }
+  .btn-tarjeta:hover { background: var(--navy-mid); }
+  .btn-transferencia { background: transparent; color: var(--navy); border: 1.5px solid var(--navy); grid-area: transferencia; }
+  .btn-transferencia:hover { background: var(--navy); color: var(--white); }
+  .nota-recargo-tarjeta { grid-area: nota; display: block; font-size: 10px; color: var(--text-muted); font-style: italic; font-weight: 400; line-height: 1.25; white-space: normal; margin: 0; }
+
+  @media (max-width: 720px) {
+    .page-header { padding: 2.5rem 1.25rem 2rem; }
+    .selector-bar { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .selector-bar .back-btn { margin-left: 0; }
+    .precios-table-wrap { padding-left: 0.6rem; padding-right: 0.6rem; }
+    table.precios-table { table-layout: fixed; width: 100%; }
+    table.precios-table th:first-child, table.precios-table td:first-child { width: 30%; }
+    table.precios-table th:not(:first-child), table.precios-table td:not(:first-child) { width: 35%; }
+    table.precios-table th, table.precios-table td { padding: 8px 4px; }
+    table.precios-table th { font-size: 9.5px; letter-spacing: 0.03em; }
+    .que-incluye-link { display: block; margin-left: 0; margin-top: 2px; font-size: 9.5px; }
+    .estado-nombre { font-size: 12px; flex-wrap: wrap; gap: 4px; line-height: 1.3; min-width: 0; overflow-wrap: break-word; word-break: break-word; }
+    .estado-badge { font-size: 8px; padding: 1px 5px; white-space: normal; }
+    .precio-cell { min-width: 0; gap: 5px; }
+    .precio-monto { font-size: 13px; }
+    .precio-botones { grid-template-columns: 1fr; grid-template-areas: "tarjeta" "nota" "transferencia"; gap: 5px; }
+    .precio-botones a { font-size: 10px; padding: 6px 4px; text-align: center; white-space: normal; line-height: 1.25; }
+  }
+
+  @media (max-width: 380px) {
+    .precio-monto { font-size: 12px; }
+    .plan-mensual { font-size: 9.5px; }
+    .precio-botones a { font-size: 9.5px; }
+  }
+  .aviso-basico-wrap { max-width: 1100px; margin: 0 auto; padding: 2rem 2rem 0; }
+  .aviso-basico { background: #fdecea; border: 1px solid #e8a49c; border-left: 4px solid #c0392b; border-radius: 14px; padding: 1.25rem 1.5rem; }
+  .aviso-basico p { font-size: 0.97rem; color: #8a1f14; line-height: 1.7; font-weight: 600; }
+  .aviso-basico p + p { margin-top: 0.75rem; }
+  .aviso-basico a { color: #8a1f14; font-weight: 800; text-decoration: underline; text-underline-offset: 2px; }
+  @media (max-width: 720px) { .aviso-basico-wrap { padding: 1.25rem 1.25rem 0; } .aviso-basico { padding: 1rem 1.1rem; } .aviso-basico p { font-size: 0.9rem; } }
+  .smart-info { background: var(--navy-pale); border: 1px solid var(--border); border-radius: 14px; padding: 1.25rem 1.5rem; }
+  .smart-info p { font-size: 0.97rem; color: var(--navy); line-height: 1.7; font-weight: 500; }
+  .smart-mes { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+  .no-disp { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+  .no-disp a { color: var(--navy-light); font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+  @media (max-width: 720px) {
+    .smart-info-wrap { padding: 1.25rem 1.25rem 0; }
+    .smart-mes { font-size: 10px; }
+    .no-disp { font-size: 11px; }
+    table.precios-table th:first-child, table.precios-table td:first-child { width: 40%; }
+    table.precios-table th:not(:first-child), table.precios-table td:not(:first-child) { width: 60%; }
+  }
+</style>
+<script>
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
+    })();
+  </script>
+<style>
+/* ── WIDGET FLOTANTE ──────────────────────────────── */
+#cal-widget {
+  position: fixed; bottom: 24px; right: 24px; z-index: 150;
+  display: block;
+  animation: widgetIn 0.3s ease;
+}
+@keyframes widgetIn { from { transform:scale(0.7); opacity:0 } to { transform:scale(1); opacity:1 } }
+#cal-widget a {
+  display: flex; align-items: center; gap: 10px;
+  background: var(--navy); color: var(--white);
+  font-size: 13px; font-weight: 700;
+  padding: 11px 18px; border-radius: 50px;
+  text-decoration: none; box-shadow: 0 6px 20px rgba(13,33,55,0.35);
+  transition: background 0.2s, transform 0.2s;
+}
+#cal-widget a:hover { background: var(--navy-mid); transform: translateY(-2px); }
+#cal-widget-close {
+  position: absolute; top: -6px; right: -6px;
+  width: 20px; height: 20px; border-radius: 50%;
+  background: var(--text-muted); color: white; border: none;
+  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  line-height: 1;
+}
+</style>
+</head>
+<body data-wa-categoria="llc">
+<!-- TRUSTPILOT-BAR:START -->
+<div class="tp-badge-bar">
+<a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/5/128x24.png" width="128"/>
+<span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
+</a>
+</div>
+<!-- TRUSTPILOT-BAR:END -->
+<!-- HEADER:START -->
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="calendario-llc.html">Calendario fiscal</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Noticias</a></li>
+<li><a href="precio-maximo-llc.html">¿Estás pagando de más?</a></li>
+</ul>
+</li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+</div>
+</div>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="calendario-llc.html">Calendario fiscal</a>
+<a href="referidos.html">Programa de referidos</a>
+<a href="preguntas-frecuentes.html">Preguntas frecuentes</a>
+<a href="blog/index.html">Noticias</a>
+<a href="precio-maximo-llc.html">¿Estás pagando de más?</a>
+</div>
+</div>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+<!-- HEADER:END -->
+
+<div class="page-header">
+<p class="page-header-eyebrow">PRECIOS POR ESTADO — PLAN BÁSICO</p>
+<h1>¿Cuánto cuesta tu LLC con el plan BÁSICO?</h1>
+<p>Pago único por estado para formar tu LLC. El plan BÁSICO no incluye renovación, agente registrado, EIN ni Acuerdo Operativo.</p>
+</div>
+
+<div class="aviso-basico-wrap"><div class="aviso-basico" role="note">
+<p>Antes de continuar: para formar tu LLC necesitamos el nombre y la dirección de tu agente residente. Si no tienes uno, puedes contratarlo aquí → <a href="pago-servicios-puntuales.html">Contratar agente residente</a></p>
+<p>Antes de pagar, revisa también si vas a necesitar <a href="pago-servicios-puntuales.html">EIN</a> o Acuerdo Operativo — el plan BÁSICO no los incluye. Si no estás seguro, <a href="contacto.html">contáctanos</a>.</p>
+</div></div>
+
+<div class="selector-bar">
+  <label for="selector-estado">Ir directo a tu estado:</label>
+  <select id="selector-estado" onchange="irAEstado(this.value)">
+    <option value="">— Seleccionar estado —</option>
+    <option value="alabama">Alabama</option>
+    <option value="alaska">Alaska</option>
+    <option value="arizona">Arizona</option>
+    <option value="arkansas">Arkansas</option>
+    <option value="california">California</option>
+    <option value="colorado">Colorado</option>
+    <option value="connecticut">Connecticut</option>
+    <option value="delaware">Delaware</option>
+    <option value="districtofcolumbia">District of Columbia</option>
+    <option value="florida">Florida</option>
+    <option value="georgia">Georgia</option>
+    <option value="hawaii">Hawaii</option>
+    <option value="idaho">Idaho</option>
+    <option value="illinois">Illinois</option>
+    <option value="indiana">Indiana</option>
+    <option value="iowa">Iowa</option>
+    <option value="kansas">Kansas</option>
+    <option value="kentucky">Kentucky</option>
+    <option value="louisiana">Louisiana</option>
+    <option value="maine">Maine</option>
+    <option value="maryland">Maryland</option>
+    <option value="massachusetts">Massachusetts</option>
+    <option value="michigan">Michigan</option>
+    <option value="minnesota">Minnesota</option>
+    <option value="mississippi">Mississippi</option>
+    <option value="missouri">Missouri</option>
+    <option value="montana">Montana</option>
+    <option value="nebraska">Nebraska</option>
+    <option value="nevada">Nevada</option>
+    <option value="newhampshire">New Hampshire</option>
+    <option value="newjersey">New Jersey</option>
+    <option value="newmexico">New Mexico</option>
+    <option value="newyork">New York</option>
+    <option value="northcarolina">North Carolina</option>
+    <option value="northdakota">North Dakota</option>
+    <option value="ohio">Ohio</option>
+    <option value="oklahoma">Oklahoma</option>
+    <option value="oregon">Oregon</option>
+    <option value="pennsylvania">Pennsylvania</option>
+    <option value="rhodeisland">Rhode Island</option>
+    <option value="southcarolina">South Carolina</option>
+    <option value="southdakota">South Dakota</option>
+    <option value="tennessee">Tennessee</option>
+    <option value="texas">Texas</option>
+    <option value="utah">Utah</option>
+    <option value="vermont">Vermont</option>
+    <option value="virginia">Virginia</option>
+    <option value="washington">Washington</option>
+    <option value="westvirginia">West Virginia</option>
+    <option value="wisconsin">Wisconsin</option>
+    <option value="wyoming">Wyoming</option>
+  </select>
+  <button type="button" class="ver-todos" id="ver-todos" onclick="verTodosLosEstados()">Ver todos los estados</button>
+  <a class="back-btn" href="paquetes-llc.html">← Volver a la comparativa de planes</a>
+</div>
+
+<div class="precios-table-wrap">
+  <table class="precios-table">
+    <thead>
+      <tr>
+        <th>Estado</th>
+        <th>Formación LLC — plan BÁSICO</th>
+      </tr>
+    </thead>
+    <tbody id="tabla-precios-body">
+      <tr class="estado-row" id="estado-alabama">
+        <td><div class="estado-nombre">Alabama</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$299</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/9B6eVf5HA09j4FG68TfMA0G?client_reference_id=formacion_basico_alabama">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=alabama&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-alaska">
+        <td><div class="estado-nombre">Alaska</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$299</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/9B6eVf5HA09j4FG68TfMA0G?client_reference_id=formacion_basico_alaska">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=alaska&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-arizona">
+        <td><div class="estado-nombre">Arizona</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_arizona">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=arizona&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-arkansas">
+        <td><div class="estado-nombre">Arkansas</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_arkansas">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=arkansas&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-california">
+        <td><div class="estado-nombre">California</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_california">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=california&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-colorado">
+        <td><div class="estado-nombre">Colorado</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_colorado">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=colorado&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-connecticut">
+        <td><div class="estado-nombre">Connecticut</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_connecticut">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=connecticut&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-delaware">
+        <td><div class="estado-nombre">Delaware</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_delaware">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=delaware&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-districtofcolumbia">
+        <td><div class="estado-nombre">District of Columbia</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_districtofcolumbia">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=districtofcolumbia&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-florida">
+        <td><div class="estado-nombre">Florida</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_florida">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=florida&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-georgia">
+        <td><div class="estado-nombre">Georgia</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_georgia">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=georgia&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-hawaii">
+        <td><div class="estado-nombre">Hawaii</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_hawaii">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=hawaii&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-idaho">
+        <td><div class="estado-nombre">Idaho</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_idaho">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=idaho&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-illinois">
+        <td><div class="estado-nombre">Illinois</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_illinois">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=illinois&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-indiana">
+        <td><div class="estado-nombre">Indiana</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_indiana">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=indiana&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-iowa">
+        <td><div class="estado-nombre">Iowa</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_iowa">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=iowa&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-kansas">
+        <td><div class="estado-nombre">Kansas</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_kansas">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=kansas&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-kentucky">
+        <td><div class="estado-nombre">Kentucky</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_kentucky">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=kentucky&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-louisiana">
+        <td><div class="estado-nombre">Louisiana</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_louisiana">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=louisiana&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-maine">
+        <td><div class="estado-nombre">Maine</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_maine">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=maine&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-maryland">
+        <td><div class="estado-nombre">Maryland</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_maryland">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=maryland&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-massachusetts">
+        <td><div class="estado-nombre">Massachusetts</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$599</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x29AV5HA3lva007cXfMA0J?client_reference_id=formacion_basico_massachusetts">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=massachusetts&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-michigan">
+        <td><div class="estado-nombre">Michigan</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_michigan">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=michigan&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-minnesota">
+        <td><div class="estado-nombre">Minnesota</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_minnesota">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=minnesota&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-mississippi">
+        <td><div class="estado-nombre">Mississippi</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_mississippi">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=mississippi&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-missouri">
+        <td><div class="estado-nombre">Missouri</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_missouri">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=missouri&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-montana">
+        <td><div class="estado-nombre">Montana</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_montana">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=montana&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-nebraska">
+        <td><div class="estado-nombre">Nebraska</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_nebraska">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=nebraska&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-nevada">
+        <td><div class="estado-nombre">Nevada</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$499</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/5kQ8wR1rkaNX1tu40LfMA0I?client_reference_id=formacion_basico_nevada">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=nevada&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-newhampshire">
+        <td><div class="estado-nombre">New Hampshire</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_newhampshire">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newhampshire&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-newjersey">
+        <td><div class="estado-nombre">New Jersey</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_newjersey">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newjersey&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-newmexico">
+        <td><div class="estado-nombre">New Mexico</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_newmexico">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newmexico&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-newyork">
+        <td><div class="estado-nombre">New York</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$299</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/9B6eVf5HA09j4FG68TfMA0G?client_reference_id=formacion_basico_newyork">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newyork&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-northcarolina">
+        <td><div class="estado-nombre">North Carolina</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_northcarolina">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=northcarolina&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-northdakota">
+        <td><div class="estado-nombre">North Dakota</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_northdakota">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=northdakota&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-ohio">
+        <td><div class="estado-nombre">Ohio</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_ohio">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=ohio&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-oklahoma">
+        <td><div class="estado-nombre">Oklahoma</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_oklahoma">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=oklahoma&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-oregon">
+        <td><div class="estado-nombre">Oregon</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_oregon">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=oregon&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-pennsylvania">
+        <td><div class="estado-nombre">Pennsylvania</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_pennsylvania">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=pennsylvania&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-rhodeisland">
+        <td><div class="estado-nombre">Rhode Island</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_rhodeisland">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=rhodeisland&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-southcarolina">
+        <td><div class="estado-nombre">South Carolina</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_southcarolina">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=southcarolina&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-southdakota">
+        <td><div class="estado-nombre">South Dakota</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_southdakota">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=southdakota&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-tennessee">
+        <td><div class="estado-nombre">Tennessee</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$399</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/6oU4gB3zscW5egg7cXfMA0H?client_reference_id=formacion_basico_tennessee">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=tennessee&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-texas">
+        <td><div class="estado-nombre">Texas</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$399</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/6oU4gB3zscW5egg7cXfMA0H?client_reference_id=formacion_basico_texas">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=texas&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-utah">
+        <td><div class="estado-nombre">Utah</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/8x200lfia7BL5JKgNxfMA0E?client_reference_id=formacion_basico_utah">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=utah&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-vermont">
+        <td><div class="estado-nombre">Vermont</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_vermont">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=vermont&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-virginia">
+        <td><div class="estado-nombre">Virginia</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_virginia">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=virginia&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-washington">
+        <td><div class="estado-nombre">Washington</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_washington">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=washington&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-westvirginia">
+        <td><div class="estado-nombre">West Virginia</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_westvirginia">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=westvirginia&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-wisconsin">
+        <td><div class="estado-nombre">Wisconsin</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_wisconsin">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=wisconsin&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-wyoming">
+        <td><div class="estado-nombre">Wyoming</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199</div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/bJedRbc5Yf4d6NO0OzfMA0F?client_reference_id=formacion_basico_wyoming">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=wyoming&amp;servicio=formacion_basico">Pagar por transferencia</a></div></div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<script>
+// Codigo de prescriptor (?presc=, guardado 30 dias en localStorage): se anade a los enlaces de tarjeta, igual que en precios-llc.html.
+(function(){
+  try {
+    var v = localStorage.getItem('polaris_presc'), ts = localStorage.getItem('polaris_presc_ts');
+    if (!v || !ts || (Date.now() - Number(ts)) / 86400000 > 30) return;
+    document.querySelectorAll('a.btn-tarjeta[href*="buy.stripe.com"]').forEach(function(a){ a.href += '&prefilled_promo_code=' + encodeURIComponent(v); });
+  } catch (e) {}
+})();
+</script>
+<!-- ===== REVIEWS CAROUSEL ===== -->
+<section class="reviews-section">
+<div class="section" style="padding-bottom:0;">
+<p class="section-eyebrow">Opiniones de clientes</p>
+<h2 class="section-title" style="font-family:var(--font-heading);">Lo que dicen nuestros clientes</h2>
+</div>
+<div class="reviews-outer">
+<div class="reviews-track" id="reviewsTrack">
+<div class="rev-slide">
+<a class="review-card review-card-tp" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" style="justify-content:center;" target="_blank">
+<div class="review-body" style="text-align:center;">
+<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
+<img alt="Trustpilot: 4,3 sobre 5 estrellas" height="48" src="https://images-static.trustpilot.com/api/stars/4.5/256x48.png" style="height:48px;width:auto;margin:0 auto 1rem;display:block;" width="256"/>
+<p class="review-name" style="font-size:1.1rem;">4,3 · Excelente</p>
+<p class="review-text" style="font-style:normal;margin-top:0.5rem;margin-bottom:0;">Descubre lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">En Polaris he conseguido justo el soporte y servicio que necesito.</p>
+<p class="review-text">"En Polaris he conseguido justo el soporte y servicio que necesito, profesionales que conocen muy bien el mercado, trabajando con estrategia impecable, aportando soluciones, enseñándome y compartiendo información muy relevante y aspectos que no todos querrán compartir; en resumidas cuentas, un equipo flexible pero muy disciplinado, que comprende tus necesidades y te acompaña de principio a fin en tu propósito de negocio."</p>
+<p class="review-name">Jose Ferreira</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Portugal · 16 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Honestidad, amabilidad, profesionalismo, etc.</p>
+<p class="review-text">"Honestidad, amabilidad, profesionalismo etc. A decir verdad me quedo corta al querer expresar lo contenta, satisfecha y sobretodo lo muy agradecida que estoy de contar con sus servicios de Proyecto Polaris, la verdad 5 estrellas no es suficiente, los recomiendo al 100%, muchísimas gracias Yadi y Samir por siempre estar ahí y responder cada que surge una duda. Agradecida 🙌"</p>
+<p class="review-name">Ivette Chacon</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">EE.UU. · 4 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">El acompañamiento y el asesoramiento...</p>
+<p class="review-text">"El acompañamiento y el asesoramiento que recibimos en todo momento hicieron que todo el proceso fuera mucho más fácil para nosotros. Los recomendamos al 100% por su seriedad, profesionalismo y excelente atención."</p>
+<p class="review-name">Joel y Vanesa</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Argentina · 4 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Recomiendo ampliamente a este equipo de...</p>
+<p class="review-text">"Recomiendo ampliamente a este equipo de trabajo, son gente 100% confiable, amable y que en todo momento están al pendiente de las necesidades de sus clientes y resolviendo dudas. Gracias por su apoyo y mucho éxito!!"</p>
+<p class="review-name">Yadira Velasco Arteaga</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">México · 8 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Destaco totalmente la atención de este...</p>
+<p class="review-text">"Destaco totalmente la atención de este equipo: amables, puntuales y extremadamente rápidos. Su capacidad para asesorar y resolver cualquier duda con claridad, sumada al orden impecable en todos sus procesos, marca la diferencia. ¡Un servicio de excelente calidad!"</p>
+<p class="review-name">Gabriel Velez</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Colombia · 13 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Por se cumplió el objetivo</p>
+<p class="review-text">"Por se cumplió el objetivo, con todos los puntos acordados y en corto tiempo"</p>
+<p class="review-name">Priscila</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Venezuela · 24 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">La empresa más confiable que he...</p>
+<p class="review-text">"La empresa más confiable que he contratado"</p>
+<p class="review-name">Brenux LLC</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">España · 22 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-title">Cordiales, profesionales y efectivos</p>
+<p class="review-text">"Fueron sumamente cordiales y efectivos. Están buscando hacer las cosas bien y no sacar plata a los clientes. Me resultaron honestos y transparentes, cosa que no es fácil encontrar hoy en día."</p>
+<p class="review-name">Matias O.</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Uruguay · 25 ago 2026</p>
+</div>
+</a>
+</div>
+</div>
+<div class="carousel-arrows" style="margin-top:1.5rem;">
+<button aria-label="Anterior" class="carousel-arrow" id="revPrev">←</button>
+<button aria-label="Siguiente" class="carousel-arrow" id="revNext">→</button>
+</div>
+</div>
+</section>
+<script>
+(function(){
+  var outer = document.querySelector('.reviews-outer');
+  var track = document.getElementById('reviewsTrack');
+  if (!track || !outer) return;
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.rev-slide'));
+  var total = slides.length;
+  var current = 0;
+  var timer = null;
+  var started = false;
+
+  // Use CSS scroll-based approach for reliability
+  function updateSlides() {
+    slides.forEach(function(s, i) {
+      var card = s.querySelector('.review-card');
+      if (i === current) {
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      } else {
+        card.style.opacity = '0.38';
+        card.style.transform = 'scale(0.94)';
+      }
+    });
+  }
+
+  function goTo(n, animated) {
+    current = ((n % total) + total) % total;
+    // Scroll the active slide into center view
+    var slide = slides[current];
+    var outerW = outer.offsetWidth;
+    var slideW = slide.offsetWidth;
+    // offset = slide's left position - center padding
+    var slideLeft = slide.offsetLeft;
+    var scrollTo = slideLeft - (outerW - slideW) / 2;
+    if (animated) {
+      track.style.transition = 'transform 0.45s cubic-bezier(.4,0,.2,1)';
+    } else {
+      track.style.transition = 'none';
+    }
+    track.style.transform = 'translateX(' + (-scrollTo) + 'px)';
+    updateSlides();
+  }
+
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(function(){ goTo(current + 1, true); }, 7000);
+  }
+  function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+
+  function init() {
+    if (started) return;
+    started = true;
+    // Wait one frame to ensure layout is complete
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        goTo(0, false);
+        startTimer();
+      });
+    });
+  }
+
+  document.getElementById('revNext').addEventListener('click', function(){
+    stopTimer(); goTo(current + 1, true); startTimer();
+  });
+  document.getElementById('revPrev').addEventListener('click', function(){
+    stopTimer(); goTo(current - 1, true); startTimer();
+  });
+
+  // Touch/swipe
+  var tx = 0;
+  outer.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
+  outer.addEventListener('touchend', function(e){
+    var dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) { stopTimer(); goTo(current + (dx > 0 ? 1 : -1), true); startTimer(); }
+  }, {passive:true});
+
+  // Recalc on resize
+  window.addEventListener('resize', function(){ if (started) { requestAnimationFrame(function(){ goTo(current, false); }); } });
+
+  // IntersectionObserver — start only when visible
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) { init(); obs.disconnect(); }
+    }, { threshold: 0.2 });
+    obs.observe(outer);
+  } else {
+    window.addEventListener('load', init);
+  }
+})();
+</script>
+
+<!-- FOOTER:START -->
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="precios-llc.html">Precios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="precios-marca.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="privacidad.html">Política de privacidad</a></li>
+<li><a href="terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- FOOTER:END -->
+
+<script>
+// Filtra la tabla: con un estado elegido solo se ve su fila; sin estado (o con
+// "Ver todos los estados") vuelven a verse todas.
+function irAEstado(slug) {
+  var filas = document.querySelectorAll('.estado-row');
+  var boton = document.getElementById('ver-todos');
+  if (!slug || !document.getElementById('estado-' + slug)) {
+    filas.forEach(function(r){ r.classList.remove('is-hidden'); });
+    boton.classList.remove('visible');
+    return;
+  }
+  filas.forEach(function(r){ r.classList.toggle('is-hidden', r.id !== 'estado-' + slug); });
+  boton.classList.add('visible');
+}
+function verTodosLosEstados() {
+  document.getElementById('selector-estado').value = '';
+  irAEstado('');
+}
+</script>
+<!-- WIDGET FLOTANTE -->
+<div id="cal-widget">
+<a href="calendario-llc.html">
+<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
+    Mi calendario LLC
+  </a>
+<button aria-label="Cerrar widget" id="cal-widget-close" onclick="document.getElementById('cal-widget').style.display='none'">✕</button>
+</div>
+<!-- Widget Referidos -->
+<div id="ref-widget-wrap">
+  <a href="referidos.html" id="ref-widget-dot" title="Programa de referidos">★</a>
+  <a href="referidos.html" id="ref-widget-banner">Programa de referidos<br>Apuntate y gana</a>
+</div>
+<script>
+(function(){
+  var banner = document.getElementById("ref-widget-banner");
+  var dot = document.getElementById("ref-widget-dot");
+  if (!banner) return;
+  // Collapse after 5 seconds
+  setTimeout(function(){
+    banner.style.transition = "opacity 0.4s, max-height 0.4s";
+    banner.style.opacity = "0";
+    setTimeout(function(){
+      banner.style.display = "none";
+      dot.classList.add("visible");
+    }, 400);
+  }, 5000);
+})();
+</script>
+<script src="/whatsapp-widget.js" defer></script>
+<script src="/nav-dropdown.js" defer></script>
+</body>
+</html>
