@@ -62,7 +62,7 @@
   table.precios-table td { padding: 14px; border-top: 1px solid var(--border); vertical-align: top; }
   table.precios-table tr.estado-row { transition: background 0.4s; }
   table.precios-table tr.estado-row.highlight { background: #fff6df; }
-  .estado-nombre { font-weight: 700; color: var(--navy); font-size: 14.5px; display: flex; align-items: center; gap: 6px; }
+  .estado-nombre { font-weight: 700; color: var(--navy); font-size: 14.5px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
   .estado-badge { font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; background: #ba7517; color: #fff; }
   .precio-cell { display: flex; flex-direction: column; gap: 8px; min-width: 190px; }
   .precio-monto { font-size: 17px; font-weight: 700; color: var(--navy); }
@@ -294,6 +294,14 @@
       </tr>
     </thead>
     <tbody id="tabla-precios-body">
+      <tr class="estado-row" id="estado-wyoming">
+        <td><div class="estado-nombre">Wyoming</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$199<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/7sY9AV7PIg8h6NO54PfMA0t?client_reference_id=formacion_smart_wyoming">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=wyoming&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
+      </tr>
+      <tr class="estado-row" id="estado-newmexico">
+        <td><div class="estado-nombre">New Mexico</div></td>
+        <td><div class="precio-cell"><div class="precio-monto">$99<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/dRm8wR1rk8FP3BCgNxfMA0s?client_reference_id=formacion_smart_newmexico">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newmexico&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
+      </tr>
       <tr class="estado-row" id="estado-alabama">
         <td><div class="estado-nombre">Alabama</div></td>
         <td><div class="precio-cell"><div class="precio-monto">$299<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/6oU5kFgme8FP7RS7cXfMA0u?client_reference_id=formacion_smart_alabama">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=alabama&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
@@ -418,10 +426,6 @@
         <td><div class="estado-nombre">New Jersey</div></td>
         <td><div class="precio-cell"><div class="precio-monto">$199<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/7sY9AV7PIg8h6NO54PfMA0t?client_reference_id=formacion_smart_newjersey">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newjersey&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
       </tr>
-      <tr class="estado-row" id="estado-newmexico">
-        <td><div class="estado-nombre">New Mexico</div></td>
-        <td><div class="precio-cell"><div class="precio-monto">$99<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/dRm8wR1rk8FP3BCgNxfMA0s?client_reference_id=formacion_smart_newmexico">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newmexico&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
-      </tr>
       <tr class="estado-row" id="estado-newyork">
         <td><div class="estado-nombre">New York</div></td>
         <td><div class="precio-cell"><div class="precio-monto">$299<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/6oU5kFgme8FP7RS7cXfMA0u?client_reference_id=formacion_smart_newyork">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=newyork&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
@@ -493,10 +497,6 @@
       <tr class="estado-row" id="estado-wisconsin">
         <td><div class="estado-nombre">Wisconsin</div></td>
         <td><div class="precio-cell"><div class="precio-monto">$199<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/7sY9AV7PIg8h6NO54PfMA0t?client_reference_id=formacion_smart_wisconsin">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=wisconsin&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
-      </tr>
-      <tr class="estado-row" id="estado-wyoming">
-        <td><div class="estado-nombre">Wyoming</div></td>
-        <td><div class="precio-cell"><div class="precio-monto">$199<span class="smart-mes"> + $49/mes</span></div><div class="precio-botones"><a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="https://buy.stripe.com/7sY9AV7PIg8h6NO54PfMA0t?client_reference_id=formacion_smart_wyoming">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span><a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="pago-transferencia.html?estado=wyoming&amp;servicio=formacion_smart">Pagar por transferencia</a></div></div></td>
       </tr>
     </tbody>
   </table>
