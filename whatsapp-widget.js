@@ -11,6 +11,7 @@
 
   var WHATSAPP_NUMBER = '14782260715';
   var API_LEAD_URL = 'https://polaris-api.llcsandtrademarks.workers.dev/whatsapp-lead';
+  var API_CONTACTO_URL = 'https://polaris-api.llcsandtrademarks.workers.dev/contacto';
 
   var TEXTO_BIENVENIDA = 'Hola, bienvenido a Proyecto Polaris. Cuéntame en qué puedo ayudarte.';
   var TEXTO_PASO_DATOS = 'Perfecto. Te paso con un especialista — dime tu nombre y tu correo electrónico para pasarle tus datos completos y te conectamos enseguida por WhatsApp.';
@@ -44,6 +45,9 @@
       '.wa-chat-input textarea:focus,.wa-form input:focus{border-color:#25D366;box-shadow:0 0 0 2px rgba(37,211,102,.25)}' +
       '.wa-btn{background:#25D366;color:#fff;border:0;border-radius:10px;padding:8px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}' +
       '.wa-btn:disabled{opacity:.5;cursor:not-allowed}' +
+      '.wa-btn-secundario{background:none;border:1px solid #ccd0d5;color:#54656f;border-radius:10px;padding:6px 14px;font:inherit;font-size:12px;font-weight:700;cursor:pointer}' +
+      '.wa-btn-secundario:disabled{opacity:.5;cursor:not-allowed}' +
+      '.wa-btn-secundario:not(:disabled):hover{border-color:#25D366;color:#128C7E}' +
       '.wa-form{align-self:stretch;background:#fff;border:1px solid #e2e5e9;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}' +
       '.wa-form label.wa-campo{display:flex;flex-direction:column;gap:3px;font-size:12px;font-weight:700;color:#333}' +
       '.wa-form input[type=text],.wa-form input[type=email]{border:1px solid #ccd0d5;border-radius:8px;padding:8px 10px;font:inherit;font-size:14px;font-weight:400}' +
@@ -154,8 +158,17 @@
       boton.setAttribute('aria-expanded', 'false');
     }
 
-    // Paso 5: el lead se guarda (fire-and-forget), se dispara la conversión de
-    // Google Ads y se abre WhatsApp con el mensaje prerellenado.
+    function mostrarEstadoFinal(nodoOFrase) {
+      var estadoFinal = crearElemento('div', 'wa-msg wa-msg-bot wa-final');
+      if (typeof nodoOFrase === 'string') estadoFinal.textContent = nodoOFrase;
+      else estadoFinal.appendChild(nodoOFrase);
+      cuerpo.appendChild(estadoFinal);
+      cuerpo.scrollTop = cuerpo.scrollHeight;
+      return estadoFinal;
+    }
+
+    // Paso 5 (camino WhatsApp): el lead se guarda (fire-and-forget), se dispara la
+    // conversión de Google Ads y se abre WhatsApp con el mensaje prerellenado.
     function conectarPorWhatsApp(nombre, email, formulario) {
       var enlaceWa = construirEnlaceWhatsApp(nombre, email);
 
@@ -181,15 +194,48 @@
 
       // e) Estado final con el mismo enlace como alternativa clicable.
       formulario.remove();
-      var estadoFinal = crearElemento('div', 'wa-msg wa-msg-bot wa-final');
-      estadoFinal.appendChild(document.createTextNode('Listo, te hemos abierto WhatsApp. Si no se abrió, '));
+      var frase = document.createTextNode('Listo, te hemos abierto WhatsApp. Si no se abrió, ');
       var alternativa = crearElemento('a', '', 'haz clic aquí');
       alternativa.href = enlaceWa;
       alternativa.target = '_blank';
       alternativa.rel = 'noopener';
-      estadoFinal.appendChild(alternativa);
-      cuerpo.appendChild(estadoFinal);
-      cuerpo.scrollTop = cuerpo.scrollHeight;
+      var contenedor = document.createDocumentFragment();
+      contenedor.appendChild(frase);
+      contenedor.appendChild(alternativa);
+      mostrarEstadoFinal(contenedor);
+    }
+
+    // Camino alternativo: envía la consulta a /contacto (mismo endpoint que contacto.html), sin
+    // abrir WhatsApp ni disparar su conversión de Google Ads. Espera la respuesta real (no
+    // fire-and-forget) porque el estado final depende de si el envío funcionó o no.
+    function contactarPorEmail(nombre, email, formulario, botonEmail, botonConectar) {
+      botonEmail.disabled = true;
+      botonConectar.disabled = true;
+      botonEmail.textContent = 'Enviando…';
+      fetch(API_CONTACTO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tipo_consulta: '',
+          email: email,
+          nombre: nombre,
+          empresa: '',
+          pais: '',
+          mensaje: mensajeCliente,
+          ref_source: ''
+        })
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('http ' + res.status);
+          formulario.remove();
+          mostrarEstadoFinal('Listo, hemos recibido tu consulta por email. Te responderemos lo antes posible.');
+        })
+        .catch(function () {
+          botonEmail.disabled = false;
+          botonConectar.disabled = false;
+          botonEmail.textContent = 'Contactar por email';
+          agregarMensaje('wa-msg-bot', 'No se pudo enviar tu consulta por email. Prueba de nuevo o usa el botón de WhatsApp de arriba.');
+        });
     }
 
     function mostrarFormulario() {
@@ -222,16 +268,24 @@
       botonConectar.type = 'submit';
       botonConectar.disabled = true;
 
+      // Camino alternativo, visualmente subordinado al CTA de WhatsApp (más pequeño, estilo
+      // outline): no reemplaza el botón principal, que sigue funcionando igual.
+      var botonEmail = crearElemento('button', 'wa-btn-secundario', 'Contactar por email');
+      botonEmail.type = 'button';
+      botonEmail.disabled = true;
+
       formulario.appendChild(etiquetaNombre);
       formulario.appendChild(etiquetaEmail);
       formulario.appendChild(etiquetaConsent);
       formulario.appendChild(botonConectar);
+      formulario.appendChild(botonEmail);
 
       function completo() {
         return campoNombre.value.trim() !== '' && EMAIL_RE.test(campoEmail.value.trim()) && casilla.checked;
       }
       function actualizar() {
         botonConectar.disabled = !completo();
+        botonEmail.disabled = !completo();
       }
       campoNombre.addEventListener('input', actualizar);
       campoEmail.addEventListener('input', function () {
@@ -248,7 +302,13 @@
         e.preventDefault();
         if (!completo() || botonConectar.disabled) return;
         botonConectar.disabled = true;
+        botonEmail.disabled = true;
         conectarPorWhatsApp(campoNombre.value.trim(), campoEmail.value.trim(), formulario);
+      });
+
+      botonEmail.addEventListener('click', function () {
+        if (!completo() || botonEmail.disabled) return;
+        contactarPorEmail(campoNombre.value.trim(), campoEmail.value.trim(), formulario, botonEmail, botonConectar);
       });
 
       cuerpo.appendChild(formulario);
