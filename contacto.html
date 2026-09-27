@@ -138,7 +138,8 @@
     .polaris-submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
     /* Checkbox */
     .polaris-checkbox-row { margin-top: 4px; }
-    .polaris-checkbox-label { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; color: #000; line-height: 18px; }
+    /* Con el prefijo .polaris-form para ganar en especificidad a ".polaris-form label" (display:block, 14px/600, margin-bottom), que antes anulaba el flex y dejaba la casilla en una línea sola por encima del texto. */
+    .polaris-form .polaris-checkbox-label { display: flex; flex-direction: row; align-items: flex-start; gap: 10px; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 400; color: #000; line-height: 18px; margin-bottom: 0; }
     .polaris-checkbox-label input[type="checkbox"] { position: absolute; opacity: 0; width: 0; height: 0; }
     .polaris-checkbox-box { flex-shrink: 0; width: 18px; height: 18px; border: 1px solid #ccc; border-radius: 3px; background: #fff; margin-top: 1px; display: flex; align-items: center; justify-content: center; transition: border-color 0.15s, background 0.15s; }
     .polaris-checkbox-label input[type="checkbox"]:checked + .polaris-checkbox-box { background: var(--navy); border-color: var(--navy); }
@@ -193,7 +194,7 @@
 }
 </style>
 </head>
-<body data-wa-categoria="neutra">
+<body>
 <!-- TRUSTPILOT-BAR:START -->
 <div class="tp-badge-bar">
 <a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
@@ -330,12 +331,10 @@
       <label class="polaris-checkbox-label">
         <input type="checkbox" id="acepta_noticias" name="acepta_noticias"/>
         <span class="polaris-checkbox-box"></span>
-        <span class="polaris-checkbox-text">Quiero recibir vuestras noticias.</span>
+        <span class="polaris-checkbox-text">Acepto recibir comunicaciones a esta dirección. Puedes cancelar con un click en cualquier momento</span>
       </label>
       <div class="error-msg" id="err-noticias">Necesitas marcar esta casilla para continuar.</div>
     </div>
-
-    <p class="polaris-privacy">Puedes cancelar en cualquier momento.</p>
 
     <button class="polaris-submit-btn" id="polaris-submit-btn" type="submit">Enviar</button>
   </form>
