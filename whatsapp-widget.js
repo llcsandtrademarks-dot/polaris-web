@@ -17,6 +17,8 @@
   // Mismo texto que el checkbox de contacto.html (obligatorio en ambos formularios).
   var TEXTO_CONSENTIMIENTO = 'Acepto recibir comunicaciones a esta dirección. Puedes cancelar con un click en cualquier momento';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  // Tiempo que se muestra el indicador de "escribiendo…" antes del mensaje de bienvenida.
+  var RETRASO_BIENVENIDA_MS = 2000;
 
   var mensajeCliente = '';
 
@@ -45,6 +47,10 @@
       '.wa-msg{max-width:85%;padding:8px 12px;border-radius:12px;word-wrap:break-word;overflow-wrap:anywhere;white-space:pre-wrap}' +
       '.wa-msg-bot{align-self:flex-start;background:#fff;border:1px solid #e2e5e9;border-top-left-radius:4px}' +
       '.wa-msg-user{align-self:flex-end;background:#d9fdd3;border-top-right-radius:4px}' +
+      '.wa-typing{display:flex;align-items:center;gap:4px;padding:12px 14px}' +
+      '.wa-typing span{width:7px;height:7px;border-radius:50%;background:#9aa0a6;animation:wa-rebote 1.2s infinite ease-in-out}' +
+      '.wa-typing span:nth-child(2){animation-delay:.2s}.wa-typing span:nth-child(3){animation-delay:.4s}' +
+      '@keyframes wa-rebote{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-4px);opacity:1}}' +
       '.wa-chat-input{display:flex;gap:8px;padding:10px;background:#fff;border-top:1px solid #e2e5e9}' +
       '.wa-chat-input textarea{flex:1;resize:none;border:1px solid #ccd0d5;border-radius:10px;padding:8px 10px;font:inherit;font-size:14px;max-height:90px}' +
       '.wa-chat-input textarea:focus,.wa-form input[type=text],.wa-form input[type=email]{outline:none}' +
@@ -136,6 +142,7 @@
 
     var iniciado = false;
     var yaEnvio = false;
+    var bienvenidaLista = false;
 
     function agregarMensaje(clase, texto) {
       var burbuja = crearElemento('div', 'wa-msg ' + clase, texto);
@@ -149,7 +156,16 @@
       boton.setAttribute('aria-expanded', 'true');
       if (!iniciado) {
         iniciado = true;
-        agregarMensaje('wa-msg-bot', TEXTO_BIENVENIDA);
+        // Indicador de "escribiendo…" (solo antes del primer mensaje del bot).
+        var escribiendo = crearElemento('div', 'wa-msg wa-msg-bot wa-typing');
+        escribiendo.setAttribute('aria-label', 'Escribiendo…');
+        for (var i = 0; i < 3; i++) escribiendo.appendChild(document.createElement('span'));
+        cuerpo.appendChild(escribiendo);
+        setTimeout(function () {
+          escribiendo.remove();
+          agregarMensaje('wa-msg-bot', TEXTO_BIENVENIDA);
+          bienvenidaLista = true;
+        }, RETRASO_BIENVENIDA_MS);
       }
       if (!yaEnvio) campoMensaje.focus();
     }
@@ -264,7 +280,7 @@
     // Pasos 2 y 3: el mensaje libre del cliente se guarda y el bot pide los datos.
     function enviarMensaje() {
       var texto = campoMensaje.value.trim();
-      if (texto === '' || yaEnvio) return;
+      if (texto === '' || yaEnvio || !bienvenidaLista) return;
       yaEnvio = true;
       mensajeCliente = texto;
       agregarMensaje('wa-msg-user', texto);
