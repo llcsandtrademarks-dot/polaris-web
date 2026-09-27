@@ -265,30 +265,6 @@
   background: #0d2137;
   color: #fff;
 }
-
-/* ── WIDGET FLOTANTE ──────────────────────────────── */
-#cal-widget {
-  position: fixed; bottom: 24px; right: 24px; z-index: 150;
-  display: block;
-  animation: widgetIn 0.3s ease;
-}
-@keyframes widgetIn { from { transform:scale(0.7); opacity:0 } to { transform:scale(1); opacity:1 } }
-#cal-widget a {
-  display: flex; align-items: center; gap: 10px;
-  background: var(--navy); color: var(--white);
-  font-size: 13px; font-weight: 700;
-  padding: 11px 18px; border-radius: 50px;
-  text-decoration: none; box-shadow: 0 6px 20px rgba(13,33,55,0.35);
-  transition: background 0.2s, transform 0.2s;
-}
-#cal-widget a:hover { background: var(--navy-mid); transform: translateY(-2px); }
-#cal-widget-close {
-  position: absolute; top: -6px; right: -6px;
-  width: 20px; height: 20px; border-radius: 50%;
-  background: var(--text-muted); color: white; border: none;
-  font-size: 11px; cursor: pointer; display: flex; align-items: center; justify-content: center;
-  line-height: 1;
-}
 </style>
 </head>
 <body>
@@ -745,14 +721,6 @@ function generarCodigo() {
   });
 }
 </script>
-<!-- WIDGET FLOTANTE -->
-<div id="cal-widget">
-<a href="calendario-llc.html">
-<svg fill="none" height="16" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="16"><rect height="18" rx="2" width="18" x="3" y="4"></rect><line x1="16" x2="16" y1="2" y2="6"></line><line x1="8" x2="8" y1="2" y2="6"></line><line x1="3" x2="21" y1="10" y2="10"></line></svg>
-    Mi calendario LLC
-  </a>
-<button aria-label="Cerrar widget" id="cal-widget-close" onclick="document.getElementById('cal-widget').style.display='none'">✕</button>
-</div>
 <script src="/whatsapp-widget.js" defer></script>
 <script src="/nav-dropdown.js" defer></script>
 </body>

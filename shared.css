@@ -515,78 +515,7 @@ a.review-card, a.review-card:visited { color: inherit; text-decoration: none; }
   .obj-sidebar { position: static; }
 }
 
-/* ── WIDGET REFERIDOS ─────────────────────────────────────────────────────── */
-#ref-widget-wrap {
-  position: fixed;
-  bottom: 5.5rem;
-  right: 1.2rem;
-  z-index: 999;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  gap: 0.5rem;
-}
-#ref-widget-banner {
-  background: linear-gradient(135deg, #b8860b 0%, #f0c040 40%, #ffd700 60%, #c9a84c 100%);
-  color: #1a2340;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.82rem;
-  font-weight: 700;
-  padding: 0.6rem 1.1rem;
-  border-radius: 8px;
-  cursor: pointer;
-  box-shadow: 0 4px 18px rgba(192,160,30,0.45);
-  position: relative;
-  overflow: hidden;
-  white-space: nowrap;
-  text-decoration: none;
-  display: block;
-  animation: ref-shake 0.5s ease 0.8s 2;
-  transition: transform 0.2s;
-  max-width: 240px;
-  line-height: 1.3;
-  text-align: center;
-}
-#ref-widget-banner::before {
-  content: '';
-  position: absolute;
-  top: 0; left: -80%;
-  width: 60%;
-  height: 100%;
-  background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
-  animation: ref-shine 2s ease 0.3s 3;
-}
-#ref-widget-banner:hover { transform: scale(1.04); }
-#ref-widget-dot {
-  width: 36px;
-  height: 36px;
-  background: linear-gradient(135deg, #b8860b, #ffd700);
-  border-radius: 50%;
-  cursor: pointer;
-  box-shadow: 0 3px 12px rgba(192,160,30,0.5);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  animation: ref-pulse 2s ease infinite;
-  text-decoration: none;
-}
-#ref-widget-dot.visible { display: flex; }
-@keyframes ref-shine {
-  0%   { left: -80%; opacity: 1; }
-  100% { left: 130%; opacity: 0; }
-}
-@keyframes ref-shake {
-  0%,100% { transform: rotate(0deg); }
-  25%      { transform: rotate(-3deg); }
-  75%      { transform: rotate(3deg); }
-}
-@keyframes ref-pulse {
-  0%,100% { box-shadow: 0 3px 12px rgba(192,160,30,0.5); }
-  50%      { box-shadow: 0 3px 22px rgba(192,160,30,0.85); }
-}
-
-/* Botón flotante de WhatsApp — píldora, misma familia visual que #cal-widget */
+/* Botón flotante de WhatsApp — píldora, único widget flotante del sitio */
 .wa-float-btn {
   position: fixed;
   right: 20px;
@@ -604,7 +533,7 @@ a.review-card, a.review-card:visited { color: inherit; text-decoration: none; }
   font-weight: 700;
   white-space: nowrap;
   text-decoration: none;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, bottom 0.2s ease;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .wa-float-btn:hover,
 .wa-float-btn:focus-visible {
@@ -616,11 +545,6 @@ a.review-card, a.review-card:visited { color: inherit; text-decoration: none; }
   height: 18px;
   flex-shrink: 0;
 }
-/* Apilado vertical (~12px de separación) por encima de los widgets con los
-   que coexiste en cada página — ver whatsapp-widget.js, que detecta en el
-   DOM si #cal-widget y/o #ref-widget-wrap están presentes. */
-.wa-float-btn.wa-stack-cal { bottom: 80px; }
-.wa-float-btn.wa-stack-cal-ref { bottom: 160px; }
 
 @media (max-width: 600px) {
   .wa-float-btn {

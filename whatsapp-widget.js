@@ -22,25 +22,12 @@
 
   var mensajeCliente = '';
 
-  // Determina si el botón debe apilarse por encima de otros widgets
-  // flotantes ya presentes en la página (#cal-widget, #ref-widget-wrap),
-  // mirando el DOM real en vez de asumir una lista fija de páginas.
-  function obtenerClaseApilado() {
-    var hayCalendario = !!document.getElementById('cal-widget');
-    var hayReferidos = !!document.getElementById('ref-widget-wrap');
-    if (hayCalendario && hayReferidos) return 'wa-stack-cal-ref';
-    if (hayCalendario) return 'wa-stack-cal';
-    return '';
-  }
-
   // Estilos del panel de chat. Van inyectados desde aquí (y no en shared.css)
   // para que el panel nunca se vea sin estilo si shared.css sigue en caché.
   function inyectarEstilos() {
     var css =
       '.wa-chat-panel{position:fixed;right:20px;bottom:76px;width:340px;max-width:calc(100vw - 32px);max-height:min(560px,calc(100vh - 110px));display:none;flex-direction:column;background:#f0f2f5;border-radius:14px;box-shadow:0 10px 32px rgba(0,0,0,.35);overflow:hidden;z-index:10000;font-family:"DM Sans",Arial,sans-serif;font-size:14px;line-height:1.4;color:#111}' +
       '.wa-chat-panel.wa-abierto{display:flex}' +
-      '.wa-chat-panel.wa-stack-cal{bottom:136px;max-height:min(560px,calc(100vh - 170px))}' +
-      '.wa-chat-panel.wa-stack-cal-ref{bottom:216px;max-height:min(560px,calc(100vh - 250px))}' +
       '.wa-chat-head{display:flex;align-items:center;justify-content:space-between;background:#25D366;color:#fff;padding:12px 14px;font-weight:700;font-size:14px}' +
       '.wa-chat-close{background:none;border:0;color:#fff;font-size:18px;line-height:1;cursor:pointer;padding:2px 4px}' +
       '.wa-chat-body{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:8px}' +
@@ -65,7 +52,7 @@
       '.wa-consent{display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-size:12px;font-weight:400;line-height:18px;color:#000;cursor:pointer}' +
       '.wa-consent input{margin:2px 0 0;flex-shrink:0;width:16px;height:16px;accent-color:#25D366}' +
       '.wa-final a{color:#128C7E;font-weight:700}' +
-      '@media (max-width:600px){.wa-chat-panel{right:16px;bottom:64px}.wa-chat-panel.wa-stack-cal{bottom:124px}.wa-chat-panel.wa-stack-cal-ref{bottom:204px}}';
+      '@media (max-width:600px){.wa-chat-panel{right:16px;bottom:64px}}';
     var estilo = document.createElement('style');
     estilo.textContent = css;
     document.head.appendChild(estilo);
@@ -84,13 +71,8 @@
   }
 
   function crearBoton() {
-    var claseApilado = obtenerClaseApilado();
-
     var enlace = document.createElement('a');
     enlace.className = 'wa-float-btn';
-    if (claseApilado) {
-      enlace.classList.add(claseApilado);
-    }
     enlace.href = '#';
     enlace.setAttribute('role', 'button');
     enlace.setAttribute('aria-label', 'Contactar por WhatsApp');
@@ -103,14 +85,11 @@
       '<span>Contáctanos</span>';
 
     document.body.appendChild(enlace);
-    return { boton: enlace, claseApilado: claseApilado };
+    return enlace;
   }
 
-  function crearPanel(claseApilado, boton) {
+  function crearPanel(boton) {
     var panel = crearElemento('div', 'wa-chat-panel');
-    if (claseApilado) {
-      panel.classList.add(claseApilado);
-    }
     panel.setAttribute('role', 'dialog');
     panel.setAttribute('aria-label', 'Chat con Proyecto Polaris');
 
@@ -311,8 +290,7 @@
 
   function iniciar() {
     inyectarEstilos();
-    var creado = crearBoton();
-    crearPanel(creado.claseApilado, creado.boton);
+    crearPanel(crearBoton());
   }
 
   iniciar();
