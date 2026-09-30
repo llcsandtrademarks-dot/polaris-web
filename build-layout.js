@@ -59,8 +59,10 @@
  *      caché de 7 días del navegador y de la CDN.
  *
  * PÁGINAS EXCLUIDAS A PROPÓSITO (no se tocan):
- *   Las 4 son solo un redirect instantáneo (meta-refresh + JS) a un dominio
- *   externo distinto — no tienen contenido ni header/footer real que inyectar.
+ *   - portal/index.html
+ *   Es solo un redirect instantáneo (meta-refresh + JS) al portal interno
+ *   (polaris-portal.llcsandtrademarks.workers.dev) — no tiene contenido ni
+ *   header/footer real que inyectar. Tampoco va en sitemap.xml (noindex).
  *
  * Para añadir una página nueva al sitio: simplemente créala con un <nav> y un
  * <footer> cualquiera (o copia uno de otra página) y ejecuta este script —
@@ -76,6 +78,7 @@ const ROOT_DIR = __dirname;
 const EXCLUDED = new Set([
   path.join(ROOT_DIR, 'header.html'),
   path.join(ROOT_DIR, 'footer.html'),
+  path.join(ROOT_DIR, 'portal', 'index.html'),
 ]);
 
 const SKIP_DIRS = new Set(['.git', 'node_modules']);
