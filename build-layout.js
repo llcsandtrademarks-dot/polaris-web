@@ -75,6 +75,12 @@ const crypto = require('crypto');
 
 const ROOT_DIR = __dirname;
 
+// Saltos de línea: el repo es LF (ver .gitattributes). Todo lo que se lee se normaliza a LF y todo lo que se escribe
+// va en LF, para que el resultado sea idéntico en Windows (autocrlf/CRLF), Linux y Hostinger, y el script sea idempotente.
+function readLF(file) {
+  return fs.readFileSync(file, 'utf8').replace(/\r\n?/g, '\n');
+}
+
 const EXCLUDED = new Set([
   path.join(ROOT_DIR, 'header.html'),
   path.join(ROOT_DIR, 'footer.html'),
@@ -284,7 +290,7 @@ const MONTHS_ES = { ene: 0, feb: 1, mar: 2, abr: 3, may: 4, jun: 5, jul: 6, ago:
 // Ordena de más reciente a más antigua; si dos comparten fecha (o no se puede
 // leer), se respeta el orden en que aparecen en el índice.
 function loadBlogPosts() {
-  const html = fs.readFileSync(BLOG_INDEX, 'utf8');
+  const html = readLF(BLOG_INDEX);
   const cardRe = /<a class="srv-card" href="([^"]+)">([\s\S]*?)<\/a>/g;
   const posts = [];
   let m;
@@ -357,8 +363,8 @@ function buildRelated(html, file, posts) {
 }
 
 function main() {
-  const headerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'header.html'), 'utf8');
-  const footerTemplate = fs.readFileSync(path.join(ROOT_DIR, 'footer.html'), 'utf8');
+  const headerTemplate = readLF(path.join(ROOT_DIR, 'header.html'));
+  const footerTemplate = readLF(path.join(ROOT_DIR, 'footer.html'));
   const blogPosts = loadBlogPosts();
   const cssVersion = sharedCssVersion();
 
@@ -373,7 +379,7 @@ function main() {
     const blogHomeAbs = path.join(ROOT_DIR, 'blog', 'index.html');
     const BLOGHOME = toUrlPath(path.relative(fileDir, blogHomeAbs));
 
-    const before = fs.readFileSync(file, 'utf8');
+    const before = readLF(file);
     let after = before;
     after = (function () {
       try {
