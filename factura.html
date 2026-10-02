@@ -290,7 +290,14 @@ function renderClienteBloque(data) {
   if (data.facturacion_direccion) lineas.push(data.facturacion_direccion);
 
   if (lineas.length === 0) return;
-  document.getElementById('v-cliente-bloque').innerHTML = lineas.join('<br>');
+  // Los datos vienen del JSON de la factura (p. ej. business_name de Stripe, texto libre del cliente):
+  // se insertan como texto (nodos de texto + <br>), nunca como HTML.
+  var bloque = document.getElementById('v-cliente-bloque');
+  bloque.textContent = '';
+  lineas.forEach(function (linea, i) {
+    if (i > 0) bloque.appendChild(document.createElement('br'));
+    bloque.appendChild(document.createTextNode(String(linea)));
+  });
   document.getElementById('bloque-cliente').style.display = '';
 }
 
