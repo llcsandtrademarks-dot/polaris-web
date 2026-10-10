@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Nuevo cobro personalizado — Proyecto Polaris</title>
+<link rel="stylesheet" href="shared.css">
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
+<style>
+  .section { max-width: 620px; margin: 0 auto; padding: 3rem 2rem; }
+
+  .fm-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 1.75rem 2rem; }
+  .fm-title { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--navy); margin-bottom: 1.25rem; }
+
+  .fm-field { margin-bottom: 1.1rem; }
+  .fm-field label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 5px; }
+  .fm-field .fm-hint { font-size: 11.5px; color: var(--text-muted); font-weight: 400; text-transform: none; letter-spacing: normal; display: inline; }
+  .fm-field input, .fm-field textarea {
+    width: 100%; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 14px;
+    font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white);
+  }
+  .fm-field input:focus, .fm-field textarea:focus { outline: none; border-color: var(--navy-light); }
+  .fm-row { display: flex; gap: 1rem; }
+  .fm-row .fm-field { flex: 1; }
+
+  .fm-msg { display: none; margin-top: 1rem; padding: 0.85rem 1rem; border-radius: 10px; font-size: 13.5px; line-height: 1.6; }
+  .fm-msg.ok { display: block; background: #e7f5ea; color: #1f5f33; border: 1px solid #b7ddc0; }
+  .fm-msg.err { display: block; background: #fbeaea; color: #7a2020; border: 1px solid #edbcbc; }
+  .fm-msg p { margin: 0 0 0.6rem; }
+  .fm-msg p:last-child { margin-bottom: 0; }
+  .fm-msg a { color: inherit; text-decoration: underline; }
+
+  .fm-submit { width: 100%; justify-content: center; margin-top: 0.5rem; }
+  .fm-submit:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  #gate-password { text-align: center; padding: 4rem 1rem; }
+  #gate-password .fm-card { max-width: 340px; margin: 0 auto; text-align: left; }
+  #form-cobro, #resultado-cobro { display: none; }
+
+  .fm-resultado-fila { display: flex; gap: 8px; margin-bottom: 1rem; }
+  .fm-resultado-fila input { flex: 1; font-family: monospace; font-size: 12.5px; background: var(--offwhite); }
+  .fm-importes { font-size: 14px; color: var(--text); line-height: 1.8; margin: 0 0 1rem; }
+  .fm-importes strong { color: var(--navy); }
+  .fm-nueva { display: inline-block; margin-top: 1.25rem; font-size: 13px; color: var(--navy); font-weight: 700; text-decoration: none; cursor: pointer; }
+</style>
+</head>
+<body>
+
+<!-- HEADER:START -->
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="calendario-llc.html">Calendario fiscal</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Noticias</a></li>
+<li><a href="precio-maximo-llc.html">¿Estás pagando de más?</a></li>
+</ul>
+</li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+</div>
+</div>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="calendario-llc.html">Calendario fiscal</a>
+<a href="referidos.html">Programa de referidos</a>
+<a href="preguntas-frecuentes.html">Preguntas frecuentes</a>
+<a href="blog/index.html">Noticias</a>
+<a href="precio-maximo-llc.html">¿Estás pagando de más?</a>
+</div>
+</div>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+<!-- HEADER:END -->
+
+<div class="section">
+
+  <div id="gate-password">
+    <div class="fm-card">
+      <div class="fm-title">Cobros personalizados</div>
+      <form id="gate-form">
+        <div class="fm-field">
+          <label for="gate-password-input">Contraseña</label>
+          <input type="password" id="gate-password-input" autocomplete="off" required>
+        </div>
+        <button type="submit" class="btn btn-navy fm-submit" id="btn-entrar">Entrar</button>
+      </form>
+      <div class="fm-msg err" id="gate-error" style="display:none;"></div>
+    </div>
+  </div>
+
+  <div id="form-cobro">
+    <div class="fm-card">
+      <div class="fm-title">Nuevo cobro personalizado</div>
+      <form id="form-cobro-el">
+        <div class="fm-field">
+          <label for="f-concepto">Concepto</label>
+          <input type="text" id="f-concepto" maxlength="200" required>
+        </div>
+        <div class="fm-field">
+          <label for="f-importe">Importe (USD) <span class="fm-hint">(hasta 2 decimales; es el importe por transferencia, la tarjeta suma el 6%)</span></label>
+          <input type="number" id="f-importe" min="0.01" step="0.01" required>
+        </div>
+        <button type="submit" class="btn btn-navy fm-submit" id="btn-crear">Crear cobro</button>
+        <div class="fm-msg err" id="form-error" style="display:none;"></div>
+      </form>
+    </div>
+  </div>
+
+  <div id="resultado-cobro">
+    <div class="fm-card">
+      <div class="fm-title">Cobro creado</div>
+      <div class="fm-field">
+        <label for="r-enlace">Enlace para el cliente</label>
+        <div class="fm-resultado-fila">
+          <input type="text" id="r-enlace" readonly>
+          <button type="button" class="btn btn-navy" id="btn-copiar">Copiar</button>
+        </div>
+      </div>
+      <p class="fm-importes" id="r-importes"></p>
+      <p class="fm-importes" id="r-caduca"></p>
+      <a class="fm-nueva" id="btn-nuevo">Crear otro cobro</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER:START -->
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="precios-llc.html">Precios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="precios-marca.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="privacidad.html">Política de privacidad</a></li>
+<li><a href="terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- FOOTER:END -->
+
+<script>
+var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
+// La contraseña vive SOLO en esta variable (memoria de la página): nunca en sessionStorage,
+// localStorage, cookies ni URL.
+var passwordEnMemoria = null;
+
+function el(id) { return document.getElementById(id); }
+
+function falloDeRed() { var e = new Error('red'); e.esFalloDeRed = true; return e; }
+
+// fetch + JSON que rechaza con falloDeRed() ante fallo de red, 5xx o cuerpo que no es JSON.
+function fetchJson(url, opts) {
+  return fetch(url, opts).then(function(res){
+    if (res.status >= 500) throw falloDeRed();
+    return res.json().then(function(data){ return { ok: res.ok, status: res.status, data: data }; }, function(){ throw falloDeRed(); });
+  }, function(){ throw falloDeRed(); });
+}
+
+// Aviso del bloqueo de LaLiga (mismo texto que pago-transferencia.html), construido con nodos de texto.
+function pintarFalloRed(contenedor, reintentar) {
+  contenedor.textContent = '';
+  var parrafos = [
+    'No hemos podido completar la conexión. Si estás navegando desde España, puede deberse a un bloqueo temporal de tu operador durante la franja de un partido de fútbol (afecta a miles de webs ajenas al fútbol, es un problema conocido y externo a nosotros).',
+    'Prueba de nuevo en un rato, o si tienes VPN, actívala con un servidor fuera de España.'
+  ];
+  parrafos.forEach(function(t){ var p = document.createElement('p'); p.textContent = t; contenedor.appendChild(p); });
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'btn btn-navy';
+  b.textContent = 'Reintentar';
+  b.addEventListener('click', reintentar);
+  contenedor.appendChild(b);
+  contenedor.className = 'fm-msg err';
+  contenedor.style.display = 'block';
+}
+
+function mostrarGate(mensajeError) {
+  el('gate-password').style.display = 'block';
+  el('form-cobro').style.display = 'none';
+  el('resultado-cobro').style.display = 'none';
+  var err = el('gate-error');
+  if (mensajeError) {
+    err.textContent = mensajeError;
+    err.className = 'fm-msg err';
+    err.style.display = 'block';
+  } else {
+    err.textContent = '';
+    err.style.display = 'none';
+  }
+  var inp = el('gate-password-input');
+  inp.value = '';
+  inp.focus();
+}
+
+function mostrarForm() {
+  el('gate-password').style.display = 'none';
+  el('resultado-cobro').style.display = 'none';
+  el('form-cobro').style.display = 'block';
+}
+
+function entrar(ev) {
+  if (ev && ev.preventDefault) ev.preventDefault();
+  var pw = el('gate-password-input').value;
+  if (!pw) return;
+  var btn = el('btn-entrar');
+  btn.disabled = true;
+  fetchJson(WORKER_URL + '/cobro/verificar', { method: 'POST', headers: { 'X-Portal-Password': pw } })
+    .then(function(r){
+      if (r.status === 200 && r.data && r.data.ok) {
+        passwordEnMemoria = pw;
+        el('gate-password-input').value = '';
+        el('gate-error').style.display = 'none';
+        mostrarForm();
+        return;
+      }
+      if (r.status === 401) { mostrarGate('Contraseña incorrecta.'); return; }
+      if (r.status === 429) { mostrarGate('Demasiados intentos fallidos. Espera unos 15 minutos y vuelve a probar.'); return; }
+      if (r.status === 503) { mostrarGate('El portal no está configurado todavía.'); return; }
+      mostrarGate('No se pudo comprobar la contraseña (' + ((r.data && r.data.error) || 'error') + ').');
+    })
+    .catch(function(e){
+      if (e && e.esFalloDeRed) {
+        el('gate-password-input').value = '';
+        pintarFalloRed(el('gate-error'), function(){ el('gate-error').style.display = 'none'; el('gate-password-input').focus(); });
+      } else {
+        mostrarGate('No se pudo comprobar la contraseña.');
+      }
+    })
+    .then(function(){ btn.disabled = false; });
+}
+
+function usd(n) { return '$' + Number(n).toFixed(2); }
+
+function copiar(texto, boton) {
+  var hecho = function() {
+    var previo = boton.textContent;
+    boton.textContent = 'Copiado';
+    setTimeout(function(){ boton.textContent = previo; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(hecho, function(){});
+  }
+}
+
+function crearCobro(ev) {
+  if (ev && ev.preventDefault) ev.preventDefault();
+  var errorBox = el('form-error');
+  errorBox.style.display = 'none';
+  var concepto = el('f-concepto').value.trim();
+  var importe = String(el('f-importe').value).trim();
+  if (!concepto) { errorBox.textContent = 'Indica el concepto.'; errorBox.className = 'fm-msg err'; errorBox.style.display = 'block'; return; }
+  if (!/^\d{1,7}(\.\d{1,2})?$/.test(importe) || Number(importe) <= 0 || Number(importe) > 1000000) {
+    errorBox.textContent = 'El importe debe ser mayor que 0, tener como máximo 2 decimales y no superar 1.000.000.';
+    errorBox.className = 'fm-msg err';
+    errorBox.style.display = 'block';
+    return;
+  }
+  var btn = el('btn-crear');
+  btn.disabled = true;
+  btn.textContent = 'Creando…';
+  fetchJson(WORKER_URL + '/cobro/crear', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'X-Portal-Password': passwordEnMemoria || '' },
+    body: JSON.stringify({ concepto: concepto, importe: importe })
+  })
+    .then(function(r){
+      if (r.status === 401) {
+        // Se vuelve a pedir la contraseña sin perder lo escrito en el formulario.
+        passwordEnMemoria = null;
+        mostrarGate('Contraseña incorrecta o sesión caducada: vuelve a introducirla.');
+        return;
+      }
+      if (r.status === 429) {
+        passwordEnMemoria = null;
+        mostrarGate('Demasiados intentos fallidos. Espera unos 15 minutos y vuelve a probar.');
+        return;
+      }
+      if (!r.ok || !r.data || !r.data.enlace) throw new Error((r.data && r.data.error) || 'Error al crear el cobro');
+      pintarResultado(r.data);
+    })
+    .catch(function(e){
+      if (e && e.esFalloDeRed) {
+        pintarFalloRed(errorBox, function(){ errorBox.style.display = 'none'; });
+      } else {
+        errorBox.textContent = 'No se pudo crear el cobro: ' + e.message;
+        errorBox.className = 'fm-msg err';
+        errorBox.style.display = 'block';
+      }
+    })
+    .then(function(){
+      btn.disabled = false;
+      btn.textContent = 'Crear cobro';
+    });
+}
+
+function pintarResultado(d) {
+  el('r-enlace').value = d.enlace;
+  var importes = el('r-importes');
+  importes.textContent = '';
+  var l1 = document.createElement('span');
+  l1.textContent = 'Importe por transferencia: ' + usd(d.importe_base);
+  importes.appendChild(l1);
+  importes.appendChild(document.createElement('br'));
+  var l2 = document.createElement('span');
+  l2.textContent = d.importe_tarjeta === null || d.importe_tarjeta === undefined
+    ? 'Importe con tarjeta: no disponible (supera el límite de Stripe; solo transferencia)'
+    : 'Importe con tarjeta (incluye recargo): ' + usd(d.importe_tarjeta);
+  importes.appendChild(l2);
+  var cad = new Date(d.caduca);
+  el('r-caduca').textContent = 'El enlace caduca el ' + (isNaN(cad.getTime()) ? String(d.caduca) : cad.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })) + '.';
+  el('form-cobro').style.display = 'none';
+  el('resultado-cobro').style.display = 'block';
+}
+
+el('gate-form').addEventListener('submit', entrar);
+el('form-cobro-el').addEventListener('submit', crearCobro);
+el('btn-copiar').addEventListener('click', function(){ copiar(el('r-enlace').value, el('btn-copiar')); });
+el('btn-nuevo').addEventListener('click', function(){
+  el('f-concepto').value = '';
+  el('f-importe').value = '';
+  el('resultado-cobro').style.display = 'none';
+  el('form-cobro').style.display = 'block';
+});
+mostrarGate('');
+</script>
+<script src="/nav-dropdown.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="robots" content="noindex, nofollow">
+<meta content="#0d2137" name="theme-color"/><link href="favicon-32.png" rel="apple-touch-icon" sizes="180x180"/>
+<title>Pago — Proyecto Polaris</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
+<link href="shared.css" rel="stylesheet"/>
+<style>
+  .page-header { background: var(--navy); padding: 3.5rem 2rem 3rem; text-align: center; }
+  .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+  .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.6rem, 3.5vw, 2.3rem); font-weight: 700; color: var(--white); margin-bottom: 0.5rem; }
+  .page-header p { font-size: 0.95rem; color: rgba(255,255,255,0.7); max-width: 480px; margin: 0 auto; }
+
+  .section { max-width: 720px; margin: 0 auto; padding: 2.5rem 2rem; }
+  .resumen-pago { background: var(--navy-pale); border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.4rem; margin-bottom: 1.75rem; font-size: 14px; color: var(--navy); line-height: 1.7; }
+  .resumen-pago strong { font-size: 1.1rem; }
+  .resumen-pago .resumen-concepto { display: block; margin-bottom: 0.25rem; word-break: break-word; }
+
+  .form-card { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.25rem; }
+  .form-section-title { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--navy); margin: 0 0 1rem; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem 1.5rem; }
+  .form-group { display: flex; flex-direction: column; gap: 6px; }
+  .form-group.full { grid-column: 1 / -1; }
+  label { font-size: 13px; font-weight: 600; color: var(--navy); }
+  label .req { color: #c0392b; margin-left: 2px; }
+  input { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--offwhite); border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; width: 100%; }
+  input:focus { outline: none; border-color: var(--navy-light); box-shadow: 0 0 0 3px rgba(30,74,114,0.12); }
+
+  .acciones-pago { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-top: 1.75rem; }
+  .acciones-pago .btn { width: 100%; justify-content: center; text-align: center; }
+  .acciones-pago .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .fm-hint { font-size: 11.5px; color: var(--text-muted); font-weight: 400; }
+  .error-msg { color: #c0392b; font-size: 13px; margin-top: 10px; display: none; }
+  .error-msg a { color: inherit; text-decoration: underline; }
+  .resumen-pago.resumen-error { background: #fbeaea; border-color: #edbcbc; color: #7a2020; }
+  .resumen-pago.resumen-error p { margin: 0 0 0.75rem; }
+  .resumen-pago.resumen-error a { color: inherit; text-decoration: underline; }
+  .resumen-pago.resumen-error .btn-reintentar { display: inline-block; margin-top: 0.25rem; padding: 0.55rem 1.1rem; border: 0; border-radius: 8px; background: #7a2020; color: #fff; font: inherit; font-size: 13.5px; cursor: pointer; }
+
+  #resultado { display: none; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.25rem; }
+  #resultado .importe-transferencia { font-size: 15px; color: var(--navy); margin-bottom: 1rem; text-align: center; }
+  #resultado .codigo-fila { text-align: center; }
+  #resultado .codigo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: var(--navy); background: var(--navy-pale); border-radius: 8px; padding: 10px 18px; display: inline-block; margin: 0.5rem 0 0.75rem; letter-spacing: 0.04em; }
+  #resultado p { font-size: 14.5px; color: var(--text); line-height: 1.7; margin-bottom: 1rem; }
+  .datos-bancarios { margin: 1.25rem 0; border-top: 1px solid var(--border); }
+  .dato-fila { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+  .dato-etiqueta { flex: 0 0 11rem; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+  .dato-valor { flex: 1; font-size: 14px; color: var(--text); word-break: break-word; }
+  .btn-copiar { flex: 0 0 auto; border: 1px solid var(--navy); background: transparent; color: var(--navy); border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .btn-copiar:hover { background: var(--navy); color: var(--white); }
+
+  @media (max-width: 640px) {
+    .section { padding: 1.5rem 1.25rem; }
+    .form-card, #resultado { padding: 1.5rem; }
+    .form-grid, .acciones-pago { grid-template-columns: 1fr; }
+    .dato-fila { flex-wrap: wrap; }
+    .dato-etiqueta { flex-basis: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER:START -->
+<nav>
+<a class="nav-logo" href="index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="index.html">Inicio</a></li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="servicios-llc.html">Servicios LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+</ul>
+</li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="calendario-llc.html">Calendario fiscal</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Noticias</a></li>
+<li><a href="precio-maximo-llc.html">¿Estás pagando de más?</a></li>
+</ul>
+</li>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="index.html">Inicio</a>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="servicios-llc.html">Servicios LLC</a>
+<a href="servicios-marca.html">Registro de marca</a>
+</div>
+</div>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="calendario-llc.html">Calendario fiscal</a>
+<a href="referidos.html">Programa de referidos</a>
+<a href="preguntas-frecuentes.html">Preguntas frecuentes</a>
+<a href="blog/index.html">Noticias</a>
+<a href="precio-maximo-llc.html">¿Estás pagando de más?</a>
+</div>
+</div>
+<a href="nosotros.html">Nosotros</a>
+<a class="nav-cta" href="contacto.html">Contactar</a>
+</div>
+<!-- HEADER:END -->
+
+<div class="page-header">
+<p class="page-header-eyebrow">Pago</p>
+<h1>Completa tu pago</h1>
+<p>Revisa el concepto y el importe, indica tus datos de facturación y elige cómo quieres pagar.</p>
+</div>
+
+<div class="section">
+  <div class="resumen-pago" id="resumen-pago">Cargando…</div>
+
+  <div class="form-card" id="form-card" style="display:none;">
+    <form id="form-pago">
+      <p class="form-section-title">Tus datos de facturación</p>
+      <div class="form-grid">
+        <div class="form-group full">
+          <label for="f-nombre">Nombre y apellidos <span class="req">*</span></label>
+          <input id="f-nombre" type="text" maxlength="120" autocomplete="name">
+        </div>
+        <div class="form-group full">
+          <label for="f-empresa">Empresa / razón social <span class="fm-hint">(opcional; si la indicas, la factura irá a su nombre)</span></label>
+          <input id="f-empresa" type="text" maxlength="120" autocomplete="organization">
+        </div>
+        <div class="form-group full">
+          <label for="f-email">Email <span class="req">*</span></label>
+          <input id="f-email" type="email" maxlength="254" autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="f-taxid">NIF / CIF / EIN <span class="fm-hint">(opcional)</span></label>
+          <input id="f-taxid" type="text" maxlength="40">
+        </div>
+        <div class="form-group">
+          <label for="f-direccion">Dirección <span class="fm-hint">(opcional)</span></label>
+          <input id="f-direccion" type="text" maxlength="300" autocomplete="street-address">
+        </div>
+      </div>
+
+      <div class="acciones-pago">
+        <button class="btn btn-navy" id="btn-tarjeta" type="button"></button>
+        <button class="btn btn-outline" id="btn-transferencia" type="button"></button>
+      </div>
+      <p class="error-msg" id="error-msg"></p>
+    </form>
+  </div>
+
+  <div id="resultado">
+    <p class="form-section-title" style="margin-top:0;">Pago por transferencia</p>
+    <p class="importe-transferencia" id="resultado-importe"></p>
+    <div class="codigo-fila">
+      <div class="codigo" id="resultado-codigo"></div>
+      <div><button class="btn-copiar" id="btn-copiar-codigo" type="button">Copiar código</button></div>
+    </div>
+    <p id="resultado-mensaje" style="margin-top:1rem;"></p>
+    <div class="datos-bancarios" id="datos-bancarios"></div>
+    <p id="resultado-aviso-datos" style="display:none;"></p>
+  </div>
+</div>
+
+<!-- FOOTER:START -->
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="precios-llc.html">Precios de LLC</a></li>
+<li><a href="servicios-marca.html">Registro de marca</a></li>
+<li><a href="precios-marca.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="referidos.html">Programa de referidos</a></li>
+<li><a href="preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="blog/index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="nosotros.html">Nosotros</a></li>
+<li><a href="contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="privacidad.html">Política de privacidad</a></li>
+<li><a href="terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="privacidad.html">Privacidad</a><a href="terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- FOOTER:END -->
+
+<script>
+var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
+var DATOS_ENDPOINT = WORKER_URL + '/cobro/datos';
+var ELEGIR_ENDPOINT = WORKER_URL + '/cobro/elegir';
+
+// Etiquetas de las coordenadas bancarias, en el orden en que se muestran. Los VALORES llegan del
+// Worker (secret COBRO_DATOS_BANCARIOS): nada sensible vive en esta página.
+var ETIQUETAS_DATOS = [
+  ['beneficiario', 'Beneficiario'],
+  ['banco', 'Banco'],
+  ['direccion_banco', 'Dirección del banco'],
+  ['tipo_cuenta', 'Tipo de cuenta'],
+  ['cuenta', 'Número de cuenta'],
+  ['routing_ach', 'Routing ACH'],
+  ['routing_wire', 'Routing para wire'],
+  ['swift', 'SWIFT / BIC'],
+  ['instrucciones', 'Instrucciones']
+];
+
+var token = (new URLSearchParams(window.location.search).get('token') || '').trim();
+var cobro = null;
+
+function el(id) { return document.getElementById(id); }
+
+// Fallo de red/servidor (fetch rechazado, 5xx o respuesta que no es JSON): mensaje consciente del
+// bloqueo de LaLiga a Cloudflare. Los errores de validación del Worker (4xx con {error}) muestran su texto.
+function falloDeRed() { var e = new Error('red'); e.esFalloDeRed = true; return e; }
+
+function fetchJson(url, opts) {
+  return fetch(url, opts).then(function(res){
+    if (res.status >= 500) throw falloDeRed();
+    return res.json().then(function(data){ return { ok: res.ok, status: res.status, data: data }; }, function(){ throw falloDeRed(); });
+  }, function(){ throw falloDeRed(); });
+}
+
+var PARRAFOS_FALLO_RED = [
+  'No hemos podido completar la conexión. Si estás navegando desde España, puede deberse a un bloqueo temporal de tu operador durante la franja de un partido de fútbol (afecta a miles de webs ajenas al fútbol, es un problema conocido y externo a nosotros).',
+  'Prueba de nuevo en un rato, o si tienes VPN, actívala con un servidor fuera de España.'
+];
+
+function agregarContacto(p) {
+  p.appendChild(document.createTextNode('Si el problema persiste, escríbenos a '));
+  var a = document.createElement('a');
+  a.href = 'mailto:contacto@proyecto-polaris.com';
+  a.textContent = 'contacto@proyecto-polaris.com';
+  p.appendChild(a);
+  p.appendChild(document.createTextNode('.'));
+}
+
+// Fallo de red al cargar: el formulario aún está oculto, así que el mensaje va en el resumen.
+function mostrarFalloRedCarga() {
+  var resumen = el('resumen-pago');
+  resumen.textContent = '';
+  resumen.className = 'resumen-pago resumen-error';
+  PARRAFOS_FALLO_RED.forEach(function(t){ var p = document.createElement('p'); p.textContent = t; resumen.appendChild(p); });
+  var p3 = document.createElement('p');
+  agregarContacto(p3);
+  resumen.appendChild(p3);
+  var b = document.createElement('button');
+  b.type = 'button';
+  b.className = 'btn-reintentar';
+  b.textContent = 'Reintentar';
+  b.addEventListener('click', function(){ window.location.reload(); });
+  resumen.appendChild(b);
+  el('form-card').style.display = 'none';
+}
+
+function mostrarFalloRedEnvio(errorEl) {
+  errorEl.textContent = PARRAFOS_FALLO_RED.join(' ') + ' ';
+  agregarContacto(errorEl);
+  errorEl.style.display = 'block';
+}
+
+function mostrarMensajeResumen(texto, conContacto) {
+  var resumen = el('resumen-pago');
+  resumen.textContent = '';
+  resumen.className = 'resumen-pago resumen-error';
+  var p = document.createElement('p');
+  p.textContent = texto;
+  resumen.appendChild(p);
+  if (conContacto) {
+    var a = document.createElement('a');
+    a.href = 'mailto:contacto@proyecto-polaris.com';
+    a.textContent = 'contacto@proyecto-polaris.com';
+    p.appendChild(document.createTextNode(' '));
+    p.appendChild(a);
+  }
+  el('form-card').style.display = 'none';
+}
+
+function usd(n) { return '$' + Number(n).toFixed(2); }
+
+function copiar(texto, boton, etiquetaOriginal) {
+  var hecho = function() {
+    boton.textContent = 'Copiado';
+    setTimeout(function(){ boton.textContent = etiquetaOriginal; }, 1500);
+  };
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(hecho, function(){});
+  }
+}
+
+function pintarResumen() {
+  var resumen = el('resumen-pago');
+  resumen.textContent = '';
+  resumen.className = 'resumen-pago';
+  var c = document.createElement('span');
+  c.className = 'resumen-concepto';
+  c.textContent = cobro.concepto;
+  resumen.appendChild(c);
+  resumen.appendChild(document.createTextNode('Importe: '));
+  var s = document.createElement('strong');
+  s.textContent = usd(cobro.importe_base);
+  resumen.appendChild(s);
+  resumen.appendChild(document.createTextNode(' USD (por transferencia)'));
+}
+
+async function init() {
+  if (!/^[0-9a-f]{32}$/.test(token)) {
+    mostrarMensajeResumen('Este enlace no es válido o ha caducado. Escríbenos a', true);
+    return;
+  }
+  var r;
+  try {
+    r = await fetchJson(DATOS_ENDPOINT + '?token=' + encodeURIComponent(token));
+  } catch (e) {
+    if (e.esFalloDeRed) { mostrarFalloRedCarga(); return; }
+    mostrarMensajeResumen('Este enlace no es válido o ha caducado. Escríbenos a', true);
+    return;
+  }
+  if (!r.ok || !r.data) {
+    mostrarMensajeResumen('Este enlace no es válido o ha caducado. Escríbenos a', true);
+    return;
+  }
+  if (r.data.estado === 'pagado') {
+    var resumen = el('resumen-pago');
+    resumen.textContent = 'Este pago ya está recibido.';
+    resumen.className = 'resumen-pago';
+    el('form-card').style.display = 'none';
+    return;
+  }
+  cobro = r.data;
+  pintarResumen();
+  var tarjeta = el('btn-tarjeta');
+  var transf = el('btn-transferencia');
+  if (cobro.importe_tarjeta === null || cobro.importe_tarjeta === undefined) {
+    tarjeta.style.display = 'none';
+  } else {
+    tarjeta.textContent = 'Pagar con tarjeta (' + usd(cobro.importe_tarjeta) + ', incluye comisión de la plataforma de pagos)';
+  }
+  transf.textContent = 'Pagar por transferencia (' + usd(cobro.importe_base) + ')';
+  el('form-card').style.display = 'block';
+}
+
+function datosFormulario(metodo) {
+  return {
+    token: token,
+    metodo: metodo,
+    nombre: el('f-nombre').value.trim(),
+    empresa: el('f-empresa').value.trim(),
+    email: el('f-email').value.trim(),
+    facturacion_taxid: el('f-taxid').value.trim(),
+    facturacion_direccion: el('f-direccion').value.trim()
+  };
+}
+
+function validar(d) {
+  if (!d.nombre && !d.empresa) return 'Indica tu nombre o el de tu empresa.';
+  if (!d.nombre) return 'Indica tu nombre y apellidos.';
+  if (!/^[^\s@,;/]+@[^\s@,;/]+\.[^\s@,;/]+$/.test(d.email)) return 'Indica un email válido.';
+  return '';
+}
+
+function elegir(metodo) {
+  var errorEl = el('error-msg');
+  errorEl.style.display = 'none';
+  var d = datosFormulario(metodo);
+  var problema = validar(d);
+  if (problema) {
+    errorEl.textContent = problema;
+    errorEl.style.display = 'block';
+    return;
+  }
+  var botones = [el('btn-tarjeta'), el('btn-transferencia')];
+  botones.forEach(function(b){ b.disabled = true; });
+  fetchJson(ELEGIR_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(d) })
+    .then(function(r){
+      if (r.status === 409 || (r.data && r.data.estado === 'pagado')) {
+        mostrarMensajeResumen('Este pago ya está recibido.', false);
+        return;
+      }
+      if (!r.ok || !r.data) throw new Error((r.data && r.data.error) || 'Error al procesar la solicitud');
+      if (metodo === 'tarjeta') {
+        var url = String(r.data.url || '');
+        if (url.indexOf('https://checkout.stripe.com/') !== 0) throw new Error('No hemos podido iniciar el pago con tarjeta. Prueba por transferencia o inténtalo más tarde.');
+        window.location.href = url;
+        return;
+      }
+      pintarTransferencia(r.data);
+    })
+    .catch(function(e){
+      if (e && e.esFalloDeRed) mostrarFalloRedEnvio(errorEl);
+      else {
+        errorEl.textContent = e.message + ' Si el problema persiste, escríbenos a contacto@proyecto-polaris.com.';
+        errorEl.style.display = 'block';
+      }
+    })
+    .then(function(){ botones.forEach(function(b){ b.disabled = false; }); });
+}
+
+function pintarTransferencia(d) {
+  el('form-card').style.display = 'none';
+  el('resumen-pago').style.display = 'none';
+  el('resultado-importe').textContent = 'Importe a transferir: ' + usd(d.importe_base) + ' USD';
+  el('resultado-codigo').textContent = d.codigo;
+  var btnCodigo = el('btn-copiar-codigo');
+  btnCodigo.addEventListener('click', function(){ copiar(d.codigo, btnCodigo, 'Copiar código'); });
+  var contenedor = el('datos-bancarios');
+  contenedor.textContent = '';
+  var hay = false;
+  var datos = d.datos_bancarios && typeof d.datos_bancarios === 'object' ? d.datos_bancarios : null;
+  if (datos) {
+    ETIQUETAS_DATOS.forEach(function(par){
+      var valor = datos[par[0]];
+      if (typeof valor !== 'string' || !valor) return;
+      hay = true;
+      var fila = document.createElement('div');
+      fila.className = 'dato-fila';
+      var et = document.createElement('div');
+      et.className = 'dato-etiqueta';
+      et.textContent = par[1];
+      var val = document.createElement('div');
+      val.className = 'dato-valor';
+      val.textContent = valor;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-copiar';
+      btn.textContent = 'Copiar';
+      btn.addEventListener('click', function(){ copiar(valor, btn, 'Copiar'); });
+      fila.appendChild(et);
+      fila.appendChild(val);
+      fila.appendChild(btn);
+      contenedor.appendChild(fila);
+    });
+  }
+  var aviso = el('resultado-aviso-datos');
+  if (hay) {
+    el('resultado-mensaje').textContent = 'Incluye este código en el concepto de la transferencia. Te confirmaremos por email cuando recibamos el pago.';
+    aviso.style.display = 'none';
+    contenedor.style.display = 'block';
+  } else {
+    el('resultado-mensaje').textContent = 'Incluye este código en el concepto de la transferencia. Te confirmaremos por email cuando recibamos el pago.';
+    aviso.textContent = 'Te enviaremos los datos bancarios por email';
+    aviso.style.display = 'block';
+    contenedor.style.display = 'none';
+  }
+  el('resultado').style.display = 'block';
+  el('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+el('form-pago').addEventListener('submit', function(ev){ ev.preventDefault(); });
+el('btn-tarjeta').addEventListener('click', function(){ elegir('tarjeta'); });
+el('btn-transferencia').addEventListener('click', function(){ elegir('transferencia'); });
+init();
+</script>
+<script src="/nav-dropdown.js" defer></script>
+</body>
+</html>

@@ -72,11 +72,20 @@
   #resultado { display: none; background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.25rem; text-align: center; }
   #resultado .codigo { font-family: var(--font-heading); font-size: 1.6rem; font-weight: 700; color: var(--navy); background: var(--navy-pale); border-radius: 8px; padding: 10px 18px; display: inline-block; margin: 0.75rem 0 1.25rem; letter-spacing: 0.04em; }
   #resultado p { font-size: 14.5px; color: var(--text); line-height: 1.7; margin-bottom: 1rem; }
+  #resultado .importe-transferencia { font-size: 15px; color: var(--navy); margin-bottom: 0.5rem; }
+  .datos-bancarios { margin: 1.25rem 0 0; border-top: 1px solid var(--border); text-align: left; }
+  .dato-fila { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+  .dato-etiqueta { flex: 0 0 11rem; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
+  .dato-valor { flex: 1; font-size: 14px; color: var(--text); word-break: break-word; }
+  .btn-copiar { flex: 0 0 auto; border: 1px solid var(--navy); background: transparent; color: var(--navy); border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .btn-copiar:hover { background: var(--navy); color: var(--white); }
 
   @media (max-width: 640px) {
     .section { padding: 1.5rem 1.25rem; }
     .form-card, #resultado { padding: 1.5rem; }
     .form-grid { grid-template-columns: 1fr; }
+    .dato-fila { flex-wrap: wrap; }
+    .dato-etiqueta { flex-basis: 100%; }
   }
 </style>
 <script>
@@ -213,11 +222,14 @@
   </div>
 
   <div id="resultado">
-    <p class="form-section-title" style="margin-top:0;">Tu código de pago</p>
+    <p class="form-section-title" style="margin-top:0;">Datos para tu transferencia</p>
+    <p class="importe-transferencia" id="resultado-importe"></p>
     <div class="codigo" id="resultado-codigo"></div>
-    <p id="resultado-mensaje"></p>
+    <div><button class="btn-copiar" id="btn-copiar-codigo" type="button">Copiar código</button></div>
+    <p id="resultado-mensaje" style="margin-top:1rem;"></p>
     <p id="resultado-desglose" style="display:none;"></p>
-    <a class="btn btn-navy" id="btn-pagar-mercury" href="#" target="_blank" rel="noopener">Ir a pagar por transferencia</a>
+    <div class="datos-bancarios" id="datos-bancarios"></div>
+    <p id="resultado-aviso-datos" style="display:none;"></p>
   </div>
 </div>
 
@@ -446,6 +458,87 @@ async function init(){
 }
 init();
 
+// Etiquetas de las coordenadas bancarias, en el orden en que se muestran. Los VALORES los devuelve el
+// Worker (secret COBRO_DATOS_BANCARIOS): nada sensible vive en esta página, que es pública.
+var ETIQUETAS_DATOS = [
+  ['beneficiario', 'Beneficiario'],
+  ['banco', 'Banco'],
+  ['direccion_banco', 'Dirección del banco'],
+  ['tipo_cuenta', 'Tipo de cuenta'],
+  ['cuenta', 'Número de cuenta'],
+  ['routing_ach', 'Routing ACH'],
+  ['routing_wire', 'Routing para wire'],
+  ['swift', 'SWIFT / BIC'],
+  ['instrucciones', 'Instrucciones']
+];
+
+function copiarTexto(texto, boton, etiquetaOriginal) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(texto).then(function(){
+      boton.textContent = 'Copiado';
+      setTimeout(function(){ boton.textContent = etiquetaOriginal; }, 1500);
+    }, function(){});
+  }
+}
+
+// Resultado: importe + código POL-XXXX + coordenadas (cada una con su etiqueta y botón Copiar).
+// Todo se inserta con textContent. Si el Worker no devuelve coordenadas (datos_bancarios null),
+// se avisa de que llegarán por email.
+function pintarResultado(data) {
+  document.getElementById('resultado-importe').textContent = 'Importe a transferir: $' + Number(data.importe).toFixed(2) + ' USD';
+  document.getElementById('resultado-codigo').textContent = data.codigo;
+  var btnCodigo = document.getElementById('btn-copiar-codigo');
+  btnCodigo.addEventListener('click', function(){ copiarTexto(data.codigo, btnCodigo, 'Copiar código'); });
+  // Importe exacto y código en el propio texto (se insertan con textContent).
+  document.getElementById('resultado-mensaje').textContent = 'Transfiere exactamente $' + Number(data.importe).toFixed(2) + ' USD e incluye el código ' + data.codigo + ' en el concepto de la transferencia. Te confirmaremos por email cuando recibamos el pago.';
+  // SMART: desglose del cobro único con las cifras reales que calcula el Worker según el estado.
+  if (data.desglose) {
+    var d = data.desglose;
+    var elDesglose = document.getElementById('resultado-desglose');
+    elDesglose.textContent = 'Vas a pagar $' + data.importe + ' ($' + d.creacion + ' de creación de tu LLC + $' + d.primer_mes + ' de tu primer mes del plan SMART, todo incluido)';
+    elDesglose.style.display = '';
+  }
+  var contenedor = document.getElementById('datos-bancarios');
+  contenedor.textContent = '';
+  var hay = false;
+  var datos = data.datos_bancarios && typeof data.datos_bancarios === 'object' ? data.datos_bancarios : null;
+  if (datos) {
+    ETIQUETAS_DATOS.forEach(function(par){
+      var valor = datos[par[0]];
+      if (typeof valor !== 'string' || !valor) return;
+      hay = true;
+      var fila = document.createElement('div');
+      fila.className = 'dato-fila';
+      var et = document.createElement('div');
+      et.className = 'dato-etiqueta';
+      et.textContent = par[1];
+      var val = document.createElement('div');
+      val.className = 'dato-valor';
+      val.textContent = valor;
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn-copiar';
+      btn.textContent = 'Copiar';
+      btn.addEventListener('click', function(){ copiarTexto(valor, btn, 'Copiar'); });
+      fila.appendChild(et);
+      fila.appendChild(val);
+      fila.appendChild(btn);
+      contenedor.appendChild(fila);
+    });
+  }
+  var aviso = document.getElementById('resultado-aviso-datos');
+  if (hay) {
+    aviso.style.display = 'none';
+    contenedor.style.display = 'block';
+  } else {
+    aviso.textContent = 'Te enviaremos los datos bancarios por email';
+    aviso.style.display = 'block';
+    contenedor.style.display = 'none';
+  }
+  document.getElementById('resultado').style.display = 'block';
+  document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 function enviarFormulario(ev) {
   ev.preventDefault();
   var errorEl = document.getElementById('error-msg');
@@ -485,23 +578,7 @@ function enviarFormulario(ev) {
       throw new Error(r.data.error || 'Error al procesar la solicitud');
     }
     document.getElementById('form-card').style.display = 'none';
-    document.getElementById('resultado-codigo').textContent = r.data.codigo;
-    document.getElementById('resultado-mensaje').textContent = r.data.mensaje;
-    // SMART: desglose del cobro único con las cifras reales que calcula el Worker según el estado.
-    if (r.data.desglose) {
-      var d = r.data.desglose;
-      var elDesglose = document.getElementById('resultado-desglose');
-      elDesglose.textContent = 'Vas a pagar $' + r.data.importe + ' ($' + d.creacion + ' de creación de tu LLC + $' + d.primer_mes + ' de tu primer mes del plan SMART, todo incluido)';
-      elDesglose.style.display = '';
-    }
-    var btnMercury = document.getElementById('btn-pagar-mercury');
-    if (r.data.mercury_link) {
-      btnMercury.href = r.data.mercury_link;
-    } else {
-      btnMercury.style.display = 'none';
-    }
-    document.getElementById('resultado').style.display = 'block';
-    document.getElementById('resultado').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    pintarResultado(r.data);
   })
   .catch(function(err){
     if (err.esFalloDeRed) {
