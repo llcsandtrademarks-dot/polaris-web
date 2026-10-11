@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+
+<html lang="es">
+<head>
+<!-- Google tag (gtag.js) — Consent Mode v2 -->
+<meta content="#0d2137" name="theme-color"/><link href="../favicon-32.png" rel="apple-touch-icon" sizes="180x180"/><script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('consent', 'default', {
+      ad_storage: 'denied',
+      analytics_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+    (function() {
+      var stored = localStorage.getItem('polaris_cookie_consent');
+      if (stored === 'accepted') {
+        gtag('consent', 'update', {
+          ad_storage: 'granted', analytics_storage: 'granted',
+          ad_user_data: 'granted', ad_personalization: 'granted'
+        });
+        return;
+      }
+      if (stored === 'rejected') return;
+
+      fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          if (data.country !== 'ES') {
+            gtag('consent', 'update', {
+              ad_storage: 'granted', analytics_storage: 'granted',
+              ad_user_data: 'granted', ad_personalization: 'granted'
+            });
+          } else {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'flex';
+          }
+        })
+        .catch(function(){
+          var banner = document.getElementById('cookie-banner');
+          if (banner) banner.style.display = 'flex';
+        });
+    })();
+  </script>
+<script async="" src="https://www.googletagmanager.com/gtag/js?id=AW-18177147225"></script>
+<script>
+    gtag('js', new Date());
+    gtag('config', 'AW-18177147225');
+    gtag('config', 'G-DN126T6ZDC');
+  </script>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>LLC de varios miembros que vende en Amazon FBA: por qué no hace falta ITIN ni 1040-NR | Proyecto Polaris</title><meta content="¿Te dijeron que necesitas un ITIN y una 1040-NR para tu LLC de varios miembros que vende en Amazon FBA? Para este perfil, no. Te explicamos por qué." name="description"/><link href="https://proyecto-polaris.com/blog/llc-varios-miembros-amazon-fba-itin-1040nr.html" rel="canonical"/><meta content="summary_large_image" name="twitter:card"/><meta content="LLC de varios miembros que vende en Amazon FBA: por qué no hace falta ITIN ni 1040-NR | Proyecto Polaris" name="twitter:title"/><meta content="¿Te dijeron que necesitas un ITIN y una 1040-NR para tu LLC de varios miembros que vende en Amazon FBA? Para este perfil, no. Te explicamos por qué." name="twitter:description"/><meta content="https://proyecto-polaris.com/og-image.jpg" name="twitter:image"/><meta content="article" property="og:type"/><meta content="https://proyecto-polaris.com/blog/llc-varios-miembros-amazon-fba-itin-1040nr.html" property="og:url"/><meta content="https://proyecto-polaris.com/og-image.jpg" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="LLC de varios miembros que vende en Amazon FBA: por qué no hace falta ITIN ni 1040-NR | Proyecto Polaris" property="og:title"/><meta content="¿Te dijeron que necesitas un ITIN y una 1040-NR para tu LLC de varios miembros que vende en Amazon FBA? Para este perfil, no. Te explicamos por qué." property="og:description"/><meta content="Proyecto Polaris" property="og:site_name"/><meta content="es_ES" property="og:locale"/>
+<link href="../favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="../favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<!-- FONTS:START -->
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- FONTS:END -->
+<link href="../shared.css?v=d1df7e53" rel="stylesheet"/>
+<style>
+    .page-header { background: var(--navy); padding: 4rem 2rem 3.5rem; text-align: center; }
+    .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+    .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
+    .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 520px; margin: 0 auto; line-height: 1.7; }
+    .page-header-meta { font-size: 13px; color: rgba(255,255,255,0.55); margin-bottom: 0.75rem; }
+    .legal-content { max-width: 760px; }
+    .legal-content h2 { font-family: var(--font-heading); font-size: 1.3rem; font-weight: 700; color: var(--navy); margin: 2.5rem 0 0.75rem; }
+    .legal-content h2:first-of-type { margin-top: 0; }
+    .legal-content h3 { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--navy); margin: 1.75rem 0 0.5rem; }
+    .legal-content p { font-size: 0.97rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 1rem; }
+    .legal-content ul, .legal-content ol { margin: 0 0 1rem 1.25rem; padding: 0; }
+    .legal-content li { font-size: 0.97rem; color: var(--text-muted); line-height: 1.75; margin-bottom: 0.4rem; }
+    .blog-back { display: inline-block; font-size: 13px; font-weight: 600; color: var(--navy-light); text-decoration: none; margin-bottom: 1.5rem; }
+    .blog-back:hover { text-decoration: underline; }
+    .video-embed { position: relative; width: 100%; padding-top: 56.25%; margin: 1.5rem 0 2rem; border-radius: 12px; overflow: hidden; background: #0d2137; }
+    .video-embed iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+  </style>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "LLC de varios miembros que vende en Amazon FBA: por qué no hace falta ITIN ni 1040-NR",
+  "description": "¿Te dijeron que necesitas un ITIN y una 1040-NR para tu LLC de varios miembros que vende en Amazon FBA? Para este perfil, no. Te explicamos por qué.",
+  "datePublished": "2026-10-11",
+  "dateModified": "2026-10-11",
+  "author": { "@type": "Organization", "name": "Proyecto Polaris" },
+  "publisher": { "@type": "Organization", "name": "Proyecto Polaris", "url": "https://proyecto-polaris.com" },
+  "url": "https://proyecto-polaris.com/blog/llc-varios-miembros-amazon-fba-itin-1040nr.html"
+}</script>
+<script type="application/ld+json">{
+  "@context": "https://schema.org",
+  "@type": "VideoObject",
+  "name": "No debes pagar un ITIN ni una 1040-NR",
+  "description": "¿Te dijeron que necesitas un ITIN y una 1040-NR para tu LLC de varios miembros que vende en Amazon FBA? Para este perfil, no. Te explicamos por qué.",
+  "thumbnailUrl": "https://i.ytimg.com/vi/R5_w0anQrbg/maxresdefault.jpg",
+  "uploadDate": "2026-10-11",
+  "duration": "PT4M52S",
+  "contentUrl": "https://www.youtube.com/watch?v=R5_w0anQrbg",
+  "embedUrl": "https://www.youtube.com/embed/R5_w0anQrbg",
+  "publisher": { "@type": "Organization", "name": "Proyecto Polaris", "url": "https://proyecto-polaris.com" }
+}</script>  <script>
+    // Captura y guarda los parámetros ref (referidos de cliente) y presc (prescriptores) en localStorage
+    (function(){
+      var params = new URLSearchParams(window.location.search);
+      var ref = params.get('ref');
+      if (ref) { localStorage.setItem('polaris_ref', ref); localStorage.setItem('polaris_ref_ts', Date.now()); }
+      var presc = params.get('presc');
+      if (presc) { localStorage.setItem('polaris_presc', presc); localStorage.setItem('polaris_presc_ts', Date.now()); }
+    })();
+  </script>
+</head>
+<body>
+<!-- TRUSTPILOT-BAR:START -->
+<div class="tp-badge-bar">
+<a href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<img alt="Trustpilot" height="24" src="https://images-static.trustpilot.com/api/stars/5/128x24.png" width="128"/>
+<span>Lee lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></span>
+</a>
+</div>
+<!-- TRUSTPILOT-BAR:END -->
+<!-- HEADER:START -->
+<nav>
+<a class="nav-logo" href="../index.html">
+<img alt="Proyecto Polaris" class="nav-logo-img" height="50" src="../logo.png" width="160"/>
+    Proyecto <span>Polaris</span>
+</a>
+<ul class="nav-links">
+<li><a href="../index.html">Inicio</a></li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="../servicios-llc.html">Servicios LLC</a></li>
+<li><a href="../servicios-marca.html">Registro de marca</a></li>
+</ul>
+</li>
+<li class="nav-dropdown">
+<button type="button" class="nav-dropdown-toggle" aria-haspopup="true" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<ul class="nav-dropdown-menu">
+<li><a href="../calendario-llc.html">Calendario fiscal</a></li>
+<li><a href="../referidos.html">Programa de referidos</a></li>
+<li><a href="../preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="index.html">Noticias</a></li>
+<li><a href="../precio-maximo-llc.html">¿Estás pagando de más?</a></li>
+</ul>
+</li>
+<li><a href="../nosotros.html">Nosotros</a></li>
+<li><a class="nav-cta" href="../contacto.html">Contactar</a></li>
+</ul>
+<button aria-label="Menú" class="nav-hamburger" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+<svg fill="none" height="24" stroke="currentColor" stroke-width="2" viewbox="0 0 24 24" width="24"><line x1="3" x2="21" y1="6" y2="6"></line><line x1="3" x2="21" y1="12" y2="12"></line><line x1="3" x2="21" y1="18" y2="18"></line></svg>
+</button>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+<a href="../index.html">Inicio</a>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Servicios<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="../servicios-llc.html">Servicios LLC</a>
+<a href="../servicios-marca.html">Registro de marca</a>
+</div>
+</div>
+<div class="mobile-submenu">
+<button type="button" class="mobile-submenu-toggle" aria-expanded="false">Herramientas<svg class="nav-caret" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="6 9 12 15 18 9"></polyline></svg></button>
+<div class="mobile-submenu-panel">
+<a href="../calendario-llc.html">Calendario fiscal</a>
+<a href="../referidos.html">Programa de referidos</a>
+<a href="../preguntas-frecuentes.html">Preguntas frecuentes</a>
+<a href="index.html">Noticias</a>
+<a href="../precio-maximo-llc.html">¿Estás pagando de más?</a>
+</div>
+</div>
+<a href="../nosotros.html">Nosotros</a>
+<a class="nav-cta" href="../contacto.html">Contactar</a>
+</div>
+<!-- HEADER:END -->
+<div class="page-header">
+<p class="page-header-eyebrow">Blog</p>
+<h1>LLC de varios miembros que vende en Amazon FBA: por qué no hace falta ITIN ni 1040-NR</h1>
+<p class="page-header-meta">11 oct 2026 · 2 min de lectura</p>
+</div>
+<section class="section">
+<a class="blog-back" href="index.html">← Volver al blog</a>
+<div class="legal-content">
+<p>Muchos preparadores de impuestos dicen a los vendedores de Amazon con LLC que necesitan un ITIN para presentar una 1040-NR. Para un perfil concreto, esto es falso, y esta página explica cuál.</p>
+<div class="video-embed">
+<iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" src="https://www.youtube.com/embed/R5_w0anQrbg" title="No debes pagar un ITIN ni una 1040-NR"></iframe>
+</div>
+<h2>A quién se refiere esto</h2>
+<p>Este artículo habla de un perfil muy concreto: vendes en Amazon, vives fuera de EE.UU., has creado una LLC con dos o más miembros y lo único que haces es enviar inventario a los almacenes de Amazon (FBA) desde China o desde cualquier otro país. Si tu caso es distinto, no apliques lo que sigue sin consultarlo: hay otros perfiles y los explicaremos en otros vídeos.</p>
+<h2>Por qué no hay 1040-NR: porque no hay retención</h2>
+<p>La clave está en la retención. Cuando abriste tu cuenta de vendedor y registraste tu LLC, Amazon debió pedirte el formulario W-8BEN-E (la «E» es de entity, entidad). Si está bien hecho, Amazon no te retiene impuestos. Y si no hay retención, no hay nada que declarar con una 1040-NR.</p>
+<h2>Qué se presenta en su lugar</h2>
+<p>Lo que sí se presenta es la declaración de la sociedad, el formulario 1065. Con este perfil lleva un K-2 y un K-3 casi en blanco, y el formulario 8804 va en cero, porque no hubo retención. Hay que presentarlo al IRS igualmente: reportar sí es obligatorio, y por eso conviene que lo prepare alguien con experiencia en impuestos internacionales.</p>
+<h2>Si ya presentaste una 1040-NR</h2>
+<p>Si te tocó hacerlo y sacaste dinero de tu bolsillo para tramitar un ITIN, es una situación que se puede corregir. Deja de hacerlo y busca a un preparador que domine impuestos internacionales.</p>
+<h2>Qué viene después</h2>
+<p>Este vídeo es el primero de una serie sobre el ITIN. En el siguiente hablamos de otro perfil: el de quien abre una cuenta de banco tradicional para usar Zelle.</p>
+<p><a href="https://proyecto-polaris.com/contacto">¿Quieres saber cuánto deberías estar pagando al año por tu LLC? Pídenos una auditoría gratuita →</a></p>
+<p style="font-size:0.85rem;">Proyecto Polaris es una gestoría privada especializada en cumplimiento para LLCs. No somos el IRS, ni el USPTO, ni ninguna agencia gubernamental, ni actuamos en su nombre.</p>
+</div>
+<!-- RELATED:START -->
+<aside class="related-posts" aria-label="Artículos recientes">
+<p class="related-title">Artículos recientes</p>
+<a class="related-card" href="llc-impuestos-estados-unidos-extranjeros.html">
+<span class="related-card-date">23 sep 2026</span>
+<span class="related-card-title">¿Tu LLC tiene que pagar impuestos en Estados Unidos? Lo que de verdad le debes al IRS si vives fuera</span>
+</a>
+<a class="related-card" href="orden-ejecutiva-bancos-mayo-2026.html">
+<span class="related-card-date">10 sep 2026</span>
+<span class="related-card-title">Orden ejecutiva de bancos en EE. UU. (mayo 2026): qué cambia y qué no para tu LLC</span>
+</a>
+<a class="related-card" href="cierre-correcto-de-llc.html">
+<span class="related-card-date">28 ago 2026</span>
+<span class="related-card-title">Cerrar tu LLC: lo que pasa si no lo haces correctamente</span>
+</a>
+<a class="related-card" href="las-falsas-cadenas.html">
+<span class="related-card-date">7 feb 2026</span>
+<span class="related-card-title">Las falsas cadenas</span>
+</a>
+<a class="related-card" href="el-email-que-todos-estamos-recibiendo.html">
+<span class="related-card-date">4 feb 2026</span>
+<span class="related-card-title">El Email que Todos Estamos Recibiendo</span>
+</a>
+</aside>
+<!-- RELATED:END -->
+</section>
+<!-- ===== REVIEWS CAROUSEL ===== -->
+<section class="reviews-section">
+<div class="section" style="padding-bottom:0;">
+<p class="section-eyebrow">Opiniones de clientes</p>
+<h2 class="section-title" style="font-family:var(--font-heading);">Lo que dicen nuestros clientes</h2>
+</div>
+<div class="reviews-outer">
+<div class="reviews-track" id="reviewsTrack">
+<div class="rev-slide">
+<a class="review-card review-card-tp" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" style="justify-content:center;" target="_blank">
+<div class="review-body" style="text-align:center;">
+<!-- La URL de estrellas de Trustpilot es estática: el "4" en la ruta (stars/4/...) no se actualiza solo con la puntuación real. Si la puntuación cambia, hay que editar este número a mano (mismo momento en que se actualicen las reseñas semanalmente). -->
+<img alt="Trustpilot: 4,3 sobre 5 estrellas" height="48" src="https://images-static.trustpilot.com/api/stars/4.5/256x48.png" style="height:48px;width:auto;margin:0 auto 1rem;display:block;" width="256"/>
+<p class="review-name" style="font-size:1.1rem;">4,3 · Excelente</p>
+<p class="review-text" style="font-style:normal;margin-top:0.5rem;margin-bottom:0;">Descubre lo que dicen de nosotros en <span class="tp-brand">Trustpilot</span></p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"En Polaris he conseguido justo el soporte y servicio que necesito, profesionales que conocen muy bien el mercado, trabajando con estrategia impecable..."</p>
+<p class="review-name">Jose Ferreira</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Portugal · 15 jul 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Honestidad, amabilidad, profesionalismo etc. A decir verdad me quedo corta al querer expresar lo contenta, satisfecha y sobretodo lo muy agradecida que estoy..."</p>
+<p class="review-name">Ivette Chacon</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">EE.UU. · ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"El acompañamiento y el asesoramiento que recibimos en todo momento hicieron que todo el proceso fuera mucho más fácil para nosotros..."</p>
+<p class="review-name">Joel y Vanesa</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Argentina · 4 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Recomiendo ampliamente a este equipo de trabajo, son gente 100% confiable, amable y que en todo momento están al pendiente..."</p>
+<p class="review-name">Yadira Velasco Arteaga</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">México · 6 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Destaco totalmente la atención de este equipo: amables, puntuales y extremadamente rápidos..."</p>
+<p class="review-name">Gabriel Velez</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Colombia · 13 ago 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"Por se cumplió el objetivo, con todos los puntos acordados y en corto tiempo"</p>
+<p class="review-name">Priscila</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">Venezuela · 25 mar 2026</p>
+</div>
+</a>
+</div>
+<div class="rev-slide">
+<a class="review-card" href="https://es.trustpilot.com/review/proyecto-polaris.com" rel="noopener" target="_blank">
+<div class="review-body">
+<div class="review-stars">★★★★★</div>
+<p class="review-text">"La empresa más confiable que he contratado"</p>
+<p class="review-name">Brenux LLC</p>
+<p style="color:rgba(255,255,255,0.6);font-size:0.85rem;margin-top:0.15rem;">España · 10 abr 2026</p>
+</div>
+</a>
+</div>
+</div>
+<div class="carousel-arrows" style="margin-top:1.5rem;">
+<button aria-label="Anterior" class="carousel-arrow" id="revPrev">←</button>
+<button aria-label="Siguiente" class="carousel-arrow" id="revNext">→</button>
+</div>
+</div>
+</section>
+<script>
+(function(){
+  var outer = document.querySelector('.reviews-outer');
+  var track = document.getElementById('reviewsTrack');
+  if (!track || !outer) return;
+  var slides = Array.prototype.slice.call(track.querySelectorAll('.rev-slide'));
+  var total = slides.length;
+  var current = 0;
+  var timer = null;
+  var started = false;
+
+  // Use CSS scroll-based approach for reliability
+  function updateSlides() {
+    slides.forEach(function(s, i) {
+      var card = s.querySelector('.review-card');
+      if (i === current) {
+        card.style.opacity = '1';
+        card.style.transform = 'scale(1)';
+      } else {
+        card.style.opacity = '0.38';
+        card.style.transform = 'scale(0.94)';
+      }
+    });
+  }
+
+  function goTo(n, animated) {
+    current = ((n % total) + total) % total;
+    // Scroll the active slide into center view
+    var slide = slides[current];
+    var outerW = outer.offsetWidth;
+    var slideW = slide.offsetWidth;
+    // offset = slide's left position - center padding
+    var slideLeft = slide.offsetLeft;
+    var scrollTo = slideLeft - (outerW - slideW) / 2;
+    if (animated) {
+      track.style.transition = 'transform 0.45s cubic-bezier(.4,0,.2,1)';
+    } else {
+      track.style.transition = 'none';
+    }
+    track.style.transform = 'translateX(' + (-scrollTo) + 'px)';
+    updateSlides();
+  }
+
+  function startTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(function(){ goTo(current + 1, true); }, 7000);
+  }
+  function stopTimer() { if (timer) { clearInterval(timer); timer = null; } }
+
+  function init() {
+    if (started) return;
+    started = true;
+    // Wait one frame to ensure layout is complete
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        goTo(0, false);
+        startTimer();
+      });
+    });
+  }
+
+  document.getElementById('revNext').addEventListener('click', function(){
+    stopTimer(); goTo(current + 1, true); startTimer();
+  });
+  document.getElementById('revPrev').addEventListener('click', function(){
+    stopTimer(); goTo(current - 1, true); startTimer();
+  });
+
+  // Touch/swipe
+  var tx = 0;
+  outer.addEventListener('touchstart', function(e){ tx = e.touches[0].clientX; }, {passive:true});
+  outer.addEventListener('touchend', function(e){
+    var dx = tx - e.changedTouches[0].clientX;
+    if (Math.abs(dx) > 40) { stopTimer(); goTo(current + (dx > 0 ? 1 : -1), true); startTimer(); }
+  }, {passive:true});
+
+  // Recalc on resize
+  window.addEventListener('resize', function(){ if (started) { requestAnimationFrame(function(){ goTo(current, false); }); } });
+
+  // IntersectionObserver — start only when visible
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function(entries){
+      if (entries[0].isIntersecting) { init(); obs.disconnect(); }
+    }, { threshold: 0.2 });
+    obs.observe(outer);
+  } else {
+    window.addEventListener('load', init);
+  }
+})();
+</script>
+<!-- FOOTER:START -->
+<footer>
+<div class="footer-grid">
+<div>
+<div style="display:flex;align-items:center;gap:10px;margin-bottom:0.75rem;">
+<img alt="Proyecto Polaris" height="50" src="../logo.png" style="width:32px;height:32px;border-radius:8px;" width="160"/>
+<span class="footer-brand-name" style="margin:0;">Proyecto <span>Polaris</span></span>
+</div>
+<p class="footer-brand-desc">Servicios de LLC y registro de marca en EE.UU. para emprendedores hispanohablantes.</p>
+<p style="margin-top:0.75rem;"><a href="mailto:contacto@proyecto-polaris.com" style="color:rgba(255,255,255,0.65);font-size:13px;text-decoration:none;">contacto@proyecto-polaris.com</a></p>
+<p style="margin-top:0.5rem;color:rgba(255,255,255,0.65);font-size:13px;">1552 Rocky Creek Rd<br/>Macon, GA 31206</p>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Servicios</p>
+<ul>
+<li><a href="../servicios-llc.html">Servicios de LLC</a></li>
+<li><a href="../precios-llc.html">Precios de LLC</a></li>
+<li><a href="../servicios-marca.html">Registro de marca</a></li>
+<li><a href="../precios-marca.html">Precios de registro de marca</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Recursos</p>
+<ul>
+<li><a href="../calendario-llc.html">Calendario de cumplimiento</a></li>
+<li><a href="../referidos.html">Programa de referidos</a></li>
+<li><a href="../preguntas-frecuentes.html">Preguntas frecuentes</a></li>
+<li><a href="index.html">Blog</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Empresa</p>
+<ul>
+<li><a href="../nosotros.html">Nosotros</a></li>
+<li><a href="../contacto.html">Contacto</a></li>
+</ul>
+</div>
+<div class="footer-col">
+<p class="footer-col-title">Legal</p>
+<ul>
+<li><a href="../privacidad.html">Política de privacidad</a></li>
+<li><a href="../terminos.html">Términos de servicio</a></li>
+</ul>
+</div>
+</div>
+<div class="footer-bottom">
+<span>© 2026 Proyecto Polaris. Todos los derechos reservados.</span>
+<div style="display:flex;gap:1.5rem"><a href="../privacidad.html">Privacidad</a><a href="../terminos.html">Términos</a></div>
+</div>
+</footer>
+<!-- FOOTER:END -->
+<!-- Cookie Consent Banner -->
+<div id="cookie-banner" style="display:none;">
+<p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="../privacidad.html">Más información</a></p>
+<div class="cookie-buttons">
+<button class="cookie-btn-reject" onclick="rejectCookies()">Rechazar</button>
+<button class="cookie-btn-accept" onclick="acceptCookies()">Aceptar</button>
+</div>
+</div>
+<script>
+    function acceptCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'accepted');
+      document.getElementById('cookie-banner').style.display = 'none';
+      gtag('consent', 'update', {
+        ad_storage: 'granted',
+        analytics_storage: 'granted',
+        ad_user_data: 'granted',
+        ad_personalization: 'granted'
+      });
+    }
+    function rejectCookies() {
+      localStorage.setItem('polaris_cookie_consent', 'rejected');
+      document.getElementById('cookie-banner').style.display = 'none';
+    }
+  </script>
+<script src="/whatsapp-widget.js?v=2" defer></script>
+<script src="/nav-dropdown.js" defer></script>
+</body>
+</html>

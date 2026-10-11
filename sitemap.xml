@@ -110,9 +110,15 @@
   </url>
   <url>
     <loc>https://proyecto-polaris.com/blog/</loc>
-    <lastmod>2026-08-28</lastmod>
+    <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://proyecto-polaris.com/blog/llc-varios-miembros-amazon-fba-itin-1040nr.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://proyecto-polaris.com/blog/llc-impuestos-estados-unidos-extranjeros.html</loc>
