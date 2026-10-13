@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://proyecto-polaris.com/trustpilot-resena.html">
+<meta content="#0d2137" name="theme-color"/>
+<title>Reseña de Trustpilot — Proyecto Polaris</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="shared.css" rel="stylesheet"/>
+<style>
+  .page-header { background: var(--navy); padding: 3rem 2rem 2.5rem; text-align: center; }
+  .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+  .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.5rem, 3.5vw, 2.1rem); font-weight: 700; color: var(--white); margin: 0; }
+  .section { max-width: 640px; margin: 0 auto; padding: 2.5rem 2rem; }
+  .tarjeta { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.25rem; }
+  .tarjeta p { font-size: 15px; color: var(--text); line-height: 1.7; margin: 0 0 1rem; word-break: break-word; }
+  .tarjeta .nota { font-size: 13px; color: var(--text-muted); }
+  .tarjeta.error { background: #fbeaea; border-color: #edbcbc; color: #7a2020; }
+  .tarjeta.error p { color: #7a2020; }
+  .tarjeta.ok { background: var(--navy-pale); }
+  .tarjeta a { color: inherit; text-decoration: underline; }
+  .acciones { margin-top: 1.25rem; }
+  .acciones .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  .btn-reintentar { display: inline-block; margin-top: 0.25rem; padding: 0.55rem 1.1rem; border: 0; border-radius: 8px; background: #7a2020; color: #fff; font: inherit; font-size: 13.5px; cursor: pointer; }
+  @media (max-width: 640px) { .section { padding: 1.5rem 1.25rem; } .tarjeta { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+<p class="page-header-eyebrow">Uso interno</p>
+<h1>Petición de reseña de Trustpilot</h1>
+</div>
+
+<div class="section">
+  <div class="tarjeta" id="tarjeta">
+    <p id="mensaje">Cargando…</p>
+    <p class="nota" id="nota" style="display:none;"></p>
+    <div class="acciones" id="acciones" style="display:none;">
+      <button class="btn btn-navy" id="btn-enviar" type="button">Enviar petición de reseña</button>
+    </div>
+    <div class="acciones" id="reintentar" style="display:none;">
+      <button class="btn-reintentar" id="btn-reintentar" type="button">Reintentar</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var WORKER_URL = 'https://polaris-pagos.llcsandtrademarks.workers.dev';
+var DATOS_ENDPOINT = WORKER_URL + '/trustpilot/datos';
+var ENVIAR_ENDPOINT = WORKER_URL + '/trustpilot/enviar';
+
+var token = (new URLSearchParams(window.location.search).get('t') || '').trim();
+var cliente = null;
+
+function el(id) { return document.getElementById(id); }
+
+// Fallo de red/servidor (fetch rechazado, 5xx o respuesta que no es JSON): mensaje consciente del
+// bloqueo de LaLiga a Cloudflare. Los 4xx con {error} y el 503 "no_configurado" se tratan aparte.
+function falloDeRed() { var e = new Error('red'); e.esFalloDeRed = true; return e; }
+
+function fetchJson(url, opts) {
+  return fetch(url, opts).then(function(res){
+    return res.json().then(function(data){
+      var noConfigurado = res.status === 503 && data && data.error === 'no_configurado';
+      if (res.status >= 500 && !noConfigurado) throw falloDeRed();
+      return { ok: res.ok, status: res.status, data: data };
+    }, function(){ throw falloDeRed(); });
+  }, function(){ throw falloDeRed(); });
+}
+
+var TEXTO_FALLO_RED = 'No hemos podido completar la conexión. Si estás navegando desde España, puede deberse a un bloqueo temporal de tu operador durante la franja de un partido de fútbol (afecta a miles de webs ajenas al fútbol, es un problema conocido y externo a nosotros). Prueba de nuevo en un rato, o si tienes VPN, actívala con un servidor fuera de España.';
+
+// Todo texto (incluidos nombre y email del cliente) entra con textContent.
+function mostrar(texto, clase, opciones) {
+  opciones = opciones || {};
+  el('tarjeta').className = 'tarjeta' + (clase ? ' ' + clase : '');
+  el('mensaje').textContent = texto;
+  el('nota').textContent = opciones.nota || '';
+  el('nota').style.display = opciones.nota ? 'block' : 'none';
+  el('acciones').style.display = opciones.boton ? 'block' : 'none';
+  el('reintentar').style.display = opciones.reintentar ? 'block' : 'none';
+}
+function quien() { return cliente.nombre ? cliente.nombre + ' (' + cliente.email + ')' : cliente.email; }
+function mostrarFalloRed() { mostrar(TEXTO_FALLO_RED, 'error', { reintentar: true }); }
+function mostrarCaducado() { mostrar('Este enlace no es válido o ha caducado.', 'error'); }
+function mostrarNoConfigurado() { mostrar('Falta configurar la dirección de Trustpilot en el Worker (secret TRUSTPILOT_BCC_EMAIL). No se ha enviado nada.', 'error'); }
+function mostrarYaEnviado() { mostrar('Ya se envió la petición de reseña a este cliente.', 'ok'); }
+function mostrarEnviado() { mostrar('Petición enviada a ' + quien() + '. Trustpilot le enviará su propio correo en breve.', 'ok'); }
+
+function init() {
+  el('btn-enviar').addEventListener('click', enviar);
+  el('btn-reintentar').addEventListener('click', function(){ window.location.reload(); });
+  if (!/^[0-9a-f]{32}$/.test(token)) { mostrarCaducado(); return; }
+  fetchJson(DATOS_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: token }) })
+    .then(function(r){
+      if (r.status === 429) { mostrar('Demasiados intentos; espera unos minutos y vuelve a abrir el enlace.', 'error'); return; }
+      if (!r.ok || !r.data || typeof r.data.email !== 'string') { mostrarCaducado(); return; }
+      cliente = { nombre: typeof r.data.nombre === 'string' ? r.data.nombre : '', email: r.data.email };
+      if (r.data.estado === 'enviado') { mostrarYaEnviado(); return; }
+      mostrar('Pedir reseña de Trustpilot a ' + quien(), '', { boton: true, nota: 'Se le enviará un correo corto desde Proyecto Polaris y Trustpilot le mandará después su invitación. Si ya se la pediste por otra vía, no hace falta que la envíes.' });
+    })
+    .catch(function(e){ if (e && e.esFalloDeRed) mostrarFalloRed(); else mostrarCaducado(); });
+}
+
+function enviar() {
+  var b = el('btn-enviar');
+  if (b.disabled) return;
+  b.disabled = true;
+  fetchJson(ENVIAR_ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ token: token }) })
+    .then(function(r){
+      if (r.status === 503 && r.data && r.data.error === 'no_configurado') { mostrarNoConfigurado(); return; }
+      if (r.status === 429) { mostrar('Demasiados intentos; espera unos minutos y vuelve a abrir el enlace.', 'error'); return; }
+      if (r.status === 409) { mostrar('Hay un envío en curso para este cliente. Espera un minuto y recarga la página.', 'error'); return; }
+      if (r.status === 404 || r.status === 400) { mostrarCaducado(); return; }
+      if (r.ok && r.data && r.data.ya_enviado) { mostrarYaEnviado(); return; }
+      if (r.ok) { mostrarEnviado(); return; }
+      mostrar((r.data && r.data.error) || 'No se pudo enviar la petición.', 'error');
+    })
+    .catch(function(e){
+      if (e && e.esFalloDeRed) mostrarFalloRed();
+      else mostrar('No se pudo enviar la petición.', 'error');
+    });
+}
+
+init();
+</script>
+</body>
+</html>

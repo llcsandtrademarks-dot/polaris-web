@@ -63,6 +63,10 @@
  *   Es solo un redirect instantáneo (meta-refresh + JS) al portal interno
  *   (polaris-portal.llcsandtrademarks.workers.dev) — no tiene contenido ni
  *   header/footer real que inyectar. Tampoco va en sitemap.xml (noindex).
+ *   - trustpilot-resena.html
+ *   Página interna (noindex) con el botón que envía la petición de reseña de
+ *   Trustpilot a un cliente. Es autónoma a propósito: sin header/footer, sin
+ *   barra de Trustpilot ni scripts de seguimiento. Tampoco va en sitemap.xml.
  *
  * Para añadir una página nueva al sitio: simplemente créala con un <nav> y un
  * <footer> cualquiera (o copia uno de otra página) y ejecuta este script —
@@ -85,6 +89,7 @@ const EXCLUDED = new Set([
   path.join(ROOT_DIR, 'header.html'),
   path.join(ROOT_DIR, 'footer.html'),
   path.join(ROOT_DIR, 'portal', 'index.html'),
+  path.join(ROOT_DIR, 'trustpilot-resena.html'),
 ]);
 
 const SKIP_DIRS = new Set(['.git', 'node_modules']);
