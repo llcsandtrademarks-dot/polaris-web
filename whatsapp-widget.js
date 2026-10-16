@@ -177,7 +177,7 @@
         fetch(API_LEAD_URL, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nombre: nombre, email: email, mensaje: mensajeCliente, pagina_origen: location.href }),
+          body: JSON.stringify({ nombre: nombre, email: email, mensaje: mensajeCliente, pagina_origen: location.href, origen_captura: origenCaptura() }),
           keepalive: true
         }).catch(function () {});
       } catch (e) {}
@@ -222,7 +222,8 @@
           empresa: '',
           pais: '',
           mensaje: mensajeCliente,
-          ref_source: ''
+          ref_source: '',
+          origen_captura: origenCaptura()
         })
       })
         .then(function (res) {
@@ -348,7 +349,79 @@
     });
   }
 
+  // ---- Origen del visitante (clic de campaña / referrer / página de entrada) ----
+  // Solo sessionStorage (clave polaris_origen_v1); ni cookies ni localStorage ni terceros. No envía nada por sí
+  // mismo: los envíos a /contacto y /whatsapp-lead añaden window.PolarisOrigen.get() como origen_captura.
+  // Todo va en try/catch: sessionStorage puede lanzar o venir vacío y la página debe funcionar igual.
+  var ORIGEN_CLAVE = 'polaris_origen_v1';
+  var ORIGEN_PARAMS = ['gclid', 'gbraid', 'wbraid', 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+  var ORIGEN_VALOR_MAX = 150;
+
+  function limpiarValorOrigen(v) {
+    if (typeof v !== 'string') return '';
+    return v.replace(/[\u0000-\u001f\u007f-\u009f]+/g, ' ').split(String.fromCharCode(8232)).join(' ').split(String.fromCharCode(8233)).join(' ').trim().slice(0, ORIGEN_VALOR_MAX).trim();
+  }
+
+  function leerOrigenGuardado() {
+    try {
+      var crudo = window.sessionStorage.getItem(ORIGEN_CLAVE);
+      if (!crudo) return null;
+      var o = JSON.parse(crudo);
+      return o && typeof o === 'object' && !Array.isArray(o) ? o : null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // Host del referrer solo si es de OTRO host distinto del propio (sin "www." en la comparación); sin ruta ni query.
+  function hostReferrerExterno() {
+    try {
+      var ref = document.referrer;
+      if (!ref) return '';
+      var u = new URL(ref);
+      if (u.protocol !== 'http:' && u.protocol !== 'https:') return '';
+      var sinWww = function (h) { return String(h).toLowerCase().replace(/^www\./, ''); };
+      if (!u.hostname || sinWww(u.hostname) === sinWww(location.hostname)) return '';
+      return limpiarValorOrigen(u.hostname);
+    } catch (e) {
+      return '';
+    }
+  }
+
+  function capturarOrigen() {
+    try {
+      var params = new URLSearchParams(location.search);
+      var registro = {};
+      var hayCampana = false;
+      for (var i = 0; i < ORIGEN_PARAMS.length; i++) {
+        var valor = limpiarValorOrigen(params.get(ORIGEN_PARAMS[i]) || '');
+        if (valor) { registro[ORIGEN_PARAMS[i]] = valor; hayCampana = true; }
+      }
+      if (!hayCampana && leerOrigenGuardado()) return;
+      var host = hostReferrerExterno();
+      if (host) registro.referrer = host;
+      var landing = limpiarValorOrigen(location.pathname);
+      if (landing) registro.landing = landing;
+      window.sessionStorage.setItem(ORIGEN_CLAVE, JSON.stringify(registro));
+    } catch (e) {}
+  }
+
+  window.PolarisOrigen = {
+    get: function () {
+      return leerOrigenGuardado();
+    }
+  };
+
+  function origenCaptura() {
+    try {
+      return window.PolarisOrigen.get() || undefined;
+    } catch (e) {
+      return undefined;
+    }
+  }
+
   function iniciar() {
+    capturarOrigen();
     inyectarEstilos();
     crearPanel(crearBoton());
   }

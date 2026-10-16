@@ -715,7 +715,8 @@
         empresa: document.getElementById('empresa').value.trim(),
         pais: document.getElementById('pais').value.trim(),
         mensaje: msgEl.value.trim(),
-        ref_source: refCode   // código del prescriptor que trajo al lead — columna separada en Notion
+        ref_source: refCode,   // código del prescriptor que trajo al lead — columna separada en Notion
+        origen_captura: (window.PolarisOrigen && window.PolarisOrigen.get()) || undefined   // gclid/UTM/referrer/landing (whatsapp-widget.js)
       })
     })
     .then(function(res){
@@ -742,7 +743,7 @@
 })();
 </script>
 
-<script src="/whatsapp-widget.js?v=2" defer></script>
+<script src="/whatsapp-widget.js?v=3" defer></script>
 <script src="/nav-dropdown.js" defer></script>
 </body>
 </html>
