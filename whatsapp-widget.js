@@ -2,9 +2,10 @@
  * Botón flotante de WhatsApp — Proyecto Polaris
  *
  * Widget único e idéntico en todas las páginas. Al hacer clic abre un panel de
- * chat simulado (guion fijo, sin IA): el visitante cuenta en qué necesita ayuda,
- * deja nombre y correo, se guarda el lead en polaris-api (/whatsapp-lead) y se
- * abre WhatsApp con el mensaje ya escrito.
+ * chat simulado (guion fijo, sin IA): el visitante elige qué le trae por aquí
+ * (botones; «Otro» pide un texto validado), deja nombre y correo, puede añadir
+ * algo más y elige entre WhatsApp (se guarda el lead en /whatsapp-lead y se abre
+ * wa.me) o email (/contacto).
  */
 (function () {
   'use strict';
@@ -14,7 +15,23 @@
   var API_CONTACTO_URL = 'https://polaris-api.llcsandtrademarks.workers.dev/contacto';
 
   var TEXTO_BIENVENIDA = 'Hola, bienvenido a Proyecto Polaris. Cuéntame en qué puedo ayudarte.';
-  var TEXTO_PASO_DATOS = 'Perfecto. Te paso con un especialista — dime tu nombre y tu correo electrónico para pasarle tus datos completos y te conectamos enseguida por WhatsApp.';
+  var TEXTO_PREGUNTA = '¿Qué te trae por aquí?';
+  var OPCIONES = [
+    { id: 'ya', etiqueta: 'Ya tengo una LLC' },
+    { id: 'crear', etiqueta: 'Quiero crear una LLC' },
+    { id: 'otro', etiqueta: 'Otro' }
+  ];
+  var TEXTO_PASO_OTRO = 'Cuéntanos con detalle qué necesitas o por qué nos contactas.';
+  var TEXTO_PASO_DATOS = 'Perfecto. Para que el especialista tenga tus datos, dime tu nombre y tu correo electrónico.';
+  var TEXTO_PASO_EXTRA = 'Ok, te conecto con un especialista. ¿Quieres añadir algo antes de que te conecte?';
+  var ETQ_WA_VACIO = 'No, conéctame ya';
+  var ETQ_WA_TEXTO = 'Enviar y conectar con un experto por WhatsApp';
+  var ETQ_EMAIL_VACIO = 'No, conéctame por email';
+  var ETQ_EMAIL_TEXTO = 'Enviar y conectar por email';
+  // Valores del select tipo_consulta de contacto.html.
+  var TIPO_CONSULTA = { ya: 'ayuda-llc', crear: 'abrir-llc', otro: 'contacto' };
+  // Máximo del campo mensaje de contacto.html (maxlength).
+  var MENSAJE_MAX = 1024;
   // Mismo texto que el checkbox de contacto.html (obligatorio en ambos formularios).
   var TEXTO_CONSENTIMIENTO = 'Acepto recibir comunicaciones a esta dirección. Puedes cancelar con un click en cualquier momento';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -56,6 +73,17 @@
       '.wa-consent{display:flex;flex-direction:row;align-items:flex-start;gap:8px;font-size:12px;font-weight:400;line-height:18px;color:#000;cursor:pointer}' +
       '.wa-consent input{margin:2px 0 0;flex-shrink:0;width:16px;height:16px;accent-color:#25D366}' +
       '.wa-final a{color:#128C7E;font-weight:700}' +
+      '.wa-opciones{align-self:stretch;display:flex;flex-direction:column;gap:8px}' +
+      '.wa-chip{width:100%;min-height:44px;background:#fff;border:1.5px solid #25D366;color:#128C7E;border-radius:10px;padding:10px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center}' +
+      '.wa-chip:not(:disabled):hover{background:#e8fbef}' +
+      '.wa-chip:disabled{opacity:.5;cursor:not-allowed}' +
+      '.wa-extra{align-self:stretch;background:#fff;border:1px solid #e2e5e9;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}' +
+      '.wa-extra textarea{resize:none;border:1px solid #ccd0d5;border-radius:8px;padding:8px 10px;font:inherit;font-size:14px;outline:none}' +
+      '.wa-extra textarea:focus{border-color:#25D366;box-shadow:0 0 0 2px rgba(37,211,102,.25)}' +
+      '.wa-extra .wa-btn,.wa-extra .wa-btn-secundario,.wa-form .wa-btn{min-height:44px}' +
+      '.wa-extra .wa-btn-secundario{padding:8px 14px;font-size:13px}' +
+      '.wa-error-otro{display:none;background:#fff;color:#d32f2f;font-size:11px;padding:0 12px 8px}' +
+      '.wa-error-otro.wa-visible{display:block}' +
       '@media (max-width:600px){.wa-chat-panel{right:16px;bottom:64px}}';
     var estilo = document.createElement('style');
     estilo.textContent = css;
@@ -107,7 +135,9 @@
     var cuerpo = crearElemento('div', 'wa-chat-body');
     cuerpo.setAttribute('aria-live', 'polite');
 
+    // La barra de texto solo se muestra si el visitante elige «Otro».
     var filaInput = crearElemento('div', 'wa-chat-input');
+    filaInput.style.display = 'none';
     var campoMensaje = document.createElement('textarea');
     campoMensaje.rows = 1;
     campoMensaje.maxLength = 1000;
@@ -115,17 +145,26 @@
     campoMensaje.setAttribute('aria-label', 'Tu mensaje');
     var enviar = crearElemento('button', 'wa-btn', 'Enviar');
     enviar.type = 'button';
+    enviar.disabled = true;
     filaInput.appendChild(campoMensaje);
     filaInput.appendChild(enviar);
+    var errorOtro = crearElemento('div', 'wa-error-otro');
+    errorOtro.setAttribute('role', 'alert');
 
     panel.appendChild(cabecera);
     panel.appendChild(cuerpo);
     panel.appendChild(filaInput);
+    panel.appendChild(errorOtro);
     document.body.appendChild(panel);
 
     var iniciado = false;
-    var yaEnvio = false;
-    var bienvenidaLista = false;
+    var opcionElegida = false;   // evita elegir dos veces en el paso A
+    var textoOtro = '';
+    var tipoOpcion = '';         // 'ya' | 'crear' | 'otro'
+    var datosNombre = '';
+    var datosEmail = '';
+    var envioBloqueado = false;  // evita doble envío en el paso D
+    var ultimoExtraMostrado = null;
 
     function agregarMensaje(clase, texto) {
       var burbuja = crearElemento('div', 'wa-msg ' + clase, texto);
@@ -147,10 +186,9 @@
         setTimeout(function () {
           escribiendo.remove();
           agregarMensaje('wa-msg-bot', TEXTO_BIENVENIDA);
-          bienvenidaLista = true;
+          mostrarPregunta();
         }, RETRASO_BIENVENIDA_MS);
       }
-      if (!yaEnvio) campoMensaje.focus();
     }
 
     function cerrarPanel() {
@@ -167,76 +205,69 @@
       return estadoFinal;
     }
 
-    // Paso 5 (camino WhatsApp): el lead se guarda (fire-and-forget), se dispara la
-    // conversión de Google Ads y se abre WhatsApp con el mensaje prerellenado.
-    function conectarPorWhatsApp(nombre, email, formulario) {
-      var enlaceWa = construirEnlaceWhatsApp(nombre, email);
-
-      // a) Fire-and-forget: si tarda o falla, no bloquea el paso siguiente.
-      try {
-        fetch(API_LEAD_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nombre: nombre, email: email, mensaje: mensajeCliente, pagina_origen: location.href, origen_captura: origenCaptura() }),
-          keepalive: true
-        }).catch(function () {});
-      } catch (e) {}
-
-      // b) Conversión de Google Ads "Contacto WhatsApp".
-      if (typeof gtag !== 'undefined') {
-        gtag('event', 'conversion', {
-          'send_to': ['AW-18177147225/CPkqCJDNpe4cENmCxdtD', 'G-DN126T6ZDC']
+    // ---- Paso A: pregunta inicial con tres botones ----
+    function mostrarPregunta() {
+      agregarMensaje('wa-msg-bot', TEXTO_PREGUNTA);
+      var contenedor = crearElemento('div', 'wa-opciones');
+      var chips = [];
+      OPCIONES.forEach(function (op) {
+        var chip = crearElemento('button', 'wa-chip', op.etiqueta);
+        chip.type = 'button';
+        chip.addEventListener('click', function () {
+          if (opcionElegida) return;
+          opcionElegida = true;
+          chips.forEach(function (c) { c.disabled = true; });
+          tipoOpcion = op.id;
+          agregarMensaje('wa-msg-user', op.etiqueta);
+          if (op.id === 'otro') pedirDetalleOtro(); else pasarADatos();
         });
-      }
-
-      // d) Abrir WhatsApp (wa.me abre la app en móvil y WhatsApp Web/escritorio en desktop).
-      window.open(enlaceWa, '_blank', 'noopener');
-
-      // e) Estado final con el mismo enlace como alternativa clicable.
-      formulario.remove();
-      var frase = document.createTextNode('Listo, te hemos abierto WhatsApp. Si no se abrió, ');
-      var alternativa = crearElemento('a', '', 'haz clic aquí');
-      alternativa.href = enlaceWa;
-      alternativa.target = '_blank';
-      alternativa.rel = 'noopener';
-      var contenedor = document.createDocumentFragment();
-      contenedor.appendChild(frase);
-      contenedor.appendChild(alternativa);
-      mostrarEstadoFinal(contenedor);
+        chips.push(chip);
+        contenedor.appendChild(chip);
+      });
+      cuerpo.appendChild(contenedor);
+      cuerpo.scrollTop = cuerpo.scrollHeight;
     }
 
-    // Camino alternativo: envía la consulta a /contacto (mismo endpoint que contacto.html), sin
-    // abrir WhatsApp ni disparar su conversión de Google Ads. Espera la respuesta real (no
-    // fire-and-forget) porque el estado final depende de si el envío funcionó o no.
-    function contactarPorEmail(nombre, email, formulario, botonEmail, botonConectar) {
-      botonEmail.disabled = true;
-      botonConectar.disabled = true;
-      botonEmail.textContent = 'Enviando…';
-      fetch(API_CONTACTO_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          tipo_consulta: '',
-          email: email,
-          nombre: nombre,
-          empresa: '',
-          pais: '',
-          mensaje: mensajeCliente,
-          ref_source: '',
-          origen_captura: origenCaptura()
-        })
-      })
-        .then(function (res) {
-          if (!res.ok) throw new Error('http ' + res.status);
-          formulario.remove();
-          mostrarEstadoFinal('Listo, hemos recibido tu consulta por email. Te responderemos lo antes posible.');
-        })
-        .catch(function () {
-          botonEmail.disabled = false;
-          botonConectar.disabled = false;
-          botonEmail.textContent = 'Contactar por email';
-          agregarMensaje('wa-msg-bot', 'No se pudo enviar tu consulta por email. Prueba de nuevo o usa el botón de WhatsApp de arriba.');
-        });
+    function pedirDetalleOtro() {
+      setTimeout(function () {
+        agregarMensaje('wa-msg-bot', TEXTO_PASO_OTRO);
+        filaInput.style.display = '';
+        campoMensaje.focus();
+      }, 500);
+    }
+
+    function actualizarEnvioOtro() {
+      var r = validarMensajeOtro(campoMensaje.value);
+      enviar.disabled = !r.ok;
+      if (!r.ok && campoMensaje.value.trim() !== '') {
+        errorOtro.textContent = r.motivo;
+        errorOtro.classList.add('wa-visible');
+      } else {
+        errorOtro.textContent = '';
+        errorOtro.classList.remove('wa-visible');
+      }
+      return r;
+    }
+
+    function enviarOtro() {
+      if (tipoOpcion !== 'otro' || textoOtro !== '') return;
+      var r = actualizarEnvioOtro();
+      if (!r.ok) return;
+      textoOtro = campoMensaje.value.trim();
+      agregarMensaje('wa-msg-user', textoOtro);
+      campoMensaje.value = '';
+      enviar.disabled = true;
+      filaInput.style.display = 'none';
+      errorOtro.classList.remove('wa-visible');
+      pasarADatos();
+    }
+
+    // ---- Paso B: nombre + correo + consentimiento (no se envía nada aún) ----
+    function pasarADatos() {
+      setTimeout(function () {
+        agregarMensaje('wa-msg-bot', TEXTO_PASO_DATOS);
+        mostrarFormulario();
+      }, 500);
     }
 
     function mostrarFormulario() {
@@ -265,28 +296,20 @@
       etiquetaConsent.appendChild(casilla);
       etiquetaConsent.appendChild(crearElemento('span', '', TEXTO_CONSENTIMIENTO));
 
-      var botonConectar = crearElemento('button', 'wa-btn', 'Conectar por WhatsApp');
-      botonConectar.type = 'submit';
-      botonConectar.disabled = true;
-
-      // Camino alternativo, visualmente subordinado al CTA de WhatsApp (más pequeño, estilo
-      // outline): no reemplaza el botón principal, que sigue funcionando igual.
-      var botonEmail = crearElemento('button', 'wa-btn-secundario', 'Contactar por email');
-      botonEmail.type = 'button';
-      botonEmail.disabled = true;
+      var botonContinuar = crearElemento('button', 'wa-btn', 'Continuar');
+      botonContinuar.type = 'submit';
+      botonContinuar.disabled = true;
 
       formulario.appendChild(etiquetaNombre);
       formulario.appendChild(etiquetaEmail);
       formulario.appendChild(etiquetaConsent);
-      formulario.appendChild(botonConectar);
-      formulario.appendChild(botonEmail);
+      formulario.appendChild(botonContinuar);
 
       function completo() {
         return campoNombre.value.trim() !== '' && EMAIL_RE.test(campoEmail.value.trim()) && casilla.checked;
       }
       function actualizar() {
-        botonConectar.disabled = !completo();
-        botonEmail.disabled = !completo();
+        botonContinuar.disabled = !completo();
       }
       campoNombre.addEventListener('input', actualizar);
       campoEmail.addEventListener('input', function () {
@@ -301,15 +324,13 @@
 
       formulario.addEventListener('submit', function (e) {
         e.preventDefault();
-        if (!completo() || botonConectar.disabled) return;
-        botonConectar.disabled = true;
-        botonEmail.disabled = true;
-        conectarPorWhatsApp(campoNombre.value.trim(), campoEmail.value.trim(), formulario);
-      });
-
-      botonEmail.addEventListener('click', function () {
-        if (!completo() || botonEmail.disabled) return;
-        contactarPorEmail(campoNombre.value.trim(), campoEmail.value.trim(), formulario, botonEmail, botonConectar);
+        if (!completo() || botonContinuar.disabled) return;
+        botonContinuar.disabled = true;
+        datosNombre = campoNombre.value.trim();
+        datosEmail = campoEmail.value.trim();
+        formulario.remove();
+        agregarMensaje('wa-msg-user', datosNombre);
+        setTimeout(mostrarPasoExtra, 500);
       });
 
       cuerpo.appendChild(formulario);
@@ -317,19 +338,142 @@
       campoNombre.focus();
     }
 
-    // Pasos 2 y 3: el mensaje libre del cliente se guarda y el bot pide los datos.
-    function enviarMensaje() {
-      var texto = campoMensaje.value.trim();
-      if (texto === '' || yaEnvio || !bienvenidaLista) return;
-      yaEnvio = true;
-      mensajeCliente = texto;
-      agregarMensaje('wa-msg-user', texto);
-      campoMensaje.value = '';
-      filaInput.style.display = 'none';
-      setTimeout(function () {
-        agregarMensaje('wa-msg-bot', TEXTO_PASO_DATOS);
-        mostrarFormulario();
-      }, 500);
+    // ---- Paso C: ¿algo más que añadir? (opcional, sin validación) ----
+    function mostrarPasoExtra() {
+      agregarMensaje('wa-msg-bot', TEXTO_PASO_EXTRA);
+      var bloque = crearElemento('div', 'wa-extra');
+      var campoExtra = document.createElement('textarea');
+      campoExtra.rows = 3;
+      campoExtra.maxLength = 1000;
+      campoExtra.placeholder = 'Escribe aquí si quieres añadir algo…';
+      campoExtra.setAttribute('aria-label', 'Algo más que añadir (opcional)');
+      var botonWa = crearElemento('button', 'wa-btn', ETQ_WA_VACIO);
+      botonWa.type = 'button';
+      var botonEmail = crearElemento('button', 'wa-btn-secundario', ETQ_EMAIL_VACIO);
+      botonEmail.type = 'button';
+      bloque.appendChild(campoExtra);
+      bloque.appendChild(botonWa);
+      bloque.appendChild(botonEmail);
+
+      function hayTexto() { return campoExtra.value.trim() !== ''; }
+      function etiquetar() {
+        botonWa.textContent = hayTexto() ? ETQ_WA_TEXTO : ETQ_WA_VACIO;
+        botonEmail.textContent = hayTexto() ? ETQ_EMAIL_TEXTO : ETQ_EMAIL_VACIO;
+      }
+      function bloquear(estado) {
+        botonWa.disabled = estado;
+        botonEmail.disabled = estado;
+        campoExtra.disabled = estado;
+      }
+      campoExtra.addEventListener('input', etiquetar);
+
+      // Desactiva todo al instante (evita doble envío) y compone el mensaje.
+      function preparar() {
+        if (envioBloqueado) return false;
+        envioBloqueado = true;
+        bloquear(true);
+        var extra = campoExtra.value.trim();
+        if (extra !== '' && extra !== ultimoExtraMostrado) {
+          agregarMensaje('wa-msg-user', extra);
+          ultimoExtraMostrado = extra;
+        }
+        mensajeCliente = componerMensaje(extra);
+        return true;
+      }
+
+      botonWa.addEventListener('click', function () {
+        if (!preparar()) return;
+        conectarPorWhatsApp(datosNombre, datosEmail, bloque);
+      });
+      botonEmail.addEventListener('click', function () {
+        if (!preparar()) return;
+        contactarPorEmail(datosNombre, datosEmail, bloque, botonEmail, function () {
+          envioBloqueado = false;
+          bloquear(false);
+          etiquetar();
+        });
+      });
+
+      cuerpo.appendChild(bloque);
+      cuerpo.scrollTop = cuerpo.scrollHeight;
+      campoExtra.focus();
+    }
+
+    function componerMensaje(extra) {
+      var linea = 'Consulta: ';
+      if (tipoOpcion === 'ya') linea += 'Ya tiene una LLC';
+      else if (tipoOpcion === 'crear') linea += 'Quiere crear una LLC';
+      else linea += 'Otro' + (textoOtro ? ': ' + textoOtro : '');
+      if (extra) linea += '\nDetalle adicional: ' + extra;
+      return linea.slice(0, MENSAJE_MAX);
+    }
+
+    // ---- Paso D (camino WhatsApp): el lead se guarda (fire-and-forget), se dispara la
+    // conversión de Google Ads y se abre WhatsApp con el mensaje prerellenado.
+    function conectarPorWhatsApp(nombre, email, bloque) {
+      var enlaceWa = construirEnlaceWhatsApp(nombre, email);
+
+      // a) Fire-and-forget: si tarda o falla, no bloquea el paso siguiente.
+      try {
+        fetch(API_LEAD_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre: nombre, email: email, mensaje: mensajeCliente, pagina_origen: location.href, origen_captura: origenCaptura() }),
+          keepalive: true
+        }).catch(function () {});
+      } catch (e) {}
+
+      // b) Conversión de Google Ads "Contacto WhatsApp".
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'conversion', {
+          'send_to': ['AW-18177147225/CPkqCJDNpe4cENmCxdtD', 'G-DN126T6ZDC']
+        });
+      }
+
+      // d) Abrir WhatsApp (wa.me abre la app en móvil y WhatsApp Web/escritorio en desktop).
+      window.open(enlaceWa, '_blank', 'noopener');
+
+      // e) Estado final con el mismo enlace como alternativa clicable.
+      bloque.remove();
+      var frase = document.createTextNode('Listo, te hemos abierto WhatsApp. Si no se abrió, ');
+      var alternativa = crearElemento('a', '', 'haz clic aquí');
+      alternativa.href = enlaceWa;
+      alternativa.target = '_blank';
+      alternativa.rel = 'noopener';
+      var contenedor = document.createDocumentFragment();
+      contenedor.appendChild(frase);
+      contenedor.appendChild(alternativa);
+      mostrarEstadoFinal(contenedor);
+    }
+
+    // Paso D (camino email): envía la consulta a /contacto (mismo endpoint que contacto.html), sin
+    // abrir WhatsApp ni disparar su conversión de Google Ads. Espera la respuesta real (no
+    // fire-and-forget) porque el estado final depende de si el envío funcionó o no.
+    function contactarPorEmail(nombre, email, bloque, botonEmail, reactivar) {
+      botonEmail.textContent = 'Enviando…';
+      fetch(API_CONTACTO_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          tipo_consulta: TIPO_CONSULTA[tipoOpcion] || '',
+          email: email,
+          nombre: nombre,
+          empresa: '',
+          pais: '',
+          mensaje: mensajeCliente,
+          ref_source: '',
+          origen_captura: origenCaptura()
+        })
+      })
+        .then(function (res) {
+          if (!res.ok) throw new Error('http ' + res.status);
+          bloque.remove();
+          mostrarEstadoFinal('Listo, hemos enviado tu consulta por email. Te responderemos lo antes posible.');
+        })
+        .catch(function () {
+          reactivar();
+          agregarMensaje('wa-msg-bot', 'No se pudo enviar tu consulta por email. Prueba de nuevo o usa el botón de WhatsApp.');
+        });
     }
 
     boton.addEventListener('click', function (e) {
@@ -337,16 +481,51 @@
       if (panel.classList.contains('wa-abierto')) cerrarPanel(); else abrir();
     });
     cerrar.addEventListener('click', cerrarPanel);
-    enviar.addEventListener('click', enviarMensaje);
+    enviar.addEventListener('click', enviarOtro);
+    campoMensaje.addEventListener('input', actualizarEnvioOtro);
     campoMensaje.addEventListener('keydown', function (e) {
       if (e.key === 'Enter' && !e.shiftKey) {
         e.preventDefault();
-        enviarMensaje();
+        enviarOtro();
       }
     });
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape' && panel.classList.contains('wa-abierto')) cerrarPanel();
     });
+  }
+
+  // Validación del texto libre de «Otro». Pura y sin dependencias.
+  var PALABRAS_RELLENO = ('hola holaa ola buenas buenos dias dia tardes noches buen hey ey saludos que tal como estas estan info informacion ' +
+    'quiero necesito por favor ayuda ayudarme consulta pregunta gracias ok vale test prueba un una el la me mi podeis podrian pueden puedes').split(' ');
+  var MOTIVO_CORTO = 'Cuéntanos un poco más: qué necesitas y en qué podemos ayudarte.';
+
+  function validarMensajeOtro(texto) {
+    var t = String(texto == null ? '' : texto).trim();
+    if (t.length < 25) return { ok: false, motivo: MOTIVO_CORTO };
+
+    var norm = t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^\p{L}\p{N}\s]/gu, ' ').replace(/\s+/g, ' ').trim();
+    var palabras = norm.split(' ').filter(function (p) { return /\p{L}/u.test(p); });
+    if (palabras.length < 5) return { ok: false, motivo: MOTIVO_CORTO };
+
+    var distintas = {};
+    palabras.forEach(function (p) { distintas[p] = true; });
+    if (Object.keys(distintas).length < 3) return { ok: false, motivo: 'Escribe una frase con sentido para que podamos ayudarte.' };
+
+    var noEspacios = t.replace(/\s/g, '');
+    var letras = (noEspacios.match(/\p{L}/gu) || []).length;
+    if (letras / noEspacios.length < 0.6) return { ok: false, motivo: 'Escribe tu consulta con palabras, por favor.' };
+
+    var sospechoso = /(.)\1{3,}/u.test(norm) || /k{3,}/.test(norm) || /(?:xd){2,}/.test(norm) ||
+      palabras.some(function (p) {
+        return p.length > 25 || p === 'lol' || /^(?:ja|je|ji|ha|he){2,}$/.test(p);
+      });
+    if (sospechoso) return { ok: false, motivo: 'Parece que el mensaje no es una consulta real. Cuéntanos qué necesitas.' };
+
+    var todoRelleno = palabras.every(function (p) { return PALABRAS_RELLENO.indexOf(p) !== -1; });
+    if (todoRelleno) return { ok: false, motivo: 'Dinos qué necesitas en concreto (por ejemplo: crear una LLC, renovarla, registrar una marca…).' };
+
+    return { ok: true, motivo: '' };
   }
 
   // ---- Origen del visitante (clic de campaña / referrer / página de entrada) ----
@@ -424,6 +603,11 @@
     capturarOrigen();
     inyectarEstilos();
     crearPanel(crearBoton());
+  }
+
+  // Solo para pruebas locales; en producción no existe.
+  if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+    window.__PolarisWidgetTest = { validarMensajeOtro: validarMensajeOtro };
   }
 
   iniciar();
