@@ -14,20 +14,15 @@
   var API_LEAD_URL = 'https://polaris-api.llcsandtrademarks.workers.dev/whatsapp-lead';
   var API_CONTACTO_URL = 'https://polaris-api.llcsandtrademarks.workers.dev/contacto';
 
-  var TEXTO_BIENVENIDA = 'Hola, bienvenido a Proyecto Polaris. Cuéntame en qué puedo ayudarte.';
-  var TEXTO_PREGUNTA = '¿Qué te trae por aquí?';
+  var TEXTO_BIENVENIDA = 'Hola, bienvenido a Proyecto Polaris. Para poder ayudarte mejor, cuéntame:';
   var OPCIONES = [
     { id: 'ya', etiqueta: 'Ya tengo una LLC' },
     { id: 'crear', etiqueta: 'Quiero crear una LLC' },
     { id: 'otro', etiqueta: 'Otro' }
   ];
   var TEXTO_PASO_OTRO = 'Cuéntanos con detalle qué necesitas o por qué nos contactas.';
-  var TEXTO_PASO_DATOS = 'Perfecto. Para que el especialista tenga tus datos, dime tu nombre y tu correo electrónico.';
-  var TEXTO_PASO_EXTRA = 'Ok, te conecto con un especialista. ¿Quieres añadir algo antes de que te conecte?';
-  var ETQ_WA_VACIO = 'No, conéctame ya';
-  var ETQ_WA_TEXTO = 'Enviar y conectar con un experto por WhatsApp';
-  var ETQ_EMAIL_VACIO = 'No, conéctame por email';
-  var ETQ_EMAIL_TEXTO = 'Enviar y conectar por email';
+  var TEXTO_PASO_DATOS = 'Perfecto. Te paso con un especialista — dime tu nombre y tu correo electrónico para pasarle tus datos completos y te conectamos enseguida por WhatsApp.';
+  var ETQ_EMAIL = 'Contactar por email';
   // Valores del select tipo_consulta de contacto.html.
   var TIPO_CONSULTA = { ya: 'ayuda-llc', crear: 'abrir-llc', otro: 'contacto' };
   // Máximo del campo mensaje de contacto.html (maxlength).
@@ -77,11 +72,12 @@
       '.wa-chip{width:100%;min-height:44px;background:#fff;border:1.5px solid #25D366;color:#128C7E;border-radius:10px;padding:10px 14px;font:inherit;font-size:14px;font-weight:700;cursor:pointer;text-align:center}' +
       '.wa-chip:not(:disabled):hover{background:#e8fbef}' +
       '.wa-chip:disabled{opacity:.5;cursor:not-allowed}' +
-      '.wa-extra{align-self:stretch;background:#fff;border:1px solid #e2e5e9;border-radius:12px;padding:12px;display:flex;flex-direction:column;gap:8px}' +
-      '.wa-extra textarea{resize:none;border:1px solid #ccd0d5;border-radius:8px;padding:8px 10px;font:inherit;font-size:14px;outline:none}' +
-      '.wa-extra textarea:focus{border-color:#25D366;box-shadow:0 0 0 2px rgba(37,211,102,.25)}' +
-      '.wa-extra .wa-btn,.wa-extra .wa-btn-secundario,.wa-form .wa-btn{min-height:44px}' +
-      '.wa-extra .wa-btn-secundario{padding:8px 14px;font-size:13px}' +
+      '.wa-msg-opciones{width:85%}' +
+      '.wa-msg-opciones .wa-opciones{margin-top:10px}' +
+      '.wa-form textarea{resize:none;border:1px solid #ccd0d5;border-radius:8px;padding:8px 10px;font:inherit;font-size:14px;font-weight:400;outline:none}' +
+      '.wa-form textarea:focus{border-color:#25D366;box-shadow:0 0 0 2px rgba(37,211,102,.25)}' +
+      '.wa-form .wa-btn,.wa-form .wa-btn-secundario{min-height:44px}' +
+      '.wa-form .wa-btn-secundario{padding:8px 14px;font-size:13px}' +
       '.wa-error-otro{display:none;background:#fff;color:#d32f2f;font-size:11px;padding:0 12px 8px}' +
       '.wa-error-otro.wa-visible{display:block}' +
       '@media (max-width:600px){.wa-chat-panel{right:16px;bottom:64px}}';
@@ -185,8 +181,7 @@
         cuerpo.appendChild(escribiendo);
         setTimeout(function () {
           escribiendo.remove();
-          agregarMensaje('wa-msg-bot', TEXTO_BIENVENIDA);
-          mostrarPregunta();
+          mostrarBienvenida();
         }, RETRASO_BIENVENIDA_MS);
       }
     }
@@ -205,9 +200,9 @@
       return estadoFinal;
     }
 
-    // ---- Paso A: pregunta inicial con tres botones ----
-    function mostrarPregunta() {
-      agregarMensaje('wa-msg-bot', TEXTO_PREGUNTA);
+    // ---- Paso A: bienvenida (una sola burbuja) con tres botones pegados a ella ----
+    function mostrarBienvenida() {
+      var burbuja = agregarMensaje('wa-msg-bot wa-msg-opciones', TEXTO_BIENVENIDA);
       var contenedor = crearElemento('div', 'wa-opciones');
       var chips = [];
       OPCIONES.forEach(function (op) {
@@ -224,7 +219,7 @@
         chips.push(chip);
         contenedor.appendChild(chip);
       });
-      cuerpo.appendChild(contenedor);
+      burbuja.appendChild(contenedor);
       cuerpo.scrollTop = cuerpo.scrollHeight;
     }
 
@@ -262,7 +257,7 @@
       pasarADatos();
     }
 
-    // ---- Paso B: nombre + correo + consentimiento (no se envía nada aún) ----
+    // ---- Paso B: datos + texto opcional + botones finales (no se envía nada hasta pulsar uno) ----
     function pasarADatos() {
       setTimeout(function () {
         agregarMensaje('wa-msg-bot', TEXTO_PASO_DATOS);
@@ -290,26 +285,48 @@
       var errorEmail = crearElemento('span', 'wa-error', 'Escribe un correo válido.');
       etiquetaEmail.appendChild(errorEmail);
 
+      // Texto opcional: sin validación (vale vacío) y no influye en la activación de los botones.
+      var etiquetaExtra = crearElemento('label', 'wa-campo', '¿Quieres añadir algo más? (opcional)');
+      var campoExtra = document.createElement('textarea');
+      campoExtra.rows = 3;
+      campoExtra.maxLength = 1000;
+      etiquetaExtra.appendChild(campoExtra);
+
       var etiquetaConsent = crearElemento('label', 'wa-consent');
       var casilla = document.createElement('input');
       casilla.type = 'checkbox';
       etiquetaConsent.appendChild(casilla);
       etiquetaConsent.appendChild(crearElemento('span', '', TEXTO_CONSENTIMIENTO));
 
-      var botonContinuar = crearElemento('button', 'wa-btn', 'Continuar');
-      botonContinuar.type = 'submit';
-      botonContinuar.disabled = true;
+      var botonWa = crearElemento('button', 'wa-btn', 'Conectar por WhatsApp');
+      botonWa.type = 'button';
+      botonWa.disabled = true;
+      // Camino alternativo, visualmente subordinado al CTA de WhatsApp (estilo outline).
+      var botonEmail = crearElemento('button', 'wa-btn-secundario', ETQ_EMAIL);
+      botonEmail.type = 'button';
+      botonEmail.disabled = true;
 
       formulario.appendChild(etiquetaNombre);
       formulario.appendChild(etiquetaEmail);
+      formulario.appendChild(etiquetaExtra);
       formulario.appendChild(etiquetaConsent);
-      formulario.appendChild(botonContinuar);
+      formulario.appendChild(botonWa);
+      formulario.appendChild(botonEmail);
 
       function completo() {
         return campoNombre.value.trim() !== '' && EMAIL_RE.test(campoEmail.value.trim()) && casilla.checked;
       }
       function actualizar() {
-        botonContinuar.disabled = !completo();
+        botonWa.disabled = !completo();
+        botonEmail.disabled = !completo();
+      }
+      function bloquear(estado) {
+        campoNombre.disabled = estado;
+        campoEmail.disabled = estado;
+        campoExtra.disabled = estado;
+        casilla.disabled = estado;
+        botonWa.disabled = estado;
+        botonEmail.disabled = estado;
       }
       campoNombre.addEventListener('input', actualizar);
       campoEmail.addEventListener('input', function () {
@@ -321,55 +338,11 @@
         if (v !== '' && !EMAIL_RE.test(v)) errorEmail.classList.add('wa-visible');
       });
       casilla.addEventListener('change', actualizar);
-
-      formulario.addEventListener('submit', function (e) {
-        e.preventDefault();
-        if (!completo() || botonContinuar.disabled) return;
-        botonContinuar.disabled = true;
-        datosNombre = campoNombre.value.trim();
-        datosEmail = campoEmail.value.trim();
-        formulario.remove();
-        agregarMensaje('wa-msg-user', datosNombre);
-        setTimeout(mostrarPasoExtra, 500);
-      });
-
-      cuerpo.appendChild(formulario);
-      cuerpo.scrollTop = cuerpo.scrollHeight;
-      campoNombre.focus();
-    }
-
-    // ---- Paso C: ¿algo más que añadir? (opcional, sin validación) ----
-    function mostrarPasoExtra() {
-      agregarMensaje('wa-msg-bot', TEXTO_PASO_EXTRA);
-      var bloque = crearElemento('div', 'wa-extra');
-      var campoExtra = document.createElement('textarea');
-      campoExtra.rows = 3;
-      campoExtra.maxLength = 1000;
-      campoExtra.placeholder = 'Escribe aquí si quieres añadir algo…';
-      campoExtra.setAttribute('aria-label', 'Algo más que añadir (opcional)');
-      var botonWa = crearElemento('button', 'wa-btn', ETQ_WA_VACIO);
-      botonWa.type = 'button';
-      var botonEmail = crearElemento('button', 'wa-btn-secundario', ETQ_EMAIL_VACIO);
-      botonEmail.type = 'button';
-      bloque.appendChild(campoExtra);
-      bloque.appendChild(botonWa);
-      bloque.appendChild(botonEmail);
-
-      function hayTexto() { return campoExtra.value.trim() !== ''; }
-      function etiquetar() {
-        botonWa.textContent = hayTexto() ? ETQ_WA_TEXTO : ETQ_WA_VACIO;
-        botonEmail.textContent = hayTexto() ? ETQ_EMAIL_TEXTO : ETQ_EMAIL_VACIO;
-      }
-      function bloquear(estado) {
-        botonWa.disabled = estado;
-        botonEmail.disabled = estado;
-        campoExtra.disabled = estado;
-      }
-      campoExtra.addEventListener('input', etiquetar);
+      formulario.addEventListener('submit', function (e) { e.preventDefault(); });
 
       // Desactiva todo al instante (evita doble envío) y compone el mensaje.
       function preparar() {
-        if (envioBloqueado) return false;
+        if (envioBloqueado || !completo()) return false;
         envioBloqueado = true;
         bloquear(true);
         var extra = campoExtra.value.trim();
@@ -383,20 +356,21 @@
 
       botonWa.addEventListener('click', function () {
         if (!preparar()) return;
-        conectarPorWhatsApp(datosNombre, datosEmail, bloque);
+        conectarPorWhatsApp(campoNombre.value.trim(), campoEmail.value.trim(), formulario);
       });
       botonEmail.addEventListener('click', function () {
         if (!preparar()) return;
-        contactarPorEmail(datosNombre, datosEmail, bloque, botonEmail, function () {
+        contactarPorEmail(campoNombre.value.trim(), campoEmail.value.trim(), formulario, botonEmail, function () {
           envioBloqueado = false;
           bloquear(false);
-          etiquetar();
+          botonEmail.textContent = ETQ_EMAIL;
+          actualizar();
         });
       });
 
-      cuerpo.appendChild(bloque);
+      cuerpo.appendChild(formulario);
       cuerpo.scrollTop = cuerpo.scrollHeight;
-      campoExtra.focus();
+      campoNombre.focus();
     }
 
     function componerMensaje(extra) {
