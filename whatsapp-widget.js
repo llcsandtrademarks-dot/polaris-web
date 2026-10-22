@@ -27,8 +27,9 @@
   var TIPO_CONSULTA = { ya: 'ayuda-llc', crear: 'abrir-llc', otro: 'contacto' };
   // Máximo del campo mensaje de contacto.html (maxlength).
   var MENSAJE_MAX = 1024;
-  // Mismo texto que el checkbox de contacto.html (obligatorio en ambos formularios).
-  var TEXTO_CONSENTIMIENTO = 'Acepto recibir comunicaciones a esta dirección. Puedes cancelar con un click en cualquier momento';
+  // Versión abreviada del checkbox de contacto.html, acordada por Samir el 22 oct 2026
+  // (contacto.html conserva su texto completo). Obligatorio en este formulario.
+  var TEXTO_CONSENTIMIENTO = 'Acepto recibir comunicaciones a esta dirección.';
   var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   // Tiempo que se muestra el indicador de "escribiendo…" antes del mensaje de bienvenida.
   var RETRASO_BIENVENIDA_MS = 2000;
@@ -74,7 +75,7 @@
       '.wa-chip:disabled{opacity:.5;cursor:not-allowed}' +
       '.wa-msg-opciones{width:85%}' +
       '.wa-msg-opciones .wa-opciones{margin-top:10px}' +
-      '.wa-form textarea{resize:none;border:1px solid #ccd0d5;border-radius:8px;padding:8px 10px;font:inherit;font-size:14px;font-weight:400;outline:none}' +
+      '.wa-form textarea{box-sizing:border-box;height:38px;resize:none;overflow:hidden;border:1px solid #ccd0d5;border-radius:8px;padding:8px 10px;font:inherit;font-size:14px;line-height:20px;font-weight:400;outline:none}' +
       '.wa-form textarea:focus{border-color:#25D366;box-shadow:0 0 0 2px rgba(37,211,102,.25)}' +
       '.wa-form .wa-btn,.wa-form .wa-btn-secundario{min-height:44px}' +
       '.wa-form .wa-btn-secundario{padding:8px 14px;font-size:13px}' +
@@ -288,8 +289,15 @@
       // Texto opcional: sin validación (vale vacío) y no influye en la activación de los botones.
       var etiquetaExtra = crearElemento('label', 'wa-campo', '¿Quieres añadir algo más? (opcional)');
       var campoExtra = document.createElement('textarea');
-      campoExtra.rows = 3;
+      // Campo de una sola línea: Enter no hace nada y los saltos de línea pegados pasan a espacios.
+      campoExtra.rows = 1;
       campoExtra.maxLength = 1000;
+      campoExtra.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') e.preventDefault();
+      });
+      campoExtra.addEventListener('input', function () {
+        if (/[\r\n]/.test(campoExtra.value)) campoExtra.value = campoExtra.value.replace(/[\r\n]+/g, ' ').slice(0, 1000);
+      });
       etiquetaExtra.appendChild(campoExtra);
 
       var etiquetaConsent = crearElemento('label', 'wa-consent');
