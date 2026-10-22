@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://proyecto-polaris.com/seguimiento-lead.html">
+<meta content="#0d2137" name="theme-color"/>
+<title>Seguimiento de lead de WhatsApp — Proyecto Polaris</title>
+<link href="favicon.ico" rel="icon" type="image/x-icon"/>
+<link href="favicon-32.png" rel="icon" sizes="32x32" type="image/png"/>
+<link crossorigin href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;600;700;800&amp;family=DM+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="shared.css" rel="stylesheet"/>
+<style>
+  .page-header { background: var(--navy); padding: 3rem 2rem 2.5rem; text-align: center; }
+  .page-header-eyebrow { font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase; color: #7aaed4; margin-bottom: 0.75rem; }
+  .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.5rem, 3.5vw, 2.1rem); font-weight: 700; color: var(--white); margin: 0; }
+  .section { max-width: 640px; margin: 0 auto; padding: 2.5rem 2rem; }
+  .tarjeta { background: var(--white); border: 1px solid var(--border); border-radius: 14px; padding: 2rem 2.25rem; }
+  .tarjeta p { font-size: 15px; color: var(--text); line-height: 1.7; margin: 0 0 1rem; word-break: break-word; }
+  .tarjeta .nota { font-size: 13px; color: var(--text-muted); }
+  .tarjeta.error { background: #fbeaea; border-color: #edbcbc; color: #7a2020; }
+  .tarjeta.error p { color: #7a2020; }
+  .tarjeta.ok { background: var(--navy-pale); }
+  .correo { margin: 0 0 1rem; padding: 1rem 1.1rem; border: 1px solid var(--border); border-radius: 10px; background: #f7f8fa; }
+  .correo .correo-asunto { margin: 0 0 0.75rem; font-weight: 700; font-size: 14px; }
+  /* Texto plano mostrado al lector: aquí sí se respetan los saltos de línea. */
+  .correo .correo-cuerpo { margin: 0; font-size: 14px; white-space: pre-wrap; }
+  .acciones { margin-top: 1.25rem; }
+  .acciones .btn:disabled { opacity: 0.55; cursor: not-allowed; }
+  @media (max-width: 640px) { .section { padding: 1.5rem 1.25rem; } .tarjeta { padding: 1.5rem; } }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+<p class="page-header-eyebrow">Uso interno</p>
+<h1>Seguimiento de lead de WhatsApp</h1>
+</div>
+
+<div class="section">
+  <div class="tarjeta" id="tarjeta">
+    <p id="mensaje">Cargando…</p>
+    <div class="correo" id="correo" style="display:none;">
+      <p class="correo-asunto" id="correo-asunto"></p>
+      <p class="correo-cuerpo" id="correo-cuerpo"></p>
+    </div>
+    <div class="acciones" id="acciones" style="display:none;">
+      <button class="btn btn-navy" id="btn-enviar" type="button">Enviar correo de seguimiento</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var WORKER_URL = 'https://polaris-api.llcsandtrademarks.workers.dev';
+var INFO_ENDPOINT = WORKER_URL + '/seguimiento-info';
+var ENVIAR_ENDPOINT = WORKER_URL + '/seguimiento-enviar';
+
+// El token viaja en el fragmento (#t=...), que el navegador no envía al servidor.
+var token = (new URLSearchParams(window.location.hash.replace(/^#/, '')).get('t') || '').trim();
+var datos = null;
+
+function el(id) { return document.getElementById(id); }
+
+// Todo texto (incluidos nombre, email y cuerpo) entra con textContent.
+function mostrar(texto, clase, opciones) {
+  opciones = opciones || {};
+  el('tarjeta').className = 'tarjeta' + (clase ? ' ' + clase : '');
+  el('mensaje').textContent = texto;
+  el('correo').style.display = opciones.correo ? 'block' : 'none';
+  el('acciones').style.display = opciones.boton ? 'block' : 'none';
+}
+function quien() { return datos.nombre ? datos.nombre + ' (' + datos.email + ')' : datos.email; }
+function mostrarCaducado() { mostrar('Este enlace no es válido o ha caducado.', 'error'); }
+
+function llamar(url) {
+  return fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ t: token }) })
+    .then(function (res) {
+      return res.json().then(function (data) { return { ok: res.ok, status: res.status, data: data }; }, function () { return { ok: false, status: res.status, data: null }; });
+    });
+}
+
+function init() {
+  el('btn-enviar').addEventListener('click', enviar);
+  if (!token) { mostrar('Enlace incompleto.', 'error'); return; }
+  llamar(INFO_ENDPOINT)
+    .then(function (r) {
+      if (r.status === 401) { mostrarCaducado(); return; }
+      if (!r.ok || !r.data || r.data.ok !== true || typeof r.data.email !== 'string' || typeof r.data.asunto !== 'string' || typeof r.data.cuerpo !== 'string') {
+        mostrar('No se pudo cargar el enlace. Prueba de nuevo.', 'error'); return;
+      }
+      datos = { nombre: typeof r.data.nombre === 'string' ? r.data.nombre : '', email: r.data.email };
+      el('correo-asunto').textContent = 'Asunto: ' + r.data.asunto;
+      el('correo-cuerpo').textContent = r.data.cuerpo;
+      mostrar('Contacto: ' + quien(), '', { correo: true, boton: true });
+    })
+    .catch(function () { mostrar('No se pudo cargar el enlace. Prueba de nuevo.', 'error'); });
+}
+
+function enviar() {
+  var b = el('btn-enviar');
+  if (b.disabled || !datos) return;
+  b.disabled = true;
+  llamar(ENVIAR_ENDPOINT)
+    .then(function (r) {
+      if (r.status === 401) { mostrarCaducado(); return; }
+      if (r.ok && r.data && r.data.ok === true) {
+        mostrar('Enviado a ' + datos.email + '. Te llega una copia a avisos@proyecto-polaris.com.', 'ok');
+        try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+        return;
+      }
+      b.disabled = false;
+      mostrar('No se pudo enviar. Prueba de nuevo.', 'error', { correo: true, boton: true });
+    })
+    .catch(function () {
+      b.disabled = false;
+      mostrar('No se pudo enviar. Prueba de nuevo.', 'error', { correo: true, boton: true });
+    });
+}
+
+init();
+</script>
+</body>
+</html>
