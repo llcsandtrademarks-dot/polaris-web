@@ -62,29 +62,17 @@
 <!-- FONTS:END -->
 <link href="shared.css" rel="stylesheet"/>
 <style>
-    /* Popup geolocalizado: no se repite durante 24h (la clase la pone el script de abajo antes del primer pintado) */
-    .geo-seen .geo-overlay { display: none; }
     /* Tras la intro del menú móvil, el botón hamburguesa se queda con fondo blanco para que destaque */
     .nav-hamburger.nav-hamburger-highlight { background: var(--white); color: var(--navy); border-radius: 8px; padding: 8px; }
 </style>
 <script>
   (function () {
-    try {
-      var forzado = new URLSearchParams(window.location.search).has('pais'); // ?pais= ignora la marca (para revisar variantes)
-      // Popup ya mostrado hace menos de 24h (localStorage guarda la marca de tiempo de la última vez que se mostró)
-      var vistoEn = Number(localStorage.getItem('polaris_geo_popup_seen'));
-      var edad = Date.now() - vistoEn;
-      if (!forzado && vistoEn && edad >= 0 && edad < 24 * 60 * 60 * 1000) document.documentElement.classList.add('geo-seen');
-    } catch (e) {}
-    // Intro del menú móvil (nav-dropdown.js): solo en la home se personaliza.
-    // Si se va a mostrar el popup, la animación espera a que se cierre y arranca 1s después;
-    // si no, arranca 1s después de terminar de cargar la página.
-    var popupSeVera = !document.documentElement.classList.contains('geo-seen');
+    // Intro del menú móvil (nav-dropdown.js): solo en la home se personaliza; arranca 1s después de terminar de cargar la página.
     window.polarisMenuIntro = {
       delay: 1000,
       afterLoad: true,
       keepButtonWhite: true,
-      gate: popupSeVera ? new Promise(function (resolve) { window.polarisMenuIntroGateResolve = resolve; }) : null
+      gate: null
     };
   })();
 </script>
@@ -128,21 +116,7 @@
     .adv-card p:last-child { margin-bottom: 0; }
     .adv-card strong { color: var(--navy); }
 
-    /* ── PLANES ── */
-    .plans-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 2.5rem; align-items: stretch; }
-    .plan { background: var(--white); border: 1px solid var(--border); border-radius: 16px; padding: 1.75rem 1.5rem; display: flex; flex-direction: column; position: relative; }
-    .plan-featured { border: 2px solid var(--navy-light); box-shadow: 0 12px 32px rgba(13,33,55,0.12); }
-    .plan-badge { position: absolute; top: -12px; left: 1.5rem; background: var(--navy); color: var(--white); font-size: 11px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; padding: 4px 12px; border-radius: 999px; }
-    .plan-name { font-size: 12px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--navy-light); margin-bottom: 0.6rem; }
-    .plan-price { font-family: var(--font-heading); font-size: 2.3rem; font-weight: 700; color: var(--navy); line-height: 1.1; }
-    .plan-smart { background: #fff6cf; border-color: #ecd679; }
-    .plan-smart .plan-name { font-style: italic; text-decoration: underline; text-underline-offset: 3px; }
-    .plan-price-note { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-top: 4px; margin-bottom: 1.1rem; min-height: 2.6em; }
-    .plan-desc { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; flex: 1; margin-bottom: 1.4rem; }
-    .plan .btn { justify-content: center; font-size: 14px; padding: 11px 16px; }
 
-    .plans-note { max-width: 780px; margin: 2.5rem auto 0; text-align: center; }
-    .plans-note .home-text { margin-bottom: 1.5rem; }
 
     /* ── OBJECIONES ── */
     .obj-list { display: grid; gap: 1rem; margin-top: 2rem; }
@@ -153,25 +127,7 @@
     /* ── YA TIENES LLC ── */
     #ya-tienes-llc { scroll-margin-top: 90px; }
 
-    /* ── POPUP GEOLOCALIZADO ── */
-    .geo-overlay { position: fixed; inset: 0; z-index: 1000; display: flex; align-items: center; justify-content: center; padding: 1.25rem; background: rgba(13,33,55,0.55); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); animation: geoFade 0.25s ease; }
-    .geo-overlay[hidden] { display: none; }
-    @keyframes geoFade { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes geoPop { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
-    .geo-popup { position: relative; background: var(--white); border-radius: 44px; width: 100%; max-width: 500px; padding: 3.25rem 2.25rem 2.5rem; text-align: center; box-shadow: 0 30px 80px rgba(13,33,55,0.35); animation: geoPop 0.3s ease; }
-    .geo-close { position: absolute; top: -14px; right: -14px; width: 50px; height: 50px; border-radius: 50%; background: var(--navy); color: var(--white); border: 3px solid var(--white); font-size: 24px; font-weight: 700; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 18px rgba(13,33,55,0.35); transition: background 0.2s, transform 0.2s; }
-    .geo-close:hover { background: var(--navy-light); transform: scale(1.08); }
-    .geo-close:focus-visible { outline: 3px solid #7aaed4; outline-offset: 2px; }
-    .geo-logo { width: 56px; height: 56px; border-radius: 16px; margin: 0 auto 1.1rem; display: block; }
-    .geo-text { font-family: var(--font-heading); font-size: clamp(1.25rem, 3.6vw, 1.5rem); font-weight: 700; color: var(--navy); line-height: 1.35; margin-bottom: 1.75rem; transition: opacity 0.2s; }
-    .geo-text.swap { opacity: 0; }
-    .geo-actions { display: flex; flex-direction: column; gap: 10px; }
-    .geo-actions .btn { justify-content: center; border-radius: 999px; font-family: inherit; }
-    .geo-actions button.btn { border: 0; }
-    .geo-actions button.btn-soft { border: 1.5px solid var(--navy); }
-
     @media (max-width: 1000px) {
-      .plans-grid { grid-template-columns: repeat(2, 1fr); }
       .adv-grid { grid-template-columns: 1fr; }
     }
     @media (max-width: 768px) {
@@ -180,15 +136,8 @@
       .home-section, .video-section { padding: 3rem 1.25rem; }
       .hero-ctas .btn { width: 100%; justify-content: center; }
     }
-    @media (max-width: 600px) {
-      .plans-grid { grid-template-columns: 1fr; }
-      .plan-price-note { min-height: 0; }
-      .geo-popup { padding: 3rem 1.5rem 2rem; border-radius: 36px; }
-      .geo-close { top: -10px; right: -6px; }
-    }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .geo-overlay, .geo-popup { animation: none; }
     }
   </style>
 <script type="application/ld+json">
@@ -289,7 +238,7 @@
 <p class="hero-sub">Ya hemos ayudado a cientos de hispanos a abrir su empresa en Estados Unidos y aprovechar todo su potencial.</p>
 <p class="hero-seal"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>Profesionales registrados ante el IRS (PTIN P03407206)</p>
 <div class="hero-ctas">
-<a class="btn btn-navy" href="precios-llc.html">Abrir mi LLC gratis hoy</a>
+<a class="btn btn-navy" href="precios-llc.html">Quiero abrir mi LLC ahora</a>
 <a class="btn btn-soft" href="#ya-tienes-llc">¿Ya tienes LLC? Pásate GRATIS a Polaris</a>
 </div>
 </div>
@@ -323,49 +272,6 @@
 </div>
 </div>
 </section>
-<!-- SECCIÓN 4 — CÓMO TRABAJAMOS -->
-<section class="home-section bg-white">
-<div class="home-inner">
-<div class="center">
-<h2 class="home-title">Tenemos 4 formas de trabajar contigo, según cuánto quieras delegar</h2>
-</div>
-<div class="plans-grid">
-<div class="plan">
-<p class="plan-name">Básico</p>
-<p class="plan-price">$0</p>
-<p class="plan-price-note">+ tasa estatal</p>
-<p class="plan-desc">Formación de tu LLC sin coste de servicio. Pagas solo lo que el estado exige. El resto (agente registrado, EIN, acuerdo operativo) se añade por separado si lo necesitas.</p>
-<a class="btn btn-outline" href="precios-llc.html">Compara los planes en detalle →</a>
-</div>
-<div class="plan plan-featured">
-<span class="plan-badge">El más pedido</span>
-<p class="plan-name">Standard</p>
-<p class="plan-price">$299</p>
-<p class="plan-price-note">+ tasa estatal</p>
-<p class="plan-desc">El plan más pedido. Formación completa con agente registrado, EIN y acuerdo operativo incluidos, además de dirección y recepción de correo durante 1 año. Después de la creación, eliges: entrar en un plan de renovación anual todo incluido (con el IRS y la renovación de todos los servicios anuales dentro), o contratar cada servicio por separado según lo vayas necesitando.</p>
-<a class="btn btn-navy" href="precios-llc.html">Compara los planes en detalle →</a>
-</div>
-<div class="plan">
-<p class="plan-name">Premium</p>
-<p class="plan-price">$499</p>
-<p class="plan-price-note">+ tasa estatal</p>
-<p class="plan-desc">Todo lo del plan STANDARD, más los formularios del IRS para no residentes (1120/5472 o 1065/K1) y tramitación acelerada incluidos. A partir de aquí te olvidas de todo hasta el año siguiente, cuando toque renovar los servicios anuales.</p>
-<a class="btn btn-outline" href="precios-llc.html">Compara los planes en detalle →</a>
-</div>
-<div class="plan plan-smart">
-<p class="plan-name">Smart</p>
-<p class="plan-price">$0</p>
-<p class="plan-price-note">+ tasa estatal + $49/mes</p>
-<p class="plan-desc">La forma más fácil de empezar: todo incluido, sin preocupaciones, con una cuota mensual muy baja en vez de un pago inicial.</p>
-<a class="btn btn-outline" href="precios-llc.html">Compara los planes en detalle →</a>
-</div>
-</div>
-<div class="plans-note">
-<p class="home-text">Ningún plan implica un cobro automático recurrente. A diferencia de otras plataformas, no te cargamos la tarjeta sin avisarte — cada año (o cada mes, si estás en SMART) te avisamos antes de que toque renovar, y decides tú si sigues con nosotros.</p>
-<a class="btn btn-navy" href="precios-llc.html">Compara los planes en detalle</a>
-</div>
-</div>
-</section>
 <!-- SECCIÓN 5 — QUÉ PASA DESPUÉS DE ABRIR LA LLC -->
 <section class="home-section bg-pale">
 <div class="home-inner narrow center">
@@ -373,7 +279,6 @@
 <p class="home-text">Cada año hay que renovar el agente registrado, presentar el reporte que corresponda según el estado, y si eres no residente, declarar ante el IRS. Son pocas gestiones, simples, una vez al año — y ante cualquier duda, nos consultas.</p>
 <p class="home-text">Si eres no residente, es casi seguro que ahora mismo estás pagando más servicios de los que realmente necesitas, o que te estás dejando algún trámite importante sin cumplir sin saberlo.</p>
 <p class="home-text" style="color:var(--navy);font-weight:600;margin-bottom:1.75rem;">En Polaris nos encargamos de todo esto por ti, sin ataduras — sin permanencia y sin cobros automáticos que no hayas confirmado antes.</p>
-<a class="btn btn-navy" href="que-incluye-renovacion-llc.html">Ver qué incluye la renovación anual →</a>
 </div>
 </section>
 <!-- SECCIÓN 6 — OBJECIONES / FAQ DISCURSIVO -->
@@ -665,82 +570,6 @@
 </div>
 </footer>
 <!-- FOOTER:END -->
-<!-- POPUP GEOLOCALIZADO (solo index.html) -->
-<div class="geo-overlay" id="geoPopup" role="dialog" aria-modal="true" aria-labelledby="geoText">
-<div class="geo-popup">
-<button type="button" class="geo-close" id="geoClose" aria-label="Cerrar">✕</button>
-<img alt="" class="geo-logo" height="56" src="logo.png" width="56"/>
-<p class="geo-text" id="geoText">Somos especialistas en LLCs para hispanohablantes que quieren operar y cobrar en dólares desde EE.UU.</p>
-<div class="geo-actions">
-<button type="button" class="btn btn-navy" id="geoOpen">Abrir mi LLC gratis hoy</button>
-<button type="button" class="btn btn-soft" id="geoTransfer">¿Ya tienes LLC? Pásate GRATIS a Polaris</button>
-</div>
-</div>
-</div>
-<script>
-(function () {
-  var popup = document.getElementById('geoPopup');
-  var text = document.getElementById('geoText');
-  if (!popup) return;
-
-  // Una vez cada 24h: si el cliente vuelve a la home antes de que pasen 24h desde la última vez
-  // que se mostró, no se le abre otra vez (localStorage, marca de tiempo en ms).
-  var SEEN_KEY = 'polaris_geo_popup_seen';
-  var VENTANA_MS = 24 * 60 * 60 * 1000;
-  var yaVisto = false;
-  try {
-    var vistoEn = Number(localStorage.getItem(SEEN_KEY));
-    var edad = Date.now() - vistoEn;
-    yaVisto = !!vistoEn && edad >= 0 && edad < VENTANA_MS && !new URLSearchParams(window.location.search).has('pais'); // ?pais= ignora la marca
-  } catch (e) {}
-  if (yaVisto) { popup.hidden = true; return; }
-  try { localStorage.setItem(SEEN_KEY, String(Date.now())); } catch (e) {}
-
-  var MENSAJES = {
-    US: 'Somos especialistas en LLCs para hispanos residentes en Estados Unidos.',
-    ES: 'Somos especialistas en LLCs para personas y marcas españolas que quieren vender y facturar en EE.UU.',
-    MX: 'Somos especialistas en LLCs para mexicanos que quieren operar y cobrar en dólares desde EE.UU.',
-    LATAM: 'Somos especialistas en LLCs para hispanohablantes que quieren operar y cobrar en dólares desde EE.UU.'
-  };
-  function mensajePara(country) { return MENSAJES[country] || MENSAJES.LATAM; }
-
-  function setText(country) {
-    var msg = mensajePara(country);
-    if (text.textContent === msg) return;
-    text.classList.add('swap');
-    setTimeout(function () { text.textContent = msg; text.classList.remove('swap'); }, 200);
-  }
-
-  function close() {
-    popup.hidden = true;
-    document.removeEventListener('keydown', onKey);
-    if (window.polarisMenuIntroGateResolve) { window.polarisMenuIntroGateResolve(); window.polarisMenuIntroGateResolve = null; }
-  }
-  function onKey(e) { if (e.key === 'Escape') close(); }
-
-  // Aparece al cargar, sin delay: texto por defecto (resto de LatAm) y se ajusta cuando llega /geo.
-  document.addEventListener('keydown', onKey);
-  document.getElementById('geoClose').focus();
-
-  document.getElementById('geoClose').addEventListener('click', close);
-  document.getElementById('geoOpen').addEventListener('click', close);
-  document.getElementById('geoTransfer').addEventListener('click', function () {
-    close();
-    var t = document.getElementById('ya-tienes-llc');
-    if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-  popup.addEventListener('click', function (e) { if (e.target === popup) close(); });
-
-  // Para revisar las 4 variantes en local: index.html?pais=US | ES | MX | AR
-  var forced = new URLSearchParams(window.location.search).get('pais');
-  if (forced) { setText(forced.toUpperCase()); return; }
-
-  fetch('https://polaris-api.llcsandtrademarks.workers.dev/geo')
-    .then(function (r) { return r.json(); })
-    .then(function (d) { setText(d && d.country); })
-    .catch(function () { /* se queda el texto por defecto (resto de LatAm) */ });
-})();
-</script>
 <!-- Cookie Consent Banner -->
 <div id="cookie-banner" style="display:none;">
 <p>Usamos cookies para mejorar tu experiencia y mostrarte contenido relevante. Puedes aceptar o rechazar el uso de cookies no esenciales. <a href="privacidad.html">Más información</a></p>
