@@ -202,6 +202,23 @@ function confirmarPago() {
     }, function(){ throw falloDeRed(); })
     .then(function(r){
       if (!r.ok) throw new Error(r.data.error || 'Error al confirmar');
+      var d = r.data || {};
+      if (d.ya_confirmado === true || d.ya_registrado === true) {
+        var h = document.createElement('h1');
+        var p = document.createElement('p');
+        if (d.ya_confirmado === true) {
+          h.textContent = 'Pago ya confirmado';
+          p.textContent = (typeof d.mensaje === 'string' && d.mensaje) ? d.mensaje : 'Este pago ya consta confirmado. Revisa tu correo: ahí tienes tu factura.';
+        } else {
+          h.textContent = 'Solicitud ya registrada';
+          p.textContent = 'Ya hemos registrado tu solicitud para este ciclo. Revisa tu correo.';
+        }
+        var card = document.getElementById('confirmar-card');
+        card.textContent = '';
+        card.appendChild(h);
+        card.appendChild(p);
+        return;
+      }
       document.getElementById('confirmar-card').innerHTML =
         '<h1>¡Gracias!</h1><p>Gracias, nuestro sistema se quedará a la espera de la confirmación del banco y te enviará la factura con los datos facilitados.</p>';
     })
