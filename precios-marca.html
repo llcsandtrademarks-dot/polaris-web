@@ -371,37 +371,26 @@
 <!-- FOOTER:END -->
 
 <script>
-// Tabla de precios de marca — debe coincidir exactamente con PRECIOS_MARCA en el Worker polaris-pagos.
-// El Worker es la única fuente de verdad para el importe cobrado; esto es solo para mostrar y construir enlaces.
+// Precios y enlaces de tarjeta: los decide el Worker polaris-pagos (GET /precios-marca) y cambian solos en su fecha de corte.
+// Esta página solo muestra lo que devuelve y construye los enlaces; no lleva importes propios.
+var PRECIOS_MARCA_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/precios-marca';
 var SERVICIOS_MARCA = [
   {
     slug: 'marca_registro',
     nombre: 'Registro de marca',
-    desc: 'Investigación de marca y producto, y tramitación completa de la solicitud ante la USPTO.',
-    total: 699,
-    desglose: '$349 servicio Polaris + $350 tasa USPTO'
+    desc: 'Investigación de marca y producto, y tramitación completa de la solicitud ante la USPTO.'
   },
   {
     slug: 'marca_sou',
     nombre: 'SOU — Prueba de Uso',
-    desc: 'Presentación del Statement of Use ante la USPTO para completar el registro de tu marca.',
-    total: 249,
-    desglose: '$99 servicio Polaris + $150 tasa USPTO'
+    desc: 'Presentación del Statement of Use ante la USPTO para completar el registro de tu marca.'
   },
   {
     slug: 'marca_extension',
     nombre: 'Extensión de tiempo',
-    desc: 'Solicitud de extensión de plazo para presentar la prueba de uso de tu marca.',
-    total: 194,
-    desglose: '$69 servicio Polaris + $125 tasa USPTO'
+    desc: 'Solicitud de extensión de plazo para presentar la prueba de uso de tu marca.'
   }
 ];
-
-var STRIPE_LINKS_MARCA = {
-  marca_registro: 'https://buy.stripe.com/4gM14p3zs4pzb4440LfMA0j',
-  marca_sou: 'https://buy.stripe.com/8x2fZjee6g8hb4440LfMA04',
-  marca_extension: 'https://buy.stripe.com/14A5kF6LE6xHdcc0OzfMA0r'
-};
 
 function polarisValorVigente(clave) {
   var valor = localStorage.getItem(clave);
@@ -412,8 +401,8 @@ function polarisValorVigente(clave) {
   return valor;
 }
 
-function linkStripeMarca(servicio) {
-  var url = STRIPE_LINKS_MARCA[servicio] + '?client_reference_id=' + servicio;
+function linkStripeMarca(servicio, stripeUrl) {
+  var url = stripeUrl + '?client_reference_id=' + servicio;
   var presc = polarisValorVigente('polaris_presc');
   if (presc) { url += '&prefilled_promo_code=' + encodeURIComponent(presc); }
   return url;
@@ -422,23 +411,42 @@ function linkTransferenciaMarca(servicio) {
   return 'pago-transferencia.html?servicio=' + servicio;
 }
 
-(function render() {
+async function render() {
   var wrap = document.getElementById('marca-cards');
+  var datos = null;
+  try {
+    var res = await fetch(PRECIOS_MARCA_ENDPOINT);
+    if (!res.ok) throw new Error('respuesta no ok');
+    datos = await res.json();
+    SERVICIOS_MARCA.forEach(function(s) {
+      var d = datos.servicios && datos.servicios[s.slug];
+      if (!d || !d.total || !d.stripe_url) throw new Error('datos incompletos');
+    });
+  } catch (e) {
+    datos = null;
+  }
   var html = '';
+  if (!datos) {
+    html += '<p style="grid-column:1/-1;text-align:center;padding:1rem 0;color:var(--text-muted);">No hemos podido cargar los precios actualizados. <a href="javascript:location.reload()">Recarga la página</a> o contacta con nosotros si el problema persiste.</p>';
+  }
   SERVICIOS_MARCA.forEach(function(s) {
+    var d = datos ? datos.servicios[s.slug] : null;
+    var botones = d
+      ? '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripeMarca(s.slug, d.stripe_url) + '">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>' +
+        '<a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="' + linkTransferenciaMarca(s.slug) + '">Pagar por transferencia</a>'
+      : '<a class="btn-tarjeta" aria-disabled="true" style="opacity:.45;pointer-events:none;cursor:not-allowed;">Pagar con tarjeta</a>' +
+        '<a class="btn-transferencia" aria-disabled="true" style="opacity:.45;pointer-events:none;cursor:not-allowed;">Pagar por transferencia</a>';
     html += '<div class="marca-card">' +
       '<p class="marca-card-title">' + s.nombre + '</p>' +
       '<p class="marca-card-desc">' + s.desc + '</p>' +
-      '<div class="marca-card-precio">$' + s.total + '</div>' +
-      '<div class="marca-card-desglose">' + s.desglose + '</div>' +
-      '<div class="marca-card-botones">' +
-        '<a class="btn-tarjeta" target="_blank" rel="noopener noreferrer" href="' + linkStripeMarca(s.slug) + '">Pagar con tarjeta</a><span class="nota-recargo-tarjeta">*este método de pago tiene recargo de la plataforma de gestión de pagos</span>' +
-        '<a class="btn-transferencia" target="_blank" rel="noopener noreferrer" href="' + linkTransferenciaMarca(s.slug) + '">Pagar por transferencia</a>' +
-      '</div>' +
+      '<div class="marca-card-precio">' + (d ? '$' + d.total : '—') + '</div>' +
+      '<div class="marca-card-desglose">' + (d ? '$' + d.polaris + ' servicio Polaris + $' + d.uspto + ' tasa USPTO' : '') + '</div>' +
+      '<div class="marca-card-botones">' + botones + '</div>' +
     '</div>';
   });
   wrap.innerHTML = html;
-})();
+}
+render();
 </script>
 <script src="/whatsapp-widget.js?v=6" defer></script>
 <script src="/nav-dropdown.js" defer></script>

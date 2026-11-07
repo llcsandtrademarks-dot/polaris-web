@@ -301,7 +301,9 @@ var NOMBRES_SERVICIO = { formacion:'Formación LLC', formacion_premium:'Formaci�
 // A qué tabla de precios volver si algo falla (cada plan tiene la suya).
 var TABLA_PRECIOS = { formacion:'precios-llc.html', mantenimiento:'precios-llc.html', formacion_premium:'precios-llc.html', formacion_smart:'precios-llc.html', formacion_basico:'precios-llc.html' };
 var NOMBRES_SERVICIO_MARCA = { marca_registro:'Registro de marca', marca_sou:'SOU — Prueba de Uso', marca_extension:'Extensión de tiempo' };
-var PRECIOS_MARCA = { marca_registro:699, marca_sou:249, marca_extension:194 };
+var PRECIOS_MARCA_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/precios-marca';
+// Los importes de marca los decide el Worker (GET /precios-marca): aquí solo la lista de servicios válidos.
+var SERVICIOS_MARCA_VALIDOS = { marca_registro:true, marca_sou:true, marca_extension:true };
 var NOMBRES_SERVICIO_PUNTUAL = { reporte_irs:'Reporte anual al IRS', reporte_estado:'Reporte anual al estado', tramitacion_ein:'Tramitación EIN', agente_registrado:'Agente Registrado' };
 var PRECIOS_PUNTUALES_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/precios-puntuales';
 var MENSUAL_DATOS_ENDPOINT = 'https://polaris-pagos.llcsandtrademarks.workers.dev/pago-mensual-datos';
@@ -348,7 +350,7 @@ var params = new URLSearchParams(window.location.search);
 var estado = (params.get('estado')||'').toLowerCase();
 var servicio = params.get('servicio');
 
-var esMarca = PRECIOS_MARCA.hasOwnProperty(servicio);
+var esMarca = SERVICIOS_MARCA_VALIDOS.hasOwnProperty(servicio);
 var esPuntual = NOMBRES_SERVICIO_PUNTUAL.hasOwnProperty(servicio);
 var esMensual = servicio === 'membresia_mensual';
 var tokenMensual = params.get('token') || '';
@@ -404,7 +406,19 @@ async function init(){
       document.getElementById(id).style.display = 'none';
     });
   } else if (esMarca) {
-    var importeMarca = PRECIOS_MARCA[servicio];
+    // El precio viene del Worker (cambia solo en su fecha de corte); el Worker lo vuelve a calcular al enviar,
+    // así que lo mostrado y lo cobrado no pueden divergir.
+    var importeMarca = null;
+    try {
+      var resMarca = await fetchJson(PRECIOS_MARCA_ENDPOINT);
+      if (!resMarca.ok) throw new Error('respuesta no ok');
+      importeMarca = resMarca.data.servicios[servicio].total;
+    } catch (e) {
+      if (e.esFalloDeRed) { mostrarFalloRedCarga(); return; }
+      resumen.innerHTML = 'No hemos podido cargar el precio actualizado. <a href="javascript:location.reload()">Recarga la página</a> o contacta con nosotros si el problema persiste.';
+      document.getElementById('form-card').style.display = 'none';
+      return;
+    }
     resumen.innerHTML = 'Vas a pagar <strong>$' + importeMarca + '</strong> — ' + NOMBRES_SERVICIO_MARCA[servicio];
     document.getElementById('grupo-llc-nombre').style.display = 'none';
   } else if (NOMBRES_ESTADO[estado] && NOMBRES_SERVICIO.hasOwnProperty(servicio)) {

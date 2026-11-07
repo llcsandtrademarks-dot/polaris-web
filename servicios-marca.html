@@ -179,7 +179,7 @@
 </div>
 <div class="srv-card-body">
 <p class="srv-card-title">Investigación de viabilidad</p>
-<p class="srv-card-price">$59</p>
+<p class="srv-card-price" data-marca-precio="investigacion" data-viejo="59">$99</p>
 <p class="srv-card-price-note">Se descuenta del registro si decides continuar</p>
 <p class="srv-card-desc">Analizamos si tu marca es registrable antes de iniciar el proceso.</p>
 <span class="srv-card-cta">Saber más →</span>
@@ -202,7 +202,7 @@
 </div>
 <div class="srv-card-body">
 <p class="srv-card-title">SOU — prueba de uso</p>
-<p class="srv-card-price">$99<span style="font-size:13px;font-weight:500"> + $150 tasa USPTO</span></p>
+<p class="srv-card-price" data-marca-precio="marca_sou" data-viejo="99">$150<span style="font-size:13px;font-weight:500"> + $150 tasa USPTO</span></p>
 <p class="srv-card-desc">Presentación de la prueba de uso de marca ante la USPTO para completar el registro.</p>
 <span class="srv-card-cta">Saber más →</span>
 </div>
@@ -224,7 +224,7 @@
 </div>
 <div class="srv-card-body">
 <p class="srv-card-title">Extensión de tiempo</p>
-<p class="srv-card-price">$69<span style="font-size:13px;font-weight:500"> + $125 tasa USPTO</span></p>
+<p class="srv-card-price" data-marca-precio="marca_extension" data-viejo="69">$99<span style="font-size:13px;font-weight:500"> + $125 tasa USPTO</span></p>
 <p class="srv-card-desc">Solicitud de extensión de plazo para presentar la prueba de uso de tu marca.</p>
 <span class="srv-card-cta">Saber más →</span>
 </div>
@@ -502,6 +502,30 @@
       document.getElementById('cookie-banner').style.display = 'none';
     }
   </script>
+<script>
+// Los precios de esta página son los DEFINITIVOS (vigentes desde el 2026-12-01T12:00:00Z). Hasta esa hora el Worker
+// (GET /precios-marca) aún devuelve los anteriores y este script los muestra para que lo visible coincida con lo que se cobra.
+// Después del corte el Worker devuelve los definitivos y el script no hace nada. Si el fetch falla, no hace nada y no muestra error.
+(function(){
+  fetch('https://polaris-pagos.llcsandtrademarks.workers.dev/precios-marca').then(function(r){
+    if (!r.ok) return null;
+    return r.json();
+  }).then(function(d){
+    if (!d) return;
+    document.querySelectorAll('[data-marca-precio]').forEach(function(el){
+      var k = el.getAttribute('data-marca-precio');
+      var viejo = Number(el.getAttribute('data-viejo'));
+      var valor, tasa = null;
+      if (k === 'investigacion') { valor = d.investigacion && d.investigacion.total; }
+      else if (d.servicios && d.servicios[k]) { valor = d.servicios[k].polaris; tasa = d.servicios[k].uspto; }
+      if (valor !== viejo) return;
+      var span = el.querySelector('span');
+      el.firstChild.nodeValue = '$' + valor;
+      if (span && tasa !== null) span.textContent = ' + $' + tasa + ' tasa USPTO';
+    });
+  }).catch(function(){});
+})();
+</script>
 <script src="/whatsapp-widget.js?v=6" defer></script>
 <script src="/nav-dropdown.js" defer></script>
 </body>
