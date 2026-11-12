@@ -552,6 +552,20 @@ async function cargarYRenderizar() {
     '</tr>';
   });
   tbody.innerHTML = filas;
+
+  // Preselecciona el estado de ?state=<slug>; solo si coincide con una opción real del selector
+  var slugUrl = new URLSearchParams(window.location.search).get('state');
+  if (slugUrl) {
+    slugUrl = slugUrl.toLowerCase().trim();
+    var opciones = selector.options;
+    for (var i = 0; i < opciones.length; i++) {
+      if (opciones[i].value !== '' && opciones[i].value === slugUrl) {
+        selector.value = slugUrl;
+        irAEstado(slugUrl);
+        break;
+      }
+    }
+  }
 }
 cargarYRenderizar();
 
