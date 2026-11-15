@@ -48,6 +48,10 @@
   .page-header h1 { font-family: var(--font-heading); font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 700; color: var(--white); margin-bottom: 0.75rem; }
   .page-header p { font-size: 1rem; color: rgba(255,255,255,0.7); max-width: 620px; margin: 0 auto; line-height: 1.7; }
 
+  .aviso-residentes { max-width: min(1100px, calc(100% - 4rem)); margin: 1.5rem auto 0; padding: 1.25rem 1.5rem; background: var(--navy-pale); border: 1px solid var(--border); border-radius: 12px; text-align: center; color: var(--text); }
+  .aviso-residentes p { font-size: 1rem; line-height: 1.6; margin: 0 0 1rem; }
+  .aviso-residentes p strong { font-weight: 700; color: var(--navy); }
+  .aviso-residentes .btn { display: inline-block; }
   .selector-bar { max-width: 1100px; margin: 0 auto; padding: 1.75rem 2rem 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
   .selector-bar label { font-size: 14px; font-weight: 600; color: var(--navy); }
   .selector-bar select { font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--white); border: 1px solid var(--border); border-radius: 8px; padding: 9px 14px; min-width: 260px; }
@@ -76,6 +80,8 @@
   @media (max-width: 720px) {
     .page-header { padding: 2.5rem 1.25rem 2rem; }
     .selector-bar { padding-left: 1.25rem; padding-right: 1.25rem; }
+    .aviso-residentes { max-width: none; margin-left: 1.25rem; margin-right: 1.25rem; }
+    .aviso-residentes .btn { display: block; }
     .precios-table-wrap { padding-left: 0.6rem; padding-right: 0.6rem; }
     table.precios-table { table-layout: fixed; width: 100%; }
     table.precios-table th:first-child, table.precios-table td:first-child { width: 30%; }
@@ -175,6 +181,11 @@
 <p class="page-header-eyebrow">Precios por estado</p>
 <h1>¿Cuánto cuesta tu LLC?</h1>
 <p>Descubre cuánto te cuesta crear tu LLC y cuánto su renovación anual y cumplimiento. Y si tienes dudas, te ayudamos a escoger el mejor estado para ti.</p>
+</div>
+
+<div class="aviso-residentes">
+<p><strong>Estos precios son para personas no residentes en EE. UU.</strong> Si eres residente en EE. UU., contáctanos y te preparamos un presupuesto adaptado a tus necesidades.</p>
+<a class="btn btn-navy" href="contacto.html">Contactar para un presupuesto</a>
 </div>
 
 <div class="selector-bar">
